@@ -21,7 +21,7 @@
       <div class="w-full flex-1 flex flex-col overflow-hidden">
 
         <div class="w-full flex-1 overflow-auto">
-          <div class="w-full h-fit grid grid-cols-3 gap-2 pt-2">
+          <div class="w-full h-fit grid lg:grid-cols-2 xl:grid-cols-3 gap-2 pt-2">
             <CardItem v-for="item in useInvoices.cards" :key="item" :item="item" />
           </div>
         </div>
