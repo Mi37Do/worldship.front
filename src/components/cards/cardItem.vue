@@ -1,12 +1,36 @@
 <template>
   <div :class="[useWidget.userLanguage === 'ar' ? 'pl-2 pr-4' : ' pl-4 pr-2']"
-    class="w-full py-3 border bg-white rounded-md border-slate-200 px-4 grid grid-cols-2 lg:grid-cols-4 gap-2 uppercase font-medium lg:hover:bg-slate-50 transition-all duration-150 cursor-pointer relative">
-    <span class="h-8 my-auto flex items-center truncate">{{ item.name }}</span>
-    <span class="h-8 my-auto flex items-center truncate">{{ item.card_brand }}</span>
+    class="w-full h-52 bg-blue-300 rounded-lg border border-slate-200 relative overflow-hidden p-5 uppercase text-white">
 
-    <span class="h-8 my-auto flex items-center truncate">{{ item.exp_month }}/{{ item.exp_year - 2000 }}</span>
+    <div class="w-full h-full flex flex-col justify-between gap-3">
+      <div class="w-full flex gap-3 justify-between items-center overflow-hidden z-10">
+        <span class="font-medium text-lg truncate flex-1">{{ item.name }}</span>
+        <img src="@/assets/pics/visa.svg" class="w-8" alt="">
+      </div>
 
-    <span class="h-8 my-auto flex items-center truncate">{{ format(item.created_at, 'dd-MM-yyyy') }}</span>
+      <div class="w-fit grid grid-cols-4 gap-3 text-xl font-semibold z-10">
+        <span>****</span>
+        <span>****</span>
+        <span>****</span>
+        <span>{{ item.last_4 }}</span>
+      </div>
+
+      <div class="w-full flex gap-3 justify-between items-center overflow-hidden z-10">
+        <div class="flex flex-col gap-1 flex-1">
+          <span class="text-xs">card holder name</span>
+          <span>{{ item.user.first_name }} {{ item.user.last_name }}</span>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <span class="text-xs">expiry date</span>
+          <span>{{ item.exp_month < 10 ? `0${item.exp_month}` : item.exp_month }} / {{ item.exp_year - 2000 }}</span>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="w-80 h-80 bg-blue-500/20 rounded-full absolute -right-32 -bottom-32"></div>
 
   </div>
 </template>
@@ -18,6 +42,9 @@ import { useWidgetStore } from '@/stores/widget';
 
 const useWidget = useWidgetStore()
 const props = defineProps(['item'])
+
+console.log(props.item);
+
 </script>
 
 <style lang="scss" scoped></style>
