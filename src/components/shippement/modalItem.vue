@@ -7,9 +7,11 @@
     </div>
 
     <div class="w-full flex gap-4 p-4">
-      <div class="flex-1 flex flex-col">
+
+      <div class="flex-1 flex flex-col justify-between">
         <span class="text-md font-semibold uppercase">{{ item.qty }} x {{ item.name }}</span>
         <span class="text-slate-500">{{ item.code }}</span>
+
       </div>
       <div class="flex flex-col gap-2 items-end">
 
@@ -25,6 +27,7 @@
 
 <script setup>
 import noImageIcon from '@/assets/icons/noImageIcon.vue';
+
 const props = defineProps(['item'])
 </script>
 

@@ -1,10 +1,15 @@
 <template>
   <div
-    class="w-full py-3 border bg-white rounded-md border-slate-200 px-4 grid grid-cols-2 lg:grid-cols-7 gap-2 uppercase font-medium lg:hover:bg-slate-50 transition-all duration-150 cursor-pointer relative">
+    class="w-full py-3 border bg-white rounded-md border-slate-200 px-4 grid grid-cols-2 lg:grid-cols-5 gap-2 uppercase font-medium lg:hover:bg-slate-50 transition-all duration-150 cursor-pointer relative">
+
 
     <div class="w-full flex items-center gap-4">
-      <span class="h-8 my-auto flex items-center truncate">{{ item.code }}</span>
+
+      <slot name="checkboxSelect"></slot>
+      <span class="h-8 my-auto flex items-center truncate ">{{ format(item.created_at, 'dd-MM-yyyy') }}</span>
+
     </div>
+
 
     <span :class="[
       'h-8 my-auto w-full gap-2 truncate px-3 rounded lg:hidden flex justify-end']">
@@ -16,10 +21,19 @@
       <!--
       <commun-switch :enabled="shipped" /> -->
     </span>
+
+
+    <span class="uppercase h-8 my-auto flex items-center truncate font-bold  lg:hidden">{{ $t('commun.code')
+    }}</span>
+
+    <div class="w-full flex items-center gap-4">
+      <span class="h-8 my-auto flex items-center truncate">{{ item.code }}</span>
+    </div>
+
     <span class="uppercase h-8 my-auto flex items-center truncate font-bold  lg:hidden">{{ $t('commun.company')
     }}</span>
     <a :href="item.tracking_url" target="_blank" :class="item.tracking_url ? 'cursor-pointer' : 'cursor-not-allowed'"
-      class="w-full flex items-center gap-3 md:col-span-2">
+      class="w-full flex items-center gap-3 ">
       <div class="flex-1 flex flex-col gap-0 ">
 
         <span :class="[
@@ -37,20 +51,16 @@
     }}</span>
     <span class="h-8 my-auto flex items-center truncate  "> {{ numberFormat(item.weight) }} lbs</span>
 
+
+
     <span class="uppercase h-8 my-auto flex items-center truncate font-bold  lg:hidden  ">
       {{ $t('commun.price')
       }}</span>
-    <span class="h-8 my-auto flex items-center truncate  "> $ {{ numberFormat(item.total_price) }}</span>
 
-    <span class="uppercase h-8 my-auto flex items-center truncate font-bold  lg:hidden  ">
-      {{ $t('commun.created')
-      }}</span>
+    <div class="flex items-center justify-between">
 
-    <div class="flex items-center justify-between lg:col-span-2">
 
-      <span class="h-8 my-auto flex items-center truncate ">{{ format(item.created_at, 'dd-MM-yyyy') }}</span>
-
-      <slot name="checkboxSelect"></slot>
+      <span class="h-8 my-auto flex items-center truncate  "> $ {{ numberFormat(item.total_price) }}</span>
 
       <item-more :item="item" class="hidden lg:block" />
     </div>

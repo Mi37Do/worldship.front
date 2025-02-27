@@ -7,49 +7,55 @@
         <img v-if="item.images" :src="item.images" alt="">
         <no-image-icon v-else class="w-6 h-6 fill-slate-500" />
       </div>
+      <span>{{ item.qty }} x {{ item.name }}</span>
     </div>
 
+    <span class="my-auto">{{ item.code }}</span>
 
-    <div class="w-full flex gap-4 p-4">
 
-      <div class="flex-1 flex flex-col justify-between">
-        <span class="text-md font-semibold uppercase">{{ item.qty }} x {{ item.name }}</span>
-        <span class="text-slate-500">{{ item.code }}</span>
+    <input type="text" class="pixa-input my-auto px-4" v-model="tempPrice" @input="newPrice" step="0.01">
+    <div class="w-full flex items-center justify-between">
+      <span :class="item.is_valid ? ' bg-emerald-100 text-emerald-500' : 'text-red-500 bg-red-100'"
+        class="my-auto px-2 py-1 w-fit rounded-md">{{
+          item.is_valid
+        }}</span>
 
-      </div>
-      <div class="flex flex-col gap-2 items-end">
-
-        <span :class="item.is_valid ? ' bg-emerald-100 text-emerald-500' : 'text-red-500 bg-red-100'"
-          class="my-auto px-2 py-1 w-fit rounded-md">{{
-            item.is_valid
-          }}</span>
-        <span class="text-md font-semibold uppercase mt-auto">{{ numberFormat(item.price) }} $</span>
-      </div>
+      <span v-if="loading" class="loading loading-ring loading-sm"></span>
     </div>
+
   </div>
 </template>
 
 <script setup>
 import noImageIcon from '@/assets/icons/noImageIcon.vue';
+
+import checkIcon from '@/assets/icons/checkIcon.vue';
+import { ref } from 'vue';
+import axios from 'axios';
 import { useInboxStore } from '@/stores/inbox';
 
 const props = defineProps(['item'])
-
 const tempPrice = ref(props.item.price)
 const useInbox = useInboxStore()
 const loading = ref(false)
 
 const newPrice = async () => {
-  try {
-    loading.value = true
-    let response = await axios.post(`/Dashboard/updateValueOrder_API/${props.item.id}|${tempPrice.value}`)
-    await useInbox.getInbox(localStorage.getItem('ws-user-id'))
+  loading.value = true
+  setTimeout(async () => {
+    try {
+      let response = await axios.get(`/Dashboard/updateValueOrder_API/${props.item.id}/${tempPrice.value}`);
+      await useInbox.getInbox(localStorage.getItem('ws-user-id'))
+      useInbox.filtredInboxs = useInbox.inboxs
+      // ... rest of your code ...
+    } catch (error) {
+      console.error(error)
 
-  } catch (error) {
+      // Handle errors (don't leave empty!)
+    }
+  }, 2000)
 
-  }
   loading.value = false
-}
+};
 </script>
 
 <style lang="scss" scoped></style>

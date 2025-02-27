@@ -50,8 +50,8 @@
       <div v-if="useInbox.shippements.length > 0" class="w-full flex-1  flex flex-col overflow-hidden">
         <div :class="[useWidget.userLanguage === 'ar' ? 'text-right  pl-7' : ' pr-7']"
           class="w-full h-12 rounded-lg border border-slate-200 px-4 hidden lg:grid grid-cols-5 gap-2 uppercase font-bold text-primary bg-white">
-          <span class="h-8  my-auto flex items-center pl-16">{{ $t('commun.code') }}</span>
-          <span class="h-8 my-auto flex items-center">{{ $t('commun.created') }}</span>
+          <span class="h-8  my-auto flex items-center pl-16">{{ $t('commun.created') }}</span>
+          <span class="h-8 my-auto flex items-center">{{ $t('commun.code') }}</span>
           <span class="h-8  my-auto flex items-center">{{ $t('commun.orders') }}</span>
           <span class="h-8  my-auto flex items-center">{{ $t('commun.status') }}</span>
           <span class="h-8  my-auto flex items-center">{{ $t('commun.paymentStatus') }}</span>

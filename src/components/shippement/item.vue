@@ -8,10 +8,12 @@
             v-viewer="{ button: true, navbar: false, title: false, toolbar: false, tooltip: false, movable: false, zoomable: false, rotatable: false, scalable: false, keyboard: true }">
           <no-image-icon v-else class="w-6 h-6 fill-slate-500" />
         </div>
-        <span class="h-8 my-auto flex items-center truncate">{{ item.code }}</span>
+        <span class="h-8  my-auto  flex items-center truncate">{{ format(item.created_at, 'dd-MM-yyyy | hh:mm')
+        }}</span>
       </div>
 
-      <span class="h-8  my-auto  flex items-center truncate">{{ format(item.created_at, 'dd-MM-yyyy | hh:mm') }}</span>
+
+      <span class="h-8 my-auto flex items-center truncate">{{ item.code }}</span>
       <span class="h-8 my-auto flex items-center truncate">{{ item.warehouse_order_ids.length }}</span>
       <span class="h-8 my-auto flex items-center truncate bg-slate-100 w-fit px-3 rounded">{{ item.state }}</span>
 
@@ -42,8 +44,11 @@
 
       <div class="w-full h-fit overflow-hidden flex flex-col gap-1 items-center justify-center p-3">
         <div class="w-full flex items-center justify-between ">
-          <span class="h-8  my-auto  flex items-center truncate">{{ format(item.created_at, 'dd-MM-yyyy | hh:mm')
-          }}</span>
+          <div class="flex-1 flex flex-col">
+            <span class="h-8  my-auto  flex items-center truncate">{{ format(item.created_at, 'dd-MM-yyyy | hh:mm')
+            }}</span><span class=" my-auto flex items-center truncate">{{ item.code }}</span>
+          </div>
+
 
           <span :class="[
             item.is_payed ? 'bg-emerald-100 text-emerald-600' : 'bg-red-100 text-red-600',

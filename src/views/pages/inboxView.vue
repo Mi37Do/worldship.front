@@ -82,16 +82,17 @@
 
       <div v-if="useInbox.inboxs.length > 0" class="w-full flex-1  flex flex-col overflow-hidden">
         <div :class="[useWidget.userLanguage === 'ar' ? 'text-right ' : ' ']"
-          class="w-full h-12 rounded-lg border border-slate-200 px-4 hidden lg:grid grid-cols-7 gap-2 uppercase font-bold text-primary bg-white">
+          class="w-full h-12 rounded-lg border border-slate-200 px-4 hidden lg:grid grid-cols-5 gap-2 uppercase font-bold text-primary bg-white">
+
+          <span class="h-8 my-auto flex items-center truncate">{{ $t('commun.created') }}</span>
           <span class="h-8  my-auto flex items-center gap-4">
             <span>{{ $t('commun.code') }}</span>
           </span>
-          <span class="h-8  my-auto flex items-center col-span-2">{{ $t('commun.tracking') }}</span>
+          <span class="h-8  my-auto flex items-center">{{ $t('commun.tracking') }}</span>
           <span class="h-8  my-auto flex items-center ">{{ $t('commun.weight') }}</span>
-          <span class="h-8  my-auto flex items-center ">{{ $t('commun.price') }}</span>
-          <div class="flex items-center justify-between my-auto col-span-2">
-            <span class="h-8 my-auto flex items-center truncate">{{ $t('commun.created') }}</span>
+          <div class="flex items-center justify-between my-auto">
 
+            <span class="h-8  my-auto flex items-center ">{{ $t('commun.price') }}</span>
             <button @click="selectAll = !selectAll" class="btn btn-sm pixa-btn-float">{{ selectAll ? 'select' :
               'unselect'
               }}
@@ -166,7 +167,7 @@ onMounted(async () => {
     useInbox.inboxsToShip = []
     await useInbox.getInbox(localStorage.getItem('ws-user-id'))
     useInbox.filtredInboxs = useInbox.inboxs
-    console.log(useInbox.inboxs)
+
     useInbox.inboxs.map(item => ({
       ...item,
       selected_to_ship: false
@@ -180,35 +181,28 @@ onMounted(async () => {
 
 const onSelectedEnabled = (item) => {
   if (item.selected_to_ship) {
-    inboxsToShip.value.push(item)
+    useInbox.inboxsToShip.push(item)
   } else {
-    inboxsToShip.value = inboxsToShip.value.filter(i => i !== item)
+    useInbox.inboxsToShip = useInbox.inboxsToShip.filter(i => i !== item)
   }
-  console.log(inboxsToShip.value)
-
 }
 
-/***/
-
 watch(() => [selectAll.value], () => {
-  inboxsToShip.value = []
+  useInbox.inboxsToShip = []
   if (!selectAll.value) {
     for (let index = 0; index < useInbox.filtredInboxs.length; index++) {
       useInbox.filtredInboxs[index].selected_to_ship = true
     }
-    inboxsToShip.value = useInbox.filtredInboxs
+    useInbox.inboxsToShip = useInbox.filtredInboxs
   } else {
     for (let index = 0; index < useInbox.filtredInboxs.length; index++) {
       useInbox.filtredInboxs[index].selected_to_ship = false
     }
-    inboxsToShip.value = []
+    useInbox.inboxsToShip = []
   }
 })
 
 const onSupportEmits = async (item) => {
-
-
-  console.log(item)
 
   let formData = new FormData()
 
@@ -225,7 +219,6 @@ const onSupportEmits = async (item) => {
     })
   } catch (error) {
     console.error(error)
-
   }
 }
 

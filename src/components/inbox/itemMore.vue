@@ -46,6 +46,8 @@
                   qty: element.qty,
                   images: element.images,
                   price: element.price,
+
+                  code: element.name_id.code,
                   is_valid: element.state === 'v' ? true : false
                 })
               }

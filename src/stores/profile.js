@@ -72,6 +72,7 @@ export const useProfileStore = defineStore('profile', () => {
 
     try {
       let response = await axios.post(`/login_API`, formData)
+      console.log(response.data)
       Cookies.set('token', response.data.token)
       localStorage.setItem('ws-user-id', response.data.user.id)
       router.push({ name: 'app' })
