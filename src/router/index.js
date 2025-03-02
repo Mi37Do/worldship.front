@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import profileRoutes from './profile'
 import { useProfileStore } from '@/stores/profile'
 import Cookies from 'js-cookie'
+import landingRoutes from './landing'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,7 +12,8 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: () => import('@/views/HomeView.vue'),
-      redirect: { name: 'login' },
+      children: landingRoutes,
+      redirect: { name: 'home-view' },
     },
     {
       path: '/login',
