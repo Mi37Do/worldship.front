@@ -2,7 +2,7 @@
 
 
   <div class="drawer lg:drawer-open bg-[#f6f9ff] w-full h-screen overflow-hidden">
-    <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+    <input id="my-drawer-2" :checked="useWidget.openSide" type="checkbox" class="drawer-toggle" />
     <div :class="[
       useWidget.userLanguage === 'en' ? ' pl-4 lg:pl-0 pr-4' : ' pl-4 lg:pr-0 pr-4',
       'drawer-content flex flex-col items-center justify-center pt-4 w-full h-full overflow-hidden']">
@@ -14,7 +14,7 @@
             <button @click="useWidget.openSide = true" class="btn btn-sm btn-square btn-ghost md:hidden">
               <side-menu />
             </button>
-            <span class="pixa-title">{{ $t('commun.profile') }}</span>
+            <span class="pixa-title flex-1">{{ $t('commun.profile') }}</span>
           </template>
         </top-app-bar>
 
@@ -32,7 +32,7 @@
 
     </div>
     <div class="drawer-side">
-      <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
+      <label @click="useWidget.openSide = false" aria-label="close sidebar" class="drawer-overlay"></label>
       <nav class="text-base-content h-full w-72 p-4">
         <div v-auto-animate
           class="w-full h-full bg-white shadow-2xl shadow-primary/5 rounded-lg border border-slate-200 flex flex-col gap-1 p-4">
@@ -115,6 +115,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { useWidgetStore } from '@/stores/widget';
 import { useI18n } from 'vue-i18n';
 import { useProfileStore } from '@/stores/profile';
+import sideMenu from '@/assets/icons/sideMenu.vue';
 
 const showSubModules = ref(false)
 const useWidget = useWidgetStore()
