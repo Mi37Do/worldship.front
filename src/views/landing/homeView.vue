@@ -226,7 +226,6 @@ const speed = ref(1);
 const isHovered = ref(false);
 const transitionDuration = ref(3000); // Adjust base speed here
 const slider = ref(null);
-
 // Duplicate logos for seamless loop
 const duplicatedLogos = computed(() => [...logos, ...logos]);
 
