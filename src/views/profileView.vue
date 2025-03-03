@@ -10,6 +10,10 @@
       <div class="w-full h-full flex flex-col overflow-hidden">
         <top-app-bar>
           <template #title>
+
+            <button @click="useWidget.openSide = true" class="btn btn-sm btn-square btn-ghost md:hidden">
+              <side-menu />
+            </button>
             <span class="pixa-title">{{ $t('commun.profile') }}</span>
           </template>
         </top-app-bar>

@@ -2,7 +2,10 @@
   <div class="w-full h-full flex flex-col overflow-hidden">
     <top-app-bar>
       <template #title>
-        <span class="pixa-title">{{ $t('navigation.links.dashboard') }}</span>
+        <button @click="useWidget.openSide = true" class="btn btn-sm btn-square btn-ghost  md:hidden">
+          <side-menu />
+        </button>
+        <span class="pixa-title flex-1">{{ $t('navigation.links.dashboard') }}</span>
       </template>
     </top-app-bar>
 
@@ -210,6 +213,7 @@ import { useProfileStore } from '@/stores/profile';
 import copyIcon from '@/assets/icons/copyIcon.vue';
 import { onMounted, ref } from 'vue';
 import { formatPhoneNumber } from '@/utils/phoneUtils';
+import sideMenu from '@/assets/icons/sideMenu.vue';
 
 const { t } = useI18n()
 const useProfile = useProfileStore()

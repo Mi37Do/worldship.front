@@ -4,7 +4,7 @@
       <template #title>
         <span class="pixa-title flex-1 flex gap-2 items-center
         ">
-          <button @click="useWidget.openSide = true" class="btn btn-sm btn-square btn-ghost">
+          <button @click="useWidget.openSide = true" class="btn btn-sm btn-square btn-ghost  md:hidden">
             <side-menu />
           </button>
           {{ $t('navigation.links.support') }}</span>
