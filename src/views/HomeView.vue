@@ -24,7 +24,7 @@ onMounted(async () => {
         <button class="btn btn-sm pixa-btn btn-ghost">services</button>
       </nav>
 
-      <button class="btn btn-sm pixa-btn btn-primary">login</button>
+      <router-link :to="{ name: 'login' }" class="btn btn-sm pixa-btn btn-primary">login</router-link>
     </div>
     <router-view></router-view>
     <div class="w-full h-80 bg-red-200"></div>

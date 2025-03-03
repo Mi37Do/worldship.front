@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { useI18n } from 'vue-i18n'
 
 export const useWidgetStore = defineStore('widget', () => {
+  const openSide = ref(false)
   const orderItems = ref(false)
   const invoiceDetail = ref(false)
   const addWallet = ref(false)
@@ -81,5 +82,6 @@ export const useWidgetStore = defineStore('widget', () => {
     addSupport,
     newPayment,
     dateFilter,
+    openSide,
   }
 })

@@ -4,8 +4,8 @@
       <template #title>
         <span class="pixa-title flex-1 flex gap-2 items-center
         ">
-          <button class="btn btn-sm btn-square">
-            <menu-icon class="w-5 h-5" />
+          <button @click="useWidget.openSide = true" class="btn btn-sm btn-square btn-ghost">
+            <side-menu />
           </button>
           {{ $t('navigation.links.support') }}</span>
       </template>
@@ -125,6 +125,7 @@ import calendarIcon from '@/assets/icons/calendarIcon.vue';
 import dateFilterModal from '@/components/commun/dateFilterModal.vue';
 import { format, isAfter, isBefore } from 'date-fns';
 import menuIcon from '@/assets/icons/menuIcon.vue';
+import sideMenu from '@/assets/icons/sideMenu.vue';
 
 const useSupport = useSupportStore()
 const type = ref('new')

@@ -2,6 +2,9 @@
   <div class="w-full h-full flex flex-col overflow-hidden">
     <top-app-bar>
       <template #title>
+        <button @click="useWidget.openSide = true" class="btn btn-sm btn-square btn-ghost">
+          <side-menu />
+        </button>
         <span class="pixa-title flex-1">{{ $t('navigation.links.shippements') }}</span>
 
       </template>
@@ -90,6 +93,7 @@ import arrowIcon from '@/assets/icons/arrowIcon.vue';
 import calendarIcon from '@/assets/icons/calendarIcon.vue';
 import dateFilterModal from '@/components/commun/dateFilterModal.vue';
 import { format, isAfter, isBefore } from 'date-fns';
+import sideMenu from '@/assets/icons/sideMenu.vue';
 
 const useWidget = useWidgetStore()
 const useInbox = useInboxStore()

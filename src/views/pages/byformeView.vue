@@ -2,6 +2,9 @@
   <div class="w-full h-full flex flex-col overflow-hidden">
     <top-app-bar>
       <template #title>
+        <button @click="useWidget.openSide = true" class="btn btn-sm btn-square btn-ghost">
+          <side-menu />
+        </button>
         <span class="pixa-title flex-1">{{ $t('navigation.links.buyForMe') }}</span>
       </template>
     </top-app-bar>
@@ -21,6 +24,7 @@ import itemsModal from '@/components/shippement/itemsModal.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { useInboxStore } from '@/stores/inbox';
 import { onMounted, ref } from 'vue';
+import sideMenu from '@/assets/icons/sideMenu.vue';
 
 const useWidget = useWidgetStore()
 const loading = ref(true)
