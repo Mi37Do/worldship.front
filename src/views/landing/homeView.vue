@@ -54,11 +54,16 @@
         <div class="w-60 h-full absolute left-0 bg-gradient-to-r from-white to-transparent z-10">
 
         </div>
-
-        <div class="flex gap-8 w-max animate-roll" :class="{ 'animate-roll-slow': isHovered }">
-          <span v-for="item in 20" :key="item"
-            class="w-32 h-32 bg-slate-200 flex items-center justify-center">logo</span>
+        <div class="relative overflow-hidden group py-8">
+          <div ref="slider" class="flex w-[fit-content] gap-16"
+            :style="`transform: translateX(${offset}%); transition-duration: ${transitionDuration}ms`"
+            @mouseenter="handleHover(true)" @mouseleave="handleHover(false)">
+            <span v-for="item in 20" :key="item"
+              class="w-32 h-32 bg-slate-200 shrink-0 px-8 flex items-center justify-center">logo {{
+                item }}</span>
+          </div>
         </div>
+
       </div>
     </div>
 
@@ -174,7 +179,32 @@
             We are ready to assist you with shopping online. If you have any questions before getting started, please
             feel free to contact us. </span>
 
-          <div class="w-full h-96 small-bg-glass-effect"></div>
+          <div class="w-full h-fit small-bg-glass-effect flex flex-col gap-4 p-4">
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text uppercase">full name </span>
+              </div>
+              <input type="text" required
+                class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+            </label>
+
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text uppercase">email </span>
+              </div>
+              <input type="text" required
+                class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+            </label>
+
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text uppercase">message </span>
+              </div>
+              <textarea type="text" required class="pixa-textarea " />
+            </label>
+
+            <button class="btn btn-sm pixa-btn btn-primary">contact us</button>
+          </div>
         </div>
 
 
@@ -185,37 +215,56 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import parcelIcon from '@/assets/icons/parcelIcon.vue';
 import creditCardIcon from '@/assets/icons/creditCardIcon.vue';
 import CartIcon from '@/assets/icons/cartIcon.vue';
 
 
+const offset = ref(0);
+const speed = ref(1);
 const isHovered = ref(false);
+const transitionDuration = ref(3000); // Adjust base speed here
+const slider = ref(null);
+
+// Duplicate logos for seamless loop
+const duplicatedLogos = computed(() => [...logos, ...logos]);
+
+// Animation logic
+let animationFrame;
+
+const animate = () => {
+  if (!isHovered.value) {
+    offset.value -= 0.02 * speed.value;
+
+    // Reset offset when halfway through
+    if (offset.value <= -50) {
+      offset.value = 0;
+    }
+  }
+
+  animationFrame = requestAnimationFrame(animate);
+};
+
+const handleHover = (hoverState) => {
+  isHovered.value = hoverState;
+  speed.value = hoverState ? 0.3 : 1; // Adjust slowdown factor here
+};
+
+onMounted(() => {
+  animate();
+});
+
+// Cleanup animation frame
+onBeforeUnmount(() => {
+  cancelAnimationFrame(animationFrame);
+});
 </script>
 
 <style lang="scss" scoped>
-@keyframes roll {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.animate-roll {
-  animation: roll 20s linear infinite;
-}
-
-.animate-roll-slow {
-  animation-duration: 40s;
-  /* Slower speed on hover */
-}
-
-/* Pause animation when container is hovered */
-.group:hover .animate-roll {
-  animation-play-state: paused;
+/* Smooth transition for hover effect */
+div {
+  transition-timing-function: linear;
+  transition-property: transform, opacity;
 }
 </style>
