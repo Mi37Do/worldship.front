@@ -2,7 +2,14 @@
   <div v-if="loading" class="w-full h-full flex items-center justify-center">
     <span class="loading loading-ring loading-sm"></span>
   </div>
-  <div v-else class="w-full h-full flex justify-center">
+
+  <div v-else class="w-full h-full flex items-center justify-center">
+    <addWallet :types="useProfile.profile.payments_methodes"></addWallet>
+    <button @click="useWidget.addWallet = true" class="btn btn-sm pixa-btn btn-primary"><plus-icon class="w-5 h-5" />
+      add wallet</button>
+  </div>
+  <!--
+  <div class="w-full h-full flex justify-center">
     <form @submit.prevent="addWallet()"
       class="w-full max-w-lg h-fit bg-white rounded-xl border border-slate-200 flex flex-col p-4">
       <div class="w-full h-14 flex items-center justify-between pb-4">
@@ -23,7 +30,6 @@
       <div class="w-full flex-1 overflow-auto">
         <div class="w-full h-fit flex flex-col items-center gap-3 py-4">
 
-          <!---->
           <img v-if="useProfile.profile.payments_methodes.find(item => item.id === walletType).type_payment === 'zn'"
             :src="env + useProfile.profile.payments_methodes.find(item => item.id === walletType).zen_qr_code"
             class="h-40 mt-3" alt="">
@@ -55,7 +61,7 @@
 
 
     </form>
-  </div>
+  </div> -->
 </template>
 
 <script setup>
@@ -64,13 +70,13 @@ import paperClipIcon from '@/assets/icons/paperClipIcon.vue';
 import timesIcon from '@/assets/icons/timesIcon.vue';
 import listIcon from '@/assets/icons/listIcon.vue';
 import { objectToFormData } from '@/utils/formDataUtils'
-
+import plusIcon from '@/assets/icons/plusIcon.vue';
 import { onMounted, reactive, ref } from 'vue';
 import axios from 'axios';
 import { useProfileStore } from '@/stores/profile';
 import walletsTypeDropsown from '@/components/wallet/walletsTypeDropsown.vue';
+import addWallet from '@/components/wallet/addWallet.vue';
 
-const props = defineProps(['types'])
 const useWidget = useWidgetStore()
 const loadingAdd = ref(false)
 const loading = ref(true)
@@ -106,7 +112,7 @@ const handleFileChange = (event) => {
   }
 }
 
-
+/**
 const addWallet = async () => {
 
   loadingAdd.value = true
@@ -139,7 +145,7 @@ const addWallet = async () => {
   }
   loadingAdd.value = false
 }
-
+ */
 const onSelectedType = (id) => {
   walletType.value = id
 }

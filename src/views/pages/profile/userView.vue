@@ -1,8 +1,51 @@
 <template>
   <div class="w-full h-full flex flex-col gap-4 items-center overflow-auto">
 
-    <div class="w-full max-w-sm h-fit  flex flex-col gap-4">
-      <form @submit.prevent="editProfile"
+    <div class="w-full max-w-md h-fit  flex flex-col gap-4">
+
+      <div class="grid grid-cols-3 gap-1 p-1 bg-primary rounded-lg">
+        <button @click="tab = 'profile'"
+          :class="tab === 'profile' ? 'bg-white hover:bg-white' : 'bg-transparent hover:bg-white/20 text-white'"
+          class="btn btn-sm pixa-btn border-0">profile</button>
+        <button @click="tab = 'edit'"
+          :class="tab === 'edit' ? 'bg-white hover:bg-white' : 'bg-transparent hover:bg-white/20 text-white'"
+          class="btn btn-sm pixa-btn border-0">edit</button>
+        <button @click="tab = 'password'"
+          :class="tab === 'password' ? 'bg-white hover:bg-white' : 'bg-transparent hover:bg-white/20 text-white'"
+          class="btn btn-sm pixa-btn border-0">change password</button>
+      </div>
+
+      <div v-if="tab === 'profile'"
+        class="w-full h-fit bg-white border border-slate-200 rounded-lg p-3 flex flex-col items-center gap-3 uppercase">
+        <div class="w-32 h-32 bg-blue-100 rounded-full mt-10 flex items-center justify-center">
+          <user-icon class="w-12 h-12 fill-primary" />
+        </div>
+
+        <div class="w-full flex overflow-hidden mt-4">
+          <span class="w-32 font-semibold truncate">full name</span>
+          <span>{{ useProfile.profile.user.first_name }} {{ useProfile.profile.user.last_name }}</span>
+        </div>
+
+        <div class="w-full flex overflow-hidden mt-4">
+          <span class="w-32 font-semibold truncate">phone</span>
+          <span>{{ useProfile.profile.user.phone }}</span>
+        </div>
+
+        <div class="w-full flex overflow-hidden mt-4">
+          <span class="w-32 font-semibold truncate">email</span>
+          <span>{{ useProfile.profile.user.email }}</span>
+        </div>
+        <div class="w-full flex overflow-hidden mt-4">
+          <span class="w-32 font-semibold truncate">code</span>
+          <span>{{ useProfile.profile.user.code }}</span>
+        </div>
+        <div class="w-full flex overflow-hidden mt-4">
+          <span class="w-32 font-semibold truncate">city</span>
+          <span>{{ useProfile.profile.user.addresse_site.city }}</span>
+        </div>
+      </div>
+
+      <form v-if="tab === 'edit'" @submit.prevent="editProfile"
         class="w-full h-fit bg-white rounded-lg border border-slate-200 p-3 flex flex-col gap-3">
         <label class="form-control w-full">
           <div class="label">
@@ -30,7 +73,7 @@
         </button>
       </form>
 
-      <form @submit.prevent="resetPassword"
+      <form v-if="tab === 'password'" @submit.prevent="resetPassword"
         class="w-full h-fit bg-white rounded-lg border border-slate-200 p-3 flex flex-col gap-3">
         <span class="pixa-title">new password</span>
         <label class="form-control w-full">
@@ -53,12 +96,14 @@
 <script setup>
 import { useProfileStore } from '@/stores/profile';
 import axios from 'axios';
+import userIcon from '@/assets/icons/userIcon.vue';
 import { reactive, ref } from 'vue';
 
 const useProfile = useProfileStore()
 const new_password = ref('')
 const loadingPassword = ref(false)
 const loadingEdit = ref(false)
+const tab = ref('profile')
 
 const editProfile = async () => {
   loadingEdit.value = true
