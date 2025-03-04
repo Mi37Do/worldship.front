@@ -106,14 +106,6 @@ const handleFileChange = (event) => {
   }
 }
 
-const closeModal = () => {
-  useWidget.addWallet = false
-  Object.assign(walletValue, {
-    value: 0,
-    file: null
-  })
-  walletType.value = props.types[0].id
-}
 
 const addWallet = async () => {
 
@@ -142,7 +134,6 @@ const addWallet = async () => {
     })
 
     await useProfile.getProfile(localStorage.getItem('ws-user-id'))
-    closeModal()
   } catch (error) {
     console.error(error)
   }
