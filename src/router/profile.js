@@ -8,6 +8,19 @@ const profileRoutes = [
     path: 'wallets',
     name: 'wallets',
     component: () => import('@/views/pages/profile/walletsView.vue'),
+    redirect: { name: 'add' },
+    children: [
+      {
+        path: 'history',
+        name: 'history',
+        component: () => import('@/views/pages/wallets/historyView.vue'),
+      },
+      {
+        path: 'add',
+        name: 'add',
+        component: () => import('@/views/pages/wallets/addWalletView.vue'),
+      },
+    ],
   },
   {
     path: 'address-book',

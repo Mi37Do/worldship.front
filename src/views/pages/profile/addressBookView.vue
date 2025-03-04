@@ -60,8 +60,6 @@ const { t } = useI18n()
 onMounted(async () => {
   try {
     await useBook.getAddresses(localStorage.getItem('ws-user-id'))
-    console.log(useBook.addresses)
-
     loading.value = false
   } catch (error) {
     loading.value = true

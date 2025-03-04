@@ -33,9 +33,9 @@
     </div>
     <div class="drawer-side">
       <label @click="useWidget.openSide = false" aria-label="close sidebar" class="drawer-overlay"></label>
-      <nav class="text-base-content h-full w-72 p-4">
+      <nav class="text-base-content h-full w-72 md:p-4">
         <div v-auto-animate
-          class="w-full h-full bg-white shadow-2xl shadow-primary/5 rounded-lg border border-slate-200 flex flex-col gap-1 p-4">
+          class="w-full h-full bg-white shadow-2xl shadow-primary/5 md:rounded-lg border border-slate-200 flex flex-col gap-1 p-4">
           <div class="w-full h-12 border-b border-slate-200 mb-2 flex gap-3 pt-1">
             <div
               class="w-8 h-8 bg-primary rounded-md text-white flex items-center justify-center uppercase font-semibold ">
@@ -51,11 +51,32 @@
             <span>{{ $t('commun.goBack') }}</span>
           </button>
 
-          <router-link :to="{ name: 'wallets' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost
+          <router-link :to="{ name: 'user' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost
           mt-3">
+            <userIcon class="w-5 h-5" />
+            <span>{{ $t('commun.profile') }}</span>
+          </router-link>
+
+
+
+          <button @click="showWallet = !showWallet" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
             <wallet-icon class="w-5 h-5" />
             <span>{{ $t('commun.wallets') }}</span>
-          </router-link>
+          </button>
+
+          <div v-if="showWallet" class="w-full h-[5.5rem] pl-4 flex gap-4">
+            <span class="w-px h-full bg-slate-300"></span>
+            <div class="flex-1 flex flex-col gap-2">
+              <router-link :to="{ name: 'add' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+                <addWallet class="w-5 h-5" />
+                <span>{{ $t('commun.addWallet') }}</span>
+              </router-link>
+              <router-link :to="{ name: 'history' }" class="btn btn-sm pixa-btn flex gap-3 justify-start btn-ghost">
+                <ListIcon class="w-5 h-5" />
+                <span>{{ $t('commun.history') }}</span>
+              </router-link>
+            </div>
+          </div>
 
           <router-link :to="{ name: 'address-book' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
             <book-icon class="w-5 h-5" />
@@ -108,6 +129,8 @@ import usersIcon from '@/assets/icons/usersIcon.vue';
 import transactionIcon from '@/assets/icons/transactionIcon.vue';
 import exchangeIcon from '@/assets/icons/exchangeIcon.vue';
 import angleRightIcon from '@/assets/icons/angleRightIcon.vue';
+import userIcon from '@/assets/icons/userIcon.vue';
+import addWallet from '@/assets/icons/addWallet.vue';
 
 
 import { onMounted, ref, watch } from 'vue';
@@ -116,7 +139,9 @@ import { useWidgetStore } from '@/stores/widget';
 import { useI18n } from 'vue-i18n';
 import { useProfileStore } from '@/stores/profile';
 import sideMenu from '@/assets/icons/sideMenu.vue';
+import ListIcon from '@/assets/icons/listIcon.vue';
 
+const showWallet = ref(false)
 const showSubModules = ref(false)
 const useWidget = useWidgetStore()
 const { t } = useI18n()
@@ -134,6 +159,10 @@ watch(() => route, () => {
   if (route.name === 'transfers' || route.name === 'cards') {
     showSubModules.value = true
   } else showSubModules.value = false
+
+  if (route.name === 'add' || route.name === 'history') {
+    showWallet.value = true
+  } else showWallet.value = false
 }, { deep: true })
 </script>
 

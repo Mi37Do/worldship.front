@@ -21,7 +21,6 @@ export const useProfileStore = defineStore('profile', () => {
       if (user_id) {
         response = await axios.get(`/Dashboard/view_referrals_API/${user_id}`)
         refferals.value = response.data
-        console.log(refferals.value)
       }
     } catch (error) {
       console.error(error)
@@ -72,7 +71,6 @@ export const useProfileStore = defineStore('profile', () => {
 
     try {
       let response = await axios.post(`/login_API`, formData)
-      console.log(response.data)
       Cookies.set('token', response.data.token)
       localStorage.setItem('ws-user-id', response.data.user.id)
       router.push({ name: 'app' })
@@ -84,7 +82,6 @@ export const useProfileStore = defineStore('profile', () => {
   const getWebConfig = async () => {
     let response = await axios.get(`/config_web_API`)
     webConfig.value = response.data.config_web
-    console.log(webConfig.value)
   }
 
   return {

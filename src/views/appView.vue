@@ -15,9 +15,9 @@
     </div>
     <div class="drawer-side">
       <label @click="useWidget.openSide = false" aria-label="close sidebar" class="drawer-overlay"></label>
-      <nav class="menu text-base-content h-full w-72 p-4 flex flex-col gap-2">
+      <nav class="menu text-base-content h-full w-72 md:p-4 flex flex-col gap-2">
         <div v-auto-animate
-          class="w-full flex-1 bg-white shadow-2xl shadow-primary/5 rounded-lg border border-slate-200 flex flex-col gap-1 p-4">
+          class="w-full flex-1 bg-white shadow-2xl shadow-primary/5 md:rounded-lg border border-slate-200 flex flex-col gap-1 p-4">
           <div class="w-full h-fit border-b border-slate-200 mb-2 flex gap-3 pt-1  justify-center">
             <img :src="env + useProfile.webConfig.images_logo" class="w-48 " alt="">
           </div>
