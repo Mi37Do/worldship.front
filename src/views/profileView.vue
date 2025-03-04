@@ -36,11 +36,8 @@
       <nav class="text-base-content h-full w-72 md:p-4">
         <div v-auto-animate
           class="w-full h-full bg-white shadow-2xl shadow-primary/5 md:rounded-lg border border-slate-200 flex flex-col gap-1 p-4">
-          <div class="w-full h-12 border-b border-slate-200 mb-2 flex gap-3 pt-1">
-            <div
-              class="w-8 h-8 bg-primary rounded-md text-white flex items-center justify-center uppercase font-semibold ">
-              ws</div>
-            <span class="text-xl font-semibold text-primary uppercase">worldship</span>
+          <div class="w-full h-fit border-b border-slate-200 mb-2 flex gap-3 pt-1  justify-center">
+            <img :src="env + useProfile.webConfig.images_logo" class="w-48 " alt="">
           </div>
 
 
@@ -146,7 +143,9 @@ const showSubModules = ref(false)
 const useWidget = useWidgetStore()
 const { t } = useI18n()
 const route = useRoute()
+const useProfile = useProfileStore()
 const router = useRouter()
+const env = import.meta.env.VITE_WORLDSHIP_API
 
 onMounted(async () => {
   if (route.name === 'transfers' || route.name === 'cards') {
