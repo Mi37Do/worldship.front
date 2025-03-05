@@ -46,7 +46,7 @@
       </div>
 
       <form v-if="tab === 'edit'" @submit.prevent="editProfile"
-        class="w-full h-fit bg-white rounded-lg border border-slate-200 p-3 flex flex-col gap-3">
+        class="w-full h-fit bg-white rounded-lg border border-slate-200 p-3 grid lg:grid-cols-2 gap-3">
         <label class="form-control w-full">
           <div class="label">
             <span class="label-text uppercase">first name </span>
@@ -77,7 +77,7 @@
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </label>
 
-        <button :disabled="loadingEdit" type="submit" class="btn btn-sm pixa-btn btn-primary w-full mt-3">
+        <button :disabled="loadingEdit" type="submit" class="btn btn-sm pixa-btn btn-primary w-full mt-3 lg:col-span-2">
           <span v-if="loadingEdit" class="loading loading-ring loading-sm"></span>
           <span v-else>save</span>
         </button>

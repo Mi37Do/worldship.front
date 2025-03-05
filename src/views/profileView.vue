@@ -40,7 +40,7 @@
             <img :src="env + useProfile.webConfig.images_logo" class="w-48 " alt="">
           </div>
 
-          <div class="w-full flex-1 flex flex-col gap">
+          <div class="w-full flex-1 flex flex-col gap-1">
 
 
             <button @click="() => {
