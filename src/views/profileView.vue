@@ -40,75 +40,90 @@
             <img :src="env + useProfile.webConfig.images_logo" class="w-48 " alt="">
           </div>
 
+          <div class="w-full flex-1 flex flex-col gap">
 
-          <button @click="() => {
-            router.push({ name: 'app' })
-          }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-primary mt-1">
-            <angle-right-icon :class="[useWidget.userLanguage === 'en' ? ' rotate-180' : '',]" class="w-5 h-5" />
-            <span>{{ $t('commun.goBack') }}</span>
-          </button>
 
-          <router-link :to="{ name: 'user' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost
+            <button @click="() => {
+              router.push({ name: 'app' })
+            }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-primary mt-1">
+              <angle-right-icon :class="[useWidget.userLanguage === 'en' ? ' rotate-180' : '',]" class="w-5 h-5" />
+              <span>{{ $t('commun.goBack') }}</span>
+            </button>
+
+            <router-link :to="{ name: 'user' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost
           mt-3">
-            <userIcon class="w-5 h-5" />
-            <span>{{ $t('commun.profile') }}</span>
-          </router-link>
+              <userIcon class="w-5 h-5" />
+              <span>{{ $t('commun.profile') }}</span>
+            </router-link>
 
 
 
-          <button @click="showWallet = !showWallet" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-            <wallet-icon class="w-5 h-5" />
-            <span>{{ $t('commun.wallets') }}</span>
-          </button>
+            <button @click="showWallet = !showWallet" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+              <wallet-icon class="w-5 h-5" />
+              <span>{{ $t('commun.wallets') }}</span>
+            </button>
 
-          <div v-if="showWallet" class="w-full h-[5.5rem] pl-4 flex gap-4">
-            <span class="w-px h-full bg-slate-300"></span>
-            <div class="flex-1 flex flex-col gap-2">
-              <router-link :to="{ name: 'add' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-                <addWallet class="w-5 h-5" />
-                <span>{{ $t('commun.addWallet') }}</span>
-              </router-link>
-              <router-link :to="{ name: 'history' }" class="btn btn-sm pixa-btn flex gap-3 justify-start btn-ghost">
-                <ListIcon class="w-5 h-5" />
-                <span>{{ $t('commun.history') }}</span>
-              </router-link>
+            <div v-if="showWallet" class="w-full h-[5.5rem] pl-4 flex gap-4">
+              <span class="w-px h-full bg-slate-300"></span>
+              <div class="flex-1 flex flex-col gap-2">
+                <router-link :to="{ name: 'add' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+                  <addWallet class="w-5 h-5" />
+                  <span>{{ $t('commun.addWallet') }}</span>
+                </router-link>
+                <router-link :to="{ name: 'history' }" class="btn btn-sm pixa-btn flex gap-3 justify-start btn-ghost">
+                  <ListIcon class="w-5 h-5" />
+                  <span>{{ $t('commun.history') }}</span>
+                </router-link>
+              </div>
             </div>
+
+            <router-link :to="{ name: 'address-book' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+              <book-icon class="w-5 h-5" />
+              <span>{{ $t('commun.addressBook') }}</span>
+            </router-link>
+
+            <router-link :to="{ name: 'coins' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+              <usd-circle-icon class="w-5 h-5" />
+              <span>{{ $t('commun.coins') }}</span>
+            </router-link>
+
+            <router-link :to="{ name: 'referrals' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+              <users-icon class="w-5 h-5" />
+              <span>{{ $t('commun.referrals') }}</span>
+            </router-link>
+
+            <button @click="showSubModules = !showSubModules"
+              class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+              <transaction-icon class="w-5 h-5" />
+              <span>{{ $t('commun.cards') }} & {{ $t('commun.transfers') }}</span>
+            </button>
+
+            <div v-if="showSubModules" class="w-full h-[5.5rem] pl-4 flex gap-4">
+              <span class="w-px h-full bg-slate-300"></span>
+              <div class="flex-1 flex flex-col gap-2">
+                <router-link :to="{ name: 'cards' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+                  <CreditCardIcon class="w-5 h-5" />
+                  <span>{{ $t('commun.cards') }}</span>
+                </router-link>
+                <router-link :to="{ name: 'transfers' }" class="btn btn-sm pixa-btn flex gap-3 justify-start btn-ghost">
+                  <exchange-icon class="w-5 h-5" />
+                  <span>{{ $t('commun.transfers') }}</span>
+                </router-link>
+              </div>
+            </div>
+
+
           </div>
 
-          <router-link :to="{ name: 'address-book' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-            <book-icon class="w-5 h-5" />
-            <span>{{ $t('commun.addressBook') }}</span>
-          </router-link>
-
-          <router-link :to="{ name: 'coins' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-            <usd-circle-icon class="w-5 h-5" />
-            <span>{{ $t('commun.coins') }}</span>
-          </router-link>
-
-          <router-link :to="{ name: 'referrals' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-            <users-icon class="w-5 h-5" />
-            <span>{{ $t('commun.referrals') }}</span>
-          </router-link>
-
-          <button @click="showSubModules = !showSubModules"
-            class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-            <transaction-icon class="w-5 h-5" />
-            <span>{{ $t('commun.cards') }} & {{ $t('commun.transfers') }}</span>
+          <button @click="async () => {
+            let response = await axios.get(`/logout_API`)
+            Cookies.remove('token')
+            router.push({ name: 'login' })
+          }" class="btn btn-sm pixa-btn flex justify-start bv red-btn-ghost">
+            <signout-icon class="w-5 h-5" />
+            <span>signout</span>
           </button>
 
-          <div v-if="showSubModules" class="w-full h-[5.5rem] pl-4 flex gap-4">
-            <span class="w-px h-full bg-slate-300"></span>
-            <div class="flex-1 flex flex-col gap-2">
-              <router-link :to="{ name: 'cards' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-                <CreditCardIcon class="w-5 h-5" />
-                <span>{{ $t('commun.cards') }}</span>
-              </router-link>
-              <router-link :to="{ name: 'transfers' }" class="btn btn-sm pixa-btn flex gap-3 justify-start btn-ghost">
-                <exchange-icon class="w-5 h-5" />
-                <span>{{ $t('commun.transfers') }}</span>
-              </router-link>
-            </div>
-          </div>
         </div>
       </nav>
     </div>
@@ -128,7 +143,7 @@ import exchangeIcon from '@/assets/icons/exchangeIcon.vue';
 import angleRightIcon from '@/assets/icons/angleRightIcon.vue';
 import userIcon from '@/assets/icons/userIcon.vue';
 import addWallet from '@/assets/icons/addWallet.vue';
-
+import signoutIcon from '@/assets/icons/signoutIcon.vue';
 
 import { onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';

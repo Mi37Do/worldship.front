@@ -325,6 +325,19 @@ input[type='number'] {
   object-fit: cover;
 }
 
+.red-btn-ghost {
+  fill: #dc2626;
+  background-color: transparent;
+  border: 0px;
+  color: #dc2626;
+  text-transform: uppercase;
+  box-shadow: none;
+}
+
+.red-btn-ghost:hover {
+  background-color: #fee2e2;
+}
+
 .slider-blue {
   --slider-connect-bg: #3b82f6;
   --slider-tooltip-bg: #3b82f6;
