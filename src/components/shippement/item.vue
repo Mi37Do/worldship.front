@@ -15,7 +15,22 @@
 
       <span class="h-8 my-auto flex items-center truncate">{{ item.code }}</span>
       <span class="h-8 my-auto flex items-center truncate">{{ item.warehouse_order_ids.length }}</span>
-      <span class="h-8 my-auto flex items-center truncate bg-slate-100 w-fit px-3 rounded">{{ item.state }}</span>
+
+      <!-- ('p', 'In Process'),
+        ('wp', 'Wait Payment'),
+        ('so', 'Shipped Out'),
+        ('do', 'Delivered'),
+        ('co', 'Canceled')
+ -->
+
+      <span :class="[item.state === 'p' ?
+        'bg-slate-100 text-slate-500' : item.state === 'wp' ? ' text-violet-500 bg-violet-100' : item.state === 'so' ? ' text-amber-500 bg-amber-100' : item.state === 'do '
+          ?
+          ' text-emerald-500 bg-emerald-100' : ' text-red-500 bg-red-100']"
+        class="h-8 my-auto flex items-center truncate bg-slate-100 w-fit px-3 rounded">{{ item.state === 'p' ?
+          'In Process' : item.state === 'wp' ? 'Wait Payment' : item.state === 'so' ? 'Shipped Out' : item.state === 'do '
+            ?
+            'Delivered' : 'Canceled' }}</span>
 
       <div class="w-full flex items-center my-auto justify-between">
 

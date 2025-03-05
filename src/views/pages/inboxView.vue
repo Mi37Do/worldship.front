@@ -45,9 +45,9 @@
 
             <div class="w-fit flex gap-2 my-auto px-3 ">
               <span class="font-medium">{{ $t('commun.price') }} :</span>
-              <span>{{computed(() => {
+              <span>$ {{computed(() => {
                 return useInbox.inboxsToShip.reduce((sum, item) => sum + item.total_price, 0)
-              })}} $</span>
+              })}} </span>
             </div>
           </div>
           <button @click="useWidget.dateFilter = true" class="btn btn-sm pixa-btn pixa-btn-nofloat flex gap-2">
@@ -69,17 +69,21 @@
         class="lg:hidden h-10 grid grid-cols-3 gap-2 bg-white shadow-2xl shadow-primary/5 border border-slate-200 rounded uppercase">
         <div class="w-full flex gap-2 my-auto px-3">
           <span class="font-medium">{{ $t('commun.packages') }}:</span>
-          <span>0</span>
+          <span>{{ useInbox.inboxsToShip.length }}</span>
         </div>
 
         <div class="w-full flex gap-2 my-auto px-3  border-x border-slate-200">
           <span class="font-medium">{{ $t('commun.weight') }} :</span>
-          <span>0</span>
+          <span>{{computed(() => {
+            return useInbox.inboxsToShip.reduce((sum, item) => sum + item.weight, 0)
+          })}} lbs</span>
         </div>
 
         <div class="w-full flex gap-2 my-auto px-3 ">
           <span class="font-medium">{{ $t('commun.price') }} :</span>
-          <span>0.00 $</span>
+          <span>{{computed(() => {
+            return useInbox.inboxsToShip.reduce((sum, item) => sum + item.total_price, 0)
+          })}} $</span>
         </div>
       </div>
 
@@ -87,19 +91,17 @@
         <div :class="[useWidget.userLanguage === 'ar' ? 'text-right ' : ' ']"
           class="w-full h-12 rounded-lg border border-slate-200 px-4 hidden lg:grid grid-cols-5 gap-2 uppercase font-bold text-primary bg-white">
 
-          <span class="h-8 my-auto flex items-center truncate">{{ $t('commun.created') }}</span>
+          <span class="h-8 my-auto flex items-center truncate gap-4"> <input type="checkbox" v-model="selectAll"
+              :checked="selectAll"> {{
+                $t('commun.created') }}</span>
           <span class="h-8  my-auto flex items-center gap-4">
-            <span>{{ $t('commun.code') }}</span>
+            <span> {{ $t('commun.code') }}</span>
           </span>
           <span class="h-8  my-auto flex items-center">{{ $t('commun.tracking') }}</span>
           <span class="h-8  my-auto flex items-center ">{{ $t('commun.weight') }}</span>
           <div class="flex items-center justify-between my-auto">
 
             <span class="h-8  my-auto flex items-center ">{{ $t('commun.price') }}</span>
-            <button @click="selectAll = !selectAll" class="btn btn-sm pixa-btn-float">{{ selectAll ? 'select' :
-              'unselect'
-              }}
-              all</button>
           </div>
 
         </div>
@@ -157,7 +159,7 @@ const useInbox = useInboxStore()
 const loading = ref(true)
 const inboxsToShip = ref([])
 const enabled = ref(false)
-const selectAll = ref(true)
+const selectAll = ref(false)
 
 const filterDate = reactive(
   {
@@ -193,7 +195,7 @@ const onSelectedEnabled = (item) => {
 
 watch(() => [selectAll.value], () => {
   useInbox.inboxsToShip = []
-  if (!selectAll.value) {
+  if (selectAll.value) {
     for (let index = 0; index < useInbox.filtredInboxs.length; index++) {
       useInbox.filtredInboxs[index].selected_to_ship = true
     }

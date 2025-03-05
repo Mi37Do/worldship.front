@@ -24,7 +24,7 @@
     "packages": "packages",
     "selectedShip": "ship selected items",
     "shippements": "Shipments",
-    "status": "status",
+    "status": "state",
     "paymentStatus": "payment status",
     "returnBox": "return box",
     "noTracking": "number of tracking",

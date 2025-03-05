@@ -18,13 +18,14 @@
       <div class="w-full flex-1 flex flex-col overflow-hidden">
         <div :class="[useWidget.userLanguage === 'ar' ? 'text-right  pl-7' : ' pr-7']"
           class="w-full h-12 rounded-lg border border-slate-200 px-4 hidden lg:grid grid-cols-5 gap-2 uppercase font-bold text-primary bg-white">
+
+          <span class="h-8 my-auto flex items-center">{{ $t('commun.created') }}</span>
           <span class="h-8  my-auto flex items-center">{{ $t('commun.card') }}</span>
 
           <span class="h-8  my-auto flex items-center">{{ $t('commun.paymentOf') }}</span>
 
           <span class="h-8  my-auto flex items-center">{{ $t('commun.amount') }}</span>
           <span class="h-8  my-auto flex items-center">{{ $t('commun.status') }}</span>
-          <span class="h-8 my-auto flex items-center">{{ $t('commun.created') }}</span>
         </div>
 
         <div class="w-full flex-1 overflow-auto flex flex-col">

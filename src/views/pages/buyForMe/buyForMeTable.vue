@@ -40,12 +40,12 @@
 
     <div v-if="useInbox.filterBuyForMes.length > 0" class="w-full flex-1 flex flex-col overflow-hidden">
       <div :class="[useWidget.userLanguage === 'ar' ? 'text-right  pl-7' : ' pr-7']"
-        class="w-full h-12 rounded-lg border border-slate-200 px-4 hidden lg:grid grid-cols-9 gap-2 uppercase font-bold text-primary bg-white">
+        class="w-full h-12 rounded-lg border border-slate-200 px-4 hidden lg:grid grid-cols-7 gap-2 uppercase font-bold text-primary bg-white">
         <span class="h-8 my-auto flex items-center truncate">{{ $t('commun.created') }}</span>
         <span class="h-8  my-auto flex items-center truncate">{{ $t('commun.code') }}</span>
         <span class="h-8  my-auto flex items-center truncate">{{ $t('commun.company') }}</span>
-        <span class="h-8  my-auto flex items-center truncate">{{ $t('commun.instructions') }}</span>
-        <span class="h-8  my-auto flex items-center truncate">{{ $t('commun.itemsValue') }}</span>
+        <!--
+        <span class="h-8  my-auto flex items-center truncate">{{ $t('commun.itemsValue') }}</span> -->
         <span class="h-8  my-auto flex items-center truncate">{{ $t('commun.domesticShippementCharges') }}</span>
         <span class="h-8  my-auto flex items-center truncate">{{ $t('commun.serviceCharge') }}</span>
         <span class="h-8  my-auto flex items-center truncate">{{ $t('commun.total') }}</span>

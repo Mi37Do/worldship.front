@@ -2,7 +2,7 @@
   <div
     class="w-full py-3 border bg-white rounded-md border-slate-200 pl-4 pr-2 uppercase font-medium hover:bg-slate-50 transition-all duration-150">
 
-    <div class="w-full h-full hidden lg:grid grid-cols-9 gap-2 ">
+    <div class="w-full h-full hidden lg:grid grid-cols-7 gap-2 ">
       <span class=" my-auto flex items-center truncate">{{ format(item.created_at, 'dd-MM-yyyy') }}</span>
       <span class=" my-auto flex items-center truncate">{{ item.code }}</span>
       <a :href="item.url" target="_blank" class="flex items-center justify-between w-full overflow-hidden my-auto">
@@ -10,8 +10,8 @@
 
         <external-link-icon class="w-5 h-5 mr-2 fill-slate-500" />
       </a>
-      <span class=" my-auto flex items-center truncate"> {{ item.Instructions }}</span>
-      <span class=" my-auto flex items-center truncate"> $ {{ numberFormat(item.price_item) }}</span>
+      <!--
+      <span class=" my-auto flex items-center truncate"> $ {{ numberFormat(item.price_item) }}</span> -->
       <span class=" my-auto flex items-center truncate"> $ {{ numberFormat(item.domestic_shipping) }} </span>
       <span class=" my-auto flex items-center truncate"> $ {{ numberFormat(item.service) }} </span>
       <span class=" my-auto flex items-center truncate"> $ {{ numberFormat(item.total_price) }} </span>
