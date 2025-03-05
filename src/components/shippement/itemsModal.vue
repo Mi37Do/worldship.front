@@ -50,7 +50,7 @@
               <span class="my-auto border-r border-slate-200 h-8 flex items-center">code</span>
 
               <span class="my-auto h-8 flex items-center border-r border-slate-200 ">price</span>
-              <span v-if="route.name === 'inbox'" class="my-auto h-8 flex items-center">is valide</span>
+              <span v-if="route.name === 'inbox'" class="my-auto h-8 flex items-center">state</span>
             </div>
             <div class="w-full flex-1 overflow-auto">
               <div class="flex flex-col w-full h-fit">

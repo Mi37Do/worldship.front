@@ -36,11 +36,23 @@
           </label>
 
           <div
-            class="w-full h-40 bg-slate-100 rounded-md border border-slate-200 mt-2 flex flex-col gap-4 items-center justify-center fill-slate-500 relative">
-            <input type="file" required @change="handleFileChange" class="absolute w-full h-full inset-0 opacity-0">
-            <paper-clip-icon class="w-8 h-8" />
-            <span class="uppercase">{{ fileName ? fileName : 'choose file' }} </span>
-            <div class="btn btn-sm pixa-btn-nofloat">upload file</div>
+            class="w-full py-4 rounded-md border border-slate-200 mt-2 flex flex-col gap-4 items-center justify-center fill-slate-500 relative">
+
+            <div class="w-40 h-40 bg-primary/10 rounded p-1 flex items-center justify-center relative cursor-pointer">
+              <div v-if="tempImage" class="w-full h-full flex relative">
+                <button type="button" @click="tempImage = null"
+                  class="btn btn-sm btn-square absolute right-1 top-1 pixa-btn-delete">
+                  <trash-icon class="w-5 h-5" />
+                </button>
+                <img :src="tempImage" class="w-full h-full object-cover rounded" alt="">
+              </div>
+              <div v-else class="w-full h-full flex relative items-center justify-center">
+                <input type="file" required accept="image/*" @change="handleFileChange"
+                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                <plus-icon class="w-8 h-8 fill-primary" />
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
@@ -60,9 +72,10 @@
 import { useWidgetStore } from '@/stores/widget';
 import paperClipIcon from '@/assets/icons/paperClipIcon.vue';
 import timesIcon from '@/assets/icons/timesIcon.vue';
+import plusIcon from '@/assets/icons/plusIcon.vue';
 import listIcon from '@/assets/icons/listIcon.vue';
 import { objectToFormData } from '@/utils/formDataUtils'
-
+import trashIcon from '@/assets/icons/trashIcon.vue';
 import { reactive, ref } from 'vue';
 import axios from 'axios';
 import { useProfileStore } from '@/stores/profile';
@@ -75,6 +88,7 @@ const useProfile = useProfileStore()
 const env = import.meta.env.VITE_WORLDSHIP_API
 const walletType = ref(props.types[0].id)
 const fileName = ref('')
+const tempImage = ref('')
 const walletValue = reactive(
   {
     value: 0,
@@ -86,6 +100,12 @@ const walletValue = reactive(
 const handleFileChange = (event) => {
   walletValue.file = event.target.files[0]; // Get the first file
   if (walletValue.file) {
+    tempImage.value = walletValue.file
+    const reader = new FileReader(); // Create a FileReader to read the file
+    reader.onload = (e) => {
+      tempImage.value = e.target.result; // Set the image URL to the ref
+    };
+    reader.readAsDataURL(walletValue.file); // Read the file as a data URL
     fileName.value = walletValue.file.name; // Set the file name
   } else {
     fileName.value = ''; // Clear the file name if no file is selected

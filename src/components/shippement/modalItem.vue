@@ -16,8 +16,8 @@
       <div class="flex flex-col gap-2 items-end">
 
         <span :class="item.is_valid ? ' bg-emerald-100 text-emerald-500' : 'text-red-500 bg-red-100'"
-          class="my-auto px-2 py-1 w-fit rounded-md">{{
-            item.is_valid
+          class="my-auto px-2 py-1 w-fit rounded-md uppercase">{{
+            item.is_valid ? 'valide' : 'invalide'
           }}</span>
         <span class="text-md font-semibold uppercase mt-auto">{{ numberFormat(item.price) }} $</span>
       </div>

@@ -1,7 +1,9 @@
 <template>
   <router-link :to="{ name: 'chat', params: { id: item.id } }"
     class="w-full h-20  border-b border-slate-200 hover:bg-slate-50 transition-all duration-200 p-4 flex gap-4 cursor-pointer">
-    <div class="w-12 h-12 bg-slate-100 rounded-full"></div>
+    <div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center">
+      <user-icon class="w-5 h-5 fill-primary" />
+    </div>
     <div class="flex-1 flex flex-col h-full justify-center gap-1 overflow-hidden">
       <div class="flex-1 w-full flex items-center gap-4 overflow-hidden">
         <span class="flex-1 truncate uppercase font-semibold">{{ item.name }}</span>
@@ -32,6 +34,7 @@
 </template>
 
 <script setup>
+import userIcon from '@/assets/icons/userIcon.vue';
 import angleRightIcon from '@/assets/icons/angleRightIcon.vue';
 import { useSupportStore } from '@/stores/support';
 import { useRoute, useRouter } from 'vue-router';
