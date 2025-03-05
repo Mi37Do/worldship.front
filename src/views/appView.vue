@@ -116,6 +116,8 @@ import { useWidgetStore } from '@/stores/widget';
 import { useI18n } from 'vue-i18n';
 import { useProfileStore } from '@/stores/profile';
 import signoutIcon from '@/assets/icons/signoutIcon.vue';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 const showSubModules = ref(false)
 const route = useRoute()

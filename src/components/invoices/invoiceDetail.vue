@@ -19,7 +19,7 @@
           <span class="loading loading-ring loading-sm"></span>
         </div>
 
-        <div v-else ref="printableDiv" class="w-full flex-1 overflow-auto border-b border-slate-200 py-4">
+        <div v-else ref="pdfContent" class="w-full flex-1 overflow-auto border-b border-slate-200 py-4">
 
           <!--
         <div class="w-full border boder-slate-200 rounded-md min-h-full p-4 flex flex-col gap-4 uppercase">
@@ -159,9 +159,9 @@
 
                 <span class="capitalize">{{ format(useInvoices.focusedInvoice.updated_at, 'MMM-dd-yyyy') }}</span>
 
-                <span>{{ numberFormat(route.name === 'warehouse-invoices' ?
+                <span>$ {{ numberFormat(route.name === 'warehouse-invoices' ?
                   useInvoices.focusedInvoice.wh_pk.total_price :
-                  useInvoices.focusedInvoice.bfm_pk.total_price) }}$</span>
+                  useInvoices.focusedInvoice.bfm_pk.total_price) }}</span>
               </div>
             </div>
 
@@ -181,8 +181,8 @@
                   }}</span>
                 <span class="my-auto">{{ item.qty
                   }}</span>
-                <span class="my-auto">{{ numberFormat(item.price) }}$</span>
-                <span class="my-auto">{{ numberFormat(item.qty * item.price) }}$</span>
+                <span class="my-auto">$ {{ numberFormat(item.price) }}</span>
+                <span class="my-auto">$ {{ numberFormat(item.qty * item.price) }}</span>
               </div>
             </div>
 
@@ -192,9 +192,9 @@
 
               <div class="w-full grid grid-cols-2 gap-2">
                 <span class="font-semibold h-10 flex items-center">total due</span>
-                <span class="text-right my-auto">{{ numberFormat(route.name === 'warehouse-invoices' ?
+                <span class="text-right my-auto"> $ {{ numberFormat(route.name === 'warehouse-invoices' ?
                   useInvoices.focusedInvoice.wh_pk.total_price : useInvoices.focusedInvoice.bfm_pk.total_price) }}
-                  $</span>
+                </span>
 
 
               </div>
@@ -204,7 +204,7 @@
 
 
         </div>
-        <button v-if="useInvoices.focusedInvoice" @click="downloadPdf"
+        <button v-if="useInvoices.focusedInvoice" @click="generatePDF"
           class="btn btn-sm pixa-btn w-full btn-primary mt-4">print</button>
       </div>
 
@@ -222,16 +222,42 @@ import { formatPhoneNumber } from '@/utils/phoneUtils';
 import { useInvoicesStore } from '@/stores/invoices';
 import { useRoute } from 'vue-router';
 import { ref } from 'vue';
+import { useProfileStore } from '@/stores/profile';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas-pro';
 
 
 const useInvoices = useInvoicesStore()
 const useWidget = useWidgetStore()
 const route = useRoute()
 const printableDiv = ref(null)
+const useProfile = useProfileStore()
+const pdfContent = ref(null)
 
-const downloadPdf = () => {
-  const element = printableDiv.value;
+const generatePDF = async () => {
+  const element = pdfContent.value;
 
+  const canvas = await html2canvas(element);
+  const imgData = canvas.toDataURL('image/png');
+
+  const pdf = new jsPDF('p', 'mm', 'a4');
+  const imgWidth = 210;
+  const pageHeight = 295;
+  const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  let heightLeft = imgHeight;
+  let position = 0;
+
+  pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+  heightLeft -= pageHeight;
+
+  while (heightLeft >= 0) {
+    position = heightLeft - imgHeight;
+    pdf.addPage();
+    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+  }
+
+  pdf.save('generated.pdf');
 };
 </script>
 

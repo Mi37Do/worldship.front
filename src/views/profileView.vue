@@ -152,6 +152,8 @@ import { useI18n } from 'vue-i18n';
 import { useProfileStore } from '@/stores/profile';
 import sideMenu from '@/assets/icons/sideMenu.vue';
 import ListIcon from '@/assets/icons/listIcon.vue';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const showWallet = ref(false)
 const showSubModules = ref(false)
