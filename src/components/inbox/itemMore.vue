@@ -15,27 +15,6 @@
             useWidget.userLanguage === 'en' ? ' origin-top-right right-12' : ' origin-top-left left-12',
             'absolute  w-48 divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black/5 focus:outline-none z-50 top-0']">
           <div class="px-1 py-1">
-            <!--
-            <MenuItem>
-            <button @click="() => {
-              if (useInbox.inboxsToShip.find(i => i === item)) {
-                useInbox.inboxsToShip = useInbox.inboxsToShip.filter(i => i !== item)
-              }
-              else {
-                useInbox.inboxsToShip.push(item)
-              }
-              console.log(useInbox.inboxsToShip)
-            }
-              " :class="[
-                useInbox.inboxsToShip.find(i => i === item) ? 'pixa-menu-btn-delete' : 'pixa-menu-btn',
-                'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
-              ]">
-              {{ useInbox.inboxsToShip.find(i => i === item) ? ' unselect from' : 'select to' }}
-              ship
-              <TimesCircleIcon v-if="useInbox.inboxsToShip.find(i => i === item)" class="w-5 h-5" />
-              <CheckCircleIcon v-else class="w-5 h-5" />
-            </button>
-            </MenuItem>-->
             <MenuItem>
             <button @click="() => {
               for (let index = 0; index < item.wh_order.length; index++) {

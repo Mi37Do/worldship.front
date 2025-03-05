@@ -15,7 +15,8 @@
       </div>
       <div class="flex flex-col gap-2 items-end">
 
-        <span :class="item.is_valid ? ' bg-emerald-100 text-emerald-500' : 'text-red-500 bg-red-100'"
+        <span v-if="route.name === 'inbox'"
+          :class="item.is_valid ? ' bg-emerald-100 text-emerald-500' : 'text-red-500 bg-red-100'"
           class="my-auto px-2 py-1 w-fit rounded-md uppercase">{{
             item.is_valid ? 'valide' : 'invalide'
           }}</span>
@@ -27,8 +28,12 @@
 
 <script setup>
 import noImageIcon from '@/assets/icons/noImageIcon.vue';
+import { useRoute } from 'vue-router';
 
 const props = defineProps(['item'])
+const route = useRoute()
 </script>
+
+
 
 <style lang="scss" scoped></style>

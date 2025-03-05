@@ -21,15 +21,22 @@
                 const element = item.warehouse_order_ids[index]
                 for (let i = 0; i < element.wh_order.length; i++) {
                   const elementx = element.wh_order[i]
-                  useInbox.items.push(elementx)
+                  useInbox.items.push({
+                    id: elementx.id,
+                    name: elementx.name_id.name,
+                    qty: elementx.qty,
+                    images: elementx.images,
+                    price: elementx.price,
+                    code: elementx.name_id.code,
+                  })
                 }
               }
 
               useWidget.orderItems = true
             }
-              " :class="[
-                'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
-              ]">
+            " :class="[
+              'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
+            ]">
               items
               <ListIcon class="w-5 h-5" />
             </button>
