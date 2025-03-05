@@ -43,14 +43,14 @@
         <div v-else class="w-full flex-1 overflow-hidden pt-4">
 
           <div class="w-full h-full border border-slate-200 rounded-lg flex flex-col overflow-hidden">
-            <div :class="route.name === 'inbox-view' ? 'grid-cols-4' : 'grid grid-cols-3'"
+            <div :class="route.name === 'inbox' ? 'grid-cols-4' : 'grid grid-cols-3'"
               class="w-full h-14 border-b border-slate-200  px-4 grid gap-2 uppercase font-medium">
               <span class="pl-16 my-auto border-r border-slate-200 h-8 flex items-center">item</span>
 
               <span class="my-auto border-r border-slate-200 h-8 flex items-center">code</span>
 
               <span class="my-auto h-8 flex items-center border-r border-slate-200 ">price</span>
-              <span v-if="route.name === 'inbox-view'" class="my-auto h-8 flex items-center">is valide</span>
+              <span v-if="route.name === 'inbox'" class="my-auto h-8 flex items-center">is valide</span>
             </div>
             <div class="w-full flex-1 overflow-auto">
               <div class="flex flex-col w-full h-fit">
