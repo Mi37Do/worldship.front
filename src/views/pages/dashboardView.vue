@@ -34,7 +34,7 @@
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ useProfile.profile.user.first_name }} {{
                   useProfile.profile.user.last_name
-                }}</span>
+                  }}</span>
                 <div :class="[copied && typeCopied === 'name' ? 'tooltip' : '']" data-tip="copied">
                   <button
                     @click="copyText(useProfile.profile.user.first_name + ' ' + useProfile.profile.user.last_name, 'name')"
@@ -63,7 +63,7 @@
               <span class="w-32 font-semibold  my-auto">{{ $t('commun.addressLine') }} 2</span>
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ useProfile.profile.user.code
-                }}</span>
+                  }}</span>
                 <div :class="[copied && typeCopied === 'code' ? 'tooltip' : '']" data-tip="copied">
                   <button @click="copyText(useProfile.profile.user.code, 'code')"
                     class="btn btn-sm btn-square btn-ghost">
@@ -116,7 +116,7 @@
               <span class="w-32 font-semibold  my-auto">{{ $t('commun.phone') }}</span>
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ formatPhoneNumber(useProfile.profile.user.phone)
-                }}</span>
+                  }}</span>
                 <div :class="[copied && typeCopied === 'phone' ? 'tooltip' : '']" data-tip="copied">
                   <button @click="copyText(useProfile.profile.user.phone, 'phone')"
                     class="btn btn-sm btn-square btn-ghost">
@@ -144,7 +144,7 @@
 
             <div class="w-full flex gap-4 items-center">
               <span class="w-10"></span>
-              <span class="text-2xl font-bold">{{ numberFormat(useProfile.profile.wallets.total_wallets) }} $</span>
+              <span class="text-2xl font-bold">$ {{ numberFormat(useProfile.profile.wallets.total_wallets) }} </span>
             </div>
 
           </div>

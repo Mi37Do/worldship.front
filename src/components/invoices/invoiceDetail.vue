@@ -116,11 +116,10 @@
               </span>
 
               <div class="flex flex-col gap-1 items-end">
-                <div
-                  class="w-8 h-8 bg-primary rounded-md text-white flex items-center justify-center uppercase font-semibold ">
-                  ws</div>
 
-                <span class="text-xs">support@shipmyworld.com (720) 222-2200</span>
+                <img :src="useProfile.logoBase64" class="w-20" alt="">
+
+                <span class="text-xs">{{ useProfile.webConfig.email }} {{ useProfile.webConfig.phone }} </span>
               </div>
 
             </div>
@@ -179,9 +178,9 @@
               <div v-for="item in useInvoices.items
 " :key="item.id" class="w-full h-12 border-b border-slate-200 grid grid-cols-5 gap-4">
                 <span class="my-auto col-span-2">{{ route.name === 'warehouse-invoices' ? item.name_id.name : item.name
-                }}</span>
+                  }}</span>
                 <span class="my-auto">{{ item.qty
-                }}</span>
+                  }}</span>
                 <span class="my-auto">{{ numberFormat(item.price) }}$</span>
                 <span class="my-auto">{{ numberFormat(item.qty * item.price) }}$</span>
               </div>

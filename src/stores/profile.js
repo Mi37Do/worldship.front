@@ -14,6 +14,8 @@ export const useProfileStore = defineStore('profile', () => {
   const router = useRouter()
   const totalCoins = ref(null)
   const webConfig = ref(null)
+  const logoBase64 = ref('')
+  const env = import.meta.env.VITE_WORLDSHIP_API
 
   const getRefferals = async (user_id) => {
     let response = null
@@ -82,6 +84,19 @@ export const useProfileStore = defineStore('profile', () => {
   const getWebConfig = async () => {
     let response = await axios.get(`/config_web_API`)
     webConfig.value = response.data.config_web
+
+    let responseImage = await fetch(env + webConfig.value.images_logo)
+    if (!responseImage.ok) {
+      throw new Error('Network response was not ok')
+    }
+    const blob = await responseImage.blob()
+    const reader = new FileReader()
+
+    reader.onloadend = () => {
+      logoBase64.value = reader.result // This will be the Base64 string
+    }
+
+    reader.readAsDataURL(blob)
   }
 
   return {
@@ -97,5 +112,6 @@ export const useProfileStore = defineStore('profile', () => {
     isAuth,
     getWebConfig,
     webConfig,
+    logoBase64,
   }
 })
