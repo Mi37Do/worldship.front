@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-full flex flex-col gap-4 items-center overflow-auto">
 
-    <div class="w-full max-w-md h-fit  flex flex-col gap-4">
+    <div class="w-full  h-fit  flex flex-col gap-4">
 
       <div class="grid grid-cols-3 gap-1 p-1 bg-primary rounded-lg">
         <button @click="tab = 'profile'"
