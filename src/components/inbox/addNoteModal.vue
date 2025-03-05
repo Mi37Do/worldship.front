@@ -94,8 +94,8 @@ const addNote = async (id) => {
   loadingAdd.value = false
 }
 
-watch(() => props.item, () => {
-  if (props.item.my_note) {
+watch(() => [props.item, useWidget.addNote], () => {
+  if (useWidget.addNote && props.item.my_note) {
     newNote.my_note_wh_or = props.item.my_note
   }
 })

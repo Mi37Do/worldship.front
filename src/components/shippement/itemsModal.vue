@@ -20,6 +20,7 @@
           </div>
           <button @click="() => {
             useInbox.items = []
+            useInbox.focusedInbox = null
             useWidget.orderItems = false
           }" class="btn btn-sm pixa-btn w-10 pixa-btn-nofloat p-0">
             <times-icon class="w-5 h-5" />
@@ -32,7 +33,50 @@
 
       </div>
 
-      <div v-else class="w-full flex-1 flex">
+      <div v-else class="w-full flex-1 flex flex-col overflow-hidden">
+        <span v-if="useInbox.focusedInbox" class="h-40 grid grid-cols-2 gap-2 p-4 uppercase">
+          <div class="w-full grid grid-cols-2 gap-2">
+            <span class="font-semibold">code</span>
+            <span>{{ useInbox.focusedInbox.code }}</span>
+          </div>
+          <div class="w-full grid grid-cols-2 gap-2">
+            <span class="font-semibold">tracking</span>
+            <a :href="useInbox.focusedInbox.tracking_url" target="_blank"
+              :class="useInbox.focusedInbox.tracking_url ? 'cursor-pointer' : 'cursor-not-allowed'"
+              class="w-full flex items-center gap-3 ">
+              <div class="flex-1 flex flex-col gap-0 ">
+
+                <span :class="[
+                  'my-auto items-center truncate w-fit rounded flex overflow-hidden']">{{
+                    useInbox.focusedInbox.no_tracking
+                  }}</span>
+                <span class="my-auto flex items-center truncate text-xs text-slate-400"> {{
+                  useInbox.focusedInbox.company }}</span>
+              </div>
+
+              <externalLinkIcon :class="useInbox.focusedInbox.tracking_url ? 'fill-slate-500' : 'fill-slate-300'"
+                class="w-5 h-5 mr-4" />
+            </a>
+          </div>
+
+          <div class="w-full grid grid-cols-2 gap-2">
+            <span class="font-semibold">weight</span>
+            <span>{{ useInbox.focusedInbox.weight }} lbs</span>
+          </div>
+
+          <div class="w-full grid grid-cols-2 gap-2">
+            <span class="font-semibold">price</span>
+            <span>$ {{ useInbox.focusedInbox.total_price }}</span>
+          </div>
+
+          <div class="w-full grid grid-cols-2 gap-2">
+            <span class="font-semibold">note</span>
+            <span> {{ useInbox.focusedInbox ? useInbox.focusedInbox.my_note : '-------' }}</span>
+          </div>
+
+        </span>
+
+
         <div v-if="isGrid" class="w-full flex-1 overflow-auto">
           <div class="w-full h-fit grid grid-cols-4 gap-3 py-4 pr-2">
             <modal-item v-for="item in useInbox.items" :key="item" :item="item" />
@@ -41,7 +85,6 @@
 
 
         <div v-else class="w-full flex-1 overflow-hidden pt-4">
-
           <div class="w-full h-full border border-slate-200 rounded-lg flex flex-col overflow-hidden">
             <div :class="route.name === 'inbox' ? 'grid-cols-4' : 'grid grid-cols-3'"
               class="w-full h-14 border-b border-slate-200  px-4 grid gap-2 uppercase font-medium">
@@ -79,6 +122,7 @@ import { useWidgetStore } from '@/stores/widget';
 import appsIcon from '@/assets/icons/appsIcon.vue';
 import timesIcon from '@/assets/icons/timesIcon.vue';
 import listIcon from '@/assets/icons/listIcon.vue';
+import externalLinkIcon from '@/assets/icons/externalLinkIcon.vue';
 import modalListItem from './modalListItem.vue';
 
 import modalItem from './modalItem.vue';
