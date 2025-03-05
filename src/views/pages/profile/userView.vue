@@ -63,11 +63,21 @@
         </label>
         <label class="form-control w-full">
           <div class="label">
-            <span class="label-text uppercase">last name </span>
+            <span class="label-text uppercase">phone </span>
           </div>
           <input type="text" required v-model="useProfile.profile.user.phone"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
-        </label> <button :disabled="loadingEdit" type="submit" class="btn btn-sm pixa-btn btn-primary w-full mt-3">
+        </label>
+
+        <label class="form-control w-full">
+          <div class="label">
+            <span class="label-text uppercase">email </span>
+          </div>
+          <input type="text" required v-model="useProfile.profile.user.email"
+            class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+        </label>
+
+        <button :disabled="loadingEdit" type="submit" class="btn btn-sm pixa-btn btn-primary w-full mt-3">
           <span v-if="loadingEdit" class="loading loading-ring loading-sm"></span>
           <span v-else>save</span>
         </button>
