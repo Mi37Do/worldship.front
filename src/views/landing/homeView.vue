@@ -2,14 +2,15 @@
   <div class="w-full flex flex-col">
     <div class="w-full h-fit relative flex flex-col gap-4 items-center overflow-hidden">
 
-      <div class="w-[60vw] h-[60vw] -top-[45vw] rounded-full blur-3xl bg-gradient-to-b from-blue-200 from-80% absolute">
+      <div
+        class="w-[60vw] h-[60vw] -top-[45vw] rounded-full blur-3xl bg-gradient-to-b from-secondary/20  from-80% absolute">
       </div>
 
       <div class="flex-1 flex flex-col justify-center items-center text-center pt-40 z-10 mt-20">
         <span class="text-[5vw] h-[5vw]">Ship from the <span class="font-extrabold text-blue-700">U.S.</span> to
         </span>
 
-        <span class="text-[5vw] h-[5vw] mt-4">
+        <span class="text-[5vw] h-[5vw] mt-4 mb-12">
           <span class="font-extrabold text-blue-700">Kurdistan</span>
           and
           <span class="font-extrabold text-blue-700">Iraq</span>
