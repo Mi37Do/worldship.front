@@ -169,7 +169,7 @@ const addTicket = async () => {
 
   try {
 
-    let response = await axios.post(`/Dashboard/view_suport_ticket_API/${1}`, formData)
+    let response = await axios.post(`/Dashboard/view_suport_ticket_API/${localStorage.getItem('ws-user-id')}`, formData)
     await useSupport.getTickets(localStorage.getItem('ws-user-id'))
 
     useSupport.tempMessages = useSupport.tickets.tickets_new

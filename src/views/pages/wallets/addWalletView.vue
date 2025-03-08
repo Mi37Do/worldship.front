@@ -133,7 +133,7 @@ const addWallet = async () => {
   formData.append('pack_pay_type_id', tempWallet.pack_pay_type_id)
 
   try {
-    let response = await axios.post(`/Dashboard/add_wallets_value_API/${1}`, formData, {
+    let response = await axios.post(`/Dashboard/add_wallets_value_API/${localStorage.getItem('ws-user-id')}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       }

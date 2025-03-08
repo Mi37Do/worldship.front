@@ -158,7 +158,7 @@ const onSupportEmits = async (item) => {
   formData.append('upload_msg', item.upload_msg)
 
   try {
-    let response = await axios.post(`/Dashboard/in_shipp_API/${1}/`, formData, {
+    let response = await axios.post(`/Dashboard/in_shipp_API/${localStorage.getItem('ws-user-id')}/`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       }

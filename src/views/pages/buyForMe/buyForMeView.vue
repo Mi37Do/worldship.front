@@ -245,7 +245,7 @@ const editBuyForMe = async () => {
   formdata.append('counter', useInbox.items.length + 1)
 
   try {
-    let response = await axios.post(`/Dashboard/edit_buy_for_me_order_API/${route.params.id}/${1}`, formdata, {
+    let response = await axios.post(`/Dashboard/edit_buy_for_me_order_API/${route.params.id}/${localStorage.getItem('ws-user-id')}`, formdata, {
       headers: {
         'Content-Type': 'multipart/form-data',
       }

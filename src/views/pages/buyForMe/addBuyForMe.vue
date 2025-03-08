@@ -274,7 +274,7 @@ const addNewBuyForMe = async () => {
   console.log(formdata)
 
   try {
-    let response = await axios.post(`/Dashboard/create_buy_for_me_order_API/${1}`, formdata)
+    let response = await axios.post(`/Dashboard/create_buy_for_me_order_API/${localStorage.getItem('ws-user-id')}`, formdata)
     router.push({ name: 'table-buyForMe' })
   } catch (error) {
     console.error(error)

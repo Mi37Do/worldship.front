@@ -20,7 +20,7 @@
           <div v-if="route.name === 'shippement'" class="w-full grid grid-cols-2 gap-4 col-span-2">
             <span class="text-red-500">Insurance </span>
             <span class="text-right my-auto text-red-500">{{ numberFormat(item.add_insurance ? item.total_insurance : 0)
-            }} $</span>
+              }} $</span>
             <span class="text-red-500">Package Options </span>
             <span class="text-right my-auto text-red-500">{{ numberFormat(item.total_price_options) }} $</span>
             <span>Coins </span>
@@ -167,14 +167,14 @@ const newPayment = async () => {
 
   try {
     if (route.name === 'shippement') {
-      let response = await axios.post(`/Dashboard/add_wh_payment_API/${1}/`, formData, {
+      let response = await axios.post(`/Dashboard/add_wh_payment_API/${localStorage.getItem('ws-user-id')}/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         }
       })
       await useInbox.getShippements(null, route.params.id)
     } else {
-      let response = await axios.post(`/Dashboard/add_bfm_payment_API/${1}/`, formData, {
+      let response = await axios.post(`/Dashboard/add_bfm_payment_API/${localStorage.getItem('ws-user-id')}/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         }

@@ -62,7 +62,7 @@ const sendItem = async () => {
   }
   /***/
   try {
-    let response = await axios.get(`/Dashboard/create_ship_API/${orders}/${1}/`)
+    let response = await axios.get(`/Dashboard/create_ship_API/${orders}/${localStorage.getItem('ws-user-id')}/`)
     useInbox.inboxsToShip = []
     await useInbox.getInbox(localStorage.getItem('ws-user-id'))
     closeModal()

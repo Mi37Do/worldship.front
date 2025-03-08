@@ -138,7 +138,7 @@ onMounted(async () => {
 
 const onDeleteItem = async (id) => {
   try {
-    let response = await axios.get(`/Dashboard/DeleteBFM_API/${id}/${1}`)
+    let response = await axios.get(`/Dashboard/DeleteBFM_API/${id}/${localStorage.getItem('ws-user-id')}`)
     await useInbox.getBuyForMes(localStorage.getItem('ws-user-id'))
     useWidget.deleteModal.open = false
   } catch (error) {

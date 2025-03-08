@@ -12,7 +12,7 @@
 
         <span class="uppercase text-lg mt-2">are you sure?</span>
         <span class="mb-6">You are going to return <span class="font-bold">{{ item.code
-            }}</span></span>
+        }}</span></span>
 
         <div class="w-full flex-1 flex flex-col gap-2 mb-2">
           <label class="form-control w-full">
@@ -102,7 +102,7 @@ const buyForMeInbox = async (id) => {
   let formData = objectToFormData(returnPackage)
 
   try {
-    let response = await axios.post(`/Dashboard/in_box_API/${1}`, formData)
+    let response = await axios.post(`/Dashboard/in_box_API/${localStorage.getItem('ws-user-id')}`, formData)
     await useInbox.getInbox(localStorage.getItem('ws-user-id'))
     closeModal()
   } catch (error) {

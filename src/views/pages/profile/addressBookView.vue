@@ -74,7 +74,7 @@ const onDeleteItem = async (id) => {
   }
   try {
     let formData = objectToFormData(deleteObject)
-    let response = await axios.post(`/Dashboard/address_book_dash_API/${1}`, formData)
+    let response = await axios.post(`/Dashboard/address_book_dash_API/${localStorage.getItem('ws-user-id')}`, formData)
     await useBook.getAddresses(localStorage.getItem('ws-user-id'))
     Object.assign(useWidget.deleteModal, {
       id: null,
