@@ -84,6 +84,12 @@
     "goBack": "go back",
     "itemsValue": "items Value",
     "depositAmount": "deposit amount",
-    "history": "history"
+    "history": "history",
+    "username": "username",
+    "first_name": "first name",
+    "last_name": "last name",
+    "password": "password",
+    "email": "email",
+    "confirm": "confirm"
   }
 }

@@ -18,7 +18,15 @@
 
       <div class="flex items-center justify-between my-auto ">
         <span class=" flex items-center truncate bg-emerald-100 w-fit px-3 rounded text-emerald-600 py-1">{{ item.state
+          === 'ip' ? 'In Process' : item.state === 'nr' ? 'Pending' : 'Returned'
         }}</span>
+        <!-- (
+        ('p', 'In Process'),
+        ('wp', 'Wait Payment'),
+        ('so', 'Shipped Out'),
+        ('do', 'Delivered'),
+        ('co', 'Canceled')
+    ) -->
         <item-more :item="item" />
       </div>
     </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-screen bg-slate-100 flex items-center justify-center">
     <form @submit.prevent="login(loginUser, saveLogin)"
-      class="w-80 h-fit bg-white rounded-lg border border-slate-200 flex flex-col items-center gap-2 p-3">
+      class="w-96 h-fit bg-white rounded-lg border border-slate-200 flex flex-col items-center gap-2 p-3">
 
       <img :src="env + useProfile.webConfig.images_logo" class="w-48 " alt="">
 
@@ -39,6 +39,16 @@
       </label>
 
       <button type="submit" class="btn btn-sm pixa-btn btn-primary w-full mt-4">login</button>
+
+      <div class="w-full flex items-center gap-2 my-2">
+        <span class="flex-1 h-px bg-slate-200"></span>
+        <span>OR</span>
+        <span class="flex-1 h-px bg-slate-200"></span>
+      </div>
+
+      <router-link :to="{ name: 'register' }" class="btn btn-sm pixa-btn pixa-btn-nofloat w-full">create
+        account</router-link>
+
     </form>
   </div>
 </template>

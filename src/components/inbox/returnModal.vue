@@ -12,7 +12,7 @@
 
         <span class="uppercase text-lg mt-2">are you sure?</span>
         <span class="mb-6">You are going to return <span class="font-bold">{{ item.code
-            }}</span></span>
+        }}</span></span>
 
         <div class="w-full flex-1 flex flex-col gap-2 mb-2">
           <label class="form-control w-full">
@@ -99,11 +99,20 @@ const returnInbox = async (id) => {
 
   loadingReturn.value = true
   returnPackage.row_id = id
-  let formData = objectToFormData(returnPackage)
+
+  console.log(returnPackage)
+
+
+  let formData = new FormData()
+
+  formData.append('row_id', returnPackage.row_id)
+  formData.append('return_reason', returnPackage.return_reason)
+  formData.append('return_doc', returnPackage.return_doc)
 
   try {
     let response = await axios.post(`/Dashboard/in_box_API/${1}`, formData)
     await useInbox.getInbox(localStorage.getItem('ws-user-id'))
+    useInbox.filtredInboxs = useInbox.inboxs
     closeModal()
   } catch (error) {
     console.error(error)
