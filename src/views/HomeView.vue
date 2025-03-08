@@ -27,6 +27,26 @@ onMounted(async () => {
       <router-link :to="{ name: 'login' }" class="btn btn-sm pixa-btn btn-primary">login</router-link>
     </div>
     <router-view></router-view>
-    <div class="w-full h-80 bg-red-200"></div>
+    <div class="w-full h-fit bg-[#0e1d34] rounded-t-3xl grid grid-cols-2 gap-4 px-6 py-12 text-white">
+      <div class="w-full h-full flex flex-col gap-4 max-w-[30vw] m-auto">
+        <span class="text-2xl font-bold">worldship</span>
+        <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, animi autem! Cum architecto doloribus
+          asperiores sed accusantium, accusamus dolor aut illo modi adipisci sint obcaecati, vitae minus quia ipsam
+          nisi.</span>
+      </div>
+
+      <div class="w-full h-full flex flex-col gap-4 max-w-[30vw] m-auto">
+        <span class="font-bold">Contact Us</span>
+        <span>A108 Adam Street
+          New York, NY 535022
+          United States</span>
+
+        <span class="font-bold">Contact Us</span>
+        <span>+1 5589 55488 55</span>
+
+        <span class="font-bold">email</span>
+        <span>info@example.com</span>
+      </div>
+    </div>
   </main>
 </template>

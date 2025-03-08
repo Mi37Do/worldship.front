@@ -1,44 +1,70 @@
 <template>
   <div class="w-full flex flex-col">
-    <div class="w-full h-screen relative flex flex-col gap-4 items-center overflow-hidden">
+    <div class="w-full h-fit relative flex flex-col gap-4 items-center overflow-hidden">
 
       <div class="w-[60vw] h-[60vw] -top-[45vw] rounded-full blur-3xl bg-gradient-to-b from-blue-200 from-80% absolute">
       </div>
 
-      <div class="flex-1 flex flex-col justify-center items-center text-center pt-40 z-10">
-        <span class="text-[5vw] h-[5vw]">Shop Online in <span class="font-extrabold text-blue-700">Iraq</span> </span>
+      <div class="flex-1 flex flex-col justify-center items-center text-center pt-40 z-10 mt-20">
+        <span class="text-[5vw] h-[5vw]">Ship from the <span class="font-extrabold text-blue-700">U.S.</span> to
+        </span>
 
-        <span class="text-lg lg:max-w-lg">Register and load your account balance to start shopping online tax free
-          today.</span>
-      </div>
+        <span class="text-[5vw] h-[5vw] mt-4">
+          <span class="font-extrabold text-blue-700">Kurdistan</span>
+          and
+          <span class="font-extrabold text-blue-700">Iraq</span>
+        </span>
 
-      <div class="max-w-[60vw] h-full max-h-[40vh] relative">
+        <span class="lg:text-lg max-w-md px-4 lg:px-0 lg:max-w-xl mt-8 lg:mt-0">The safest and most reliable shipping
+          service.
+          Register
+          for a
+          free
+          account and
+          start shipping today.</span>
 
 
-        <img src="@/assets/pics/box01.png" class="absolute w-32 lg:w-52 -top-12 -right-12 lg:-top-24 lg:-right-24 "
-          alt="">
+        <div class="max-w-[60vw] h-fit relative">
+
+
+          <img src="@/assets/pics/box01.png" class="absolute w-32 lg:w-52 -top-12 -right-12 lg:-right-24 " alt="">
 
 
 
-        <img src="@/assets/pics/plane.png" class="absolute w-60 -right-12 bottom-20 lg:-right-32" alt="">
-        <div
-          class="w-full  h-full bg-slate-100 border-t border-x border-white rounded-t-2xl px-3 pt-3 relative shadow-2xl shadow-blue-200">
-          <div class="w-full h-full rounded-t-lg overflow-hidden z-10">
-            <img src="@/assets/pics/capture01.png" alt="">
+          <img src="@/assets/pics/plane.png" class="absolute w-60 -right-12 bottom-10 lg:-right-32" alt="">
+
+          <div
+            class="w-full max-w-[70vw] h-fit bg-slate-100 bg-glass-effect px-3 pt-3 relative shadow-2xl shadow-blue-200 my-28 grid grid-cols-4 gap-4  font-semibold">
+
+            <div class="flex flex-col items-center justify-center gap-2 my-6 min-w-48">
+              <span class="text-3xl text-primary">232</span>
+              <span>clients</span>
+            </div>
+            <div class="flex flex-col items-center justify-center gap-2 my-6">
+              <span class="text-3xl text-primary">521</span>
+              <span>prjects</span>
+            </div>
+            <div class="flex flex-col items-center justify-center gap-2 my-6">
+              <span class="text-3xl text-primary">1453</span>
+              <span>support</span>
+            </div>
+            <div class="flex flex-col items-center justify-center gap-2 my-6">
+              <span class="text-3xl text-primary">32</span>
+              <span>workers</span>
+            </div>
+
           </div>
+
+
+
+          <img src="@/assets/pics/drop.png" class="absolute w-32 lg:w-96 -top-12 -left-12 lg:-top-20 lg:-left-48 z-0"
+            alt="">
+
+
         </div>
 
-
-
-        <img src="@/assets/pics/drop.png" class="absolute w-32 lg:w-96 -top-12 -left-12 lg:-top-40 lg:-left-40 z-0"
-          alt="">
-
       </div>
 
-
-
-
-      <div class="w-full h-60 bg-gradient-to-t from-20% from-white to-trensparent bottom-0 absolute blur"></div>
 
     </div>
 
@@ -70,7 +96,7 @@
     <div class="w-full py-24 flex flex-col gap-12 justify-center items-center px-6">
       <div class="w-full h-fit max-w-screen-xl grid lg:grid-cols-2 gap-16 lg:gap-3">
 
-        <div class="lg:w-96 xl:h-96 relative">
+        <div class="lg:w-96 xl:h-96 relative my-auto">
 
           <div class="w-full h-full absolute bg-gradient-to-br from-secondary to-blue-700 blur-2xl z-0">
           </div>
@@ -103,35 +129,41 @@
 
 
         <div class="w-full h-fit flex flex-col gap-4 my-auto">
-          <span class="text-4xl font-bold text-primary">what's worldship</span>
-          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos sequi incidunt dolor consequuntur debitis
-            sint voluptas ea dolores eaque. Iure nobis dolorem porro debitis reiciendis consequatur, quia veritatis
-            dolor omnis.</span>
-          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos sequi incidunt dolor consequuntur debitis
-            sint voluptas ea dolores eaque. Iure nobis dolorem porro debitis reiciendis consequatur, quia veritatis
-            dolor omnis.</span>
-          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos sequi incidunt dolor consequuntur debitis
-            sint voluptas ea dolores eaque. Iure nobis dolorem porro debitis reiciendis consequatur, quia veritatis
-            dolor omnis.</span>
-          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos sequi incidunt dolor consequuntur debitis
-            sint voluptas ea dolores eaque. Iure nobis dolorem porro debitis reiciendis consequatur, quia veritatis
-            dolor omnis.</span>
-          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos sequi incidunt dolor consequuntur debitis
-            sint voluptas ea dolores eaque. Iure nobis dolorem porro debitis reiciendis consequatur, quia veritatis
-            dolor omnis.</span>
+          <span class="text-4xl font-bold text-primary">about worldship</span>
+          <span>Shipping services is a registered company located in Nashville, Tennessee (USA).
+            We provide shop and ship and direct shipping services to Kurdistan and cities across Iraq.
+            <br><br>
+            Once registered, you will be provided with a U.S. shipping address at our warehouse that can be used to shop
+            anywhere online.</span>
+
+          <div class="w-full flex flex-col gap-2">
+            <div class="w-16 h-16 bg-slate-100 my-4"></div>
+            <span class="pixa-title">Customer Support</span>
+            <span>Our support staff is available by phone and email during business hours to ensure a positive
+              experience.</span>
+
+            <div class="w-16 h-16 bg-slate-100 my-4"></div>
+            <span class="pixa-title">
+              Affordable</span>
+            <span>We offer the lowest shipping rates to Kurdistan and cities across Iraq compared to DHL, USPS, and
+              Fedex.</span>
+
+            <div class="w-16 h-16 bg-slate-100 my-4"></div>
+            <span class="pixa-title">Safe & Reliable</span>
+            <span>Shipments are consolidated on pallets for extra security and we handle our own clearances at Erbil
+              airport.</span>
+          </div>
         </div>
       </div>
 
 
       <div class="w-full py-24 flex flex-col max-w-screen-xl justify-center items-center gap-12 px-6">
-        <span class="text-4xl font-bold text-primary">Our Features</span>
+        <span class="text-4xl font-bold text-primary">Our services</span>
 
         <div class="w-full flex flex-wrap gap-x-10 gap-y-20 justify-center">
-          <div v-for="item in 5" :key="item" class="w-96 h-fit flex flex-col gap-3">
-            <span class="pixa-title">item {{ item }}</span>
-            <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae eaque minus laudantium est eligendi.
-              Eum, similique, ut nihil iure officia architecto consequatur dolor rerum voluptates, doloribus fuga
-              accusantium praesentium molestiae.</span>
+          <div v-for="item in services" :key="item.id" class="w-96 h-fit flex flex-col gap-3">
+            <span class="pixa-title">{{ item.title }}</span>
+            <span>{{ item.text }}</span>
           </div>
         </div>
       </div>
@@ -140,20 +172,108 @@
     <div class="w-full h-96 overflow-hidden flex items-center relative">
       <div class="w-full h-full bg-blue-600/70 absolute inset-0 flex justify-center">
         <div class="w-full h-full max-w-[600px] px-6 flex flex-col text-white gap-6 items-center justify-center">
-          <span class="text-4xl font-bold text-center">why worldship</span>
-          <span class=" text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex, autem dolorum. Iure
-            delectus libero quam
-            nisi iusto ipsam consectetur illo vel reiciendis. Odit delectus soluta porro! Eius dolore reprehenderit
-            ab. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex, autem dolorum. Iure
-            delectus libero quam
-            nisi iusto ipsam consectetur illo vel reiciendis. Odit delectus soluta porro! Eius dolore reprehenderit
-            ab.</span>
+          <span class="text-4xl font-bold text-center">READY TO START?</span>
+          <span class=" text-center">Manage your inbox items by logging into your account or by using our mobile apps.
+            You can ship your items to any of our branches in Kurdistan & Iraq or return items to a U.S. address.</span>
         </div>
       </div>
       <img src="@/assets/pics/ship01.jpg" class="w-full object-cover" alt="">
     </div>
 
+
     <div class="w-full py-24 flex flex-col gap-12 justify-center items-center px-6">
+
+
+
+      <div class="w-full py-24 flex flex-col max-w-screen-xl justify-center items-center gap-12 px-6">
+        <span class="text-4xl font-bold text-primary">Pricing</span>
+
+        <div class="w-full max-w-2xl flex flex-col gap-12">
+          <span class="text-center">
+            We are ready to assist you with shopping online. If you have any questions before getting started, please
+            feel free to contact us. </span>
+
+          <div class="w-full h-fit small-bg-glass-effect flex flex-col gap-4 p-4">
+            <div class="grid grid-cols-4 gap-4">
+              <label class="form-control w-full col-span-3">
+                <div class="label">
+                  <span class="label-text uppercase">weight</span>
+                </div>
+                <input type="text" required
+                  class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+              </label>
+              <commun-combobox class="mt-auto"
+                :list="[{ id: 'lbs', designation: 'lbs' }, { id: 'kg', designation: 'kg' }]" />
+            </div>
+
+
+            <div class="grid grid-cols-4 gap-4">
+              <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text uppercase">l </span>
+                </div>
+                <input type="text" required
+                  class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+              </label>
+
+              <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text uppercase">w </span>
+                </div>
+                <input type="text" required
+                  class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+              </label>
+
+              <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text uppercase">h </span>
+                </div>
+                <input type="text" required
+                  class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+              </label>
+
+
+              <commun-combobox class="mt-auto"
+                :list="[{ id: 'in', designation: 'in' }, { id: 'cm', designation: 'cm' }]" />
+            </div>
+
+
+
+
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text uppercase">city </span>
+              </div>
+              <commun-combobox class="mt-auto"
+                :list="[{ id: 'erbil', designation: 'erbil' }, { id: 'baghdad', designation: 'baghdad' }]" />
+            </label>
+
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text uppercase">insurance</span>
+              </div>
+              <input type="text" required
+                class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+            </label>
+
+            <div class="w-full h-fit bg-slate-50 rounded-xl my-6 grid grid-cols-2 p-4 gap-4 uppercase">
+              <span>Chargeable Weight</span>
+              <span>80 kg</span>
+              <span>Shipping Cost</span>
+              <span>$20.00</span>
+              <span>Package Request Fee</span>
+              <span>$5.00</span>
+              <span class="font-semibold">Total Cost</span>
+              <span class="font-semibold">$120.00</span>
+            </div>
+
+            <button class="btn btn-sm pixa-btn btn-primary">calculate shipping</button>
+          </div>
+        </div>
+
+
+      </div>
+
       <div class="w-full py-24 flex flex-col max-w-screen-xl justify-center items-center gap-12 px-6">
         <span class="text-4xl font-bold text-primary">payment types</span>
 
@@ -219,6 +339,7 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import parcelIcon from '@/assets/icons/parcelIcon.vue';
 import creditCardIcon from '@/assets/icons/creditCardIcon.vue';
 import CartIcon from '@/assets/icons/cartIcon.vue';
+import communCombobox from '@/components/commun/communCombobox.vue';
 
 
 const offset = ref(0);
@@ -226,6 +347,35 @@ const speed = ref(1);
 const isHovered = ref(false);
 const transitionDuration = ref(3000); // Adjust base speed here
 const slider = ref(null);
+const services = ref(
+  [
+    {
+      id: 1,
+      title: 'shop & ship',
+      text: 'Shop online and ship your items to your USA “Boombinere” address. We will receive your packages from merchants and check them into your online inbox.'
+    }, {
+      id: 2,
+      title: 'Ship Direct',
+      text: 'Ship your own packages to your Boombinere address in Nashville, TN using couriers such as UPS, FedEx, and USPS. We will add all contents of your package to your online inbox.'
+    }, {
+      id: 3,
+      title: 'Pro Members',
+      text: 'Upgrade to a Pro Membership to receive discounted shipping rates and fees, and the ability to add up to 10 suite addresses to your main account. Save on annual plans!'
+    }, {
+      id: 4,
+      title: 'Nashville Post Office',
+      text: 'We serve as local post office for customers located in Nashville, TN. Bring your goods to our office and we will handle the packaging and documentation. '
+    }, {
+      id: 5,
+      title: 'Air Cargo',
+      text: 'All customers will receive discounted rates for all shipments over 500 LBs. Save even more when you ship over 1000 LBs+. Use our shipping calculator to view rates. '
+    }, {
+      id: 6,
+      title: 'Buy for Me',
+      text: 'We can shop for you if you do not have the ability to shop yourself. Sign up on Boombeene and connect your account to your Boombinere suite. '
+    },
+  ]
+)
 // Duplicate logos for seamless loop
 const duplicatedLogos = computed(() => [...logos, ...logos]);
 

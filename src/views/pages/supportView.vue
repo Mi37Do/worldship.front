@@ -14,7 +14,7 @@
 
     <div class="w-full flex-1 py-4 flex flex-col gap-4 overflow-hidden">
       <div class="w-full h-10 flex items-center justify-between">
-        <div class="flex gap-3 items-center  hidden md:block">
+        <div class="gap-3 items-center  hidden md:flex">
           <div class="w-1 h-6 bg-primary"></div>
           <span class="pixa-title">{{ $t('commun.supportTickets') }}</span>
         </div>
