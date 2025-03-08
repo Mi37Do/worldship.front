@@ -85,7 +85,8 @@
             :style="`transform: translateX(${offset}%); transition-duration: ${transitionDuration}ms`"
             @mouseenter="handleHover(true)" @mouseleave="handleHover(false)">
             <span v-for="item in logos" :key="item.id"
-              class="w-32 h-32  shrink-0 px-8 flex items-center justify-center">
+              class="w-32 h-32  shrink-0 flex items-center justify-center object-contain px-6"
+              style="aspect-ratio : 3/2">
               <img :src="item.logo" alt="">
             </span>
           </div>
@@ -138,18 +139,24 @@
             anywhere online.</span>
 
           <div class="w-full flex flex-col gap-2">
-            <div class="w-16 h-16 bg-slate-100 my-4"></div>
+            <div class="w-16 h-16 mt-4 flex items-center justify-center">
+              <support-user-icon class="w-8 h-8 fill-primary" />
+            </div>
             <span class="pixa-title">Customer Support</span>
             <span>Our support staff is available by phone and email during business hours to ensure a positive
               experience.</span>
 
-            <div class="w-16 h-16 bg-slate-100 my-4"></div>
+            <div class="w-16 h-16 mt-4  flex items-center justify-center">
+              <WalletIcon class="w-8 h-8 fill-primary" />
+            </div>
             <span class="pixa-title">
               Affordable</span>
             <span>We offer the lowest shipping rates to Kurdistan and cities across Iraq compared to DHL, USPS, and
               Fedex.</span>
 
-            <div class="w-16 h-16 bg-slate-100 my-4"></div>
+            <div class="w-16 h-16 mt-4  flex items-center justify-center">
+              <shield-icon class="w-8 h-8 fill-primary" />
+            </div>
             <span class="pixa-title">Safe & Reliable</span>
             <span>Shipments are consolidated on pallets for extra security and we handle our own clearances at Erbil
               airport.</span>
@@ -341,6 +348,9 @@ import parcelIcon from '@/assets/icons/parcelIcon.vue';
 import creditCardIcon from '@/assets/icons/creditCardIcon.vue';
 import CartIcon from '@/assets/icons/cartIcon.vue';
 import communCombobox from '@/components/commun/communCombobox.vue';
+import supportUserIcon from '@/assets/icons/supportUserIcon.vue';
+import shieldIcon from '@/assets/icons/shieldIcon.vue';
+import WalletIcon from '@/assets/icons/walletIcon.vue';
 
 
 const offset = ref(0);
