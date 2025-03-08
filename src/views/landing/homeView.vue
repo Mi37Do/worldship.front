@@ -84,9 +84,10 @@
           <div ref="slider" class="flex w-[fit-content] gap-16"
             :style="`transform: translateX(${offset}%); transition-duration: ${transitionDuration}ms`"
             @mouseenter="handleHover(true)" @mouseleave="handleHover(false)">
-            <span v-for="item in 20" :key="item"
-              class="w-32 h-32 bg-slate-200 shrink-0 px-8 flex items-center justify-center">logo {{
-                item }}</span>
+            <span v-for="item in logos" :key="item.id"
+              class="w-32 h-32  shrink-0 px-8 flex items-center justify-center">
+              <img :src="item.logo" alt="">
+            </span>
           </div>
         </div>
 
@@ -376,8 +377,64 @@ const services = ref(
     },
   ]
 )
-// Duplicate logos for seamless loop
-const duplicatedLogos = computed(() => [...logos, ...logos]);
+
+const logos = ref(
+  [
+    {
+      id: 1,
+      logo: new URL('@/assets/pics/zara.svg', import.meta.url).href
+    }, {
+      id: 2,
+      logo: new URL('@/assets/pics/adidas.svg', import.meta.url).href
+    }, {
+      id: 3,
+      logo: new URL('@/assets/pics/lacoste.svg', import.meta.url).href
+    }, {
+      id: 4,
+      logo: new URL('@/assets/pics/walmart.svg', import.meta.url).href
+    }, {
+      id: 5,
+      logo: new URL('@/assets/pics/apple.svg', import.meta.url).href
+    }, {
+      id: 6,
+      logo: new URL('@/assets/pics/asus.svg', import.meta.url).href
+    }, {
+      id: 7,
+      logo: new URL('@/assets/pics/best.svg', import.meta.url).href
+    }, {
+      id: 8,
+      logo: new URL('@/assets/pics/blackberry.svg', import.meta.url).href
+    }, {
+      id: 9,
+      logo: new URL('@/assets/pics/amazon.svg', import.meta.url).href
+    }, {
+      id: 10,
+      logo: new URL('@/assets/pics/sony.svg', import.meta.url).href
+    }, {
+      id: 11,
+      logo: new URL('@/assets/pics/ray.svg', import.meta.url).href
+    }, {
+      id: 12,
+      logo: new URL('@/assets/pics/north.svg', import.meta.url).href
+    }, {
+      id: 13,
+      logo: new URL('@/assets/pics/levis.svg', import.meta.url).href
+    }, {
+      id: 14,
+      logo: new URL('@/assets/pics/ey.svg', import.meta.url).href
+    }, {
+      id: 15,
+      logo: new URL('@/assets/pics/guinness.svg', import.meta.url).href
+    }, {
+      id: 16,
+      logo: new URL('@/assets/pics/ebay.svg', import.meta.url).href
+    }, {
+      id: 17,
+      logo: new URL('@/assets/pics/chanel.svg', import.meta.url).href
+    },
+  ]
+)
+
 
 // Animation logic
 let animationFrame;
