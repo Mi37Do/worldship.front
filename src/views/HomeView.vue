@@ -27,15 +27,19 @@ onMounted(async () => {
       <router-link :to="{ name: 'login' }" class="btn btn-sm pixa-btn btn-primary">login</router-link>
     </div>
     <router-view></router-view>
-    <div class="w-full h-fit bg-[#0e1d34] rounded-t-3xl grid grid-cols-2 gap-4 px-6 py-12 text-white">
-      <div class="w-full h-full flex flex-col gap-4 max-w-[30vw] m-auto">
+    <div class="w-full h-fit bg-[#0e1d34] rounded-t-3xl grid grid-cols-2 gap-4 px-6 py-12 text-white relative">
+
+
+
+
+      <div class="w-full h-full flex flex-col gap-4 max-w-[30vw] m-auto z-10">
         <span class="text-2xl font-bold">worldship</span>
         <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, animi autem! Cum architecto doloribus
           asperiores sed accusantium, accusamus dolor aut illo modi adipisci sint obcaecati, vitae minus quia ipsam
           nisi.</span>
       </div>
 
-      <div class="w-full h-full flex flex-col gap-4 max-w-[30vw] m-auto">
+      <div class="w-full h-full flex flex-col gap-4 max-w-[30vw] m-auto z-10">
         <span class="font-bold">Contact Us</span>
         <span>A108 Adam Street
           New York, NY 535022
@@ -47,6 +51,15 @@ onMounted(async () => {
         <span class="font-bold">email</span>
         <span>info@example.com</span>
       </div>
+
+      <div class="w-full h-full absolute inset-0 overflow-hidden">
+        <div class="w-full h-full relative flex justify-center">
+          <div
+            class="w-[60vw] h-[60vw] -top-[45vw] rounded-full blur-3xl bg-gradient-to-b from-blue-900 from-80% absolute">
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 </template>
