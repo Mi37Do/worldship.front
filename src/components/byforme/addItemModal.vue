@@ -220,6 +220,7 @@ const addEditItem = async () => {
       }
     })
     await useInbox.getBuyForMes(null, route.params.id)
+    useInbox.filterBuyForMes = useInbox.buyForMes
     useInbox.items = useInbox.focusedBuyForMe.b4m_order
     closeModal()
   } catch (error) {

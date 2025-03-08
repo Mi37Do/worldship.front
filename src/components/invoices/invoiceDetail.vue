@@ -19,7 +19,7 @@
           <span class="loading loading-ring loading-sm"></span>
         </div>
 
-        <div v-else ref="pdfContent" class="w-full flex-1 overflow-auto border-b border-slate-200 py-4">
+        <div v-else class="w-full flex-1 overflow-auto border-b border-slate-200 py-4">
 
           <!--
         <div class="w-full border boder-slate-200 rounded-md min-h-full p-4 flex flex-col gap-4 uppercase">
@@ -107,7 +107,8 @@
  -->
 
 
-          <div class="w-full border boder-slate-200 rounded-md min-h-full p-4 flex flex-col gap-4 uppercase">
+          <div ref="pdfContent"
+            class="w-full border boder-slate-200 rounded-md min-h-full p-4 flex flex-col gap-4 uppercase">
             <div class="w-full mb-2 flex items-center justify-between gap-3">
 
               <span class="flex flex-col h-fit">
@@ -178,9 +179,9 @@
               <div v-for="item in useInvoices.items
 " :key="item.id" class="w-full h-12 border-b border-slate-200 grid grid-cols-5 gap-4">
                 <span class="my-auto col-span-2">{{ route.name === 'warehouse-invoices' ? item.name_id.name : item.name
-                  }}</span>
+                }}</span>
                 <span class="my-auto">{{ item.qty
-                  }}</span>
+                }}</span>
                 <span class="my-auto">$ {{ numberFormat(item.price) }}</span>
                 <span class="my-auto">$ {{ numberFormat(item.qty * item.price) }}</span>
               </div>

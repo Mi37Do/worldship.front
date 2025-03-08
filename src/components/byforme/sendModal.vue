@@ -10,7 +10,7 @@
 
         <span class="uppercase text-lg mt-2">are you sure?</span>
         <span class="mb-6">You are going to send <span class="font-bold">{{ item.code
-        }}</span></span>
+            }}</span></span>
 
         <div class="w-full h-10 grid grid-cols-2 gap-4">
 
@@ -53,7 +53,7 @@ const sendItem = async () => {
   loadingSent.value = true
   try {
     let response = await axios.get(`/Dashboard/SendBFM_API/${props.item.id}/${localStorage.getItem('ws-user-id')}`)
-    console.log(response.data)
+    useInbox.filterBuyForMes = useInbox.buyForMes
   } catch (error) {
     console.error(error)
   }

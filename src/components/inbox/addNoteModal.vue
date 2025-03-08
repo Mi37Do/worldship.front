@@ -81,12 +81,16 @@ const addNote = async (id) => {
   loadingAdd.value = true
   newNote.row_m_n_id = id
 
+  console.log(newNote);
+
+
   let formData = new FormData()
   formData.append('row_m_n_id', newNote.row_m_n_id)
   formData.append('my_note_wh_or', newNote.my_note_wh_or)
   try {
-    let response = await axios.post(`/Dashboard/in_box_API/${localStorage.getItem('ws-user-id')}/`, formData)
+    let response = await axios.post(`/Dashboard/in_box_API/${localStorage.getItem('ws-user-id')}`, formData)
     await useInbox.getInbox(localStorage.getItem('ws-user-id'))
+    useInbox.filtredInboxs = useInbox.inboxs
     closeModal()
   } catch (error) {
     console.error(error)
