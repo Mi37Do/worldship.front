@@ -81,10 +81,15 @@
         <div class="w-60 h-full absolute left-0 bg-gradient-to-r from-white to-transparent z-10">
 
         </div>
-        <div class="relative overflow-hidden group py-8">
-          <div ref="slider" class="flex w-[fit-content] gap-16"
-            :style="`transform: translateX(${offset}%); transition-duration: ${transitionDuration}ms`"
-            @mouseenter="handleHover(true)" @mouseleave="handleHover(false)">
+        <div class="relative overflow-hidden flex gap-16 group py-8 logos">
+          <div ref="slider" class="flex w-[fit-content] gap-16 logos-slide">
+            <span v-for="item in logos" :key="item.id"
+              class="w-32 h-32  shrink-0 flex items-center justify-center object-contain px-6"
+              style="aspect-ratio : 3/2">
+              <img :src="item.logo" alt="">
+            </span>
+          </div>
+          <div ref="slider" class="flex w-[fit-content] gap-16 logos-slide">
             <span v-for="item in logos" :key="item.id"
               class="w-32 h-32  shrink-0 flex items-center justify-center object-contain px-6"
               style="aspect-ratio : 3/2">
@@ -480,8 +485,33 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 /* Smooth transition for hover effect */
-div {
-  transition-timing-function: linear;
-  transition-property: transform, opacity;
+
+
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.logos-slide {
+  animation: 25s slide infinite linear;
+}
+
+.logos:before {
+  left: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0), white);
+}
+
+.logos:after {
+  right: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), white);
+}
+
+.logos:hover .logos-slide {
+  animation-play-state: paused;
 }
 </style>
