@@ -61,7 +61,6 @@ const selected = ref('')
 const useWidget = useWidgetStore()
 
 onMounted(() => {
-  console.log(props.list)
 
   if (props.selected) selected.value = props.list.find(item => item.id === props.selected)
   console.log(props.list.find(item => item.id === props.selected));

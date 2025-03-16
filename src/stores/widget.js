@@ -37,10 +37,6 @@ export const useWidgetStore = defineStore('widget', () => {
 
   const sendBuyForMe = ref(false)
 
-  const login = async () => {
-    let repsonse = null
-  }
-
   const userLanguage = ref('en')
   const { locale } = useI18n()
 

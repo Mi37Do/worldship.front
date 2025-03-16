@@ -20,6 +20,7 @@ export const useBookStore = defineStore('book', () => {
           designation: item.name,
           designation_ar: item.name_ar,
         }))
+        console.log(cities.value)
       }
     } catch (error) {
       console.error(error)

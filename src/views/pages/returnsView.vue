@@ -70,7 +70,6 @@
 <script setup>
 import topAppBar from '@/components/navigations/topAppBar.vue';
 import item from '@/components/return/item.vue';
-import PlusIcon from '@/assets/icons/plusIcon.vue';
 import itemsModal from '@/components/shippement/itemsModal.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { useInboxStore } from '@/stores/inbox';

@@ -249,6 +249,9 @@ onMounted(async () => {
       }
     )
 
+    console.log(useProfile.profile.payments_methodes)
+
+
     tempItems.value = useInbox.focusedShippement.warehouse_order_ids.map(
       (item) => (
         {

@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import profileRoutes from './profile'
 import { useProfileStore } from '@/stores/profile'
 import Cookies from 'js-cookie'
@@ -26,6 +25,11 @@ const router = createRouter({
       component: () => import('@/views/auth/registerView.vue'),
     },
     {
+      path: '/register-child/:ref',
+      name: 'register-child',
+      component: () => import('@/views/auth/registerView.vue'),
+    },
+    {
       path: '/app',
       name: 'app',
       meta: { requireAuth: true },
@@ -36,6 +40,11 @@ const router = createRouter({
           path: '/dashboard',
           name: 'dashboard',
           component: () => import('@/views/pages/dashboardView.vue'),
+        },
+        {
+          path: '/payment',
+          name: 'payment',
+          component: () => import('@/views/pages/paymentView.vue'),
         },
         { path: '/inbox', name: 'inbox', component: () => import('@/views/pages/inboxView.vue') },
         {

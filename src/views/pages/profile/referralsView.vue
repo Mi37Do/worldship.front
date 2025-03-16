@@ -47,7 +47,8 @@
         <div
           class="h-10 flex items-center justify-between pr-1 gap-2 bg-white shadow-2xl shadow-primary/5 border border-slate-200 rounded pl-4">
           <span>https://192.168.1.7:8550/registerChild/OzeNlTBFQ</span>
-          <button class="btn btn-sm btn-square btn-primary btn-sm-small">
+          <button @click="copyText(useProfile.refferals.user.referral_code, 'ref')"
+            class="btn btn-sm btn-square btn-primary btn-sm-small">
             <copy-icon class="w-5 h-5" />
           </button>
         </div>
@@ -55,7 +56,8 @@
         <div
           class="h-10 flex items-center justify-between pr-1 gap-2 bg-white shadow-2xl shadow-primary/5 border border-slate-200 rounded pl-4">
           <span>{{ useProfile.refferals.user.referral_code }}</span>
-          <button class="btn btn-sm btn-square btn-primary btn-sm-small">
+          <button @click="copyText(useProfile.refferals.user.referral_code, 'ref')"
+            class="btn btn-sm btn-square btn-primary btn-sm-small">
             <copy-icon class="w-5 h-5" />
           </button>
         </div>
@@ -125,6 +127,8 @@ import { onMounted, ref } from 'vue';
 const useWidget = useWidgetStore()
 const useProfile = useProfileStore()
 const loading = ref(true)
+const typeCopied = ref('')
+const copied = ref(false)
 
 onMounted(async () => {
   try {
@@ -135,6 +139,21 @@ onMounted(async () => {
     loading.value = true
   }
 })
+
+
+const copyText = async (item, type) => {
+  try {
+    await navigator.clipboard.writeText(item);
+    copied.value = true;
+    typeCopied.value = type
+    // Optionally, reset the success message after a few seconds
+    setTimeout(() => {
+      copied.value = false;
+    }, 3000);
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+  }
+};
 
 </script>
 

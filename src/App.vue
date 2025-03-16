@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import { useWidgetStore } from './stores/widget';
 const useWidget = useWidgetStore()
 </script>

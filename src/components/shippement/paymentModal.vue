@@ -20,7 +20,7 @@
           <div v-if="route.name === 'shippement'" class="w-full grid grid-cols-2 gap-4 col-span-2">
             <span class="text-red-500">Insurance </span>
             <span class="text-right my-auto text-red-500">{{ numberFormat(item.add_insurance ? item.total_insurance : 0)
-            }} $</span>
+              }} $</span>
             <span class="text-red-500">Package Options </span>
             <span class="text-right my-auto text-red-500">{{ numberFormat(item.total_price_options) }} $</span>
             <span>Coins </span>
@@ -52,7 +52,10 @@
         <walletsTypeDropsown :list="types" :selected="walletType" @onSelectedType="onSelectedType" />
       </label>
 
-      <div class="w-full flex-1 overflow-auto">
+      <div v-if="types.find(item => item.id === walletType).type_payment === 'c'" class="w-full flex-1 overflow-auto">
+      </div>
+
+      <div v-else class="w-full flex-1 overflow-auto">
         <div class="w-full h-fit flex flex-col items-center gap-3 py-4">
 
           <div class="w-full mt-4 flex items-center justify-center uppercase font-semibold text-lg">payment by {{
@@ -99,7 +102,7 @@ import timesIcon from '@/assets/icons/timesIcon.vue';
 import walletsTypeDropsown from '../wallet/walletsTypeDropsown.vue';
 import listIcon from '@/assets/icons/listIcon.vue';
 import { objectToFormData } from '@/utils/formDataUtils'
-
+import { Client, Environment } from 'square'
 import { reactive, ref } from 'vue';
 import axios from 'axios';
 import { useProfileStore } from '@/stores/profile';
@@ -155,8 +158,6 @@ const newPayment = async () => {
     pack_pay_type_id: walletType.value,
     image: payment.image
   }
-
-  console.log(tempWallet)
 
   let formData = new FormData()
 

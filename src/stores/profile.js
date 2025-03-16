@@ -13,7 +13,10 @@ export const useProfileStore = defineStore('profile', () => {
   const coins = ref(null)
   const router = useRouter()
   const totalCoins = ref(null)
+  const sponsors = ref(null)
+  const services = ref(null)
   const webConfig = ref(null)
+  const prohibItems = ref(null)
   const logoBase64 = ref('')
   const env = import.meta.env.VITE_WORLDSHIP_API
 
@@ -37,6 +40,9 @@ export const useProfileStore = defineStore('profile', () => {
         if (user_id) {
           response = await axios.get(`/Dashboard/view_profile_API/${user_id}`)
           isAuth.value = true
+
+          console.log(response.data)
+
           profile.value = response.data
           wallets.value = response.data.wallets.wallet_details.reverse()
         }
@@ -83,7 +89,14 @@ export const useProfileStore = defineStore('profile', () => {
 
   const getWebConfig = async () => {
     let response = await axios.get(`/config_web_API`)
+    console.log(response.data)
+    services.value = response.data.services
     webConfig.value = response.data.config_web
+    sponsors.value = response.data.sponsor
+    prohibItems.value = response.data.prohibited_items
+
+    console.log(response.data)
+    console.log(webConfig.value)
 
     let responseImage = await fetch(env + webConfig.value.images_logo)
     if (!responseImage.ok) {
@@ -113,5 +126,8 @@ export const useProfileStore = defineStore('profile', () => {
     getWebConfig,
     webConfig,
     logoBase64,
+    services,
+    prohibItems,
+    sponsors,
   }
 })
