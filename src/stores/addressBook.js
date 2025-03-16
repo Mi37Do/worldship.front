@@ -15,10 +15,13 @@ export const useBookStore = defineStore('book', () => {
       if (user_id) {
         response = await axios.get(`/Dashboard/address_book_dash_API/${user_id}`)
         addresses.value = response.data.address_book
+        console.log(response.data.citys)
+
         cities.value = response.data.citys.map((item) => ({
           id: item.id,
           designation: item.name,
           designation_ar: item.name_ar,
+          code: item.code,
         }))
         console.log(cities.value)
       }

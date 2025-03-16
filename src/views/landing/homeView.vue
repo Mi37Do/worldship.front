@@ -205,153 +205,267 @@
           <div class="w-full h-fit small-bg-glass-effect flex flex-col gap-4 p-4">
 
             <div class="w-full p-1 bg-primary rounded-lg grid grid-cols-2 gap-1">
-              <button @click="tab = 'bfm'"
-                :class="tab === 'bfm' ? 'bg-white hover:bg-white' : 'bg-transparent hover:bg-white/20 text-white'"
+              <button @click="() => {
+                Object.assign(shippement, {
+                  weight: 0,
+                  l: 0,
+                  w: 0,
+                  h: 0,
+                  weightUnit: 'kg',
+                  lengthUnit: 'cm',
+                  city: null,
+                  cityCode: null,
+                  insurance: 0,
+                  result: null,
+                  items: 0,
+                  itemPrice: 0,
+                  total: 0, website: ''
+                })
+
+                Object.assign(resultShip, {
+                  weight: 0,
+                  l: 0,
+                  w: 0,
+                  h: 0,
+                  weightUnit: 'kg',
+                  lengthUnit: 'cm',
+                  city: null,
+                  cityCode: null,
+                  insurance: 0,
+                  result: null, mass: null,
+                  items: 0,
+                  itemPrice: 0,
+                  total: 0, website: ''
+                })
+
+                tab = 'bfm'
+              }" :class="tab === 'bfm' ? 'bg-white hover:bg-white' : 'bg-transparent hover:bg-white/20 text-white'"
                 class="btn btn-sm pixa-btn border-0">buy for me</button>
 
-              <button @click="tab = 'shipement'"
+              <button @click="() => {
+                Object.assign(shippement, {
+                  weight: 0,
+                  l: 0,
+                  w: 0,
+                  h: 0,
+                  weightUnit: 'kg',
+                  lengthUnit: 'cm',
+                  city: null,
+                  cityCode: null,
+                  insurance: 0,
+                  result: null,
+                  items: 0,
+                  itemPrice: 0,
+                  total: 0, website: '', isBfm: false
+                })
+
+                Object.assign(resultShip, {
+                  weight: 0,
+                  l: 0,
+                  w: 0,
+                  h: 0,
+                  weightUnit: 'kg',
+                  lengthUnit: 'cm',
+                  city: null,
+                  cityCode: null,
+                  insurance: 0,
+                  result: null, mass: null,
+                  items: 0,
+                  itemPrice: 0,
+                  total: 0, website: '', isBfm: false
+                })
+                tab = 'shipement'
+
+              }"
                 :class="tab === 'shipement' ? 'bg-white hover:bg-white' : 'bg-transparent hover:bg-white/20 text-white'"
                 class="btn btn-sm pixa-btn border-0">shippement</button>
             </div>
 
 
-            <div v-if="tab === 'bfm'" class="w-full h-fit flex flex-col gap-4">
+            <form v-if="tab === 'bfm'" @submit.prevent="calculateShipement" class="w-full h-fit flex flex-col gap-4">
+
+              <div class="grid grid-cols-4 gap-4">
+                <label class="form-control w-full col-span-3">
+                  <div class="label">
+                    <span class="label-text uppercase">weight <span class="text-red-500">*</span></span>
+                  </div>
+                  <input type="number" required v-model="shippement.weight"
+                    class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+                </label>
+                <commun-combobox class="mt-auto"
+                  :list="[{ id: 'lbs', designation: 'lbs' }, { id: 'kg', designation: 'kg' }]"
+                  :selected="shippement.weightUnit" @onSelectedItem="(id) => {
+                    shippement.weightUnit = id
+                  }" />
+              </div>
+
+
+
+
+              <div class="grid grid-cols-4 gap-4">
+                <label class="form-control w-full">
+                  <div class="label">
+                    <span class="label-text uppercase">l <span class="text-red-500">*</span></span>
+                  </div>
+                  <input type="number" required v-model="shippement.l"
+                    class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+                </label>
+
+                <label class="form-control w-full">
+                  <div class="label">
+                    <span class="label-text uppercase">w <span class="text-red-500">*</span></span>
+                  </div>
+                  <input type="number" required v-model="shippement.w"
+                    class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+                </label>
+
+                <label class="form-control w-full">
+                  <div class="label">
+                    <span class="label-text uppercase">h <span class="text-red-500">*</span></span>
+                  </div>
+                  <input type="number" required v-model="shippement.h"
+                    class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+                </label>
+
+
+                <commun-combobox class="mt-auto"
+                  :list="[{ id: 'in', designation: 'in' }, { id: 'cm', designation: 'cm' }]"
+                  :selected="shippement.lengthUnit" @onSelectedItem="(id) => {
+                    shippement.lengthUnit = id
+                  }" />
+              </div>
+
+
               <div class="grid grid-cols-3 gap-4">
                 <label class="form-control w-full ">
                   <div class="label">
                     <span class="label-text uppercase">item price <span class="text-red-500">*</span></span>
                   </div>
-                  <input type="text" required
+                  <input type="number" required v-model="shippement.itemPrice"
                     class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
                 </label>
                 <label class="form-control w-full ">
                   <div class="label">
                     <span class="label-text uppercase">item quantity <span class="text-red-500">*</span></span>
                   </div>
-                  <input type="text" required
+                  <input type="number" required v-model="shippement.items"
                     class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
                 </label><label class="form-control w-full ">
                   <div class="label">
-                    <span class="label-text uppercase">total us shipping</span>
+                    <span class="label-text uppercase">total us shipping <span class="text-red-500">*</span></span>
                   </div>
-                  <input type="text" required
+                  <input type="number" required v-model="shippement.total"
                     class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
                 </label>
               </div>
 
-
-              <div class="grid grid-cols-4 gap-4">
-                <label class="form-control w-full">
-                  <div class="label">
-                    <span class="label-text uppercase">l </span>
-                  </div>
-                  <input type="text" required
-                    class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
-                </label>
-
-                <label class="form-control w-full">
-                  <div class="label">
-                    <span class="label-text uppercase">w </span>
-                  </div>
-                  <input type="text" required
-                    class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
-                </label>
-
-                <label class="form-control w-full">
-                  <div class="label">
-                    <span class="label-text uppercase">h </span>
-                  </div>
-                  <input type="text" required
-                    class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
-                </label>
-
-
-                <commun-combobox class="mt-auto"
-                  :list="[{ id: 'in', designation: 'in' }, { id: 'cm', designation: 'cm' }]" />
-              </div>
-
-
+              <div class="w-full h-px bg-slate-200 mt-3"></div>
               <div class="flex flex-col gap-4">
                 <label class="form-control w-full">
                   <div class="label">
-                    <span class="label-text uppercase">webiste </span>
+                    <span class="label-text uppercase">webiste <span class="text-red-500">*</span></span>
                   </div>
-                  <input type="text" required
+                  <input type="text" required v-model="shippement.website"
                     class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
                 </label>
 
                 <label class="form-control w-full">
                   <div class="label">
-                    <span class="label-text uppercase">city </span>
+                    <span class="label-text uppercase">city <span class="text-red-500">*</span></span>
                   </div>
-                  <commun-combobox class="mt-auto" :list="useBook.cities" />
+                  <commun-combobox class="mt-auto" :list="useBook.cities" :selected="shippement.city" @onSelectedItem="(id) => {
+                    shippement.city = id
+                    shippement.cityCode = useBook.cities.find(item => item.id === id).code
+                  }" />
                 </label>
 
 
                 <label class="w-full flex items-center gap-4 mt-4">
-                  <commun-switch class="my-auto" :list="useBook.cities" />
+                  <commun-switch class="my-auto" />
 
                   <span class="truncate mt-1">Will you combine orders at Checkout</span>
                 </label>
               </div>
 
-              <div class="w-full h-fit bg-slate-50 rounded-xl my-6 grid grid-cols-2 p-4 gap-4 uppercase">
+              <div v-if="resultShip.result"
+                class="w-full h-fit bg-slate-50 rounded-xl my-6 grid grid-cols-2 p-4 gap-4 uppercase">
                 <span>Chargeable Weight</span>
-                <span>80 kg</span>
+                <span>{{ resultShip.weight > resultShip.mass ? resultShip.weight + ' ' + resultShip.weightUnit :
+                  resultShip.mass.toFixed(2) + ' ≥ (' + resultShip.weight + ' ' +
+                  resultShip.weightUnit + ')' }}</span>
+
+
+                <span>items Cost</span>
+                <span>${{ resultShip.total.toFixed(2) }}</span>
+
                 <span>Shipping Cost</span>
-                <span>$20.00</span>
+                <span>${{ resultShip.result.toFixed(2) }}</span>
+
                 <span>Package Request Fee</span>
-                <span>$5.00</span>
+                <span>${{ (resultShip.total * useProfile.webConfig.service_charge_bfm) / 100 }}</span>
                 <span class="font-semibold">Total Cost</span>
-                <span class="font-semibold">$120.00</span>
+                <span class="font-semibold">${{ (resultShip.result + (resultShip.total *
+                  useProfile.webConfig.service_charge_bfm) / 100) + resultShip.total }}</span>
               </div>
 
-              <button class="btn btn-sm pixa-btn btn-primary">calculate shipping</button>
 
-            </div>
+              <div v-else
+                class="w-full bg-slate-50 rounded-xl h-40 flex items-center justify-center p-4 gap-4 uppercase">
+                <span class="loading loading-ring loading-sm"></span>
+              </div>
 
-            <div v-else class="w-full h-fit flex flex-col gap-4">
+              <button type="submit" class="btn btn-sm pixa-btn btn-primary">calculate shipping</button>
+
+            </form>
+
+            <form @submit.prevent="calculateShipement" v-else class="w-full h-fit flex flex-col gap-4">
               <div class="grid grid-cols-4 gap-4">
                 <label class="form-control w-full col-span-3">
                   <div class="label">
-                    <span class="label-text uppercase">weight</span>
+                    <span class="label-text uppercase">weight <span class="text-red-500">*</span></span>
                   </div>
-                  <input type="text" required
+                  <input type="number" required v-model="shippement.weight"
                     class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
                 </label>
                 <commun-combobox class="mt-auto"
-                  :list="[{ id: 'lbs', designation: 'lbs' }, { id: 'kg', designation: 'kg' }]" />
+                  :list="[{ id: 'lbs', designation: 'lbs' }, { id: 'kg', designation: 'kg' }]"
+                  :selected="shippement.weightUnit" @onSelectedItem="(id) => {
+                    shippement.weightUnit = id
+                  }" />
               </div>
 
 
               <div class="grid grid-cols-4 gap-4">
                 <label class="form-control w-full">
                   <div class="label">
-                    <span class="label-text uppercase">l </span>
+                    <span class="label-text uppercase">l <span class="text-red-500">*</span></span>
                   </div>
-                  <input type="text" required
+                  <input type="number" required v-model="shippement.l"
                     class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
                 </label>
 
                 <label class="form-control w-full">
                   <div class="label">
-                    <span class="label-text uppercase">w </span>
+                    <span class="label-text uppercase">w <span class="text-red-500">*</span></span>
                   </div>
-                  <input type="text" required
+                  <input type="number" required v-model="shippement.w"
                     class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
                 </label>
 
                 <label class="form-control w-full">
                   <div class="label">
-                    <span class="label-text uppercase">h </span>
+                    <span class="label-text uppercase">h <span class="text-red-500">*</span></span>
                   </div>
-                  <input type="text" required
+                  <input type="number" required v-model="shippement.h"
                     class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
                 </label>
 
 
                 <commun-combobox class="mt-auto"
-                  :list="[{ id: 'in', designation: 'in' }, { id: 'cm', designation: 'cm' }]" />
+                  :list="[{ id: 'in', designation: 'in' }, { id: 'cm', designation: 'cm' }]"
+                  :selected="shippement.lengthUnit" @onSelectedItem="(id) => {
+                    shippement.lengthUnit = id
+                  }" />
               </div>
 
 
@@ -359,33 +473,43 @@
 
               <label class="form-control w-full">
                 <div class="label">
-                  <span class="label-text uppercase">city </span>
+                  <span class="label-text uppercase">city <span class="text-red-500">*</span></span>
                 </div>
-                <commun-combobox class="mt-auto" :list="useBook.cities" />
+                <commun-combobox class="mt-auto" :required="true" :list="useBook.cities" :selected="shippement.city"
+                  @onSelectedItem="(id) => {
+                    shippement.city = id
+                    shippement.cityCode = useBook.cities.find(item => item.id === id).code
+                  }" />
               </label>
 
               <label class="form-control w-full">
                 <div class="label">
-                  <span class="label-text uppercase">insurance</span>
+                  <span class="label-text uppercase">insurance <span class="text-red-500">*</span></span>
                 </div>
-                <input type="text" required
+                <input type="number" required v-model="shippement.insurance"
                   class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
               </label>
 
-              <div class="w-full h-fit bg-slate-50 rounded-xl my-6 grid grid-cols-2 p-4 gap-4 uppercase">
+              <div v-if="resultShip.result"
+                class="w-full h-fit bg-slate-50 rounded-xl my-6 grid grid-cols-2 p-4 gap-4 uppercase">
                 <span>Chargeable Weight</span>
-                <span>80 kg</span>
+                <span>{{ resultShip.weight > resultShip.mass ? resultShip.weight + ' ' + resultShip.weightUnit :
+                  resultShip.mass.toFixed(2) + ' ≥ (' + resultShip.weight + ' ' +
+                  resultShip.weightUnit + ')' }}</span>
                 <span>Shipping Cost</span>
-                <span>$20.00</span>
-                <span>Package Request Fee</span>
-                <span>$5.00</span>
+                <span>${{ resultShip.result.toFixed(2) }}</span>
                 <span class="font-semibold">Total Cost</span>
-                <span class="font-semibold">$120.00</span>
+                <span class="font-semibold">${{ (resultShip.result + resultShip.insurance).toFixed(2) }}</span>
               </div>
 
-              <button class="btn btn-sm pixa-btn btn-primary">calculate shipping</button>
+              <div v-else
+                class="w-full bg-slate-50 rounded-xl h-40 flex items-center justify-center p-4 gap-4 uppercase">
+                <span class="loading loading-ring loading-sm"></span>
+              </div>
 
-            </div>
+              <button type="submit" class="btn btn-sm pixa-btn btn-primary">calculate shipping</button>
+
+            </form>
           </div>
         </div>
 
@@ -435,17 +559,18 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 import parcelIcon from '@/assets/icons/parcelIcon.vue';
 import creditCardIcon from '@/assets/icons/creditCardIcon.vue';
 import CartIcon from '@/assets/icons/cartIcon.vue';
 import communCombobox from '@/components/commun/communCombobox.vue';
-import supportUserIcon from '@/assets/icons/supportUserIcon.vue';
 import communSwitch from '@/components/commun/communSwitch.vue';
 import { useBookStore } from '@/stores/addressBook';
 import { useProfileStore } from '@/stores/profile';
 import { useWidgetStore } from '@/stores/widget';
 import { useI18n } from 'vue-i18n';
+import axios from 'axios';
+import { id } from 'date-fns/locale';
 
 
 const offset = ref(0);
@@ -455,6 +580,43 @@ const useBook = useBookStore()
 const useProfile = useProfileStore()
 const useWidget = useWidgetStore()
 const slider = ref(null);
+
+const shippement = reactive(
+  {
+    weight: 0,
+    l: 0,
+    w: 0,
+    h: 0,
+    weightUnit: 'kg',
+    lengthUnit: 'cm',
+    city: null,
+    cityCode: null,
+    insurance: 0,
+    result: null,
+    items: 0,
+    itemPrice: 0,
+    total: 0, website: ''
+  }
+)
+
+const resultShip = reactive(
+  {
+    weight: 0,
+    l: 0,
+    w: 0,
+    h: 0,
+    weightUnit: 'kg',
+    lengthUnit: 'cm',
+    city: null,
+    cityCode: null,
+    insurance: 0,
+    result: null, mass: null,
+    items: 0,
+    itemPrice: 0,
+    total: 0, website: '', isBfm: false
+  }
+)
+
 
 const { t } = useI18n()
 
@@ -554,6 +716,38 @@ onMounted(async () => {
 
   animate();
 });
+
+const calculateShipement = async () => {
+  console.log(shippement)
+  let mass = (shippement.l * shippement.w * shippement.h) / 139
+  console.log(mass)
+
+  /***/
+  const response = await axios.get(`/calculator_API/${shippement.cityCode}/${shippement.weight > mass ? shippement.weight : mass.toFixed(0)}`)
+
+  Object.assign(resultShip, shippement)
+
+  resultShip.mass = mass
+  resultShip.result = response.data.shipp_cost
+
+  /**
+  Object.assign(shippement, {
+    weight: 0,
+    l: 0,
+    w: 0,
+    h: 0,
+    weightUnit: 'kg',
+    lengthUnit: 'cm',
+    city: null,
+    cityCode: null,
+    insurance: 0,
+    result: null,
+    items: 0,
+    itemPrice: 0,
+    total: 0, website: ''
+  })*/
+
+}
 
 // Cleanup animation frame
 onBeforeUnmount(() => {
