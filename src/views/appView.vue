@@ -19,7 +19,10 @@
         <div v-auto-animate
           class="w-full flex-1 bg-white shadow-2xl shadow-primary/5 md:rounded-lg border border-slate-200 flex flex-col gap-1 p-4">
           <div class="w-full h-fit border-b border-slate-200 mb-2 flex gap-3 pt-1  justify-center">
-            <img :src="env + useProfile.webConfig.images_logo" class="w-48 " alt="">
+
+            <router-link :to="{ name: 'home' }">
+              <img :src="env + useProfile.webConfig.images_logo" class="w-48 " alt="">
+            </router-link>
           </div>
 
           <div class="w-full flex-1 flex flex-col gap-1">

@@ -5,8 +5,8 @@
     <span class="loading loading-ring loading-sm"></span>
   </div>
 
-  <div class="w-full flex flex-col">
-    <div class="w-full h-fit relative flex flex-col gap-4 items-center overflow-hidden">
+  <div class="w-full flex flex-col overflow-x-hidden">
+    <div id="home" class="w-full h-fit relative flex flex-col gap-4 items-center overflow-hidden">
 
       <div
         class="w-[60vw] h-[60vw] -top-[45vw] rounded-full blur-3xl bg-gradient-to-b from-secondary/20  from-80% absolute">
@@ -107,35 +107,34 @@
       </div>
     </div>
 
-    <div class="w-full py-24 flex flex-col gap-12 justify-center items-center px-6">
+    <div id="about" class="w-full py-24 flex flex-col gap-12 justify-center items-center px-6">
       <div class="w-full h-fit max-w-screen-xl grid lg:grid-cols-2 gap-16 lg:gap-3">
 
-        <div class="lg:w-96 xl:h-96 relative my-auto">
+        <div class="w-[60vw] h-[60vw] lg:w-96 xl:h-96 mx-auto relative my-auto">
 
           <div class="w-full h-full absolute bg-gradient-to-br from-secondary to-blue-700 blur-2xl z-0">
           </div>
 
           <div class="w-full h-full  overflow-hidden z-10 absolute inset-0">
-
             <img src="@/assets/pics/ship.jpg" class="w-full h-full object-cover  rounded-2xl" alt="">
           </div>
 
 
 
           <div
-            class="w-32 h-32 bg-gradient-to-br from-secondary to-blue-700 absolute rounded-2xl -top-6 -right-16 rotate-12 shadow-xl flex items-center justify-center z-10">
+            class="w-24 h-24 md:w-32 md:h-32 bg-gradient-to-br from-secondary to-blue-700 absolute rounded-2xl -top-6 -right-16 rotate-12 shadow-xl flex items-center justify-center z-10">
             <parcel-icon class="w-16 h-16 fill-white" />
           </div>
 
           <div
-            class="w-24 h-24 small-bg-glass-effect absolute rounded-2xl -top-6 -left-16 -rotate-12 shadow-xl flex items-center justify-center z-10">
+            class="w-16 h-16 md:w-24  md:h-24 small-bg-glass-effect absolute rounded-2xl -top-6 -left-16 -rotate-12 shadow-xl flex items-center justify-center z-10">
             <creditCardIcon class="w-12 h-12 fill-blue-700" />
           </div>
 
 
 
           <div
-            class="w-24 h-24  small-bg-glass-effect absolute rounded-2xl -bottom-6 -right-2 -rotate-45 shadow-xl flex items-center justify-center z-10">
+            class="w-16 h-16 md:w-24 md:h-24 small-bg-glass-effect absolute rounded-2xl -bottom-6 -right-2 -rotate-45 shadow-xl flex items-center justify-center z-10">
             <CartIcon class="w-12 h-12 fill-blue-700" />
           </div>
 
@@ -161,7 +160,7 @@
       </div>
 
 
-      <div class="w-full py-24 flex flex-col max-w-screen-xl justify-center items-center gap-12 px-6">
+      <div id="services" class="w-full py-24 flex flex-col max-w-screen-xl justify-center items-center gap-12 px-6">
         <span class="text-4xl font-bold text-primary">Our services</span>
 
         <div class="w-full flex flex-wrap gap-x-10 gap-y-20 justify-center">
@@ -194,7 +193,7 @@
 
 
 
-      <div class="w-full py-24 flex flex-col max-w-screen-xl justify-center items-center gap-12 px-6">
+      <div id="pricing" class="w-full py-24 flex flex-col max-w-screen-xl justify-center items-center gap-12 px-6">
         <span class="text-4xl font-bold text-primary">Pricing</span>
 
         <div class="w-full max-w-2xl flex flex-col gap-12">
@@ -284,8 +283,8 @@
 
             <form v-if="tab === 'bfm'" @submit.prevent="calculateShipement" class="w-full h-fit flex flex-col gap-4">
 
-              <div class="grid grid-cols-4 gap-4">
-                <label class="form-control w-full col-span-3">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <label class="form-control w-full md:col-span-3">
                   <div class="label">
                     <span class="label-text uppercase">weight <span class="text-red-500">*</span></span>
                   </div>
@@ -302,7 +301,7 @@
 
 
 
-              <div class="grid grid-cols-4 gap-4">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <label class="form-control w-full">
                   <div class="label">
                     <span class="label-text uppercase">l <span class="text-red-500">*</span></span>
@@ -336,7 +335,7 @@
               </div>
 
 
-              <div class="grid grid-cols-3 gap-4">
+              <div class="grid md:grid-cols-3 gap-4">
                 <label class="form-control w-full ">
                   <div class="label">
                     <span class="label-text uppercase">item price <span class="text-red-500">*</span></span>
@@ -408,10 +407,10 @@
                   useProfile.webConfig.service_charge_bfm) / 100) + resultShip.total }}</span>
               </div>
 
-
               <div v-else
-                class="w-full bg-slate-50 rounded-xl h-40 flex items-center justify-center p-4 gap-4 uppercase">
-                <span class="loading loading-ring loading-sm"></span>
+                class="w-full bg-slate-50 rounded-xl h-40 flex flex-col items-center justify-center p-4 gap-4 uppercase">
+                <receipt-icon class="w-12 h-12 fill-primary" />
+                <span class="text-primary">please fill the inputs to make a request</span>
               </div>
 
               <button type="submit" class="btn btn-sm pixa-btn btn-primary">calculate shipping</button>
@@ -419,8 +418,8 @@
             </form>
 
             <form @submit.prevent="calculateShipement" v-else class="w-full h-fit flex flex-col gap-4">
-              <div class="grid grid-cols-4 gap-4">
-                <label class="form-control w-full col-span-3">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <label class="form-control w-full md:col-span-3">
                   <div class="label">
                     <span class="label-text uppercase">weight <span class="text-red-500">*</span></span>
                   </div>
@@ -435,7 +434,7 @@
               </div>
 
 
-              <div class="grid grid-cols-4 gap-4">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <label class="form-control w-full">
                   <div class="label">
                     <span class="label-text uppercase">l <span class="text-red-500">*</span></span>
@@ -503,8 +502,9 @@
               </div>
 
               <div v-else
-                class="w-full bg-slate-50 rounded-xl h-40 flex items-center justify-center p-4 gap-4 uppercase">
-                <span class="loading loading-ring loading-sm"></span>
+                class="w-full bg-slate-50 rounded-xl h-40 flex flex-col items-center justify-center p-4 gap-4 uppercase">
+                <receipt-icon class="w-12 h-12 fill-primary" />
+                <span class="text-primary">please fill the inputs to make a request</span>
               </div>
 
               <button type="submit" class="btn btn-sm pixa-btn btn-primary">calculate shipping</button>
@@ -525,7 +525,7 @@
             any of our locations to pay by cash or you can use Nass Wallet and Zain Cash.</span>
         </div>
 
-        <div class="flex gap-6">
+        <div class="flex flex-col md:flex-row gap-6">
           <div class="w-80 h-80 bg-slate-200"></div>
           <div class="w-80 h-80 bg-slate-200"></div>
           <div class="w-80 h-80 bg-slate-200"></div>
@@ -568,10 +568,9 @@ import communSwitch from '@/components/commun/communSwitch.vue';
 import { useBookStore } from '@/stores/addressBook';
 import { useProfileStore } from '@/stores/profile';
 import { useWidgetStore } from '@/stores/widget';
+import receiptIcon from '@/assets/icons/receiptIcon.vue';
 import { useI18n } from 'vue-i18n';
 import axios from 'axios';
-import { id } from 'date-fns/locale';
-
 
 const offset = ref(0);
 const speed = ref(1);
