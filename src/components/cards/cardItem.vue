@@ -26,8 +26,15 @@
           <span>{{ item.exp_month < 10 ? `0${item.exp_month}` : item.exp_month }} / {{ item.exp_year - 2000 }}</span>
         </div>
         <button @click="async () => {
-          let response = await axios.post(`/Dashboard/deleteCard_API/${item.id}`)
-          await useInvoices.getCards(localStorage.getItem('ws-user-id'))
+          /**
+*/
+          useInvoices.focusedCard = item
+          Object.assign(useWidget.deleteModal, {
+            open: true,
+            id: item.id,
+            designation: item.name
+          })
+
         }" class="btn btn-sm btn-square pixa-btn-float">
           <trash-icon class="w-5 h-5" />
         </button>
@@ -53,7 +60,10 @@ const useWidget = useWidgetStore()
 const useInvoices = useInvoicesStore()
 const props = defineProps(['item'])
 
-console.log(props.item);
+const getCard = async () => {
+
+  await useInvoices.getCards(localStorage.getItem('ws-user-id'))
+}
 
 </script>
 

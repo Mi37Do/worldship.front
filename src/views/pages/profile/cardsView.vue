@@ -5,7 +5,7 @@
 
   <div v-else class="w-full h-full flex flex-col overflow-hidden">
     <add-card />
-    <delete-modal />
+    <delete-modal :item="useInvoices.focusedCard" @deleteItem="onDeleteItem" />
     <div class="w-full flex-1 pb-4 flex flex-col gap-4 overflow-hidden">
       <div class="w-full h-10 flex items-center justify-between">
         <div class="flex gap-3 items-center">
@@ -41,6 +41,7 @@ import deleteModal from '@/components/commun/deleteModal.vue';
 import { useInvoicesStore } from '@/stores/invoices';
 import { useWidgetStore } from '@/stores/widget';
 import { onMounted, ref } from 'vue';
+import axios from 'axios';
 
 const useWidget = useWidgetStore()
 
@@ -59,6 +60,18 @@ onMounted(async () => {
 
   }
 })
+
+const onDeleteItem = async (id) => {
+
+  let response = await axios.get(`/Dashboard/deleteCard_API/${id}`)
+
+  await useInvoices.getCards(localStorage.getItem('ws-user-id'))
+  Object.assign(useWidget.deleteModal, {
+    id: null,
+    designation: null,
+    open: false,
+  })
+}
 </script>
 
 <style lang="scss" scoped></style>

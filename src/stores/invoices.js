@@ -8,6 +8,7 @@ export const useInvoicesStore = defineStore('invoices', () => {
   const transactions = ref([])
   const cards = ref([])
   const items = ref([])
+  const focusedCard = ref(null)
 
   const getInvoices = async (type, userId, invoiceId) => {
     try {
@@ -56,5 +57,6 @@ export const useInvoicesStore = defineStore('invoices', () => {
     getTransactions,
     getCards,
     items,
+    focusedCard,
   }
 })

@@ -112,10 +112,14 @@ const handlePayment = async (event) => {
       card_name: tempName.value
     })
 
-    console.log(response);
+    useWidget.addCard = false
 
 
     await useInvoices.getCards(localStorage.getItem('ws-user-id'))
+
+
+    initializeSquareCard();
+    document.getElementById('payment-form').addEventListener('submit', handlePayment);
 
     if (result.status === 'OK') {
       // Send the token to your server to process the payment
@@ -148,8 +152,6 @@ const processPaymentOnServer = async (token) => {
 
 // Initialize the Square Card when the component mounts
 onMounted(() => {
-  console.log(useProfile.webConfig);
-
   initializeSquareCard();
   document.getElementById('payment-form').addEventListener('submit', handlePayment);
 

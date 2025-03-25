@@ -15,7 +15,7 @@
       total_price: useInbox.focusedBuyForMe.price_item,
       total_price_options: useInbox.focusedBuyForMe.service,
       total_price_cost: useInbox.focusedBuyForMe.total_price
-    }" :types="useProfile.profile.payments_methodes" />
+    }" :types="useProfile.profile.payments_methodes" :cards="tempCards" />
 
     <div class="w-full h-10 flex items-center justify-between">
       <div class="flex gap-3 items-center">
@@ -193,6 +193,7 @@ import deleteModal from '@/components/commun/deleteModal.vue';
 import paymentModal from '@/components/shippement/paymentModal.vue';
 import usdCircleIcon from '@/assets/icons/usdCircleIcon.vue';
 import { useProfileStore } from '@/stores/profile';
+import { useInvoicesStore } from '@/stores/invoices';
 
 const useWidget = useWidgetStore()
 const useInbox = useInboxStore()
@@ -203,6 +204,8 @@ const items = ref([])
 const selectedItem = ref(null)
 const useProfile = useProfileStore()
 const loadingSave = ref(false)
+const tempCards = ref(null)
+const useInvoices = useInvoicesStore()
 
 onMounted(async () => {
   useInbox.items = []
@@ -210,6 +213,16 @@ onMounted(async () => {
     await useInbox.getBuyForMes(null, route.params.id)
     useInbox.items = useInbox.focusedBuyForMe.b4m_order
     console.log(useInbox.focusedBuyForMe)
+    await useInvoices.getCards(localStorage.getItem('ws-user-id'))
+
+
+    tempCards.value = useInvoices.cards.map((item) => {
+      return {
+        id: item.id,
+        designation: item.name + '' + item.last_4,
+        designation_ar: item.name + '' + item.last_4
+      }
+    })
 
     loading.value = false
   } catch (error) {
