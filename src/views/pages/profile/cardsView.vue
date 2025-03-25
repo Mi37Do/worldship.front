@@ -4,7 +4,8 @@
   </div>
 
   <div v-else class="w-full h-full flex flex-col overflow-hidden">
-
+    <add-card />
+    <delete-modal />
     <div class="w-full flex-1 pb-4 flex flex-col gap-4 overflow-hidden">
       <div class="w-full h-10 flex items-center justify-between">
         <div class="flex gap-3 items-center">
@@ -12,7 +13,7 @@
           <span class="pixa-title">{{ $t('commun.cards') }}</span>
         </div>
         <div class="flex gap-2">
-          <button class="btn btn-sm pixa-btn btn-primary">
+          <button @click="useWidget.addCard = true" class="btn btn-sm pixa-btn btn-primary">
             <plus-icon class="w-5 h-5" />
             {{ $t('commun.addCard') }}</button>
         </div>
@@ -35,6 +36,8 @@
 <script setup>
 import plusIcon from '@/assets/icons/plusIcon.vue';
 import CardItem from '@/components/cards/cardItem.vue';
+import addCard from '@/components/cards/addCard.vue';
+import deleteModal from '@/components/commun/deleteModal.vue';
 import { useInvoicesStore } from '@/stores/invoices';
 import { useWidgetStore } from '@/stores/widget';
 import { onMounted, ref } from 'vue';
@@ -43,6 +46,7 @@ const useWidget = useWidgetStore()
 
 const useInvoices = useInvoicesStore()
 const loading = ref(true)
+const tempName = ref('')
 
 onMounted(async () => {
 

@@ -34,7 +34,8 @@
       </div>
 
       <div v-else class="w-full flex-1 flex flex-col overflow-hidden">
-        <span v-if="useInbox.focusedInbox" class="h-40 grid grid-cols-2 gap-2 p-4 uppercase">
+        <span v-if="useInbox.focusedInbox"
+          class="h-40 grid grid-cols-2 gap-2 p-4 uppercase bg-slate-100 rounded-lg border border-slate-200">
           <div class="w-full grid grid-cols-2 gap-2">
             <span class="font-semibold">code</span>
             <span>{{ useInbox.focusedInbox.code }}</span>

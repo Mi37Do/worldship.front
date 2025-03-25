@@ -25,6 +25,12 @@
           <span class="text-xs">expiry date</span>
           <span>{{ item.exp_month < 10 ? `0${item.exp_month}` : item.exp_month }} / {{ item.exp_year - 2000 }}</span>
         </div>
+        <button @click="async () => {
+          let response = await axios.post(`/Dashboard/deleteCard_API/${item.id}`)
+          await useInvoices.getCards(localStorage.getItem('ws-user-id'))
+        }" class="btn btn-sm btn-square pixa-btn-float">
+          <trash-icon class="w-5 h-5" />
+        </button>
       </div>
     </div>
 
@@ -38,9 +44,13 @@
 <script setup>
 import { format } from 'date-fns';
 import eyeIcon from '@/assets/icons/eyeIcon.vue';
+import trashIcon from '@/assets/icons/trashIcon.vue';
 import { useWidgetStore } from '@/stores/widget';
+import axios from 'axios';
+import { useInvoicesStore } from '@/stores/invoices';
 
 const useWidget = useWidgetStore()
+const useInvoices = useInvoicesStore()
 const props = defineProps(['item'])
 
 console.log(props.item);

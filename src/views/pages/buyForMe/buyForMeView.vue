@@ -58,8 +58,7 @@
     </div>
 
     <div class="w-full flex-1  overflow-hidden">
-      <div
-        class="w-full h-full flex flex-col md:grid md:grid-cols-3  gap-4 overflow-y-auto overflow-x-hidden md:overflow-hidden md:pb-4">
+      <div class="w-full h-full flex flex-col md:grid md:grid-cols-3  gap-4 overflow-y-auto overflow-x-hidden md:pb-4">
         <div class="w-full h-fit gap-4">
           <div
             class="w-full h-fit flex flex-col gap-y-2 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl p-4 uppercase">

@@ -94,9 +94,11 @@ import calendarIcon from '@/assets/icons/calendarIcon.vue';
 import dateFilterModal from '@/components/commun/dateFilterModal.vue';
 import { format, isAfter, isBefore } from 'date-fns';
 import sideMenu from '@/assets/icons/sideMenu.vue';
+import { useInvoicesStore } from '@/stores/invoices';
 
 const useWidget = useWidgetStore()
 const useInbox = useInboxStore()
+const useInvoices = useInvoicesStore()
 const loading = ref(true)
 const filterDate = reactive(
   {
@@ -131,6 +133,8 @@ const selectedType = ref('all')
 onMounted(async () => {
   try {
     await useInbox.getShippements(localStorage.getItem('ws-user-id'))
+
+
     useInbox.filtredShippements = useInbox.shippements
     loading.value = false
   } catch (error) {

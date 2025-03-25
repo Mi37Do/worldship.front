@@ -4,7 +4,7 @@
       <slot name="options"></slot>
     </div>
     <div class="w-full h-40 bg-slate-100 rounded-lg flex items-center justify-center overflow-hidden">
-      <img v-if="item.images" class="w-full h-full object-cover" :src="env + item.images" alt=""
+      <img v-if="env + item.images" class="w-full h-full object-cover" :src="env + item.images" alt=""
         v-viewer="{ button: true, title: false, movable: false, rotatable: false, scalable: false, keyboard: true }">
       <no-image-icon v-else class="w-10 h-10 fill-slate-400" />
     </div>

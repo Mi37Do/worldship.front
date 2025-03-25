@@ -18,7 +18,8 @@
 
         <add-adress-book />
 
-        <payment-modal :item="useInbox.focusedShippement" :types="useProfile.profile.payments_methodes" />
+        <payment-modal :item="useInbox.focusedShippement" :types="useProfile.profile.payments_methodes"
+          :cards="tempCards" />
 
         <div class="w-full h-full grid lg:grid-cols-3 gap-4">
           <div class="w-full flex flex-col gap-4 lg:col-span-2">
@@ -38,12 +39,20 @@
                   show ? 'rotate-45' : 'rotate-0',
                   'w-5 h-5 transition-all duration-200']" />
               </label>
+              <div v-if="show" class="w-full flex flex-col gap-3">
 
-              <div v-if="show" class="w-full grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                <div class="w-full p-1 bg-primary rounded-md grid grid-cols-2 gap-1">
+                  <button class="btn btn-sm pixa-btn pixa-btn-float">items</button>
+                  <button
+                    class="btn btn-sm pixa-btn border-0 bg-transparent hover:bg-white/20 text-white">pictures</button>
+                </div>
 
-                <package-item v-for="item in useInbox.focusedShippement.warehouse_order_ids" :key="item.id"
-                  :item="item" />
+                <div class="w-full grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+
+                  <package-item v-for="item in tempItems" :key="item.id" :item="item" />
+                </div>
               </div>
+
 
             </div>
 
@@ -52,50 +61,146 @@
               <div class="w-full flex items-center justify-between">
                 <span class="pixa-title">Address Book</span>
 
-                <div class="flex gap-2">
+              </div>
+
+              <div class="w-full p-1 bg-primary rounded-md grid grid-cols-2 gap-1">
+                <button @click="async () => {
+                  deliverToCenter = true
+
+                  let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/1`)
+
+                  tempBook = tempAdresses[0].id
+
+                  let responseR = await axios.get(`/Dashboard/updatePickUpLocal_API/${route.params.id}/${tempBook}`)
+
+                }"
+                  :class="deliverToCenter ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
+                  class="btn btn-sm pixa-btn">to center</button>
+                <button @click="async () => {
+                  deliverToCenter = false
+
+                  let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/0`)
+
+                  tempBook = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : useBook.tempBooks[0].id
+
+                  let responseR = await axios.get(`/Dashboard/updatePickUpLocal_API/${route.params.id}/${tempBook}`)
+
+                }"
+                  :class="!deliverToCenter ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
+                  class="btn btn-sm pixa-btn">local
+                  delivery</button>
+              </div>
+
+              <div v-if="deliverToCenter" class="w-full flex flex-col gap-3">
+
+                <div class="flex gap-2 w-full justify-end">
+                  <book-combobox :list="tempAdresses" :selected="tempBook" @onSelectedItem="async (id) => {
+                    tempBook = id
+
+                    let response = await axios.get(`/Dashboard/updatePickUpLocal_API/${route.params.id}/${tempBook}`)
+
+                    console.log(response)
+
+
+                  }" class="hidden md:block" />
+                </div>
+                <!--
+                <div
+                  class="w-full h-fit rounded-md border border-slate-200 overflow-hidden bg-primary/5 p-3 grid grid-cols-2 gap-3 uppercase">
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">name</span>
+                    <span>
+                      {{useBook.addresses.find(item => item.id === tempBook).name}}</span>
+                  </div>
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">city</span>
+                    <span>
+                      {{formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).city_id.name)}}</span>
+                  </div>
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">phone</span>
+                    <span>
+                      {{formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).phone)}}</span>
+                  </div>
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">second phone</span>
+                    <span>
+                      {{useBook.addresses.find(item => item.id === tempBook).second_phone ?
+                        formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).second_phone) : '-------'
+                      }}</span>
+                  </div>
+                </div>-->
+              </div>
+
+              <div v-else class="w-full flex flex-col gap-3">
+
+
+                <div class="flex gap-2 w-full justify-end">
                   <book-combobox :list="useBook.tempBooks" :selected="tempBook" @onSelectedItem="onChangeBook"
                     class="hidden md:block" />
-                  <button @click="Object.assign(useWidget.addAddressBook, {
+                  <button v-if="!useInbox.focusedShippement.is_payed" @click="Object.assign(useWidget.addAddressBook, {
                     open: true,
                     add: true
                   })" class="btn btn-sm pixa-btn btn-primary">
                     <plus-icon class="w-5 h-5" />
                     add address</button>
                 </div>
-              </div>
 
-              <book-combobox :list="useBook.tempBooks" :selected="tempBook" @onSelectedItem="onChangeBook"
-                class="block md:hidden" />
+                <div
+                  class="w-full h-fit rounded-md border border-slate-200 overflow-hidden bg-primary/5 p-3 grid grid-cols-2 gap-3 uppercase">
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">name</span>
+                    <span>
+                      {{useBook.addresses.find(item => item.id === tempBook).name}}</span>
+                  </div>
 
-              <div
-                class="w-full h-fit rounded-md border border-slate-200 overflow-hidden bg-primary/5 p-3 grid grid-cols-2 gap-3 uppercase">
-                <div class="flex flex-col gap-1">
-                  <span class=" font-medium">name</span>
-                  <span>
-                    {{useBook.addresses.find(item => item.id === tempBook).name}}</span>
-                </div>
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">city</span>
+                    <span>
+                      {{formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).city_id.name)}}</span>
+                  </div>
 
-                <div class="flex flex-col gap-1">
-                  <span class=" font-medium">city</span>
-                  <span>
-                    {{formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).city_id.name)}}</span>
-                </div>
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">phone</span>
+                    <span>
+                      {{formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).phone)}}</span>
+                  </div>
 
-                <div class="flex flex-col gap-1">
-                  <span class=" font-medium">phone</span>
-                  <span>
-                    {{formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).phone)}}</span>
-                </div>
-
-                <div class="flex flex-col gap-1">
-                  <span class=" font-medium">second phone</span>
-                  <span>
-                    {{useBook.addresses.find(item => item.id === tempBook).second_phone ?
-                      formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).second_phone) : '-------'
-                    }}</span>
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">second phone</span>
+                    <span>
+                      {{useBook.addresses.find(item => item.id === tempBook).second_phone ?
+                        formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).second_phone) : '-------'
+                      }}</span>
+                  </div>
                 </div>
               </div>
             </div>
+
+            <div class="w-full h-fit bg-white rounded-lg border border-gray-200 p-3">
+              <div class="w-full flex flex-col rounded-md overflow-hidden">
+                <div v-for="i in 6" :key="i" :class="i % 2 ? 'bg-slate-100' : ''" class="w-full flex px-4">
+                  <div class="w-px  flex flex-col items-center">
+                    <span :class="i === 1 ? '' : 'bg-slate-400'" class="h-6 w-1 "></span>
+                    <div class="w-2 h-2 rounded-full bg-slate-500 outline outline-2 outline-white z-10"></div>
+                    <span :class="i === 6 ? '' : 'bg-slate-400'" class="flex-1 w-1"></span>
+                  </div>
+                  <div class="flex-1 h-fit flex flex-col gap-1.5 p-3">
+                    <span class="font-medium text-lg">Lorem ipsum dolor sit amet.</span>
+                    <span>{{ format(new Date(), 'dd-MM-yyyy') }}</span>
+                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam repudiandae in dicta
+                      obcaecati
+                      alias magni maxime adipisci porro, neque, nobis necessitatibus ipsum distinctio quam quidem
+                      similique
+                      fuga ab reiciendis cumque.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
 
@@ -121,9 +226,11 @@
               <span class="font-semibold h-10 flex items-center">add Insurance $ {{
                 numberFormat(useInbox.focusedShippement.total_insurance) }} </span>
 
-              <div class="flex justify-end">
+              <div v-if="!useInbox.focusedShippement.is_payed" class="flex justify-end">
                 <commun-switch @selectedEnabled="onSelectedEnabledInsurance" :enabled="tempInsurance" />
               </div>
+
+              <div v-else></div>
 
               <span class="font-semibold h-10 flex items-center gap-2">Use Coins<span class="text-emerald-600">({{
                 useProfile.totalCoins }}
@@ -146,9 +253,10 @@
 
               <form @submit.prevent="usePromoCode" class="w-fit h-fit relative overflow-hidden">
                 <input type="text" placeholder="your promo code" v-model="useInbox.focusedShippement.promo_code"
+                  :disabled="!useInbox.focusedShippement.is_payed"
                   class="pixa-input px-4 w-full ml-auto placeholder:uppercase">
 
-                <button type="submit" :disabled="loadingCode"
+                <button v-if="!useInbox.focusedShippement.is_payed" type="submit" :disabled="loadingCode"
                   :class="!useInbox.focusedShippement.promo_code ? '-right-12' : 'right-1'"
                   class="btn btn-sm btn-square absolute btn-primary top-1 transition-all duration-150 ">
                   <span v-if="loadingCode" class="loading loading-ring loading-sm"></span>
@@ -159,6 +267,13 @@
               <span class="font-semibold h-10 flex items-center">Shipping Cost</span>
 
               <span class="text-right my-auto">$ {{ numberFormat(useInbox.focusedShippement.shipping_cost) }} </span>
+
+
+              <span class="font-semibold h-10 flex items-center text-red-500">cargo</span>
+
+              <span class="text-right my-auto text-red-500">$ {{ numberFormat(0)
+              }}
+              </span>
 
             </div>
 
@@ -171,9 +286,11 @@
               <span class="font-semibold h-10 flex items-center">{{ item.name }} <br> ($ {{ numberFormat(item.price)
               }})</span>
               <div class="flex justify-end">
-                <commun-switch
+                <commun-switch v-if="!useInbox.focusedShippement.is_payed"
                   :enabled="useInbox.focusedShippement.option_package_ids.find(i => i.id === item.id) ? true : false"
                   @selectedEnabled="(value) => onSelectedEnabledOption(value, item.id)" />
+
+                <span v-else></span>
               </div>
 
             </div>
@@ -188,7 +305,8 @@
               </span>
             </div>
 
-            <button @click="useWidget.newPayment = true" class="btn btn-sm pixa-btn w-full btn-primary">show state and
+            <button v-if="!useInbox.focusedShippement.is_payed" @click="useWidget.newPayment = true"
+              class="btn btn-sm pixa-btn w-full btn-primary">show state and
               open
               invoice</button>
 
@@ -218,6 +336,8 @@ import bookCombobox from '@/components/commun/bookCombobox.vue';
 import { useProfileStore } from '@/stores/profile';
 import { formatPhoneNumber } from '@/utils/phoneUtils';
 import paymentModal from '@/components/shippement/paymentModal.vue';
+import { useInvoicesStore } from '@/stores/invoices';
+import { format } from 'date-fns';
 
 const useWidget = useWidgetStore()
 const useInbox = useInboxStore()
@@ -233,7 +353,11 @@ const loadingCoin = ref(false)
 const loadingCode = ref(false)
 const useProfile = useProfileStore()
 const tempBook = ref(null)
+const useInvoices = useInvoicesStore()
+const tempCards = ref([])
 const tempItems = ref([])
+const deliverToCenter = ref(true)
+const tempAdresses = ref([])
 
 onMounted(async () => {
   try {
@@ -241,6 +365,24 @@ onMounted(async () => {
     await useBook.getAddresses(localStorage.getItem('ws-user-id'))
     await useProfile.getCoins(localStorage.getItem('ws-user-id'))
     await useProfile.getProfile(localStorage.getItem('ws-user-id'))
+    await useInvoices.getCards(localStorage.getItem('ws-user-id'))
+
+    tempCards.value = useInvoices.cards.map((item) => {
+      return {
+        id: item.id,
+        designation: item.name + '' + item.last_4,
+        designation_ar: item.name + '' + item.last_4
+      }
+    })
+
+
+    tempAdresses.value = useProfile.locations.map(item => {
+      return {
+        id: item.id,
+        designation: item.city_id.name + ' - ' + item.adr,
+      }
+    })
+
     useProfile.profile.payments_methodes.push(
       {
         id: 0,
@@ -249,27 +391,30 @@ onMounted(async () => {
       }
     )
 
-    console.log(useProfile.profile.payments_methodes)
 
+    for (let index = 0; index < useInbox.focusedShippement.warehouse_order_ids.length; index++) {
+      const element = useInbox.focusedShippement.warehouse_order_ids[index]
 
-    tempItems.value = useInbox.focusedShippement.warehouse_order_ids.map(
-      (item) => (
-        {
-          id: item.id,
-          name: item.name
-        }
-      )
-    )
+      for (let j = 0; j < element.wh_order.length; j++) {
+        const elementx = element.wh_order[j]
+        tempItems.value.push(
+          {
+            id: elementx.id,
+            qty: elementx.qty,
+            total: elementx.price,
+            name: elementx.name_id.name,
+            images: elementx.images
+          }
+        )
+      }
+    }
 
     useBook.tempBooks = useBook.addresses.map(item => ({
       id: item.id,
       designation: item.name
     })
     )
-    tempBook.value = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : useBook.tempBooks[0].id
-    console.log(useBook.tempBooks)
-
-    console.log(useInbox.focusedShippement);
+    tempBook.value = tempAdresses.value[0].id
     tempCoins.value = useInbox.focusedShippement.total_coins ? useInbox.focusedShippement.total_coins : 0
     tempInsurance.value = useInbox.focusedShippement.add_insurance
     loading.value = false

@@ -18,6 +18,7 @@ export const useProfileStore = defineStore('profile', () => {
   const webConfig = ref(null)
   const prohibItems = ref(null)
   const logoBase64 = ref('')
+  const locations = ref([])
   const env = import.meta.env.VITE_WORLDSHIP_API
 
   const getRefferals = async (user_id) => {
@@ -95,6 +96,8 @@ export const useProfileStore = defineStore('profile', () => {
     sponsors.value = response.data.sponsor
     prohibItems.value = response.data.prohibited_items
 
+    locations.value = response.data.pick_up_local
+
     console.log(response.data)
     console.log(webConfig.value)
 
@@ -129,5 +132,6 @@ export const useProfileStore = defineStore('profile', () => {
     services,
     prohibItems,
     sponsors,
+    locations,
   }
 })

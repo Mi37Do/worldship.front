@@ -44,15 +44,48 @@
         </div>
       </div>
 
-      <label class="form-control w-full">
+      <div class="form-control w-full">
         <div class="label">
           <span class="label-text uppercase">wallet type </span>
         </div>
 
         <walletsTypeDropsown :list="types" :selected="walletType" @onSelectedType="onSelectedType" />
-      </label>
+      </div>
 
-      <div v-if="types.find(item => item.id === walletType).type_payment === 'c'" class="w-full flex-1 overflow-auto">
+      <div v-if="types.find(item => item.id === walletType).type_payment === 'c'"
+        class="w-full flex-1 overflow-auto pt-8 flex flex-col gap-4">
+        <div class="w-full rounded-lg bg-primary p-1 grid grid-cols-2 gap-1">
+          <button @click="existingCreditCard = true" type="button"
+            :class="existingCreditCard ? 'pixa-btn-float' : 'bg-transparent text-white hover:bg-white/20 border-0'"
+            class="btn btn-sm pixa-btn">existing
+            credit
+            card</button>
+          <button @click="existingCreditCard = false" type="button"
+            :class="existingCreditCard ? 'bg-transparent text-white hover:bg-white/20 border-0' : 'pixa-btn-float'"
+            class="btn btn-sm pixa-btn">new credit
+            card</button>
+        </div>
+        <div v-if="existingCreditCard" class="h-48 flex flex-col justify-between">
+          <commun-combobox :list="cards" />
+
+          <button
+            :disabled="loadingAdd || (types.find(i => i.id === walletType).type_payment === 'w' && useProfile.profile.wallets.total_wallets < item.total_price_cost)"
+            type="submit" class="btn btn-sm pixa-btn btn-primary w-full">
+            <span v-if="loadingAdd" class="loading loading-ring loading-sm"></span>
+            <span v-else>pay now</span>
+          </button>
+        </div>
+        <div v-else class="flex flex-col gap-4">
+
+          <label class="form-control w-full ">
+            <div class="label">
+              <span class="label-text uppercase">card holder name </span>
+            </div>
+            <input type="text" required class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+          </label>
+
+          <payment-view />
+        </div>
       </div>
 
       <div v-else class="w-full flex-1 overflow-auto">
@@ -79,10 +112,11 @@
             <span class="uppercase">{{ fileName ? fileName : 'choose file' }} </span>
             <div class="btn btn-sm pixa-btn-nofloat">upload file</div>
           </div>
+
         </div>
       </div>
 
-      <button
+      <button v-if="types.find(item => item.id === walletType).type_payment !== 'c'"
         :disabled="loadingAdd || (types.find(i => i.id === walletType).type_payment === 'w' && useProfile.profile.wallets.total_wallets < item.total_price_cost)"
         type="submit" class="btn btn-sm pixa-btn btn-primary mt-4">
         <span v-if="loadingAdd" class="loading loading-ring loading-sm"></span>
@@ -100,16 +134,15 @@ import { useWidgetStore } from '@/stores/widget';
 import paperClipIcon from '@/assets/icons/paperClipIcon.vue';
 import timesIcon from '@/assets/icons/timesIcon.vue';
 import walletsTypeDropsown from '../wallet/walletsTypeDropsown.vue';
-import listIcon from '@/assets/icons/listIcon.vue';
-import { objectToFormData } from '@/utils/formDataUtils'
-import { Client, Environment } from 'square'
+import paymentView from '@/views/pages/paymentView.vue';
 import { reactive, ref } from 'vue';
 import axios from 'axios';
 import { useProfileStore } from '@/stores/profile';
 import { useInboxStore } from '@/stores/inbox';
+import communCombobox from '../commun/communCombobox.vue';
 import { useRoute } from 'vue-router';
 
-const props = defineProps(['types', 'item'])
+const props = defineProps(['types', 'item', 'cards'])
 const useWidget = useWidgetStore()
 const loadingAdd = ref(false)
 const useProfile = useProfileStore()
@@ -126,6 +159,8 @@ const payment = reactive(
     image: null
   }
 )
+
+const existingCreditCard = ref(true)
 
 
 const handleFileChange = (event) => {
