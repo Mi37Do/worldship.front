@@ -42,14 +42,27 @@
               <div v-if="show" class="w-full flex flex-col gap-3">
 
                 <div class="w-full p-1 bg-primary rounded-md grid grid-cols-2 gap-1">
-                  <button class="btn btn-sm pixa-btn pixa-btn-float">items</button>
-                  <button
-                    class="btn btn-sm pixa-btn border-0 bg-transparent hover:bg-white/20 text-white">pictures</button>
+                  <button @click="isPicture = false"
+                    :class="!isPicture ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
+                    class="btn btn-sm pixa-btn">items</button>
+                  <button @click="isPicture = true"
+                    :class="isPicture ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
+                    class="btn btn-sm pixa-btn">pictures</button>
                 </div>
 
-                <div class="w-full grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                <div v-if="!isPicture" class="w-full grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
 
                   <package-item v-for="item in tempItems" :key="item.id" :item="item" />
+                </div>
+
+
+                <div v-else class="w-full grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                  <div v-for="pics in useInbox.focusedShippement.wh_pk_ad_picture" :key="pics"
+                    class="w-full h-40 bg-red-400 rounded-md overflow-hidden">
+                    <img :src="env + pics.image"
+                      v-viewer="{ button: true, title: false, movable: false, rotatable: false, scalable: false, keyboard: true }"
+                      alt="">
+                  </div>
                 </div>
               </div>
 
@@ -264,15 +277,51 @@
                 </button>
               </form>
 
+              <div class="col-span-2">
+                <div class="w-full h-fit bg-primary/10 flex flex-col p-1 gap-1 rounded-md">
+                  <div @click="async () => {
+                    isCargo = false
+                    let response = await axios.get(`/Dashboard/choose_ship_API/${route.params.id}/0`)
+                    console.log(response.data)
+                  }" :class="!isCargo ? 'bg-primary text-white' : 'hover:bg-white/80'"
+                    class="w-full h-14 p-2 rounded flex items-center">
+                    <div class="flex-1 flex flex-col">
+                      <span>Shipping Cost</span>
+                      <span>$ {{ numberFormat(useInbox.focusedShippement.shipping_cost) }}
+                      </span>
+                    </div>
+                    <div v-if="!isCargo" class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
+                      <check-icon class="w-4 h-4 fill-white" />
+                    </div>
+                  </div>
+
+                  <div @click="async () => {
+                    isCargo = true
+                    let response = await axios.get(`/Dashboard/choose_ship_API/${route.params.id}/1`)
+                    console.log(response.data)
+
+                  }" :class="isCargo ? 'bg-primary text-white' : 'hover:bg-white/80'"
+                    class="w-full h-14 p-2 rounded flex items-center">
+                    <div class="flex-1 flex flex-col">
+                      <span>cargo</span>
+                      <span>$ {{ numberFormat(0) }}
+                      </span>
+                    </div>
+                    <div v-if="isCargo" class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
+                      <check-icon class="w-4 h-4 fill-white" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <span class="font-semibold h-10 flex items-center">Shipping Cost</span>
 
-              <span class="text-right my-auto">$ {{ numberFormat(useInbox.focusedShippement.shipping_cost) }} </span>
 
 
               <span class="font-semibold h-10 flex items-center text-red-500">cargo</span>
 
               <span class="text-right my-auto text-red-500">$ {{ numberFormat(0)
-              }}
+                }}
               </span>
 
             </div>
@@ -284,7 +333,7 @@
             <div v-for="item in useInbox.packageOptions" :key="item.id" class="w-full grid grid-cols-2 gap-4">
 
               <span class="font-semibold h-10 flex items-center">{{ item.name }} <br> ($ {{ numberFormat(item.price)
-              }})</span>
+                }})</span>
               <div class="flex justify-end">
                 <commun-switch v-if="!useInbox.focusedShippement.is_payed"
                   :enabled="useInbox.focusedShippement.option_package_ids.find(i => i.id === item.id) ? true : false"
@@ -301,7 +350,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-              }}
+                }}
               </span>
             </div>
 
@@ -339,6 +388,8 @@ import paymentModal from '@/components/shippement/paymentModal.vue';
 import { useInvoicesStore } from '@/stores/invoices';
 import { format } from 'date-fns';
 
+
+const env = import.meta.env.VITE_WORLDSHIP_API
 const useWidget = useWidgetStore()
 const useInbox = useInboxStore()
 const loading = ref(true)
@@ -358,6 +409,8 @@ const tempCards = ref([])
 const tempItems = ref([])
 const deliverToCenter = ref(true)
 const tempAdresses = ref([])
+const isCargo = ref(false)
+const isPicture = ref(false)
 
 onMounted(async () => {
   try {
@@ -366,6 +419,9 @@ onMounted(async () => {
     await useProfile.getCoins(localStorage.getItem('ws-user-id'))
     await useProfile.getProfile(localStorage.getItem('ws-user-id'))
     await useInvoices.getCards(localStorage.getItem('ws-user-id'))
+
+    console.log(useInbox.focusedShippement)
+
 
     tempCards.value = useInvoices.cards.map((item) => {
       return {
