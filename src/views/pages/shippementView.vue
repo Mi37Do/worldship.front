@@ -314,16 +314,6 @@
                 </div>
               </div>
 
-              <span class="font-semibold h-10 flex items-center">Shipping Cost</span>
-
-
-
-              <span class="font-semibold h-10 flex items-center text-red-500">cargo</span>
-
-              <span class="text-right my-auto text-red-500">$ {{ numberFormat(0)
-                }}
-              </span>
-
             </div>
 
 
@@ -333,7 +323,7 @@
             <div v-for="item in useInbox.packageOptions" :key="item.id" class="w-full grid grid-cols-2 gap-4">
 
               <span class="font-semibold h-10 flex items-center">{{ item.name }} <br> ($ {{ numberFormat(item.price)
-                }})</span>
+              }})</span>
               <div class="flex justify-end">
                 <commun-switch v-if="!useInbox.focusedShippement.is_payed"
                   :enabled="useInbox.focusedShippement.option_package_ids.find(i => i.id === item.id) ? true : false"
@@ -350,7 +340,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-                }}
+              }}
               </span>
             </div>
 
