@@ -91,22 +91,27 @@
 
                   let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/1`)
 
+                  useInbox.focusedShippement.total_price_cost = response.data.reslut
+
                   tempBook = tempAdresses[0].id
 
                 }"
                   :class="deliverToCenter ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
-                  class="btn btn-sm pixa-btn">to center</button>
+                  class="btn btn-sm pixa-btn">Pick Up Local Office (FREE)
+                </button>
                 <button @click="async () => {
                   deliverToCenter = false
 
                   let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/0`)
 
+                  useInbox.focusedShippement.total_price_cost = response.data.reslut
+
                   tempBook = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : useBook.tempBooks[0].id
 
                 }"
                   :class="!deliverToCenter ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
-                  class="btn btn-sm pixa-btn">local
-                  delivery</button>
+                  class="btn btn-sm pixa-btn">Deliver to Home (${{ useInbox.focusedShippement.deliver_to_home }}
+                  FEE)</button>
               </div>
 
               <div v-if="deliverToCenter" class="w-full flex flex-col gap-3">
