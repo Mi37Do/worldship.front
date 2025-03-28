@@ -73,7 +73,15 @@
               class="w-full h-fit flex flex-col gap-4 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl p-4 col-span-2">
               <div class="w-full flex items-center justify-between">
                 <span class="pixa-title">delivery point</span>
-                <commun-switch :enabled="useInbox.focusedShippement.deliver_type !== 'n' ? true : false" />
+                <commun-switch :enabled="useInbox.focusedShippement.deliver_type !== 'n' ? true : false"
+                  @selectedEnabled="(value) => {
+                    if (value) {
+
+                      useInbox.focusedShippement.deliver_type = 'p'
+                    } else {
+                      useInbox.focusedShippement.deliver_type = 'n'
+                    }
+                  }" />
               </div>
 
               <div v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
@@ -108,8 +116,9 @@
               <div v-if="deliverToCenter" class="w-full flex flex-col gap-3">
 
                 <div class="flex gap-2 w-full justify-end">
-                  <book-combobox v-if="!useInbox.focusedShippement.is_payed" :list="tempAdresses" :selected="tempBook"
-                    @onSelectedItem="async (id) => {
+                  <book-combobox
+                    v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
+                    :list="tempAdresses" :selected="tempBook" @onSelectedItem="async (id) => {
                       tempBook = id
 
                       let response = await axios.get(`/Dashboard/updatePickUpLocal_API/${route.params.id}/${tempBook}`)
@@ -119,9 +128,10 @@
 
                     }" class="hidden md:block" />
                 </div>
-                <!---->
-                <div
+                <div v-if="useInbox.focusedShippement.pickUp_local"
                   class="w-full h-fit rounded-md border border-slate-200 overflow-hidden bg-primary/5 p-3 grid grid-cols-2 gap-3 uppercase">
+                  {{ useInbox.focusedShippement.pickUp_local }}
+                  <!--
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">name</span>
                     <span>
@@ -147,7 +157,7 @@
                         formatPhoneNumber(useProfile.locations.find(item => item.id === tempBook).second_phone) :
                         '-------'
                       }}</span>
-                  </div>
+                  </div>-->
                 </div>
               </div>
 
