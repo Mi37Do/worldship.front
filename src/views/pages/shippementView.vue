@@ -93,8 +93,6 @@
 
                   tempBook = tempAdresses[0].id
 
-                  let responseR = await axios.get(`/Dashboard/updatePickUpLocal_API/${route.params.id}/${tempBook}`)
-
                 }"
                   :class="deliverToCenter ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
                   class="btn btn-sm pixa-btn">to center</button>
@@ -104,8 +102,6 @@
                   let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/0`)
 
                   tempBook = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : useBook.tempBooks[0].id
-
-                  let responseR = await axios.get(`/Dashboard/updatePickUpLocal_API/${route.params.id}/${tempBook}`)
 
                 }"
                   :class="!deliverToCenter ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
@@ -337,7 +333,7 @@
             <div v-for="item in useInbox.packageOptions" :key="item.id" class="w-full grid grid-cols-2 gap-4">
 
               <span class="font-semibold h-10 flex items-center">{{ item.name }} <br> ($ {{ numberFormat(item.price)
-                }})</span>
+              }})</span>
               <div class="flex justify-end">
                 <commun-switch v-if="!useInbox.focusedShippement.is_payed"
                   :enabled="useInbox.focusedShippement.option_package_ids.find(i => i.id === item.id) ? true : false"
@@ -354,7 +350,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-                }}
+              }}
               </span>
             </div>
 
