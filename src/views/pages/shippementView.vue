@@ -337,7 +337,7 @@
             <div v-for="item in useInbox.packageOptions" :key="item.id" class="w-full grid grid-cols-2 gap-4">
 
               <span class="font-semibold h-10 flex items-center">{{ item.name }} <br> ($ {{ numberFormat(item.price)
-              }})</span>
+                }})</span>
               <div class="flex justify-end">
                 <commun-switch v-if="!useInbox.focusedShippement.is_payed"
                   :enabled="useInbox.focusedShippement.option_package_ids.find(i => i.id === item.id) ? true : false"
@@ -354,7 +354,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-              }}
+                }}
               </span>
             </div>
 
@@ -427,10 +427,10 @@ onMounted(async () => {
     console.log(useInbox.focusedShippement)
 
 
-    if (useInbox.focusedShippement.deliver_type === 'h') {
+    if (useInbox.focusedShippement.deliver_type === 'p') {
       deliverToCenter.value = true
       tempBook.value = useInbox.focusedShippement.pickUp_local.id
-    } else if (useInbox.focusedShippement.deliver_type === 'p') {
+    } else if (useInbox.focusedShippement.deliver_type === 'h') {
       deliverToCenter.value = false
       tempBook.value = useInbox.focusedShippement.address_book.id
     }
