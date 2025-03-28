@@ -58,7 +58,7 @@
 
                 <div v-else class="w-full grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                   <div v-for="pics in useInbox.focusedShippement.wh_pk_ad_picture" :key="pics"
-                    class="w-full h-40 bg-red-400 rounded-md overflow-hidden">
+                    class="w-full h-40 bg-slate-100 rounded-md overflow-hidden">
                     <img :src="env + pics.image"
                       v-viewer="{ button: true, title: false, movable: false, rotatable: false, scalable: false, keyboard: true }"
                       alt="">
@@ -72,15 +72,16 @@
             <div
               class="w-full h-fit flex flex-col gap-4 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl p-4 col-span-2">
               <div class="w-full flex items-center justify-between">
-                <span class="pixa-title">Address Book</span>
-
+                <span class="pixa-title">delivery point</span>
+                <commun-switch :enabled="useInbox.focusedShippement.deliver_type !== 'n' ? true : false" />
               </div>
 
-              <div class="w-full p-1 bg-primary rounded-md grid grid-cols-2 gap-1">
+              <div v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
+                class="w-full p-1 bg-primary rounded-md grid grid-cols-2 gap-1">
                 <button @click="async () => {
                   deliverToCenter = true
 
-                  let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/1`)
+                  let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/0`)
 
                   tempBook = tempAdresses[0].id
 
@@ -92,7 +93,7 @@
                 <button @click="async () => {
                   deliverToCenter = false
 
-                  let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/0`)
+                  let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/1`)
 
                   tempBook = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : useBook.tempBooks[0].id
 
@@ -107,53 +108,55 @@
               <div v-if="deliverToCenter" class="w-full flex flex-col gap-3">
 
                 <div class="flex gap-2 w-full justify-end">
-                  <book-combobox :list="tempAdresses" :selected="tempBook" @onSelectedItem="async (id) => {
-                    tempBook = id
+                  <book-combobox v-if="!useInbox.focusedShippement.is_payed" :list="tempAdresses" :selected="tempBook"
+                    @onSelectedItem="async (id) => {
+                      tempBook = id
 
-                    let response = await axios.get(`/Dashboard/updatePickUpLocal_API/${route.params.id}/${tempBook}`)
+                      let response = await axios.get(`/Dashboard/updatePickUpLocal_API/${route.params.id}/${tempBook}`)
 
-                    console.log(response)
+                      console.log(response)
 
 
-                  }" class="hidden md:block" />
+                    }" class="hidden md:block" />
                 </div>
-                <!--
+                <!---->
                 <div
                   class="w-full h-fit rounded-md border border-slate-200 overflow-hidden bg-primary/5 p-3 grid grid-cols-2 gap-3 uppercase">
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">name</span>
                     <span>
-                      {{useBook.addresses.find(item => item.id === tempBook).name}}</span>
+                      {{useProfile.locations.find(item => item.id === tempBook).name}}</span>
                   </div>
 
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">city</span>
                     <span>
-                      {{formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).city_id.name)}}</span>
+                      {{formatPhoneNumber(useProfile.locations.find(item => item.id === tempBook).city_id.name)}}</span>
                   </div>
 
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">phone</span>
                     <span>
-                      {{formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).phone)}}</span>
+                      {{formatPhoneNumber(useProfile.locations.find(item => item.id === tempBook).phone)}}</span>
                   </div>
 
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">second phone</span>
                     <span>
-                      {{useBook.addresses.find(item => item.id === tempBook).second_phone ?
-                        formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).second_phone) : '-------'
+                      {{useProfile.locations.find(item => item.id === tempBook).second_phone ?
+                        formatPhoneNumber(useProfile.locations.find(item => item.id === tempBook).second_phone) :
+                        '-------'
                       }}</span>
                   </div>
-                </div>-->
+                </div>
               </div>
 
               <div v-else class="w-full flex flex-col gap-3">
 
 
                 <div class="flex gap-2 w-full justify-end">
-                  <book-combobox :list="useBook.tempBooks" :selected="tempBook" @onSelectedItem="onChangeBook"
-                    class="hidden md:block" />
+                  <book-combobox v-if="!useInbox.focusedShippement.is_payed" :list="useBook.tempBooks"
+                    :selected="tempBook" @onSelectedItem="onChangeBook" class="hidden md:block" />
                   <button v-if="!useInbox.focusedShippement.is_payed" @click="Object.assign(useWidget.addAddressBook, {
                     open: true,
                     add: true
@@ -283,6 +286,7 @@
                     isCargo = false
                     let response = await axios.get(`/Dashboard/choose_ship_API/${route.params.id}/0`)
                     console.log(response.data)
+                    useInbox.focusedShippement.total_price_cost = response.data.reslut
                   }" :class="!isCargo ? 'bg-primary text-white' : 'hover:bg-white/80'"
                     class="w-full h-14 p-2 rounded flex items-center">
                     <div class="flex-1 flex flex-col">
@@ -299,12 +303,13 @@
                     isCargo = true
                     let response = await axios.get(`/Dashboard/choose_ship_API/${route.params.id}/1`)
                     console.log(response.data)
+                    useInbox.focusedShippement.total_price_cost = response.data.reslut
 
                   }" :class="isCargo ? 'bg-primary text-white' : 'hover:bg-white/80'"
                     class="w-full h-14 p-2 rounded flex items-center">
                     <div class="flex-1 flex flex-col">
                       <span>cargo</span>
-                      <span>$ {{ numberFormat(0) }}
+                      <span>$ {{ numberFormat(useInbox.focusedShippement.cargo_shipping_cost) }}
                       </span>
                     </div>
                     <div v-if="isCargo" class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
@@ -413,6 +418,17 @@ onMounted(async () => {
     console.log(useInbox.focusedShippement)
 
 
+    if (useInbox.focusedShippement.deliver_type === 'h') {
+      deliverToCenter.value = true
+      tempBook.value = useInbox.focusedShippement.pickUp_local.id
+    } else if (useInbox.focusedShippement.deliver_type === 'p') {
+      deliverToCenter.value = false
+      tempBook.value = useInbox.focusedShippement.address_book.id
+    }
+
+    if (useInbox.focusedShippement.use_cargo) isCargo.value = true
+
+
     tempCards.value = useInvoices.cards.map((item) => {
       return {
         id: item.id,
@@ -460,7 +476,7 @@ onMounted(async () => {
       designation: item.name
     })
     )
-    tempBook.value = tempAdresses.value[0].id
+
     tempCoins.value = useInbox.focusedShippement.total_coins ? useInbox.focusedShippement.total_coins : 0
     tempInsurance.value = useInbox.focusedShippement.add_insurance
     loading.value = false
