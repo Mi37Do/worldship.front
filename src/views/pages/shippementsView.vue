@@ -60,9 +60,13 @@
           <span class="h-8  my-auto flex items-center">{{ $t('commun.paymentStatus') }}</span>
         </div>
 
-        <div class="w-full flex-1 overflow-auto flex flex-col bg-red-200">
+        <div class="w-full flex-1 overflow-auto flex flex-col">
           <div class="w-full h-fit pt-2 gap-2 flex flex-col">
-            <item v-for="item in useInbox.filtredShippements" :key="item.id" :item="item" />
+
+            <div v-for="item in useInbox.filtredShippements" :key="item.id" class="w-full h-14 bg-red-800"></div>
+
+            <!--
+            <item v-for="item in useInbox.filtredShippements" :key="item.id" :item="item" /> -->
           </div>
         </div>
       </div>
