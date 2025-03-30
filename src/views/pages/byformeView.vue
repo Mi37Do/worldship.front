@@ -18,7 +18,7 @@
 
 <script setup>
 import topAppBar from '@/components/navigations/topAppBar.vue';
-import item from '@/components/byforme/item.vue';
+import item from '@/components/byforme/itemData.vue';
 import PlusIcon from '@/assets/icons/plusIcon.vue';
 import itemsModal from '@/components/shippement/itemsModal.vue';
 import { useWidgetStore } from '@/stores/widget';
