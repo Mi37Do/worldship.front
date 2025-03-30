@@ -34,7 +34,7 @@
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ useProfile.profile.user.first_name }} {{
                   useProfile.profile.user.last_name
-                }}</span>
+                  }}</span>
                 <div :class="[copied && typeCopied === 'name' ? 'tooltip' : '']" data-tip="copied">
                   <button
                     @click="copyText(useProfile.profile.user.first_name + ' ' + useProfile.profile.user.last_name, 'name')"
@@ -63,7 +63,7 @@
               <span class="w-32 font-semibold  my-auto">{{ $t('commun.addressLine') }} 2</span>
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ useProfile.profile.user.code
-                }}</span>
+                  }}</span>
                 <div :class="[copied && typeCopied === 'code' ? 'tooltip' : '']" data-tip="copied">
                   <button @click="copyText(useProfile.profile.user.code, 'code')"
                     class="btn btn-sm btn-square btn-ghost">
@@ -116,7 +116,7 @@
               <span class="w-32 font-semibold  my-auto">{{ $t('commun.phone') }}</span>
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ formatPhoneNumber(useProfile.profile.user.phone)
-                }}</span>
+                  }}</span>
                 <div :class="[copied && typeCopied === 'phone' ? 'tooltip' : '']" data-tip="copied">
                   <button @click="copyText(useProfile.profile.user.phone, 'phone')"
                     class="btn btn-sm btn-square btn-ghost">
@@ -205,7 +205,6 @@
 import planIcon from '@/assets/icons/planIcon.vue';
 import topAppBar from '@/components/navigations/topAppBar.vue';
 import boxIcon from '@/assets/icons/boxIcon.vue';
-import item from '@/components/inbox/item.vue';
 import WalletIcon from '@/assets/icons/walletIcon.vue';
 import CartIcon from '@/assets/icons/cartIcon.vue';
 import { useI18n } from 'vue-i18n';
