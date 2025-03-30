@@ -115,9 +115,9 @@
                   v-model="item.selected_to_ship" @change="onSelectedEnabled(item)" name="" id=""
                   class="rounded checked:bg-primary checkbox-xs hidden lg:block">
               </template>
-              </item>
+            </itemData>
 
-              <!--       -->
+            <!--       -->
           </div>
         </div>
       </div>
