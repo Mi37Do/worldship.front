@@ -53,7 +53,7 @@
 
         <div class="w-full flex-1 overflow-auto flex flex-col">
           <div class="w-full h-fit flex flex-col gap-2 pt-2">
-            <item v-for="item in useInbox.filtredReturns" :key="item" :item="item" />
+            <itemData v-for="item in useInbox.filtredReturns" :key="item" :item="item" />
           </div>
         </div>
       </div>
@@ -69,7 +69,7 @@
 
 <script setup>
 import topAppBar from '@/components/navigations/topAppBar.vue';
-import item from '@/components/return/item.vue';
+import itemData from '@/components/return/itemData.vue';
 import itemsModal from '@/components/shippement/itemsModal.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { useInboxStore } from '@/stores/inbox';

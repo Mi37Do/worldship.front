@@ -54,7 +54,7 @@
 
       <div class="w-full flex-1 overflow-auto flex flex-col">
         <div class="w-full h-fit flex flex-col gap-2 pt-2">
-          <item v-for="item in useInbox.filterBuyForMes" :key="item" :item="item" />
+          <itemData v-for="item in useInbox.filterBuyForMes" :key="item" :item="item" />
         </div>
       </div>
     </div>
@@ -68,7 +68,7 @@
 </template>
 
 <script setup>
-import item from '@/components/byforme/item.vue';
+import itemData from '@/components/byforme/itemData.vue';
 import PlusIcon from '@/assets/icons/plusIcon.vue';
 import itemsModal from '@/components/shippement/itemsModal.vue';
 import { useWidgetStore } from '@/stores/widget';

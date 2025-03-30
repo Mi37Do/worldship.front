@@ -109,15 +109,15 @@
         <div class="w-full flex-1 overflow-auto">
           <div class="w-full h-fit  flex flex-col gap-2 pt-2">
             <!--  -->
-            <item v-for="item in useInbox.filtredInboxs" :key="item.id" :item="item">
+            <itemData v-for="item in useInbox.filtredInboxs" :key="item.id" :item="item">
               <template #checkboxSelect>
                 <input type="checkbox" :checked="useInbox.inboxsToShip.find(i => i.id === item.id)"
                   v-model="item.selected_to_ship" @change="onSelectedEnabled(item)" name="" id=""
                   class="rounded checked:bg-primary checkbox-xs hidden lg:block">
               </template>
-            </item>
+              </item>
 
-            <!--       -->
+              <!--       -->
           </div>
         </div>
       </div>
@@ -134,7 +134,7 @@
 <script setup>
 import planIcon from '@/assets/icons/planIcon.vue';
 import topAppBar from '@/components/navigations/topAppBar.vue';
-import item from '@/components/inbox/item.vue';
+import itemData from '@/components/inbox/itemData.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { useInboxStore } from '@/stores/inbox';
 import shipSelectedItemsModal from '@/components/inbox/shipSelectedItemsModal.vue';

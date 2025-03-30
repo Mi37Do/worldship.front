@@ -41,7 +41,7 @@
 
         <div class="w-full flex-1 overflow-auto flex flex-col">
           <div class="w-full h-fit flex flex-col gap-2 pt-2">
-            <item v-for="item in useInvoices.invoices" :key="item.id" :item="item" />
+            <itemData v-for="item in useInvoices.invoices" :key="item.id" :item="item" />
           </div>
         </div>
       </div>
@@ -54,7 +54,7 @@
 <script setup>
 import invoiceDetail from '@/components/invoices/invoiceDetail.vue';
 import topAppBar from '@/components/navigations/topAppBar.vue';
-import item from '@/components/invoices/item.vue';
+import itemData from '@/components/invoices/itemData.vue';
 import communInputSearch from '@/components/commun/communInputSearch.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { useInvoicesStore } from '@/stores/invoices';

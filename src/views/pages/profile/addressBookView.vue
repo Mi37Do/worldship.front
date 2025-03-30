@@ -32,7 +32,7 @@
 
         <div class="w-full flex-1 overflow-auto flex flex-col">
           <div class="w-full h-fit flex flex-col gap-2 pt-2">
-            <item v-for="item in useBook.addresses" :key="item" :item="item" />
+            <itemData v-for="item in useBook.addresses" :key="item" :item="item" />
           </div>
         </div>
       </div>
@@ -45,7 +45,7 @@
 <script setup>
 import plusIcon from '@/assets/icons/plusIcon.vue';
 import addAdressBook from '@/components/addressBook/addAdressBook.vue';
-import item from '@/components/addressBook/item.vue';
+import itemData from '@/components/addressBook/item.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { onMounted, ref } from 'vue';
 import { useBookStore } from '@/stores/addressBook';
