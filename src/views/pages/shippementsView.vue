@@ -62,7 +62,7 @@
 
         <div class="w-full flex-1 overflow-auto flex flex-col">
           <div class="w-full h-fit pt-2 gap-2 flex flex-col">
-            <item v-for="item in useInbox.filtredShippements" :key="item" :item="item" />
+            <item v-for="item in useInbox.filtredShippements" :key="item.id" :item="item" />
           </div>
         </div>
       </div>
