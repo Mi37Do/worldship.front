@@ -62,7 +62,7 @@
 
         <div class="w-full flex-1 overflow-auto flex flex-col">
           <div class="w-full h-fit pt-2 gap-2 flex flex-col">
-            <item v-for="item in useInbox.filtredShippements" :key="item.id" :item="item" />
+            <item v-for="item in useInbox.shippements" :key="item.id" :item="item" />
           </div>
         </div>
       </div>
@@ -133,8 +133,6 @@ const selectedType = ref('all')
 onMounted(async () => {
   try {
     await useInbox.getShippements(localStorage.getItem('ws-user-id'))
-
-
     useInbox.filtredShippements = useInbox.shippements
     loading.value = false
   } catch (error) {
