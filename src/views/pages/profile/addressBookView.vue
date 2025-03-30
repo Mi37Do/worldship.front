@@ -45,7 +45,7 @@
 <script setup>
 import plusIcon from '@/assets/icons/plusIcon.vue';
 import addAdressBook from '@/components/addressBook/addAdressBook.vue';
-import itemData from '@/components/addressBook/item.vue';
+import itemData from '@/components/addressBook/itemData.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { onMounted, ref } from 'vue';
 import { useBookStore } from '@/stores/addressBook';
