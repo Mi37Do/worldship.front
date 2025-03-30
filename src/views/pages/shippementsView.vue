@@ -63,10 +63,9 @@
         <div class="w-full flex-1 overflow-auto flex flex-col">
           <div class="w-full h-fit pt-2 gap-2 flex flex-col">
 
-            <div v-for="item in useInbox.filtredShippements" :key="item.id" class="w-full h-14 bg-red-800"></div>
 
-            <!--
-            <item v-for="item in useInbox.filtredShippements" :key="item.id" :item="item" /> -->
+            <!---->
+            <itemData v-for="item in useInbox.filtredShippements" :key="item.id" :item="item" />
           </div>
         </div>
       </div>
@@ -83,7 +82,7 @@
 <script setup>
 import planIcon from '@/assets/icons/planIcon.vue';
 import topAppBar from '@/components/navigations/topAppBar.vue';
-import item from '@/components/shippement/item.vue';
+import itemData from '@/components/shippement/itemData.vue';
 import itemsModal from '@/components/shippement/itemsModal.vue';
 import { useInboxStore } from '@/stores/inbox';
 import { useWidgetStore } from '@/stores/widget';
