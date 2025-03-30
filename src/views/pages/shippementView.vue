@@ -249,6 +249,12 @@
 
               <span class="text-right my-auto">$ {{ numberFormat(useInbox.focusedShippement.total_price) }}</span>
 
+              <span v-if="useInbox.focusedShippement.deliver_type === 'h'"
+                class="font-semibold h-10 flex items-center">deliver to home</span>
+
+              <span v-if="useInbox.focusedShippement.deliver_type === 'h'" class="text-right my-auto">$ {{
+                numberFormat(useInbox.focusedShippement.deliver_to_home) }}</span>
+
               <span class="font-semibold h-10 flex items-center">add Insurance $ {{
                 numberFormat(useInbox.focusedShippement.total_insurance) }} </span>
 
@@ -294,6 +300,7 @@
                 <div class="w-full h-fit bg-primary/10 flex flex-col p-1 gap-1 rounded-md">
                   <div @click="async () => {
                     isCargo = false
+                    useInbox.focusedShippement.use_cargo = false
                     let response = await axios.get(`/Dashboard/choose_ship_API/${route.params.id}/0`)
                     console.log(response.data)
                     useInbox.focusedShippement.total_price_cost = response.data.reslut
@@ -311,6 +318,7 @@
 
                   <div @click="async () => {
                     isCargo = true
+                    useInbox.focusedShippement.use_cargo = true
                     let response = await axios.get(`/Dashboard/choose_ship_API/${route.params.id}/1`)
                     console.log(response.data)
                     useInbox.focusedShippement.total_price_cost = response.data.reslut

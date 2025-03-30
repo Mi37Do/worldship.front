@@ -25,8 +25,17 @@
             <span class="text-right my-auto text-red-500">{{ numberFormat(item.total_price_options) }} $</span>
             <span>Coins </span>
             <span class="text-right my-auto">{{ numberFormat(item.total_coins) }} $</span>
-            <span>Shipping Cost </span>
-            <span class="text-right my-auto">{{ numberFormat(item.shipping_cost) }} $</span>
+
+            <span v-if="item.deliver_to_type === 'h'">Shipping Cost </span>
+            <span v-if="item.deliver_to_type === 'h'" class="text-right my-auto">{{ numberFormat(item.deliver_to_home)
+            }}
+              $</span>
+            <span v-if="!item.use_cargo">Shipping Cost </span>
+            <span v-if="!item.use_cargo" class="text-right my-auto">{{ numberFormat(item.shipping_cost) }}
+              $</span>
+            <span v-if="item.use_cargo">Cargo </span>
+            <span v-if="item.use_cargo" class="text-right my-auto">{{ numberFormat(item.cargo_shipping_cost) }}
+              $</span>
           </div>
 
           <div v-else class="w-full h-fit grid grid-cols-2 gap-4  col-span-2">
