@@ -1,5 +1,5 @@
 <template>
-  <!--
+  <!-- -->{{ props.item.id }}
   <div class="w-full h-fit lg:h-[4.5rem] border bg-white rounded-md border-slate-200  transition-all duration-150">
 
     <div class="w-full h-full hidden lg:grid grid-cols-5 gap-2 uppercase font-medium hover:bg-slate-50 px-4 ">
@@ -86,9 +86,8 @@
 
     </div>
 
-  </div> -->
+  </div>
 
-  <div class="w-full h-14 bg-blue-500"></div>
 </template>
 
 <script setup>
