@@ -174,6 +174,9 @@ onMounted(async () => {
     await useInbox.getInbox(localStorage.getItem('ws-user-id'))
     useInbox.filtredInboxs = useInbox.inboxs
 
+    console.log(useInbox.filtredInboxs)
+
+
     useInbox.inboxs.map(item => ({
       ...item,
       selected_to_ship: false
