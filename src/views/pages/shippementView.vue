@@ -208,20 +208,17 @@
 
             <div class="w-full h-fit bg-white rounded-lg border border-gray-200 p-3">
               <div class="w-full flex flex-col rounded-md overflow-hidden">
-                <div v-for="i in 6" :key="i" :class="i % 2 ? 'bg-slate-100' : ''" class="w-full flex px-4">
+                <div v-for="i in useInbox.focusedShippement.label_shipp
+                  .tracking_ship" :key="i" :class="i % 2 ? 'bg-slate-100' : ''" class="w-full flex px-4">
                   <div class="w-px  flex flex-col items-center">
                     <span :class="i === 1 ? '' : 'bg-slate-400'" class="h-6 w-1 "></span>
                     <div class="w-2 h-2 rounded-full bg-slate-500 outline outline-2 outline-white z-10"></div>
                     <span :class="i === 6 ? '' : 'bg-slate-400'" class="flex-1 w-1"></span>
                   </div>
                   <div class="flex-1 h-fit flex flex-col gap-1.5 p-3">
-                    <span class="font-medium text-lg">Lorem ipsum dolor sit amet.</span>
-                    <span>{{ format(new Date(), 'dd-MM-yyyy') }}</span>
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam repudiandae in dicta
-                      obcaecati
-                      alias magni maxime adipisci porro, neque, nobis necessitatibus ipsum distinctio quam quidem
-                      similique
-                      fuga ab reiciendis cumque.</span>
+                    <span class="font-medium text-lg truncate">{{ i.name }}</span>
+                    <span>{{ i.date_act }}</span>
+                    <span>{{ i.description }}</span>
                   </div>
                 </div>
               </div>
