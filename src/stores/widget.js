@@ -15,6 +15,7 @@ export const useWidgetStore = defineStore('widget', () => {
   const newPayment = ref(false)
   const addCard = ref(false)
   const dateFilter = ref(false)
+  const tracking = ref(false)
   const supportTicket = reactive({
     open: false,
     id: null,
@@ -81,5 +82,6 @@ export const useWidgetStore = defineStore('widget', () => {
     dateFilter,
     openSide,
     addCard,
+    tracking,
   }
 })

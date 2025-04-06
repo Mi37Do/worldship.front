@@ -11,11 +11,13 @@
 </template>
 
 <script setup>
+import { useProfileStore } from '@/stores/profile';
 import { ref, onMounted } from 'vue';
 
+const useProfile = useProfileStore()
 // Square application ID and location ID
-const squareApplicationId = 'sq0idp-3sEmmXl4U6Kl2lVsuoql-g';
-const squareLocationId = 'R3QJ1KXV3V27J';
+const squareApplicationId = useProfile.profile.app_id;
+const squareLocationId = useProfile.profile.location_id;
 
 // Refs for state management
 const isProcessing = ref(false);

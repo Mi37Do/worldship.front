@@ -51,6 +51,22 @@
             </MenuItem>
 
             <MenuItem>
+            <button @click="() => {
+              useWidget.tracking = true
+              useInbox.focusedShippement = item
+
+              console.log(useInbox.focusedShippement)
+
+            }" :class="[
+              item.label_shipp ? '' : 'btn-disabled',
+              'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
+            ]">
+              tracking
+              <plan-icon class="w-5 h-5" />
+            </button>
+            </MenuItem>
+
+            <MenuItem>
             <button @click="openTickets" :class="[
               'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
             ]">
@@ -71,6 +87,7 @@ import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import menuIcon from '@/assets/icons/menuIcon.vue'
 import eyeIcon from '@/assets/icons/eyeIcon.vue';
 import ListIcon from '@/assets/icons/listIcon.vue';
+import planIcon from '@/assets/icons/planIcon.vue';
 import commentIcon from '@/assets/icons/commentIcon.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { useInboxStore } from '@/stores/inbox';

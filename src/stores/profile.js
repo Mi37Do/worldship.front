@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import Cookies from 'js-cookie'
@@ -19,6 +19,12 @@ export const useProfileStore = defineStore('profile', () => {
   const prohibItems = ref(null)
   const logoBase64 = ref('')
   const locations = ref([])
+
+  const loginError = reactive({
+    open: false,
+    message: '',
+  })
+
   const env = import.meta.env.VITE_WORLDSHIP_API
 
   const getRefferals = async (user_id) => {
@@ -41,8 +47,6 @@ export const useProfileStore = defineStore('profile', () => {
         if (user_id) {
           response = await axios.get(`/Dashboard/view_profile_API/${user_id}`)
           isAuth.value = true
-
-          console.log(response.data)
 
           profile.value = response.data
           wallets.value = response.data.wallets.wallet_details.reverse()
@@ -78,11 +82,25 @@ export const useProfileStore = defineStore('profile', () => {
       localStorage.setItem('ws-saved', saveData)
     }
 
+    Object.assign(loginError, {
+      open: false,
+      message: '',
+    })
+
     try {
       let response = await axios.post(`/login_API`, formData)
-      Cookies.set('token', response.data.token)
-      localStorage.setItem('ws-user-id', response.data.user.id)
-      router.push({ name: 'app' })
+      console.log(response)
+      if (response.data.rslt === 0) {
+        Object.assign(loginError, {
+          open: true,
+          message: 'invalide credentials, please retry login',
+        })
+        console.log('error')
+      } else {
+        Cookies.set('token', response.data.token)
+        localStorage.setItem('ws-user-id', response.data.user.id)
+        router.push({ name: 'app' })
+      }
     } catch (error) {
       console.error(error)
     }
@@ -133,5 +151,6 @@ export const useProfileStore = defineStore('profile', () => {
     prohibItems,
     sponsors,
     locations,
+    loginError,
   }
 })

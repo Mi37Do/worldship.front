@@ -18,6 +18,7 @@
 
     <div v-else class="w-full flex-1 py-4 flex flex-col gap-4 overflow-hidden">
 
+      <tracking-modal />
       <items-modal />
       <date-filter-modal @filterItems="onFilterItems" />
 
@@ -81,6 +82,7 @@
 
 <script setup>
 import planIcon from '@/assets/icons/planIcon.vue';
+import trackingModal from '@/components/shippement/trackingModal.vue';
 import topAppBar from '@/components/navigations/topAppBar.vue';
 import itemData from '@/components/shippement/itemData.vue';
 import itemsModal from '@/components/shippement/itemsModal.vue';

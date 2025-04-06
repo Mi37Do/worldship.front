@@ -38,6 +38,11 @@
 
       </label>
 
+      <div v-if="useProfile.loginError.open"
+        class="w-full bg-red-100 text-red-500 rounded-md border border-red-300 h-fit px-4 py-2 flex items-center">{{
+          useProfile.loginError.message }}
+      </div>
+
       <button type="submit" class="btn btn-sm pixa-btn btn-primary w-full mt-4">login</button>
 
       <div class="w-full flex items-center gap-2 my-2">
@@ -74,7 +79,11 @@ const loginUser = reactive(
 
 const login = async (user, saveData) => {
   lodingLogin.value = true
-  await useProfile.login(user, saveData)
+  try {
+    await useProfile.login(user, saveData)
+  } catch (error) {
+    console.error(error)
+  }
 }
 </script>
 
