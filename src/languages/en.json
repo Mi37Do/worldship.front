@@ -3,7 +3,8 @@
     "links": {
       "dashboard": "dashboard",
       "inbox": "inbox",
-      "shippements": "Shipments",
+      "shippements": "warehouse Shipments",
+      "costumShippements": "costum Shipments",
       "return": "return",
       "buyForMe": "buy for me",
       "invoices": "invoices",
@@ -23,7 +24,7 @@
     "orders": "orders",
     "packages": "packages",
     "selectedShip": "ship selected items",
-    "shippements": "Shipments",
+    "shippements": "warehouse Shipments",
     "status": "state",
     "paymentStatus": "payment status",
     "returnBox": "return box",

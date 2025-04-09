@@ -48,14 +48,24 @@ const router = createRouter({
         },
         { path: '/inbox', name: 'inbox', component: () => import('@/views/pages/inboxView.vue') },
         {
-          path: '/shippements',
+          path: '/warehouse-shippements',
           name: 'shippements',
           component: () => import('@/views/pages/shippementsView.vue'),
         },
         {
-          path: '/shippement/:id',
+          path: '/warehouse-shippement/:id',
           name: 'shippement',
           component: () => import('@/views/pages/shippementView.vue'),
+        },
+        {
+          path: '/costume-shippements',
+          name: 'costume-shippements',
+          component: () => import('@/views/pages/costumShippementsView.vue'),
+        },
+        {
+          path: '/costume-shippement/:id',
+          name: 'costume-shippement',
+          component: () => import('@/views/pages/costumShippementView.vue'),
         },
         {
           path: '/return',

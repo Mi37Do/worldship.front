@@ -42,6 +42,12 @@
               <span>{{ $t('navigation.links.shippements') }}</span>
             </router-link>
 
+            <router-link :to="{ name: 'costume-shippements' }"
+              class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+              <plan-icon class="w-5 h-5" />
+              <span>{{ $t('navigation.links.costumShippements') }}</span>
+            </router-link>
+
             <router-link :to="{ name: 'return' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
               <redo-icon class="w-5 h-5" />
               <span>{{ $t('navigation.links.return') }}</span>
