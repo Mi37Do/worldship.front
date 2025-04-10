@@ -16,6 +16,9 @@ export const useWidgetStore = defineStore('widget', () => {
   const addCard = ref(false)
   const dateFilter = ref(false)
   const tracking = ref(false)
+
+  const calculator = ref(false)
+
   const supportTicket = reactive({
     open: false,
     id: null,
@@ -60,6 +63,7 @@ export const useWidgetStore = defineStore('widget', () => {
   }
 
   return {
+    calculator,
     orderItems,
     invoiceDetail,
     addWallet,

@@ -63,6 +63,11 @@ const router = createRouter({
           component: () => import('@/views/pages/costumShippementsView.vue'),
         },
         {
+          path: '/dg',
+          name: 'dg',
+          component: () => import('@/views/pages/dangerousView.vue'),
+        },
+        {
           path: '/costume-shippement/:id',
           name: 'costume-shippement',
           component: () => import('@/views/pages/costumShippementView.vue'),

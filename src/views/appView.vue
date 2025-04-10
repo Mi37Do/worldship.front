@@ -5,6 +5,8 @@
       useWidget.userLanguage === 'en' ? ' pl-4 lg:pl-0 pr-4' : ' pl-4 lg:pr-0 pr-4',
       'drawer-content flex flex-col items-center justify-center pt-4 w-full h-full overflow-hidden']">
 
+      <commun-calculator />
+
       <RouterView v-slot="{ Component }">
         <transition name="fade" mode="out-in">
           <component :is="Component" />
@@ -53,6 +55,11 @@
               <span>{{ $t('navigation.links.return') }}</span>
             </router-link>
 
+            <router-link :to="{ name: 'dg' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+              <exclamation-triangle-icon class="w-5 h-5" />
+              <span>{{ $t('navigation.links.dangerous') }}</span>
+            </router-link>
+
             <router-link :to="{ name: 'byforme' }" class="btn btn-sm pixa-btn flex gap-3 justify-start btn-ghost">
               <cart-icon class="w-[1.5rem] h-[1.5rem]" />
               <span>{{ $t('navigation.links.buyForMe') }}</span>
@@ -89,6 +96,8 @@
               <question-icon class="w-[1.5rem] h-[1.5rem]" />
               <span>{{ $t('commun.faq') }}</span>
             </router-link>
+
+            <button @click="useWidget.calculator = true" class="btn btn-sm pixa-btn btn-primary">calculator</button>
           </div>
 
 
@@ -112,6 +121,7 @@
 import billIcon from '@/assets/icons/billIcon.vue';
 import boxIcon from '@/assets/icons/boxIcon.vue';
 import callingIcon from '@/assets/icons/callingIcon.vue';
+import exclamationTriangleIcon from '@/assets/icons/exclamationTriangleIcon.vue';
 import planIcon from '@/assets/icons/planIcon.vue';
 import redoIcon from '@/assets/icons/redoIcon.vue';
 import parcelIcon from '@/assets/icons/parcelIcon.vue';
@@ -125,6 +135,7 @@ import { useWidgetStore } from '@/stores/widget';
 import { useI18n } from 'vue-i18n';
 import { useProfileStore } from '@/stores/profile';
 import signoutIcon from '@/assets/icons/signoutIcon.vue';
+import communCalculator from '@/components/commun/communCalculator.vue';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
