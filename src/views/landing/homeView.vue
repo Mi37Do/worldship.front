@@ -610,8 +610,11 @@
                 <div class="label">
                   <span class="label-text uppercase">from <span class="text-red-500">*</span></span>
                 </div>
-                <input type="text" required v-model="shippement.from"
-                  class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+
+                <commun-combobox-countries class="mt-auto" :required="true" :list="countries"
+                  :selected="shippement.from" @onSelectedItem="(id) => {
+                    shippement.from = id
+                  }" />
               </label>
 
               <label class="form-control w-full">
@@ -714,7 +717,10 @@ import { useProfileStore } from '@/stores/profile';
 import { useWidgetStore } from '@/stores/widget';
 import receiptIcon from '@/assets/icons/receiptIcon.vue';
 import { useI18n } from 'vue-i18n';
+import communComboboxCountries from '@/components/commun/communComboboxCountries.vue';
 import axios from 'axios';
+
+import countries from '@/assets/countries.json'
 
 const offset = ref(0);
 const speed = ref(1);
