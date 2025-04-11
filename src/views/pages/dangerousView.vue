@@ -93,11 +93,13 @@
             <span> {{ $t('commun.code') }}</span>
           </span>
           <span class="h-8  my-auto flex items-center">{{ $t('commun.name') }}</span>
-          <span class="h-8  my-auto flex items-center "></span>
-          <div class="flex items-center justify-between my-auto">
+          <span class="h-8  my-auto flex items-center ">{{ $t('commun.qty') }}</span>
+          <span class="h-8  my-auto flex items-center ">{{ $t('commun.price') }}</span>
 
-            <span class="h-8  my-auto flex items-center ">{{ $t('commun.price') }}</span>
-          </div>
+          <span class="h-8  my-auto flex flex-col justify-center ">{{ $t('commun.company_cost') }} <span
+              class="text-[0.6rem]">({{
+                $t('commun.price_cost')
+              }})</span> </span>
 
         </div>
 

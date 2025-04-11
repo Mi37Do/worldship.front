@@ -7,6 +7,21 @@
         <div class="flex gap-2">
           <button @click="() => {
             useWidget.calculator = false
+            Object.assign(shippement, {
+              weight: 0,
+              l: 0,
+              w: 0,
+              h: 0,
+              weightUnit: 'kg',
+              lengthUnit: 'cm', from: '',
+              city: null,
+              cityCode: null,
+              insurance: 0,
+              result: null,
+              items: 0,
+              itemPrice: 0,
+              total: 0, website: '', isBfm: false
+            })
           }" class="btn btn-sm pixa-btn w-10 pixa-btn-nofloat p-0">
             <times-icon class="w-5 h-5" />
           </button>
@@ -422,8 +437,11 @@
             <div class="label">
               <span class="label-text uppercase">from <span class="text-red-500">*</span></span>
             </div>
-            <input type="text" required v-model="shippement.from"
-              class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+
+            <commun-combobox-countries class="mt-auto" :required="true" :list="countries" :selected="shippement.from"
+              @onSelectedItem="(id) => {
+                shippement.from = id
+              }" />
           </label>
 
           <label class="form-control w-full">
@@ -478,6 +496,7 @@ import { useWidgetStore } from '@/stores/widget';
 import appsIcon from '@/assets/icons/appsIcon.vue';
 import timesIcon from '@/assets/icons/timesIcon.vue';
 import listIcon from '@/assets/icons/listIcon.vue';
+import communComboboxCountries from './communComboboxCountries.vue';
 import communCombobox from '../commun/communCombobox.vue';
 import receiptIcon from '@/assets/icons/receiptIcon.vue';
 import { reactive, ref, watch } from 'vue';
@@ -485,17 +504,13 @@ import { useBookStore } from '@/stores/addressBook';
 import axios from 'axios';
 import { objectToFormData } from '@/utils/formDataUtils'
 
+import countries from '@/assets/countries.json'
+
 const useWidget = useWidgetStore()
 const useBook = useBookStore()
-const addressBook = reactive(
-  {
-    first_name: '',
-    last_name: '',
-    phone: '',
-    second_phone: '',
-    city: null
-  }
-)
+
+console.log(countries)
+
 
 const shippement = reactive(
   {

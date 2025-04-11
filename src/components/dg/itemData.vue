@@ -23,7 +23,7 @@
 
 
     <span class="uppercase h-8 my-auto flex items-center truncate font-bold  lg:hidden">{{ $t('commun.code')
-    }}</span>
+      }}</span>
 
     <div class="w-full flex items-center gap-4">
       <span class="h-8 my-auto flex items-center truncate">{{ item.name_id.code }}</span>
@@ -31,24 +31,36 @@
 
 
     <span class="uppercase h-8 my-auto flex items-center truncate font-bold  lg:hidden">{{ $t('commun.name')
-    }}</span>
+      }}</span>
 
     <div class="w-full flex items-center gap-4">
       <span class="h-8 my-auto flex items-center truncate">{{ item.name_id.name }}</span>
     </div>
 
-    <span></span>
+    <span class="uppercase h-8 my-auto flex items-center truncate font-bold  lg:hidden  ">
+      {{ $t('commun.qty')
+      }}</span>
+
+
+    <span class="h-8 my-auto flex items-center truncate  "> {{ item.qty }}</span>
 
 
     <span class="uppercase h-8 my-auto flex items-center truncate font-bold  lg:hidden  ">
       {{ $t('commun.price')
       }}</span>
 
-    <div class="flex items-center justify-between">
+
+    <span class="h-8 my-auto flex items-center truncate  "> $ {{ numberFormat(item.price) }}</span>
+
+    <span class="h-8  my-auto flex flex-col justify-center lg:hidden  font-bold ">{{ $t('commun.company_cost') }} <span
+        class="text-[0.6rem]">({{
+          $t('commun.price_cost')
+        }})</span> </span>
 
 
-      <span class="h-8 my-auto flex items-center truncate  "> $ {{ numberFormat(item.price) }}</span>
-    </div>
+    <span class="h-8  my-auto flex flex-col justify-center">{{ item.company_cost || '-----'
+    }}<span class="text-[0.7rem]">($ {{ item.price_cost ? numberFormat(item.price_cost) : 0
+        }})</span> </span>
 
     <button @click="() => {
       item.selected_to_ship = !item.selected_to_ship
