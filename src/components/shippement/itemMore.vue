@@ -42,9 +42,11 @@
             </button>
             </MenuItem>
             <MenuItem>
-            <router-link :to="{ name: 'shippement', params: { id: item.id } }" :class="[
-              'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
-            ]">
+            <router-link
+              :to="{ name: route.name.includes('costume') ? 'costume-shippement' : 'shippement', params: { id: item.id } }"
+              :class="[
+                'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
+              ]">
               detail
               <eye-icon class="w-5 h-5" />
             </router-link>
@@ -91,12 +93,13 @@ import planIcon from '@/assets/icons/planIcon.vue';
 import commentIcon from '@/assets/icons/commentIcon.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { useInboxStore } from '@/stores/inbox';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const props = defineProps(['item'])
 const useWidget = useWidgetStore()
 const useInbox = useInboxStore()
 const router = useRouter()
+const route = useRoute()
 
 const openTickets = async () => {
   console.log(props.item)
