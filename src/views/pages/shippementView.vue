@@ -77,7 +77,7 @@
                 <commun-switch :enabled="useInbox.focusedShippement.deliver_type !== 'n' ? true : false"
                   @selectedEnabled="(value) => {
                     if (value) {
-                      return
+                      null
                     } else {
                       useInbox.focusedShippement.deliver_type = 'n'
                     }
@@ -94,10 +94,9 @@
 
                   await useInbox.getShippements(null, route.params.id)
 
-                  useInbox.focusedShippement.deliver_type = 'p'
                   console.log(useInbox.focusedShippement);
 
-                  useInbox.focusedShippement.total_price_cost = response.data.reslut
+                  // useInbox.focusedShippement.total_price_cost = response.data.reslut
 
                   tempBook = tempAdresses[0].id
                   loading = false
@@ -115,14 +114,13 @@
                 <button @click="async () => {
                   loading = true
                   deliverToCenter = false
-
+                  /***/
                   let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/0`)
 
                   await useInbox.getShippements(null, route.params.id)
 
-                  useInbox.focusedShippement.deliver_type = 'h'
                   console.log(useInbox.focusedShippement);
-                  useInbox.focusedShippement.total_price_cost = response.data.reslut
+                  //  useInbox.focusedShippement.total_price_cost = response.data.reslut
 
                   tempBook = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : useBook.tempBooks[0].id
 

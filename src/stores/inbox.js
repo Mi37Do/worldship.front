@@ -37,7 +37,6 @@ export const useInboxStore = defineStore('inbox', () => {
 
   const getShippements = async (user_id, id) => {
     shippements.value = []
-    focusedShippement.value = null
     packageOptions.value = null
     let response = null
     try {
