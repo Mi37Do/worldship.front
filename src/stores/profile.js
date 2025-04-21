@@ -4,6 +4,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { objectToFormData } from '@/utils/formDataUtils'
 import { useRouter } from 'vue-router'
+import { useBookStore } from './addressBook'
 
 export const useProfileStore = defineStore('profile', () => {
   const refferals = ref(null)
@@ -19,6 +20,8 @@ export const useProfileStore = defineStore('profile', () => {
   const prohibItems = ref(null)
   const logoBase64 = ref('')
   const locations = ref([])
+
+  const useBook = useBookStore()
 
   const loginError = reactive({
     open: false,
@@ -50,6 +53,8 @@ export const useProfileStore = defineStore('profile', () => {
 
           profile.value = response.data
           wallets.value = response.data.wallets.wallet_details.reverse()
+
+          await useBook.getAddresses(user_id)
         }
       } catch (error) {
         console.error(error)
@@ -108,16 +113,12 @@ export const useProfileStore = defineStore('profile', () => {
 
   const getWebConfig = async () => {
     let response = await axios.get(`/config_web_API`)
-    console.log(response.data)
     services.value = response.data.services
     webConfig.value = response.data.config_web
     sponsors.value = response.data.sponsor
     prohibItems.value = response.data.prohibited_items
 
     locations.value = response.data.pick_up_local
-
-    console.log(response.data)
-    console.log(webConfig.value)
 
     let responseImage = await fetch(env + webConfig.value.images_logo)
     if (!responseImage.ok) {

@@ -137,10 +137,9 @@ const selectedType = ref('all')
 
 onMounted(async () => {
   try {
+
     await useInbox.getShippements(localStorage.getItem('ws-user-id'))
     useInbox.filtredShippements = useInbox.shippements
-    console.log(useInbox.shippements)
-
     loading.value = false
   } catch (error) {
     loading.value = true

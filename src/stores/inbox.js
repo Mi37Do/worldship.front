@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import { useRoute } from 'vue-router'
 //import axiosInstance from '@/utils/axiosInstance'
 
 export const useInboxStore = defineStore('inbox', () => {
@@ -19,6 +20,7 @@ export const useInboxStore = defineStore('inbox', () => {
   const buyForMes = ref([])
   const packageOptions = ref([])
   const focusedItem = ref(null)
+  const route = useRoute()
 
   const getInbox = async (user_id) => {
     let response = null
@@ -34,14 +36,25 @@ export const useInboxStore = defineStore('inbox', () => {
   }
 
   const getShippements = async (user_id, id) => {
+    shippements.value = []
+    focusedShippement.value = null
+    packageOptions.value = null
     let response = null
     try {
       if (user_id) {
-        response = await axios.get(`/Warehouse/ShipmentsAll/${user_id}/`)
+        response = await axios.get(
+          route.name === 'shippements'
+            ? `/Warehouse/ShipmentsAll/${user_id}/`
+            : `/Shipments/ShipmentsAll/${user_id}/`,
+        )
         shippements.value = response.data
       }
       if (id) {
-        response = await axios.get(`/Warehouse/Shipments/${id}/`)
+        response = await axios.get(
+          route.name === 'shippement'
+            ? `/Warehouse/Shipments/${id}/`
+            : `/Shipments/Shipments/${id}/`,
+        )
         focusedShippement.value = response.data.shippments_details
         packageOptions.value = response.data.package_options
       }

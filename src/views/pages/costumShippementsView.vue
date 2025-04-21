@@ -53,10 +53,9 @@
 
       <div v-if="useInbox.shippements.length > 0" class="w-full flex-1  flex flex-col overflow-hidden">
         <div :class="[useWidget.userLanguage === 'ar' ? 'text-right  pl-7' : ' pr-7']"
-          class="w-full h-12 rounded-lg border border-slate-200 px-4 hidden lg:grid grid-cols-5 gap-2 uppercase font-bold text-primary bg-white">
+          class="w-full h-12 rounded-lg border border-slate-200 px-4 hidden lg:grid grid-cols-4 gap-2 uppercase font-bold text-primary bg-white">
           <span class="h-8  my-auto flex items-center pl-16">{{ $t('commun.created') }}</span>
           <span class="h-8 my-auto flex items-center">{{ $t('commun.code') }}</span>
-          <span class="h-8  my-auto flex items-center">{{ $t('commun.orders') }}</span>
           <span class="h-8  my-auto flex items-center">{{ $t('commun.status') }}</span>
           <span class="h-8  my-auto flex items-center">{{ $t('commun.paymentStatus') }}</span>
         </div>
@@ -100,11 +99,13 @@ import dateFilterModal from '@/components/commun/dateFilterModal.vue';
 import { format, isAfter, isBefore } from 'date-fns';
 import sideMenu from '@/assets/icons/sideMenu.vue';
 import { useInvoicesStore } from '@/stores/invoices';
+import { useRoute } from 'vue-router';
 
 const useWidget = useWidgetStore()
 const useInbox = useInboxStore()
 const useInvoices = useInvoicesStore()
 const loading = ref(true)
+const route = useRoute()
 const filterDate = reactive(
   {
     from: null,
@@ -137,9 +138,9 @@ const selectedType = ref('all')
 
 onMounted(async () => {
   try {
+
     await useInbox.getShippements(localStorage.getItem('ws-user-id'))
     useInbox.filtredShippements = useInbox.shippements
-    console.log(useInbox.shippements)
 
     loading.value = false
   } catch (error) {

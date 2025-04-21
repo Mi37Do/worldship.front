@@ -100,8 +100,16 @@
                     tempBook = tempAdresses[0].id
 
                   }"
-                    :class="deliverToCenter ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
-                    class="btn btn-sm pixa-btn">Pick Up Local Office (FREE)
+                    :class="deliverToCenter ? 'bg-primary hover:bg-primary/40 text-white' : 'hover:bg-white/80 text-primary bg-transparent border-0'"
+                    class="btn btn-sm pixa-btn flex justify-between">
+                    <span>
+                      Pick Up Local Office (FREE)</span>
+
+                    <div v-if="deliverToCenter"
+                      class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
+                      <check-icon class="w-4 h-4 fill-white" />
+                    </div>
+
                   </button>
                   <button @click="async () => {
                     deliverToCenter = false
@@ -113,9 +121,17 @@
                     tempBook = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : useBook.tempBooks[0].id
 
                   }"
-                    :class="!deliverToCenter ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
-                    class="btn btn-sm pixa-btn">Deliver to Home (${{ useInbox.focusedShippement.deliver_to_home }}
-                    FEE)</button>
+                    :class="!deliverToCenter ? 'bg-primary hover:bg-primary/40 text-white' : 'hover:bg-white/80 text-primary bg-transparent border-0'"
+                    class="btn btn-sm pixa-btn  flex justify-between">
+                    <span>Deliver to Home (${{ useInbox.focusedShippement.deliver_to_home }}
+                      FEE)</span>
+
+
+                    <div v-if="!deliverToCenter"
+                      class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
+                      <check-icon class="w-4 h-4 fill-white" />
+                    </div>
+                  </button>
                 </div>
 
                 <div v-if="deliverToCenter" class="w-full flex flex-col gap-3">
@@ -241,10 +257,11 @@
             <span class="pixa-title h-10 flex items-center">Details Package</span>
 
             <div class="w-full h-fit grid grid-cols-2 gap-4">
+              <!--
               <span class="font-semibold h-10 flex items-center">Package Quantity</span>
 
               <span class="text-right my-auto">{{
-                useInbox.focusedShippement.warehouse_order_ids.length }} Packages</span>
+                useInbox.focusedShippement.warehouse_order_ids.length }} Packages</span> -->
 
               <span class="font-semibold h-10 flex items-center">Package Weight</span>
 
@@ -344,24 +361,26 @@
 
             </div>
 
-
+            <!--
             <span class="pixa-title h-10 flex items-center">Package Options</span>
 
+            <div  class="w-full">
+              <div v-for="item in useInbox.packageOptions" :key="item.id" class="w-full grid grid-cols-2 gap-4">
 
-            <div v-for="item in useInbox.packageOptions" :key="item.id" class="w-full grid grid-cols-2 gap-4">
+                <span class="font-semibold h-10 flex items-center">{{ item.name }} <br> ($ {{ numberFormat(item.price)
+                  }})</span>
+                <div class="flex justify-end">
+                  <commun-switch v-if="!useInbox.focusedShippement.is_payed"
+                    :enabled="useInbox.focusedShippement.option_package_ids.find(i => i.id === item.id) ? true : false"
+                    @selectedEnabled="(value) => onSelectedEnabledOption(value, item.id)" />
 
-              <span class="font-semibold h-10 flex items-center">{{ item.name }} <br> ($ {{ numberFormat(item.price)
-                }})</span>
-              <div class="flex justify-end">
-                <commun-switch v-if="!useInbox.focusedShippement.is_payed"
-                  :enabled="useInbox.focusedShippement.option_package_ids.find(i => i.id === item.id) ? true : false"
-                  @selectedEnabled="(value) => onSelectedEnabledOption(value, item.id)" />
+                  <span v-else></span>
+                </div>
 
-                <span v-else></span>
               </div>
 
-            </div>
-
+          </div>
+-->
             <span class="w-full h-px bg-slate-200"></span>
 
             <div class="w-full grid grid-cols-2 gap-4">
@@ -445,10 +464,10 @@ onMounted(async () => {
 
     if (useInbox.focusedShippement.deliver_type === 'p') {
       deliverToCenter.value = true
-      tempBook.value = useInbox.focusedShippement.pickUp_local.id
+      //  tempBook.value = useInbox.focusedShippement.pickUp_local.id
     } else if (useInbox.focusedShippement.deliver_type === 'h') {
       deliverToCenter.value = false
-      tempBook.value = useInbox.focusedShippement.address_book.id
+      //  tempBook.value = useInbox.focusedShippement.address_book.id
     }
 
     if (useInbox.focusedShippement.use_cargo) isCargo.value = true
@@ -478,23 +497,23 @@ onMounted(async () => {
       }
     )
 
+    /**
+        for (let index = 0; index < useInbox.focusedShippement.warehouse_order_ids.length; index++) {
+          const element = useInbox.focusedShippement.warehouse_order_ids[index]
 
-    for (let index = 0; index < useInbox.focusedShippement.warehouse_order_ids.length; index++) {
-      const element = useInbox.focusedShippement.warehouse_order_ids[index]
-
-      for (let j = 0; j < element.wh_order.length; j++) {
-        const elementx = element.wh_order[j]
-        tempItems.value.push(
-          {
-            id: elementx.id,
-            qty: elementx.qty,
-            total: elementx.price,
-            name: elementx.name_id.name,
-            images: elementx.images
+          for (let j = 0; j < element.wh_order.length; j++) {
+            const elementx = element.wh_order[j]
+            tempItems.value.push(
+              {
+                id: elementx.id,
+                qty: elementx.qty,
+                total: elementx.price,
+                name: elementx.name_id.name,
+                images: elementx.images
+              }
+            )
           }
-        )
-      }
-    }
+        }*/
 
     useBook.tempBooks = useBook.addresses.map(item => ({
       id: item.id,
@@ -506,6 +525,8 @@ onMounted(async () => {
     tempInsurance.value = useInbox.focusedShippement.add_insurance
     loading.value = false
   } catch (error) {
+    console.error(error)
+
     loading.value = true
   }
 })
@@ -521,7 +542,7 @@ const onSelectedEnabledOption = async (value, id) => {
 
 const onSelectedEnabledInsurance = async (value) => {
   try {
-    let response = await axios.get(`/Dashboard/updateInsurancePk_API/${route.params.id}/${value ? 1 : 0}/`)
+    let response = await axios.get(`/Shipments/updateInsurancePk_API/${route.params.id}/${value ? 1 : 0}/`)
     await useInbox.getShippements(null, route.params.id)
   } catch (error) {
     console.error(error)
@@ -552,7 +573,7 @@ const usePromoCode = async () => {
   loadingCode.value = true
   tempCodePromo.value = useInbox.focusedShippement.promo_code
   try {
-    let response = await axios.get(`/Dashboard/updatePromo_codesPk_API/${route.params.id}/${tempCodePromo.value}`)
+    let response = await axios.get(`/Shipments/updatePromo_codesPk_API/${route.params.id}/${tempCodePromo.value}`)
     console.log(response.data)
 
     await useInbox.getShippements(null, route.params.id)
@@ -565,7 +586,7 @@ const usePromoCode = async () => {
 const useCoins = async () => {
   loadingCoin.value = true
   try {
-    let response = await axios.get(`/Dashboard/updateCoinsPk_API/${route.params.id}/${tempCoins.value}`)
+    let response = await axios.get(`/Shipments/updateCoinsPk_API/${route.params.id}/${tempCoins.value}`)
     await useProfile.getCoins(localStorage.getItem('ws-user-id'))
     await useInbox.getShippements(null, route.params.id)
   } catch (error) {

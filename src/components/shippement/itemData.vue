@@ -1,7 +1,8 @@
 <template>
   <div class="w-full h-fit lg:h-[4.5rem] border bg-white rounded-md border-slate-200  transition-all duration-150">
 
-    <div class="w-full h-full hidden lg:grid grid-cols-5 gap-2 uppercase font-medium hover:bg-slate-50 px-4 ">
+    <div :class="route.name === 'shippements' ? 'grid-cols-5' : 'g:grid grid-cols-4'"
+      class="w-full h-full hidden lg:grid  gap-2 uppercase font-medium hover:bg-slate-50 px-4 ">
       <div class="w-full h-full flex items-center gap-4">
         <div class="w-12 h-12 bg-slate-100 rounded-md flex items-center justify-center overflow-hidden">
           <img v-if="item.images" :src="item.images" alt=""
@@ -9,12 +10,13 @@
           <no-image-icon v-else class="w-6 h-6 fill-slate-500" />
         </div>
         <span class="h-8  my-auto  flex items-center truncate">{{ format(item.created_at, 'dd-MM-yyyy | hh:mm')
-        }}</span>
+          }}</span>
       </div>
 
 
       <span class="h-8 my-auto flex items-center truncate">{{ item.code }}</span>
-      <span class="h-8 my-auto flex items-center truncate">{{ item.warehouse_order_ids.length }}</span>
+      <span v-if="route.name === 'shippements'" class="h-8 my-auto flex items-center truncate">{{
+        item.warehouse_order_ids.length }}</span>
       <span :class="[item.state === 'p' ?
         'bg-slate-100 text-slate-500' : item.state === 'wp' ? ' text-violet-500 bg-violet-100' : item.state === 'so' ? ' text-amber-500 bg-amber-100' : item.state === 'do '
           ?
@@ -53,7 +55,7 @@
         <div class="w-full flex items-center justify-between ">
           <div class="flex-1 flex flex-col">
             <span class="h-8  my-auto  flex items-center truncate">{{ format(item.created_at, 'dd-MM-yyyy | hh:mm')
-            }}</span><span class=" my-auto flex items-center truncate">{{ item.code }}</span>
+              }}</span><span class=" my-auto flex items-center truncate">{{ item.code }}</span>
           </div>
 
 
@@ -66,10 +68,12 @@
 
         <div class="w-full flex items-center justify-between">
 
-          <span class="h-8  my-auto flex items-center font-semibold">{{ $t('commun.orders') }}</span>
-          <span class="h-8 my-auto flex items-center truncate bg-slate-100 px-3 rounded-md">{{
-            item.warehouse_order_ids.length
-          }}</span>
+          <span v-if="route.name === 'shippements'" class="h-8  my-auto flex items-center font-semibold">{{
+            $t('commun.orders') }}</span>
+          <span v-if="route.name === 'shippements'"
+            class="h-8 my-auto flex items-center truncate bg-slate-100 px-3 rounded-md">{{
+              item.warehouse_order_ids.length
+            }}</span>
         </div>
 
 
@@ -93,8 +97,10 @@
 import { format } from 'date-fns';
 import noImageIcon from '@/assets/icons/noImageIcon.vue';
 import itemMore from './itemMore.vue';
+import { useRoute } from 'vue-router';
 
 const props = defineProps(['item', 'index'])
+const route = useRoute()
 </script>
 
 <style lang="scss" scoped></style>

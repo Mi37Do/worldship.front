@@ -86,7 +86,7 @@
               </div>
 
               <div v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
-                class="w-full p-1 bg-primary rounded-md grid grid-cols-2 gap-1">
+                class="w-full p-1 bg-primary/10 rounded-md grid grid-cols-2 gap-1">
                 <button @click="async () => {
                   deliverToCenter = true
 
@@ -97,8 +97,15 @@
                   tempBook = tempAdresses[0].id
 
                 }"
-                  :class="deliverToCenter ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
-                  class="btn btn-sm pixa-btn">Pick Up Local Office (FREE)
+                  :class="deliverToCenter ? 'bg-primary hover:bg-primary/40 text-white' : 'hover:bg-white/80 text-primary bg-transparent border-0'"
+                  class="btn btn-sm pixa-btn flex justify-between">
+                  <span>
+                    Pick Up Local Office (FREE)</span>
+
+                  <div v-if="deliverToCenter" class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
+                    <check-icon class="w-4 h-4 fill-white" />
+                  </div>
+
                 </button>
                 <button @click="async () => {
                   deliverToCenter = false
@@ -110,9 +117,17 @@
                   tempBook = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : useBook.tempBooks[0].id
 
                 }"
-                  :class="!deliverToCenter ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
-                  class="btn btn-sm pixa-btn">Deliver to Home (${{ useInbox.focusedShippement.deliver_to_home }}
-                  FEE)</button>
+                  :class="!deliverToCenter ? 'bg-primary hover:bg-primary/40 text-white' : 'hover:bg-white/80 text-primary bg-transparent border-0'"
+                  class="btn btn-sm pixa-btn  flex justify-between">
+                  <span>Deliver to Home (${{ useInbox.focusedShippement.deliver_to_home }}
+                    FEE)</span>
+
+
+                  <div v-if="!deliverToCenter"
+                    class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
+                    <check-icon class="w-4 h-4 fill-white" />
+                  </div>
+                </button>
               </div>
 
               <div v-if="deliverToCenter" class="w-full flex flex-col gap-3">
@@ -342,28 +357,28 @@
 
             <span class="pixa-title h-10 flex items-center">Package Options</span>
 
+            <div class="w-full">
+              <div v-for="item in useInbox.packageOptions" :key="item.id" class="w-full grid grid-cols-2 gap-4">
 
-            <div v-for="item in useInbox.packageOptions" :key="item.id" class="w-full grid grid-cols-2 gap-4">
+                <span class="font-semibold h-10 flex items-center">{{ item.name }} <br> ($ {{ numberFormat(item.price)
+                }})</span>
+                <div class="flex justify-end">
+                  <commun-switch v-if="!useInbox.focusedShippement.is_payed"
+                    :enabled="useInbox.focusedShippement.option_package_ids.find(i => i.id === item.id) ? true : false"
+                    @selectedEnabled="(value) => onSelectedEnabledOption(value, item.id)" />
 
-              <span class="font-semibold h-10 flex items-center">{{ item.name }} <br> ($ {{ numberFormat(item.price)
-              }})</span>
-              <div class="flex justify-end">
-                <commun-switch v-if="!useInbox.focusedShippement.is_payed"
-                  :enabled="useInbox.focusedShippement.option_package_ids.find(i => i.id === item.id) ? true : false"
-                  @selectedEnabled="(value) => onSelectedEnabledOption(value, item.id)" />
+                  <span v-else></span>
+                </div>
 
-                <span v-else></span>
               </div>
-
             </div>
-
             <span class="w-full h-px bg-slate-200"></span>
 
             <div class="w-full grid grid-cols-2 gap-4">
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-              }}
+                }}
               </span>
             </div>
 

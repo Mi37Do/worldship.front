@@ -5,24 +5,7 @@
       <div class="w-full h-14 flex items-center justify-between pb-4">
         <span class="pixa-title">calculator</span>
         <div class="flex gap-2">
-          <button @click="() => {
-            useWidget.calculator = false
-            Object.assign(shippement, {
-              weight: 0,
-              l: 0,
-              w: 0,
-              h: 0,
-              weightUnit: 'kg',
-              lengthUnit: 'cm', from: '',
-              city: null,
-              cityCode: null,
-              insurance: 0,
-              result: null,
-              items: 0,
-              itemPrice: 0,
-              total: 0, website: '', isBfm: false
-            })
-          }" class="btn btn-sm pixa-btn w-10 pixa-btn-nofloat p-0">
+          <button @click=" closeModal()" class="btn btn-sm pixa-btn w-10 pixa-btn-nofloat p-0">
             <times-icon class="w-5 h-5" />
           </button>
         </div>
@@ -251,8 +234,10 @@
 
 
             <label class="w-full flex items-center gap-4 mt-4">
-              <commun-switch class="my-auto" />
 
+              <!--
+              <commun-switch class="my-auto" />
+ -->
               <span class="truncate mt-1">Will you combine orders at Checkout</span>
             </label>
           </div>
@@ -473,6 +458,11 @@
             <span>${{ resultShip.result.toFixed(2) }}</span>
             <span class="font-semibold">Total Cost</span>
             <span class="font-semibold">${{ (resultShip.result + resultShip.insurance).toFixed(2) }}</span>
+
+
+
+            <button type="button" @click=" createCostume(shippement)"
+              class="btn btn-sm pixa-btn pixa-btn-nofloat w-full col-span-2">create shipement</button>
           </div>
 
           <div v-else
@@ -505,13 +495,11 @@ import axios from 'axios';
 import { objectToFormData } from '@/utils/formDataUtils'
 
 import countries from '@/assets/countries.json'
+import { useRoute, useRouter } from 'vue-router';
 
 const useWidget = useWidgetStore()
 const useBook = useBookStore()
-
-console.log(countries)
-
-
+const router = useRouter()
 const shippement = reactive(
   {
     weight: 0,
@@ -552,6 +540,50 @@ const resultShip = reactive(
   }
 )
 
+const calculateShipement = async () => {
+
+  let mass = (shippement.l * shippement.w * shippement.h) / 139
+
+  const response = await axios.get(`/calculator_API/${shippement.cityCode}/${shippement.weight > mass ? shippement.weight : mass.toFixed(0)}`)
+
+  Object.assign(resultShip, shippement)
+
+  resultShip.mass = mass
+  resultShip.result = response.data.shipp_cost
+
+
+}
+
+const createCostume = async (shippement) => {
+  try {
+    let response = await axios.get(`/Shipments/create_ship_API/${shippement.weight}/${shippement.l}/${shippement.w}/${shippement.h}/${localStorage.getItem('ws-user-id')}/`)
+    closeModal()
+    router.push({ name: 'costume-shippement', params: { id: response.data.result } })
+  } catch (error) {
+    console.error(error)
+
+  }
+}
+
+const closeModal = () => {
+
+  useWidget.calculator = false
+  Object.assign(shippement, {
+    weight: 0,
+    l: 0,
+    w: 0,
+    h: 0,
+    weightUnit: 'kg',
+    lengthUnit: 'cm', from: '',
+    city: null,
+    cityCode: null,
+    insurance: 0,
+    result: null,
+    items: 0,
+    itemPrice: 0,
+    total: 0, website: '', isBfm: false
+  })
+}
 </script>
 
 <style lang="scss" scoped></style>
