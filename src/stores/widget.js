@@ -17,6 +17,11 @@ export const useWidgetStore = defineStore('widget', () => {
   const dateFilter = ref(false)
   const tracking = ref(false)
 
+  const addEditShippementItem = reactive({
+    add: true,
+    open: false,
+  })
+
   const calculator = ref(false)
 
   const supportTicket = reactive({
@@ -87,5 +92,6 @@ export const useWidgetStore = defineStore('widget', () => {
     openSide,
     addCard,
     tracking,
+    addEditShippementItem,
   }
 })

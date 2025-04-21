@@ -18,6 +18,8 @@
 
         <add-adress-book />
 
+        <add-edit-item />
+
 
         <payment-modal :item="useInbox.focusedShippement" :types="useProfile.profile.payments_methodes"
           :cards="tempCards" />
@@ -43,7 +45,11 @@
               <div v-if="show" class="w-full flex flex-col gap-3">
 
                 <div class="w-full flex justify-end">
-                  <button class="btn btn-sm pixa-btn btn-primary">add item</button>
+                  <button @click="Object.assign(useWidget.addEditShippementItem, {
+                    add: true,
+                    open: true
+                  })" class="btn btn-sm pixa-btn btn-primary">add
+                    item</button>
                 </div>
 
                 <div class="w-full grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
@@ -387,12 +393,11 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-                }}
+              }}
               </span>
             </div>
 
             <button v-if="!useInbox.focusedShippement.is_payed" @click="useWidget.newPayment = true"
-              :disabled="useProfile.profile.wallets.total_wallets < useInbox.focusedShippement.total_price_cost"
               class="btn btn-sm pixa-btn w-full btn-primary">show state and
               open
               invoice</button>
@@ -425,6 +430,7 @@ import { formatPhoneNumber } from '@/utils/phoneUtils';
 import paymentModal from '@/components/shippement/paymentModal.vue';
 import { useInvoicesStore } from '@/stores/invoices';
 import { format } from 'date-fns';
+import addEditItem from '@/components/shippement/addEditItem.vue';
 
 
 const env = import.meta.env.VITE_WORLDSHIP_API
