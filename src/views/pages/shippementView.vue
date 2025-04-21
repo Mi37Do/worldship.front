@@ -77,16 +77,14 @@
                 <commun-switch :enabled="useInbox.focusedShippement.deliver_type !== 'n' ? true : false"
                   @selectedEnabled="(value) => {
                     if (value) {
-
-                      useInbox.focusedShippement.deliver_type = 'p'
+                      return
                     } else {
                       useInbox.focusedShippement.deliver_type = 'n'
                     }
                   }" />
               </div>
-
-              <div
-                v-if="useInbox.focusedShippement && useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
+              <!---->
+              <div v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
                 class="w-full p-1 bg-primary/10 rounded-md grid grid-cols-2 gap-1">
                 <button @click="async () => {
                   loading = true
@@ -95,6 +93,10 @@
                   let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/1`)
 
                   await useInbox.getShippements(null, route.params.id)
+
+                  useInbox.focusedShippement.deliver_type = 'p'
+                  console.log(useInbox.focusedShippement);
+
                   useInbox.focusedShippement.total_price_cost = response.data.reslut
 
                   tempBook = tempAdresses[0].id
@@ -117,6 +119,9 @@
                   let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/0`)
 
                   await useInbox.getShippements(null, route.params.id)
+
+                  useInbox.focusedShippement.deliver_type = 'h'
+                  console.log(useInbox.focusedShippement);
                   useInbox.focusedShippement.total_price_cost = response.data.reslut
 
                   tempBook = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : useBook.tempBooks[0].id
@@ -151,7 +156,7 @@
                 </div>
                 <div v-if="useInbox.focusedShippement.pickUp_local"
                   class="w-full h-fit rounded-md border border-slate-200 overflow-hidden bg-primary/5 p-3 grid grid-cols-2 gap-3 uppercase">
-                  <!---->
+
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">name</span>
                     <span>
@@ -364,7 +369,7 @@
               <div v-for="item in useInbox.packageOptions" :key="item.id" class="w-full grid grid-cols-2 gap-4">
 
                 <span class="font-semibold h-10 flex items-center">{{ item.name }} <br> ($ {{ numberFormat(item.price)
-                }})</span>
+                  }})</span>
                 <div class="flex justify-end">
                   <commun-switch v-if="!useInbox.focusedShippement.is_payed"
                     :enabled="useInbox.focusedShippement.option_package_ids.find(i => i.id === item.id) ? true : false"
@@ -381,7 +386,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-                }}
+              }}
               </span>
             </div>
 
