@@ -88,6 +88,7 @@
               <div v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
                 class="w-full p-1 bg-primary/10 rounded-md grid grid-cols-2 gap-1">
                 <button @click="async () => {
+                  loading = true
                   deliverToCenter = true
 
                   let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/1`)
@@ -95,7 +96,7 @@
                   useInbox.focusedShippement.total_price_cost = response.data.reslut
 
                   tempBook = tempAdresses[0].id
-
+                  loading = false
                 }"
                   :class="deliverToCenter ? 'bg-primary hover:bg-primary/40 text-white' : 'hover:bg-white/80 text-primary bg-transparent border-0'"
                   class="btn btn-sm pixa-btn flex justify-between">
@@ -108,6 +109,7 @@
 
                 </button>
                 <button @click="async () => {
+                  loading = true
                   deliverToCenter = false
 
                   let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/0`)
@@ -116,6 +118,7 @@
 
                   tempBook = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : useBook.tempBooks[0].id
 
+                  loading = false
                 }"
                   :class="!deliverToCenter ? 'bg-primary hover:bg-primary/40 text-white' : 'hover:bg-white/80 text-primary bg-transparent border-0'"
                   class="btn btn-sm pixa-btn  flex justify-between">
@@ -361,7 +364,7 @@
               <div v-for="item in useInbox.packageOptions" :key="item.id" class="w-full grid grid-cols-2 gap-4">
 
                 <span class="font-semibold h-10 flex items-center">{{ item.name }} <br> ($ {{ numberFormat(item.price)
-                }})</span>
+                  }})</span>
                 <div class="flex justify-end">
                   <commun-switch v-if="!useInbox.focusedShippement.is_payed"
                     :enabled="useInbox.focusedShippement.option_package_ids.find(i => i.id === item.id) ? true : false"
@@ -378,7 +381,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-                }}
+              }}
               </span>
             </div>
 
