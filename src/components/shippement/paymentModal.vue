@@ -16,31 +16,32 @@
 
         <div class="w-full h-fit grid grid-cols-2 gap-4">
           <span>Total Value </span>
-          <span class="text-right my-auto">{{ numberFormat(item.total_price) }} $</span>
+          <span class="text-right my-auto">$ {{ numberFormat(item.total_price) }} </span>
           <div v-if="route.name === 'shippement'" class="w-full grid grid-cols-2 gap-4 col-span-2">
             <span class="text-red-500">Insurance </span>
-            <span class="text-right my-auto text-red-500">{{ numberFormat(item.add_insurance ? item.total_insurance : 0)
-              }} $</span>
+            <span class="text-right my-auto text-red-500"> $ {{ numberFormat(item.add_insurance ? item.total_insurance :
+              0)
+            }} </span>
             <span class="text-red-500">Package Options </span>
-            <span class="text-right my-auto text-red-500">{{ numberFormat(item.total_price_options) }} $</span>
+            <span class="text-right my-auto text-red-500">$ {{ numberFormat(item.total_price_options) }} </span>
             <span>Coins </span>
-            <span class="text-right my-auto">{{ numberFormat(item.total_coins) }} $</span>
+            <span class="text-right my-auto">$ {{ numberFormat(item.total_coins) }} </span>
 
             <span v-if="item.deliver_to_type === 'h'">Shipping Cost </span>
-            <span v-if="item.deliver_to_type === 'h'" class="text-right my-auto">{{ numberFormat(item.deliver_to_home)
+            <span v-if="item.deliver_to_type === 'h'" class="text-right my-auto">$ {{ numberFormat(item.deliver_to_home)
             }}
-              $</span>
+            </span>
             <span v-if="!item.use_cargo">Shipping Cost </span>
-            <span v-if="!item.use_cargo" class="text-right my-auto">{{ numberFormat(item.shipping_cost) }}
-              $</span>
+            <span v-if="!item.use_cargo" class="text-right my-auto">$ {{ numberFormat(item.shipping_cost) }}
+            </span>
             <span v-if="item.use_cargo">Cargo </span>
-            <span v-if="item.use_cargo" class="text-right my-auto">{{ numberFormat(item.cargo_shipping_cost) }}
-              $</span>
+            <span v-if="item.use_cargo" class="text-right my-auto"> $ {{ numberFormat(item.cargo_shipping_cost) }}
+            </span>
           </div>
 
           <div v-else class="w-full h-fit grid grid-cols-2 gap-4  col-span-2">
             <span>services </span>
-            <span class="text-right my-auto ">{{ numberFormat(item.total_price_options) }} $</span>
+            <span class="text-right my-auto ">$ {{ numberFormat(item.total_price_options) }} </span>
           </div>
 
         </div>
@@ -49,7 +50,7 @@
         <div class="w-full h-fit grid grid-cols-2 gap-4 font-bold ">
 
           <span>total </span>
-          <span class="text-right my-auto">{{ numberFormat(item.total_price_cost) }} $</span>
+          <span class="text-right my-auto"> $ {{ numberFormat(item.total_price_cost) }}</span>
         </div>
       </div>
 
@@ -58,7 +59,10 @@
           <span class="label-text uppercase">wallet type </span>
         </div>
 
-        <walletsTypeDropsown :list="types" :selected="walletType" @onSelectedType="onSelectedType" />
+        <walletsTypeDropsown :list="types" :selected="walletType" @onSelectedType="(id) => {
+          preview = null
+          onSelectedType(id)
+        }" />
       </div>
 
       <div v-if="types.find(item => item.id === walletType).type_payment === 'c'"
@@ -104,8 +108,14 @@
             types.find(item => item.id
               === walletType).name}}</div>
 
+
+          <div v-if="types.find(item => item.id === walletType).type_payment === 'zn'" class="w-full h-10  text-center">
+            Transfer ${{ numberFormat(item.total_price_cost) }} to this account <span
+              v-if="types.find(item => item.id === walletType).type_payment === 'z'">: {{
+                useProfile.profile.payments_methodes.find(item => item.type_payment === 'z').account}}</span> </div>
+
           <img v-if="types.find(item => item.id === walletType).type_payment === 'zn'"
-            :src="env + types.find(item => item.id === walletType).zen_qr_code" class="h-40 mt-3" alt="">
+            :src="env + types.find(item => item.id === walletType).zen_qr_code" class="h-40 -mt-4" alt="">
           <div v-else-if="types.find(item => item.id === walletType).type_payment === 'w'"
             class="w-full h-16 flex justify-center items-center">
             <div class=" p-4 uppercase bg-slate-100 rounded-md border border-slate-200">your wallet credit : {{
@@ -113,13 +123,28 @@
           </div>
           <img v-else :src="env + types.find(item => item.id === walletType).image" class="h-16 mt-3" alt="">
 
+          <div v-if="types.find(item => item.id === walletType).type_payment === 'z'" class="w-full h-10  text-center">
+            Transfer ${{ numberFormat(item.total_price_cost) }} to this account <span>: {{
+              useProfile.profile.payments_methodes.find(item => item.type_payment === 'z').account}}</span> </div>
 
           <div v-if="types.find(item => item.id === walletType).type_payment !== 'w'"
-            class="w-full h-32 bg-slate-100 rounded-md border border-slate-200 mt-2 flex flex-col gap-4 items-center justify-center fill-slate-500 relative">
-            <input type="file" required @change="handleFileChange" class="absolute w-full h-full inset-0 opacity-0">
-            <paper-clip-icon class="w-8 h-8" />
-            <span class="uppercase">{{ fileName ? fileName : 'choose file' }} </span>
-            <div class="btn btn-sm pixa-btn-nofloat">upload file</div>
+            class="w-full py-4 rounded-md border border-slate-200 mt-2 flex flex-col gap-4 items-center justify-center fill-slate-500 relative">
+
+            <div class="w-40 h-40 bg-primary/10 rounded p-1 flex items-center justify-center relative cursor-pointer">
+              <div v-if="preview" class="w-full h-full flex relative">
+                <button type="button" @click="preview = null"
+                  class="btn btn-sm btn-square absolute right-1 top-1 pixa-btn-delete">
+                  <trash-icon class="w-5 h-5" />
+                </button>
+                <img :src="preview" class="w-full h-full object-cover rounded" alt="">
+              </div>
+              <div v-else class="w-full h-full flex relative items-center justify-center">
+                <input type="file" required accept="image/*" @change="handleFileChange"
+                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                <plus-icon class="w-8 h-8 fill-primary" />
+              </div>
+
+            </div>
           </div>
 
         </div>
@@ -149,6 +174,8 @@ import axios from 'axios';
 import { useProfileStore } from '@/stores/profile';
 import { useInboxStore } from '@/stores/inbox';
 import communCombobox from '../commun/communCombobox.vue';
+import plusIcon from '@/assets/icons/plusIcon.vue';
+import trashIcon from '@/assets/icons/trashIcon.vue';
 import { useRoute } from 'vue-router';
 
 const props = defineProps(['types', 'item', 'cards'])
@@ -157,6 +184,7 @@ const loadingAdd = ref(false)
 const useProfile = useProfileStore()
 const env = import.meta.env.VITE_WORLDSHIP_API
 const walletType = ref(props.types[0].id)
+const preview = ref(null)
 const fileName = ref('')
 const route = useRoute()
 const useInbox = useInboxStore()
@@ -171,11 +199,21 @@ const payment = reactive(
 
 const existingCreditCard = ref(true)
 
-
 const handleFileChange = (event) => {
   payment.image = event.target.files[0]; // Get the first file
   if (payment.image) {
     fileName.value = payment.image.name; // Set the file name
+  } else {
+    fileName.value = ''; // Clear the file name if no file is selected
+  }
+  if (payment.image) {
+    preview.value = payment.image
+    const reader = new FileReader(); // Create a FileReader to read the file
+    reader.onload = (e) => {
+      preview.value = e.target.result; // Set the image URL to the ref
+    };
+    reader.readAsDataURL(payment.image); // Read the file as a data URL
+    fileName.value = payment.image.name;  // Set the file name
   } else {
     fileName.value = ''; // Clear the file name if no file is selected
   }
@@ -227,8 +265,6 @@ const newPayment = async () => {
       })
       await useInbox.getBuyForMes(null, route.params.id)
     }
-
-    // await useProfile.getProfile(localStorage.getItem('ws-user-id'))
     closeModal()
   } catch (error) {
     console.error(error)

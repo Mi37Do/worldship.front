@@ -12,13 +12,13 @@
 
       </div>
 
-      <label class="form-control w-full">
+      <div class="form-control w-full">
         <div class="label">
           <span class="label-text uppercase">wallet type </span>
         </div>
 
         <WalletsTypeDropsown :list="types" @onSelectedType="onSelectedType" />
-      </label>
+      </div>
 
       <div class="w-full flex-1 overflow-auto">
         <div class="w-full h-fit flex flex-col items-center gap-3 py-4">
@@ -26,6 +26,11 @@
           <img v-if="types.find(item => item.id === walletType).type_payment === 'zn'"
             :src="env + types.find(item => item.id === walletType).zen_qr_code" class="h-40 mt-3" alt="">
           <img v-else :src="env + types.find(item => item.id === walletType).image" class="h-16 mt-3" alt="">
+
+          <span
+            v-if="types.find(item => item.id === walletType).type_payment === 'z' || types.find(item => item.id === walletType).type_payment === 'zn'">transfer
+            to this account <span v-if="types.find(item => item.id === walletType).type_payment === 'z'">: {{
+              useProfile.profile.payments_methodes.find(item => item.type_payment === 'z').account}}</span> </span>
 
           <label class="form-control w-full">
             <div class="label">
@@ -130,9 +135,6 @@ const addWallet = async () => {
     image: walletValue.file,
     pack_pay_type_id: walletType.value
   }
-
-  console.log(tempWallet)
-
 
   let formData = new FormData()
 

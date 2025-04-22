@@ -52,6 +52,8 @@ export const useProfileStore = defineStore('profile', () => {
           isAuth.value = true
 
           profile.value = response.data
+          console.log(response.data)
+
           wallets.value = response.data.wallets.wallet_details.reverse()
 
           await useBook.getAddresses(user_id)
