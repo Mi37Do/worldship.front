@@ -335,7 +335,7 @@
                   }" :class="!isCargo ? 'bg-primary text-white' : 'hover:bg-white/80'"
                     class="w-full h-14 p-2 rounded flex items-center">
                     <div class="flex-1 flex flex-col">
-                      <span>Shipping Cost</span>
+                      <span>dhl (cargo)</span>
                       <span>$ {{ numberFormat(useInbox.focusedShippement.shipping_cost) }}
                       </span>
                     </div>
@@ -354,7 +354,7 @@
                   }" :class="isCargo ? 'bg-primary text-white' : 'hover:bg-white/80'"
                     class="w-full h-14 p-2 rounded flex items-center">
                     <div class="flex-1 flex flex-col">
-                      <span>cargo</span>
+                      <span>fedex</span>
                       <span>$ {{ numberFormat(useInbox.focusedShippement.cargo_shipping_cost) }}
                       </span>
                     </div>
@@ -393,7 +393,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-              }}
+                }}
               </span>
             </div>
 
@@ -420,7 +420,7 @@ import plusIcon from '@/assets/icons/plusIcon.vue';
 import communSwitch from '@/components/commun/communSwitch.vue';
 import { useInboxStore } from '@/stores/inbox';
 import { useWidgetStore } from '@/stores/widget';
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { useBookStore } from '@/stores/addressBook';
 import addAdressBook from '@/components/addressBook/addAdressBook.vue';
 import axios from 'axios';
@@ -601,6 +601,9 @@ const useCoins = async () => {
   loadingCoin.value = false
 }
 
+onUnmounted(() => {
+  useInbox.focusedShippement = null
+})
 
 </script>
 

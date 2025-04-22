@@ -10,7 +10,7 @@
           <no-image-icon v-else class="w-6 h-6 fill-slate-500" />
         </div>
         <span class="h-8  my-auto  flex items-center truncate">{{ format(item.created_at, 'dd-MM-yyyy | hh:mm')
-          }}</span>
+        }}</span>
       </div>
 
 
@@ -21,10 +21,11 @@
         'bg-slate-100 text-slate-500' : item.state === 'wp' ? ' text-violet-500 bg-violet-100' : item.state === 'so' ? ' text-amber-500 bg-amber-100' : item.state === 'do '
           ?
           ' text-emerald-500 bg-emerald-100' : ' text-red-500 bg-red-100']"
-        class="h-8 my-auto flex items-center truncate bg-slate-100 w-fit px-3 rounded">{{ item.state === 'p' ?
-          'In Process' : item.state === 'wp' ? 'Wait Payment' : item.state === 'so' ? 'Shipped Out' : item.state === 'do '
-            ?
-            'Delivered' : 'Canceled' }}</span>
+        class="h-8 my-auto flex items-center truncate bg-slate-100 w-fit px-3 rounded">{{ item.state === 'na' ?
+          'Need to Approved' : item.state === 'p' ?
+            'In Process' : item.state === 'wp' ? 'Wait Payment' : item.state === 'so' ? 'Shipped Out' : item.state === 'do '
+              ?
+              'Delivered' : 'Canceled' }}</span>
 
       <div class="w-full flex items-center my-auto justify-between">
 
@@ -55,7 +56,7 @@
         <div class="w-full flex items-center justify-between ">
           <div class="flex-1 flex flex-col">
             <span class="h-8  my-auto  flex items-center truncate">{{ format(item.created_at, 'dd-MM-yyyy | hh:mm')
-              }}</span><span class=" my-auto flex items-center truncate">{{ item.code }}</span>
+            }}</span><span class=" my-auto flex items-center truncate">{{ item.code }}</span>
           </div>
 
 

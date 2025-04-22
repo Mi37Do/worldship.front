@@ -188,7 +188,7 @@
 
                 <div class="flex gap-2 w-full justify-end">
                   <book-combobox v-if="!useInbox.focusedShippement.is_payed" :list="useBook.tempBooks"
-                    :selected="tempBook" @onSelectedItem="onChangeBook" class="hidden md:block" />
+                    :selected="tempBook" @onSelectedItem="onChangeBook" class="block" />
                   <button v-if="!useInbox.focusedShippement.is_payed" @click="Object.assign(useWidget.addAddressBook, {
                     open: true,
                     add: true
@@ -367,7 +367,7 @@
               <div v-for="item in useInbox.packageOptions" :key="item.id" class="w-full grid grid-cols-2 gap-4">
 
                 <span class="font-semibold h-10 flex items-center">{{ item.name }} <br> ($ {{ numberFormat(item.price)
-                }})</span>
+                  }})</span>
                 <div class="flex justify-end">
                   <commun-switch v-if="!useInbox.focusedShippement.is_payed"
                     :enabled="useInbox.focusedShippement.option_package_ids.find(i => i.id === item.id) ? true : false"
@@ -384,7 +384,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-                }}
+              }}
               </span>
             </div>
 
@@ -411,7 +411,7 @@ import plusIcon from '@/assets/icons/plusIcon.vue';
 import communSwitch from '@/components/commun/communSwitch.vue';
 import { useInboxStore } from '@/stores/inbox';
 import { useWidgetStore } from '@/stores/widget';
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { useBookStore } from '@/stores/addressBook';
 import addAdressBook from '@/components/addressBook/addAdressBook.vue';
 import axios from 'axios';
@@ -589,6 +589,10 @@ const useCoins = async () => {
 }
 
 
+
+onUnmounted(() => {
+  useInbox.focusedShippement = null
+})
 </script>
 
 <style lang="scss" scoped></style>
