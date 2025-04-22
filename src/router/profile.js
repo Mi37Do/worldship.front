@@ -1,5 +1,10 @@
 const profileRoutes = [
   {
+    path: 'welcome',
+    name: 'welcome-profile',
+    component: () => import('@/views/pages/profile/profileLanding.vue'),
+  },
+  {
     path: 'user',
     name: 'user',
     component: () => import('@/views/pages/profile/userView.vue'),

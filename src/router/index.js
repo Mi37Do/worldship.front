@@ -135,7 +135,7 @@ const router = createRouter({
       meta: { requireAuth: true },
       component: () => import('@/views/profileView.vue'),
 
-      redirect: { name: 'user' },
+      redirect: { name: 'welcome-profile' },
       children: profileRoutes,
     },
   ],
