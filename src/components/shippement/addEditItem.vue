@@ -50,14 +50,26 @@
 
 
 
-          <label class="form-control w-full sm:col-span-2">
+          <label class="form-control w-full">
             <div class="label">
-              <span class="label-text uppercase">coutry code <span class="text-red-500">*</span></span>
+              <span class="label-text uppercase">coutry <span class="text-red-500">*</span></span>
             </div>
 
             <commun-combobox :list="useProfile.countries" :selected="itemToAdd.code_countrie
               " :top="true" @onSelectedItem="(id) => {
                 itemToAdd.code_countrie
+                  = id
+              }" :required="true" />
+          </label>
+
+          <label class="form-control w-full">
+            <div class="label">
+              <span class="label-text uppercase">state<span class="text-red-500">*</span></span>
+            </div>
+
+            <commun-combobox :list="[{ id: 'n', designation: 'new' }, { id: 'o', designation: 'Used' }]" :selected="itemToAdd.status_item
+              " :top="true" @onSelectedItem="(id) => {
+                itemToAdd.status_item
                   = id
               }" :required="true" />
           </label>
