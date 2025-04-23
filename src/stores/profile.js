@@ -20,6 +20,7 @@ export const useProfileStore = defineStore('profile', () => {
   const prohibItems = ref(null)
   const logoBase64 = ref('')
   const locations = ref([])
+  const countries = ref([])
 
   const useBook = useBookStore()
 
@@ -52,11 +53,12 @@ export const useProfileStore = defineStore('profile', () => {
           isAuth.value = true
 
           profile.value = response.data
-          console.log(response.data)
+
+          useBook.addresses = JSON.parse(localStorage.getItem('adr'))
+
+          useBook.cities = JSON.parse(localStorage.getItem('cities'))
 
           wallets.value = response.data.wallets.wallet_details.reverse()
-
-          await useBook.getAddresses(user_id)
         }
       } catch (error) {
         console.error(error)
@@ -106,6 +108,9 @@ export const useProfileStore = defineStore('profile', () => {
       } else {
         Cookies.set('token', response.data.token)
         localStorage.setItem('ws-user-id', response.data.user.id)
+
+        await useBook.getAddresses(response.data.user.id)
+
         router.push({ name: 'app' })
       }
     } catch (error) {
@@ -119,7 +124,14 @@ export const useProfileStore = defineStore('profile', () => {
     webConfig.value = response.data.config_web
     sponsors.value = response.data.sponsor
     prohibItems.value = response.data.prohibited_items
-
+    countries.value = response.data.countries
+    countries.value = countries.value.map((item) => {
+      return {
+        id: item.id,
+        designation: item.name,
+        designation_ar: item.name_ar,
+      }
+    })
     locations.value = response.data.pick_up_local
 
     let responseImage = await fetch(env + webConfig.value.images_logo)
@@ -155,5 +167,6 @@ export const useProfileStore = defineStore('profile', () => {
     sponsors,
     locations,
     loginError,
+    countries,
   }
 })

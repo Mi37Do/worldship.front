@@ -26,9 +26,9 @@
 
           <label class="form-control w-full">
             <div class="label">
-              <span class="label-text uppercase">url <span class="text-red-500">*</span></span>
+              <span class="label-text uppercase">code <span class="text-red-500">*</span></span>
             </div>
-            <input type="text" required v-model="itemToAdd.url"
+            <input type="text" required v-model="itemToAdd.hs_code"
               class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
           </label>
 
@@ -52,10 +52,14 @@
 
           <label class="form-control w-full sm:col-span-2">
             <div class="label">
-              <span class="label-text uppercase">model/color <span class="text-red-500">*</span></span>
+              <span class="label-text uppercase">coutry code <span class="text-red-500">*</span></span>
             </div>
-            <input type="text" required v-model="itemToAdd.options"
-              class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+
+            <commun-combobox :list="useProfile.countries" :selected="itemToAdd.code_countrie
+              " :top="true" @onSelectedItem="(id) => {
+                itemToAdd.code_countrie
+                  = id
+              }" :required="true" />
           </label>
 
           <div class="w-full h-40 sm:col-span-2 flex items-center justify-center mt-2">
@@ -108,20 +112,24 @@ import { useInboxStore } from '@/stores/inbox';
 import { objectToFormData } from '@/utils/formDataUtils'
 import axios from 'axios';
 import { useRoute } from 'vue-router';
+import communCombobox from '../commun/communCombobox.vue';
+import { useProfileStore } from '@/stores/profile';
 
 const useWidget = useWidgetStore()
 const useInbox = useInboxStore()
 const loading = ref(true)
 const loadingAdd = ref(false)
 const props = defineProps(['item'])
+const useProfile = useProfileStore()
 const route = useRoute()
 const imagePreview = ref('')
 const itemToAdd = reactive(
   {
-    id: null,
+    sh_ref: null,
     name: '',
-    url: '',
-    options: '',
+    hs_code: '',
+    status_item: 'n',
+    code_countrie: null,
     qty: 1,
     price: 0,
     image: null
@@ -155,10 +163,12 @@ const handleFileChange = (index, event) => {
 const closeModal = () => {
   useWidget.addEditShippementItem.open = false
   Object.assign(itemToAdd, {
+    sh_ref: null,
     id: null,
     name: '',
-    url: '',
-    options: '',
+    hs_code: '',
+    status_item: 'n',
+    code_countrie: null,
     qty: 1,
     price: 0,
     image: null
@@ -187,42 +197,28 @@ const addEditItem = async () => {
   loadingAdd.value = true
   const formdata = new FormData()
 
-  formdata.append('site_name', useInbox.focusedBuyForMe.name)
 
-  formdata.append('site_url', useInbox.focusedBuyForMe.url)
+  formdata.append('sh_ref', route.params.id)
+  formdata.append('name', itemToAdd.name)
+  formdata.append('hs_code', itemToAdd.hs_code)
+  formdata.append('qty', itemToAdd.qty)
+  formdata.append('price', itemToAdd.price)
+  formdata.append('image', itemToAdd.image)
+  formdata.append('code_countrie', itemToAdd.code_countrie)
+  formdata.append('status_item', itemToAdd.status_item)
 
-  formdata.append('instruction_bfm', useInbox.focusedBuyForMe.Instructions)
-
-  formdata.append('domestique_shipp', useInbox.focusedBuyForMe.domestic_shipping)
-
-  for (let index = 0; index < useInbox.items.length; index++) {
-    const element = useInbox.items[index];
-    formdata.append(`name-${index + 1}`, element.name)
-    formdata.append(`url-${index + 1}`, element.url)
-    formdata.append(`options-${index + 1}`, element.options)
-    formdata.append(`qty-${index + 1}`, element.qty)
-    formdata.append(`price-${index + 1}`, element.price)
-    formdata.append(`image-${index + 1}`, element.images)
-  }
-  formdata.append('counter', useInbox.items.length + 1)
-  formdata.append(`n-name-${useInbox.items.length + 1}`, itemToAdd.name)
-  formdata.append(`n-url-${useInbox.items.length + 1}`, itemToAdd.url)
-  formdata.append(`n-options-${useInbox.items.length + 1}`, itemToAdd.options)
-  formdata.append(`n-qty-${useInbox.items.length + 1}`, itemToAdd.qty)
-  formdata.append(`n-price-${useInbox.items.length + 1}`, itemToAdd.price)
-  formdata.append(`n-image-${useInbox.items.length + 1}`, itemToAdd.image)
 
 
   try {
-    let response = await axios.post(`/Dashboard/edit_buy_for_me_order_API/${route.params.id}/${localStorage.getItem('ws-user-id')}`, formdata, {
+    let response = await axios.post(`/Shipments/create_ship_items_API`, formdata, {
       headers: {
         'Content-Type': 'multipart/form-data',
       }
     })
-    await useInbox.getBuyForMes(null, route.params.id)
-    useInbox.filterBuyForMes = useInbox.buyForMes
-    useInbox.items = useInbox.focusedBuyForMe.b4m_order
+    await useInbox.getShippements(null, route.params.id)
     closeModal()
+    console.log(response)
+
   } catch (error) {
     console.error(error)
 

@@ -35,8 +35,8 @@
                   <span class="pixa-title">Package</span>
                   <span
                     class=" my-auto flex items-center truncate bg-slate-100 w-fit px-3 py-1.5 rounded font-semibold">{{
-                      useInbox.focusedShippement && useInbox.focusedShippement.warehouse_order_ids ?
-                        useInbox.focusedShippement.warehouse_order_ids.length : 0 }}</span>
+                      useInbox.focusedShippement && useInbox.focusedShippement.sh_package ?
+                        useInbox.focusedShippement.sh_package.length : 0 }}</span>
                 </div>
                 <plus-icon :class="[
                   show ? 'rotate-45' : 'rotate-0',
@@ -91,9 +91,32 @@
                   class="btn btn-sm pixa-btn">to address</button>
               </div>
 
-              <div v-if="!adressFrom" class="w-full flex flex-col gap-3">
 
+              <div v-if="adressFrom" class="w-full flex flex-col gap-3">
+                <book-combobox
+                  v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
+                  :list="useBook.adrFrom" :selected="useInbox.focusedShippement.address_book_from" @onSelectedItem="async (id) => {
+                    useInbox.focusedShippement.address_book_from
+                    let response = await axios.get(`/Shipments/updateAddress_FromPk_API/${route.params.id}/${id}`)
 
+                    await useInbox.getShippements(null, route.params.id)
+
+                  }" class="hidden md:block" />
+              </div>
+
+              <div v-else class="w-full flex flex-col gap-3">
+
+                <book-combobox
+                  v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
+                  :list="useBook.adrTo" :selected="useInbox.focusedShippement.address_book_to" @onSelectedItem="async (id) => {
+                    useInbox.focusedShippement.address_book_to
+                    let response = await axios.put(`/Shipments/updateAddress_ToPk_API/${route.params.id}/${id}`)
+
+                    await useInbox.getShippements(null, route.params.id)
+
+                  }" class="hidden md:block" />
+                {{ useBook.adrTo }}
+                <!--
                 <div v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
                   class="w-full p-1 bg-primary rounded-md grid grid-cols-2 gap-1">
                   <button @click="async () => {
@@ -157,7 +180,7 @@
                   </div>
                   <div v-if="useInbox.focusedShippement.pickUp_local"
                     class="w-full h-fit rounded-md border border-slate-200 overflow-hidden bg-primary/5 p-3 grid grid-cols-2 gap-3 uppercase">
-                    <!---->
+
                     <div class="flex flex-col gap-1">
                       <span class=" font-medium">name</span>
                       <span>
@@ -230,7 +253,7 @@
                         }}</span>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
 
@@ -335,7 +358,7 @@
                   }" :class="!isCargo ? 'bg-primary text-white' : 'hover:bg-white/80'"
                     class="w-full h-14 p-2 rounded flex items-center">
                     <div class="flex-1 flex flex-col">
-                      <span>dhl (cargo)</span>
+                      <span>dhl</span>
                       <span>$ {{ numberFormat(useInbox.focusedShippement.shipping_cost) }}
                       </span>
                     </div>
@@ -393,7 +416,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-                }}
+              }}
               </span>
             </div>
 
@@ -464,8 +487,17 @@ onMounted(async () => {
     await useProfile.getCoins(localStorage.getItem('ws-user-id'))
     await useProfile.getProfile(localStorage.getItem('ws-user-id'))
     await useInvoices.getCards(localStorage.getItem('ws-user-id'))
+    await useProfile.getWebConfig()
 
+    useBook.filterAdr()
     console.log(useInbox.focusedShippement)
+
+    if (useInbox.focusedShippement.address_book_from
+    ) {
+      useInbox.focusedShippement.address_book_from = useInbox.focusedShippement.address_book_from.id
+    }
+
+    console.log(useBook.addresses)
 
 
     if (useInbox.focusedShippement.deliver_type === 'p') {

@@ -8,6 +8,8 @@ export const useBookStore = defineStore('book', () => {
   const cities = ref([])
   const focusedBook = ref(null)
   const tempBooks = ref([])
+  const adrFrom = ref([])
+  const adrTo = ref([])
 
   const getAddresses = async (user_id) => {
     let response = null
@@ -23,11 +25,34 @@ export const useBookStore = defineStore('book', () => {
           designation_ar: item.name_ar,
           code: item.code,
         }))
+
+        localStorage.setItem('adr', JSON.stringify(addresses.value))
+        localStorage.setItem('cities', JSON.stringify(cities.value))
       }
     } catch (error) {
       console.error(error)
     }
   }
 
-  return { addresses, getAddresses, cities, tempBooks }
+  const filterAdr = () => {
+    adrFrom.value = JSON.parse(localStorage.getItem('adr')).filter((item) => item.type === 'from')
+
+    adrFrom.value = adrFrom.value.map((i) => {
+      return {
+        id: i.id,
+        designation: i.name,
+      }
+    })
+
+    adrTo.value = JSON.parse(localStorage.getItem('adr')).filter((item) => item.type === 'to')
+
+    adrTo.value = adrTo.value.map((i) => {
+      return {
+        id: i.id,
+        designation: i.name,
+      }
+    })
+  }
+
+  return { addresses, getAddresses, cities, tempBooks, filterAdr, adrFrom, adrTo }
 })

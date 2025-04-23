@@ -31,6 +31,7 @@
 
             <MenuItem>
             <button @click="() => {
+              useBook.focusedBook = item
               Object.assign(useWidget.deleteModal, {
                 open: true,
                 id: item.id,

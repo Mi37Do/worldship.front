@@ -328,7 +328,7 @@
                   }" :class="!isCargo ? 'bg-primary text-white' : 'hover:bg-white/80'"
                     class="w-full h-14 p-2 rounded flex items-center">
                     <div class="flex-1 flex flex-col">
-                      <span>Shipping Cost</span>
+                      <span>dhl</span>
                       <span>$ {{ numberFormat(useInbox.focusedShippement.shipping_cost) }}
                       </span>
                     </div>
