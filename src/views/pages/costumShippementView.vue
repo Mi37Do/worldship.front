@@ -52,9 +52,27 @@
                     item</button>
                 </div>
 
-                <div class="w-full grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                <div class="w-full border border-slate-200 rounded-lg flex flex-col">
+                  <div class="w-full grid grid-cols-5 gap-1.5 p-3 border-b border-slate-200">
+                    <span class="border-r truncate border-slate-200">item</span>
+                    <span class="border-r truncate border-slate-200">price</span>
+                    <span class="border-r truncate border-slate-200">company cost</span>
+                    <span class="border-r truncate border-slate-200">country</span>
+                    <span class="truncate ">state</span>
+                  </div>
 
-                  <package-item v-for="item in tempItems" :key="item.id" :item="item" />
+
+                  <div v-for="item in useInbox.focusedShippement.sh_package
+" :key="item" class="w-full grid grid-cols-5 gap-1.5 p-3 border-b border-slate-200">
+                    <span class="truncate ">{{ item.qty }} x {{ item.name_id.name }}</span>
+                    <span class="truncate ">$ {{ numberFormat(item.price) }}</span>
+                    <span class="truncate ">$ {{ item.company_cost ? numberFormat(item.company_cost) : '----' }}</span>
+                    <span class="truncate ">{{ item.countrie.name }}</span>
+                    <span
+                      :class="item.status_items === 'n' ? 'bg-emerald-100 text-emerald-500' : 'bg-indigo-100 text-indigo-500'"
+                      class="truncate uppercase py-1 w-fit px-2 rounded-md text-xs font-semibold">{{
+                        item.status_items === 'n' ? 'new' : 'used' }}</span>
+                  </div>
                 </div>
 
               </div>
@@ -93,28 +111,65 @@
 
 
               <div v-if="adressFrom" class="w-full flex flex-col gap-3">
+
+
                 <book-combobox
-                  v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
-                  :list="useBook.adrFrom" :selected="useInbox.focusedShippement.address_book_from" @onSelectedItem="async (id) => {
-                    useInbox.focusedShippement.address_book_from
+                  v-if="!useInbox.focusedShippement.is_payed && useInbox.focusedShippement.deliver_type !== 'n'"
+                  :list="useBook.adrFrom" :selected="tempBookFrom" @onSelectedItem="async (id) => {
+                    tempBookFrom = id
                     let response = await axios.get(`/Shipments/updateAddress_FromPk_API/${route.params.id}/${id}`)
 
                     await useInbox.getShippements(null, route.params.id)
 
                   }" class="hidden md:block" />
+
+                <div v-if="useInbox.focusedShippement.address_book_from"
+                  class="w-full h-fit rounded-md border border-slate-200 overflow-hidden bg-primary/5 p-3 grid grid-cols-2 gap-3 uppercase">
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">name</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book_from.name }}</span>
+                  </div>
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">country</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book_from.countrie_id.name
+                      }}</span>
+                  </div>
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">phone</span>
+                    <span>
+                      {{ formatPhoneNumber(useInbox.focusedShippement.address_book_from.phone) }}</span>
+                  </div>
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">second phone</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book_from.second_phone ?
+                        formatPhoneNumber(useInbox.focusedShippement.address_book_from.second_phone) :
+                        '-------'
+                      }}</span>
+                  </div>
+                </div>
               </div>
 
               <div v-else class="w-full flex flex-col gap-3">
 
                 <book-combobox
                   v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
-                  :list="useBook.adrTo" :selected="useInbox.focusedShippement.address_book_to" @onSelectedItem="async (id) => {
-                    useInbox.focusedShippement.address_book_to
+                  :list="useBook.adrTo" :selected="tempBookTo" @onSelectedItem="async (id) => {
+                    tempBookTo = id
                     let response = await axios.put(`/Shipments/updateAddress_ToPk_API/${route.params.id}/${id}`)
 
                     await useInbox.getShippements(null, route.params.id)
 
                   }" class="hidden md:block" />
+
+                {{ useInbox.focusedShippement.address_book_to }}
+
                 {{ useBook.adrTo }}
                 <!--
                 <div v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
@@ -416,7 +471,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-              }}
+                }}
               </span>
             </div>
 
@@ -470,7 +525,8 @@ const tempCoins = ref(0)
 const loadingCoin = ref(false)
 const loadingCode = ref(false)
 const useProfile = useProfileStore()
-const tempBook = ref(null)
+const tempBookFrom = ref(null)
+const tempBookTo = ref(null)
 const useInvoices = useInvoicesStore()
 const tempCards = ref([])
 const tempItems = ref([])
@@ -494,10 +550,12 @@ onMounted(async () => {
 
     if (useInbox.focusedShippement.address_book_from
     ) {
-      useInbox.focusedShippement.address_book_from = useInbox.focusedShippement.address_book_from.id
+      tempBookFrom.value = useInbox.focusedShippement.address_book_from.id
     }
 
-    console.log(useBook.addresses)
+    if (useInbox.focusedShippement.address_book_to) {
+      tempBookTo.value = useInbox.focusedShippement.address_book_to.id
+    }
 
 
     if (useInbox.focusedShippement.deliver_type === 'p') {
