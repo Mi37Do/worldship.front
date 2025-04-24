@@ -17,8 +17,21 @@
       <div class="w-full h-fit py-4 flex flex-col gap-4">
 
         <add-adress-book />
-
         <add-edit-item />
+        <DeleteModal :item="useInbox.focusedItem" @deleteItem="async (id) => {
+          try {
+            let response = await axios.get(`/Shipments/DeleteShipItem_API/${id}/`)
+            await useInbox.getShippements(null, route.params.id)
+            Object.assign(useWidget.deleteModal, {
+              id: null,
+              designation: null,
+              open: false,
+            })
+          } catch (error) {
+            console.error(error)
+
+          }
+        }" />
 
 
         <payment-modal :item="useInbox.focusedShippement" :types="useProfile.profile.payments_methodes"
@@ -68,10 +81,17 @@
                     <span class="truncate ">$ {{ numberFormat(item.price) }}</span>
                     <span class="truncate ">$ {{ item.company_cost ? numberFormat(item.company_cost) : '----' }}</span>
                     <span class="truncate ">{{ item.countrie.name }}</span>
-                    <span
-                      :class="item.status_items === 'n' ? 'bg-emerald-100 text-emerald-500' : 'bg-indigo-100 text-indigo-500'"
-                      class="truncate uppercase py-1 w-fit px-2 rounded-md text-xs font-semibold">{{
-                        item.status_items === 'n' ? 'new' : 'used' }}</span>
+
+                    <div class="w-full flex items-center justify-between">
+
+                      <span
+                        :class="item.status_items === 'n' ? 'bg-emerald-100 text-emerald-500' : 'bg-indigo-100 text-indigo-500'"
+                        class="truncate uppercase py-1 w-fit px-2 rounded-md text-xs font-semibold">{{
+                          item.status_items === 'n' ? 'new' : 'used' }}</span>
+
+                      <item-package-more :item="item" />
+                    </div>
+
                   </div>
                 </div>
 
@@ -116,11 +136,12 @@
                 <book-combobox
                   v-if="!useInbox.focusedShippement.is_payed && useInbox.focusedShippement.deliver_type !== 'n'"
                   :list="useBook.adrFrom" :selected="tempBookFrom" @onSelectedItem="async (id) => {
-                    tempBookFrom = id
-                    let response = await axios.get(`/Shipments/updateAddress_FromPk_API/${route.params.id}/${id}`)
+                    if (tempBookFrom !== id) {
+                      tempBookFrom = id
+                      let response = await axios.get(`/Shipments/updateAddress_FromPk_API/${route.params.id}/${id}`)
 
-                    await useInbox.getShippements(null, route.params.id)
-
+                      await useInbox.getShippements(null, route.params.id)
+                    }
                   }" class="hidden md:block" />
 
                 <div v-if="useInbox.focusedShippement.address_book_from"
@@ -161,154 +182,56 @@
                 <book-combobox
                   v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
                   :list="useBook.adrTo" :selected="tempBookTo" @onSelectedItem="async (id) => {
-                    tempBookTo = id
-                    let response = await axios.put(`/Shipments/updateAddress_ToPk_API/${route.params.id}/${id}`)
+                    if (tempBookTo !== id) {
+                      tempBookTo = id
+                      console.log(id)
+                      try {
+                        let response = await axios.get(`/Shipments/updateAddress_ToPk_API/${route.params.id}/${id}`)
 
-                    await useInbox.getShippements(null, route.params.id)
+                        await useInbox.getShippements(null, route.params.id)
+                      } catch (error) {
+                        console.error(error)
+
+                      }
+                    }
+
+
 
                   }" class="hidden md:block" />
 
-                {{ useInbox.focusedShippement.address_book_to }}
 
-                {{ useBook.adrTo }}
-                <!--
-                <div v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
-                  class="w-full p-1 bg-primary rounded-md grid grid-cols-2 gap-1">
-                  <button @click="async () => {
-                    deliverToCenter = true
+                <div v-if="useInbox.focusedShippement.address_book_to"
+                  class="w-full h-fit rounded-md border border-slate-200 overflow-hidden bg-primary/5 p-3 grid grid-cols-2 gap-3 uppercase">
 
-                    let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/1`)
-
-                    useInbox.focusedShippement.total_price_cost = response.data.reslut
-
-                    tempBook = tempAdresses[0].id
-
-                  }"
-                    :class="deliverToCenter ? 'bg-primary hover:bg-primary/40 text-white' : 'hover:bg-white/80 text-primary bg-transparent border-0'"
-                    class="btn btn-sm pixa-btn flex justify-between">
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">name</span>
                     <span>
-                      Pick Up Local Office (FREE)</span>
-
-                    <div v-if="deliverToCenter"
-                      class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
-                      <check-icon class="w-4 h-4 fill-white" />
-                    </div>
-
-                  </button>
-                  <button @click="async () => {
-                    deliverToCenter = false
-
-                    let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/0`)
-
-                    useInbox.focusedShippement.total_price_cost = response.data.reslut
-
-                    tempBook = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : useBook.tempBooks[0].id
-
-                  }"
-                    :class="!deliverToCenter ? 'bg-primary hover:bg-primary/40 text-white' : 'hover:bg-white/80 text-primary bg-transparent border-0'"
-                    class="btn btn-sm pixa-btn  flex justify-between">
-                    <span>Deliver to Home (${{ useInbox.focusedShippement.deliver_to_home }}
-                      FEE)</span>
-
-
-                    <div v-if="!deliverToCenter"
-                      class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
-                      <check-icon class="w-4 h-4 fill-white" />
-                    </div>
-                  </button>
-                </div>
-
-                <div v-if="deliverToCenter" class="w-full flex flex-col gap-3">
-
-                  <div class="flex gap-2 w-full justify-end">
-                    <book-combobox
-                      v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
-                      :list="tempAdresses" :selected="tempBook" @onSelectedItem="async (id) => {
-                        tempBook = id
-
-                        let response = await axios.get(`/Dashboard/updatePickUpLocal_API/${route.params.id}/${tempBook}`)
-
-                        console.log(response)
-
-
-                      }" class="hidden md:block" />
+                      {{ useInbox.focusedShippement.address_book_to.name }}</span>
                   </div>
-                  <div v-if="useInbox.focusedShippement.pickUp_local"
-                    class="w-full h-fit rounded-md border border-slate-200 overflow-hidden bg-primary/5 p-3 grid grid-cols-2 gap-3 uppercase">
 
-                    <div class="flex flex-col gap-1">
-                      <span class=" font-medium">name</span>
-                      <span>
-                        {{useProfile.locations.find(item => item.id === tempBook).name}}</span>
-                    </div>
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">city</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book_to.city_id.name
+                      }}</span>
+                  </div>
 
-                    <div class="flex flex-col gap-1">
-                      <span class=" font-medium">city</span>
-                      <span>
-                        {{formatPhoneNumber(useProfile.locations.find(item => item.id ===
-                          tempBook).city_id.name)}}</span>
-                    </div>
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">phone</span>
+                    <span>
+                      {{ formatPhoneNumber(useInbox.focusedShippement.address_book_to.phone) }}</span>
+                  </div>
 
-                    <div class="flex flex-col gap-1">
-                      <span class=" font-medium">phone</span>
-                      <span>
-                        {{formatPhoneNumber(useProfile.locations.find(item => item.id === tempBook).phone)}}</span>
-                    </div>
-
-                    <div class="flex flex-col gap-1">
-                      <span class=" font-medium">second phone</span>
-                      <span>
-                        {{useProfile.locations.find(item => item.id === tempBook).second_phone ?
-                          formatPhoneNumber(useProfile.locations.find(item => item.id === tempBook).second_phone) :
-                          '-------'
-                        }}</span>
-                    </div>
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">second phone</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book_to.second_phone ?
+                        formatPhoneNumber(useInbox.focusedShippement.address_book_to.second_phone) :
+                        '-------'
+                      }}</span>
                   </div>
                 </div>
 
-                <div v-else class="w-full flex flex-col gap-3">
-
-
-                  <div class="flex gap-2 w-full justify-end">
-                    <book-combobox v-if="!useInbox.focusedShippement.is_payed" :list="useBook.tempBooks"
-                      :selected="tempBook" @onSelectedItem="onChangeBook" class="hidden md:block" />
-                    <button v-if="!useInbox.focusedShippement.is_payed" @click="Object.assign(useWidget.addAddressBook, {
-                      open: true,
-                      add: true
-                    })" class="btn btn-sm pixa-btn btn-primary">
-                      <plus-icon class="w-5 h-5" />
-                      add address</button>
-                  </div>
-
-                  <div
-                    class="w-full h-fit rounded-md border border-slate-200 overflow-hidden bg-primary/5 p-3 grid grid-cols-2 gap-3 uppercase">
-                    <div class="flex flex-col gap-1">
-                      <span class=" font-medium">name</span>
-                      <span>
-                        {{useBook.addresses.find(item => item.id === tempBook).name}}</span>
-                    </div>
-
-                    <div class="flex flex-col gap-1">
-                      <span class=" font-medium">city</span>
-                      <span>
-                        {{formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).city_id.name)}}</span>
-                    </div>
-
-                    <div class="flex flex-col gap-1">
-                      <span class=" font-medium">phone</span>
-                      <span>
-                        {{formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).phone)}}</span>
-                    </div>
-
-                    <div class="flex flex-col gap-1">
-                      <span class=" font-medium">second phone</span>
-                      <span>
-                        {{useBook.addresses.find(item => item.id === tempBook).second_phone ?
-                          formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).second_phone) : '-------'
-                        }}</span>
-                    </div>
-                  </div>
-                </div> -->
               </div>
             </div>
 
@@ -471,7 +394,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-                }}
+              }}
               </span>
             </div>
 
@@ -509,6 +432,8 @@ import paymentModal from '@/components/shippement/paymentModal.vue';
 import { useInvoicesStore } from '@/stores/invoices';
 import { format } from 'date-fns';
 import addEditItem from '@/components/shippement/addEditItem.vue';
+import itemPackageMore from '@/components/shippement/itemPackageMore.vue';
+import DeleteModal from '@/components/commun/deleteModal.vue';
 
 
 const env = import.meta.env.VITE_WORLDSHIP_API

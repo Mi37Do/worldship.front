@@ -21,6 +21,7 @@ export const useInboxStore = defineStore('inbox', () => {
   const packageOptions = ref([])
   const focusedItem = ref(null)
   const route = useRoute()
+  const costumeShipItem = ref(null)
 
   const getInbox = async (user_id) => {
     let response = null
@@ -111,5 +112,6 @@ export const useInboxStore = defineStore('inbox', () => {
     filtredShippements,
     filtredInboxs,
     filtredReturns,
+    costumeShipItem,
   }
 })

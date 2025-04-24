@@ -148,14 +148,34 @@ const itemToAdd = reactive(
   }
 )
 
-watch(() => useWidget.addEditShippementItem.open, () => {
+watch(() => useWidget.addEditShippementItem, () => {
   if (useWidget.addEditShippementItem.open) {
+
+    if (useWidget.addEditShippementItem.add) {
+      Object.assign(itemToAdd, {
+        sh_ref: null,
+        name: '',
+        hs_code: '',
+        status_item: 'n',
+        code_countrie: null,
+        qty: 1,
+        price: 0,
+        image: null
+      })
+    } else {
+
+      Object.assign(itemToAdd, useInbox.costumeShipItem)
+
+      imagePreview.value = useInbox.costumeShipItem.image
+    }
+
     loading.value = false
   } else {
-    console.log(props.item);
-
+    console.log(props.item)
   }
-})
+}, { deep: true })
+
+
 
 
 const handleFileChange = (index, event) => {
@@ -210,7 +230,6 @@ const addEditItem = async () => {
   const formdata = new FormData()
 
 
-  formdata.append('sh_ref', route.params.id)
   formdata.append('name', itemToAdd.name)
   formdata.append('hs_code', itemToAdd.hs_code)
   formdata.append('qty', itemToAdd.qty)
@@ -219,14 +238,27 @@ const addEditItem = async () => {
   formdata.append('code_countrie', itemToAdd.code_countrie)
   formdata.append('status_item', itemToAdd.status_item)
 
-
+  let response = null
 
   try {
-    let response = await axios.post(`/Shipments/create_ship_items_API`, formdata, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      }
-    })
+    if (useWidget.addEditShippementItem.add) {
+
+      formdata.append('sh_ref', route.params.id)
+      response = await axios.post(`/Shipments/create_ship_items_API`, formdata, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      })
+    } else {
+
+      formdata.append('item_ref', itemToAdd.id)
+      response = await axios.post(`/Shipments/edit_ship_items_API`, formdata, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      })
+    }
+
     await useInbox.getShippements(null, route.params.id)
     closeModal()
     console.log(response)
