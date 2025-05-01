@@ -13,6 +13,15 @@
           <span class="pixa-title">{{ $t('commun.addressBook') }}</span>
         </div>
         <div class="flex gap-2">
+          <commun-list-box :list="types" :selected="selectedType" @onSelectedItem="async (id) => {
+            selectedType = id
+
+            if (id === 'all') {
+              useBook.filtredAdresses = useBook.addresses
+            } else {
+              useBook.filtredAdresses = id === 'from' ? useBook.addresses.filter(item => item.type === 'from') : useBook.addresses.filter(item => item.type === 'to')
+            }
+          }" />
           <button @click="useWidget.addAddressBook.open = true" class="btn btn-sm pixa-btn btn-primary">
             <plus-icon class="w-5 h-5" />
             {{ $t('commun.addAddress') }}</button>
@@ -32,7 +41,7 @@
 
         <div class="w-full flex-1 overflow-auto flex flex-col">
           <div class="w-full h-fit flex flex-col gap-2 pt-2">
-            <itemData v-for="item in useBook.addresses" :key="item" :item="item" />
+            <itemData v-for="item in useBook.filtredAdresses" :key="item" :item="item" />
           </div>
         </div>
       </div>
@@ -52,12 +61,15 @@ import { useBookStore } from '@/stores/addressBook';
 import deleteModal from '@/components/commun/deleteModal.vue';
 import { useI18n } from 'vue-i18n';
 import { objectToFormData } from '@/utils/formDataUtils'
+import communListBox from '@/components/commun/communListBox.vue';
 import axios from 'axios';
 
 const useWidget = useWidgetStore()
 const useBook = useBookStore()
 const loading = ref(true)
 const { t } = useI18n()
+
+const selectedType = ref('all')
 
 onMounted(async () => {
   try {
@@ -67,6 +79,25 @@ onMounted(async () => {
     loading.value = true
   }
 })
+
+
+const types = ref(
+  [
+    {
+      id: 'all',
+      designation: 'all',
+      designation_ar: 'الكل'
+    }, {
+      id: 'from',
+      designation: 'from',
+      designation_ar: 'مدفوع'
+    }, {
+      id: 'to',
+      designation: 'to',
+      designation_ar: 'غير مدفوع'
+    },
+  ]
+)
 
 const onDeleteItem = async (id) => {
   let deleteObject = {

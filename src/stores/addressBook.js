@@ -5,6 +5,7 @@ import axios from 'axios'
 
 export const useBookStore = defineStore('book', () => {
   const addresses = ref([])
+  const filtredAdresses = ref([])
   const cities = ref([])
   const focusedBook = ref(null)
   const tempBooks = ref([])
@@ -25,6 +26,8 @@ export const useBookStore = defineStore('book', () => {
           designation_ar: item.name_ar,
           code: item.code,
         }))
+
+        filtredAdresses.value = addresses.value
 
         localStorage.setItem('adr', JSON.stringify(addresses.value))
         localStorage.setItem('cities', JSON.stringify(cities.value))
@@ -54,5 +57,5 @@ export const useBookStore = defineStore('book', () => {
     })
   }
 
-  return { addresses, getAddresses, cities, tempBooks, filterAdr, adrFrom, adrTo }
+  return { addresses, getAddresses, cities, tempBooks, filterAdr, adrFrom, adrTo, filtredAdresses }
 })

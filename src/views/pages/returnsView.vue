@@ -31,9 +31,9 @@
           <button @click="useWidget.dateFilter = true"
             class="btn btn-sm pixa-btn pixa-btn-nofloat flex gap-2 w-full md:w-fit">
             <calendar-icon class="w-5 h-5" />
-            <span>{{ filterDate.from ? format(filterDate.from, 'dd-MM-yyyy') : '-- -- ----' }}</span>
+            <span>from {{ filterDate.from ? format(filterDate.from, 'dd-MM-yyyy') : '-- -- ----' }}</span>
             <arrow-icon class="w-5 h-5 rotate-90 mx-2" />
-            <span>{{ filterDate.to ? format(filterDate.to, 'dd-MM-yyyy') : '-- -- ----' }}</span>
+            <span>to {{ filterDate.to ? format(filterDate.to, 'dd-MM-yyyy') : '-- -- ----' }}</span>
           </button>
         </div>
       </div>
