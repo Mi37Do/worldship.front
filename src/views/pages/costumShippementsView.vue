@@ -31,6 +31,11 @@
         </div>
 
         <div class="flex gap-2 w-full lg:w-fit">
+
+          <commun-list-box :list="datesFilter" :selected="selectedType" @onSelectedItem="async (id) => {
+
+          }" />
+
           <commun-list-box :list="types" :selected="selectedType" @onSelectedItem="async (id) => {
             selectedType = id
             console.log(id);
@@ -113,6 +118,27 @@ const filterDate = reactive(
   }
 )
 
+const datesFilter = ref(
+  [
+    {
+      id: 'all',
+      designation: 'all',
+      designation_ar: 'الكل'
+    }, {
+      id: '10',
+      designation: '10',
+      designation_ar: '10'
+    }, {
+      id: '15',
+      designation: '15',
+      designation_ar: '15 '
+    }, {
+      id: '30',
+      designation: '30',
+      designation_ar: '30 '
+    },
+  ]
+)
 
 const types = ref(
   [

@@ -52,7 +52,9 @@
             <arrow-icon class="w-5 h-5 rotate-90 mx-2" />
             <span>{{ filterDate.to ? format(filterDate.to, 'dd-MM-yyyy') : '-- -- ----' }}</span>
           </button>-->
+          <commun-list-box :list="datesFilter" :selected="selectedType" @onSelectedItem="async (id) => {
 
+          }" />
           <button :disabled="useInbox.inboxsToShip.length < 1" @click="useWidget.ship = true"
             class="btn btn-sm pixa-btn pixa-btn-nofloat">
             <plan-icon class="w-5 h-5" />
@@ -149,6 +151,7 @@ import calendarIcon from '@/assets/icons/calendarIcon.vue';
 import dateFilterModal from '@/components/commun/dateFilterModal.vue';
 import { format, isAfter, isBefore } from 'date-fns';
 import sideMenu from '@/assets/icons/sideMenu.vue';
+import communListBox from '@/components/commun/communListBox.vue';
 
 
 const useWidget = useWidgetStore()
@@ -166,6 +169,29 @@ const filterDate = reactive(
     from: null,
     to: null
   }
+)
+
+const selectedType = ref('all')
+const datesFilter = ref(
+  [
+    {
+      id: 'all',
+      designation: 'all',
+      designation_ar: 'الكل'
+    }, {
+      id: '10',
+      designation: '10',
+      designation_ar: '10'
+    }, {
+      id: '15',
+      designation: '15',
+      designation_ar: '15 '
+    }, {
+      id: '30',
+      designation: '30',
+      designation_ar: '30 '
+    },
+  ]
 )
 
 onMounted(async () => {
