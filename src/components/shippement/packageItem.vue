@@ -18,7 +18,7 @@
 
       <div class="flex-1 flex flex-col items-end">
         <span class="text-slate-500">{{ name }}</span>
-        <span class="text-md font-semibold uppercase">{{ numberFormat(item.total) }} $</span>
+        <span class="text-md font-semibold uppercase">{{ item.total ? numberFormat(item.total) : item.total }} $</span>
       </div>
     </div>
     <span class="px-4 text-justify"></span>

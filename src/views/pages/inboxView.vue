@@ -111,8 +111,9 @@
             <!--  -->
             <itemData v-for="item in useInbox.filtredInboxs" :key="item.id" :item="item">
               <template #checkboxSelect>
-                <input type="checkbox" :checked="useInbox.inboxsToShip.find(i => i.id === item.id)"
-                  v-model="item.selected_to_ship" @change="onSelectedEnabled(item)" name="" id=""
+                <input type="checkbox" :disabled="!item.total_price"
+                  :checked="useInbox.inboxsToShip.find(i => i.id === item.id)" v-model="item.selected_to_ship"
+                  @change="onSelectedEnabled(item)" name="" id=""
                   class="rounded checked:bg-primary checkbox-xs hidden lg:block">
               </template>
             </itemData>
@@ -198,11 +199,12 @@ const onSelectedEnabled = (item) => {
 
 watch(() => [selectAll.value], () => {
   useInbox.inboxsToShip = []
+
   if (selectAll.value) {
-    for (let index = 0; index < useInbox.filtredInboxs.length; index++) {
-      useInbox.filtredInboxs[index].selected_to_ship = true
+    for (let index = 0; index < useInbox.filtredInboxs.filter(item => item.total_price).length; index++) {
+      useInbox.filtredInboxs.filter(item => item.total_price)[index].selected_to_ship = true
     }
-    useInbox.inboxsToShip = useInbox.filtredInboxs
+    useInbox.inboxsToShip = useInbox.filtredInboxs.filter(item => item.total_price)
   } else {
     for (let index = 0; index < useInbox.filtredInboxs.length; index++) {
       useInbox.filtredInboxs[index].selected_to_ship = false

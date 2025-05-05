@@ -4,7 +4,10 @@
       <template #title>
         <span class="pixa-title  flex-1">
           <span v-if="loading"></span>
-          <span v-else>{{ useInbox.focusedShippement.code }}</span>
+          <span v-else class="flex gap-1.5 items-center">
+            <button @click="useWidget.openSide = true" class="btn btn-sm btn-square btn-ghost  md:hidden">
+              <side-menu />
+            </button> {{ useInbox.focusedShippement.code }}</span>
         </span>
       </template>
     </top-app-bar>
@@ -73,7 +76,8 @@
             <div
               class="w-full h-fit flex flex-col gap-4 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl p-4 col-span-2">
               <div v-if="useInbox.focusedShippement" class="w-full flex items-center justify-between">
-                <span class="pixa-title">delivery point</span>
+                <span class="pixa-title h-10 flex items-center">delivery point</span>
+                <!--
                 <commun-switch :enabled="useInbox.focusedShippement.deliver_type !== 'n' ? true : false"
                   @selectedEnabled="(value) => {
                     if (value) {
@@ -81,10 +85,10 @@
                     } else {
                       useInbox.focusedShippement.deliver_type = 'n'
                     }
-                  }" />
+                  }" />-->
               </div>
               <!---->
-              <div v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
+              <div v-if="!useInbox.focusedShippement.is_payed"
                 class="w-full p-1 bg-primary/10 rounded-md grid grid-cols-2 gap-1">
                 <button @click="async () => {
                   loading = true
@@ -93,8 +97,6 @@
                   let response = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/1`)
 
                   await useInbox.getShippements(null, route.params.id)
-
-                  console.log(useInbox.focusedShippement);
 
                   // useInbox.focusedShippement.total_price_cost = response.data.reslut
 
@@ -147,6 +149,8 @@
                     :list="tempAdresses" :selected="tempBook" @onSelectedItem="async (id) => {
                       tempBook = id
 
+                      let response1 = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/1`)
+
                       let response = await axios.get(`/Dashboard/updatePickUpLocal_API/${route.params.id}/${tempBook}`)
 
 
@@ -179,6 +183,19 @@
                       {{useProfile.locations.find(item => item.id === tempBook).second_phone ?
                         formatPhoneNumber(useProfile.locations.find(item => item.id === tempBook).second_phone) :
                         '-------'
+                      }}</span>
+                  </div>
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">instruction</span>
+                    <span>
+                      {{ useInbox.focusedShippement.pickUp_local.instruction
+                      }}</span>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">address line</span>
+                    <span>
+                      {{ useInbox.focusedShippement.pickUp_local.adr
                       }}</span>
                   </div>
                 </div>
@@ -222,6 +239,23 @@
                     <span>
                       {{useBook.addresses.find(item => item.id === tempBook).second_phone ?
                         formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).second_phone) : '-------'
+                      }}</span>
+                  </div>
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">adress line</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book
+                        .adr : '--------'
+                      }}</span>
+                  </div>
+
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">instruction</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book
+                        .instruction : '--------'
                       }}</span>
                   </div>
                 </div>
@@ -362,7 +396,7 @@
 
 
             <span class="pixa-title h-10 flex items-center">Package Options</span>
-
+            <!---->
             <div class="w-full">
               <div v-for="item in useInbox.packageOptions" :key="item.id" class="w-full grid grid-cols-2 gap-4">
 
@@ -370,8 +404,9 @@
                   }})</span>
                 <div class="flex justify-end">
                   <commun-switch v-if="!useInbox.focusedShippement.is_payed"
-                    :enabled="useInbox.focusedShippement.option_package_ids.find(i => i.id === item.id) ? true : false"
+                    :enabled="!!useInbox.focusedShippement.option_package_ids.find(i => i.id === item.id)"
                     @selectedEnabled="(value) => onSelectedEnabledOption(value, item.id)" />
+
 
                   <span v-else></span>
                 </div>
@@ -384,7 +419,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-              }}
+                }}
               </span>
             </div>
 
@@ -420,6 +455,7 @@ import { useProfileStore } from '@/stores/profile';
 import { formatPhoneNumber } from '@/utils/phoneUtils';
 import paymentModal from '@/components/shippement/paymentModal.vue';
 import { useInvoicesStore } from '@/stores/invoices';
+import sideMenu from '@/assets/icons/sideMenu.vue';
 import { format } from 'date-fns';
 
 
@@ -454,9 +490,11 @@ onMounted(async () => {
     await useProfile.getProfile(localStorage.getItem('ws-user-id'))
     await useInvoices.getCards(localStorage.getItem('ws-user-id'))
 
+
+
     console.log(useInbox.focusedShippement)
 
-
+    /***/
     if (useInbox.focusedShippement.deliver_type === 'p') {
       deliverToCenter.value = true
       tempBook.value = useInbox.focusedShippement.pickUp_local.id
@@ -483,7 +521,6 @@ onMounted(async () => {
         designation: item.city_id.name + ' - ' + item.adr,
       }
     })
-
     useProfile.profile.payments_methodes.push(
       {
         id: 0,
@@ -544,6 +581,9 @@ const onSelectedEnabledInsurance = async (value) => {
 
 const onChangeBook = async (id) => {
   try {
+
+    let response1 = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/0`)
+
     let response = await axios.get(`/Dashboard/updateAddressPk_API/${route.params.id}/${id}`)
     tempBook.value = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : useBook.tempBooks[0].id
 

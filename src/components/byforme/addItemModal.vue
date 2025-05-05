@@ -86,7 +86,8 @@
           <button type="submit" :disabled="loadingAdd" class="btn btn-sm pixa-btn btn-primary"><span v-if="loadingAdd"
               class="loading loading-ring loading-sm"></span>
             <span v-else>save</span></button>
-          <button type="button" :disabled="loadingAdd" class="btn btn-sm pixa-btn pixa-btn-nofloat">cancel</button>
+          <button type="reset" :disabled="loadingAdd" @click="closeModal"
+            class="btn btn-sm pixa-btn pixa-btn-nofloat">cancel</button>
         </div>
       </form>
 

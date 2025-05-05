@@ -77,7 +77,7 @@
 
 
           <div class="w-full grid grid-cols-2 gap-2">
-            <span class="font-semibold">dimension (L,W,H,Density)</span>
+            <span class="font-semibold">(L,W,H,Density)</span>
             <span> ( {{ useInbox.focusedInbox.dim_l + ', ' + useInbox.focusedInbox.dim_w + ', ' +
               useInbox.focusedInbox.dim_h + ', ' + useInbox.focusedInbox.density }} )</span>
           </div>

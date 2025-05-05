@@ -556,7 +556,7 @@ const calculateShipement = async () => {
 
 const createCostume = async (shippement) => {
   try {
-    let response = await axios.get(`/Shipments/create_ship_API/${shippement.weight}/${shippement.l}/${shippement.w}/${shippement.h}/${localStorage.getItem('ws-user-id')}/`)
+    let response = await axios.get(`/Shipments/create_ship_API/${shippement.weight}/${shippement.l}/${shippement.w}/${shippement.h}/${shippement.weightUnit}/${shippement.lengthUnit}/${localStorage.getItem('ws-user-id')}/`)
     closeModal()
     router.push({ name: 'costume-shippement', params: { id: response.data.result } })
   } catch (error) {

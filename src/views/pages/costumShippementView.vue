@@ -4,7 +4,10 @@
       <template #title>
         <span class="pixa-title  flex-1">
           <span v-if="loading"></span>
-          <span v-else>{{ useInbox.focusedShippement.code }}</span>
+          <span v-else class="flex gap-1.5 items-center">
+            <button @click="useWidget.openSide = true" class="btn btn-sm btn-square btn-ghost  md:hidden">
+              <side-menu />
+            </button> {{ useInbox.focusedShippement.code }}</span>
         </span>
       </template>
     </top-app-bar>
@@ -103,7 +106,8 @@
             <div
               class="w-full h-fit flex flex-col gap-4 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl p-4 col-span-2">
               <div class="w-full flex items-center justify-between">
-                <span class="pixa-title">delivery point</span>
+                <span class="pixa-title h-10 flex items-center">delivery point</span>
+                <!--
                 <commun-switch :enabled="useInbox.focusedShippement.deliver_type !== 'n' ? true : false"
                   @selectedEnabled="(value) => {
                     if (value) {
@@ -112,7 +116,7 @@
                     } else {
                       useInbox.focusedShippement.deliver_type = 'n'
                     }
-                  }" />
+                  }" /> -->
               </div>
 
 
@@ -174,6 +178,19 @@
                         '-------'
                       }}</span>
                   </div>
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">instruction</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book_from.instruction }}</span>
+                  </div>
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">address line</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book_from.adr
+                      }}</span>
+                  </div>
                 </div>
               </div>
 
@@ -228,6 +245,19 @@
                       {{ useInbox.focusedShippement.address_book_to.second_phone ?
                         formatPhoneNumber(useInbox.focusedShippement.address_book_to.second_phone) :
                         '-------'
+                      }}</span>
+                  </div>
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">instruction</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book_to.instruction }}</span>
+                  </div>
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">address line</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book_to.adr
                       }}</span>
                   </div>
                 </div>
@@ -394,7 +424,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-              }}
+                }}
               </span>
             </div>
 
@@ -434,6 +464,7 @@ import { format } from 'date-fns';
 import addEditItem from '@/components/shippement/addEditItem.vue';
 import itemPackageMore from '@/components/shippement/itemPackageMore.vue';
 import DeleteModal from '@/components/commun/deleteModal.vue';
+import sideMenu from '@/assets/icons/sideMenu.vue';
 
 
 const env = import.meta.env.VITE_WORLDSHIP_API

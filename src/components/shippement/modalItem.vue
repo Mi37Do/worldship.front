@@ -20,7 +20,8 @@
           class="my-auto px-2 py-1 w-fit rounded-md uppercase">{{
             item.is_valid ? 'valide' : 'invalide'
           }}</span>
-        <span class="text-md font-semibold uppercase mt-auto">{{ numberFormat(item.price) }} $</span>
+        <span class="text-md font-semibold uppercase mt-auto">{{ item.price ? numberFormat(item.price) : null }}
+          $</span>
       </div>
     </div>
   </div>

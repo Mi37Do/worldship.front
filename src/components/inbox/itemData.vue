@@ -24,14 +24,14 @@
 
 
     <span class="uppercase h-8 my-auto flex items-center truncate font-bold  lg:hidden">{{ $t('commun.code')
-    }}</span>
+      }}</span>
 
     <div class="w-full flex items-center gap-4">
       <span class="h-8 my-auto flex items-center truncate">{{ item.code }}</span>
     </div>
 
     <span class="uppercase h-8 my-auto flex items-center truncate font-bold  lg:hidden">{{ $t('commun.company')
-    }}</span>
+      }}</span>
     <a :href="item.tracking_url" target="_blank" :class="item.tracking_url ? 'cursor-pointer' : 'cursor-not-allowed'"
       class="w-full flex items-center gap-3 ">
       <div class="flex-1 flex flex-col gap-0 ">
@@ -48,7 +48,7 @@
 
     <span class="uppercase h-8 my-auto flex items-center truncate font-bold  lg:hidden  ">{{
       $t('commun.weight')
-    }}</span>
+      }}</span>
     <span class="h-8 my-auto flex items-center truncate  "> {{ numberFormat(item.weight) }} lbs</span>
 
 
@@ -65,7 +65,7 @@
       <item-more :item="item" class="hidden lg:block" />
     </div>
 
-    <button @click="() => {
+    <button v-if="item.total_price" @click="() => {
       item.selected_to_ship = !item.selected_to_ship
     }" :class="[
       item.selected_to_ship ? 'pixa-btn-nofloat-delete' : 'pixa-btn-nofloat',

@@ -57,7 +57,8 @@
       </div>
     </div>
 
-    <div class="w-full flex-1  overflow-hidden">
+    <div class="w-full flex-1 overflow-hidden">
+      <!--
       <div class="w-full h-full flex flex-col md:grid md:grid-cols-3  gap-4 overflow-y-auto overflow-x-hidden md:pb-4">
         <div class="w-full h-fit gap-4">
           <div
@@ -132,44 +133,111 @@
 
             <div class="w-full flex-1 overflow-hidden">
               <div :class="[useWidget.userLanguage === 'ar' ? 'pr-4 pl-2' : ' pr-2 pl-4']"
-                class="w-full h-full overflow-auto  border-t border-slate-200">
+                class="w-full md:h-full md:overflow-auto  border-t border-slate-200">
                 <div class="w-full h-fit grid grid-cols-3 gap-4 py-4">
                   <package-item v-for="item in useInbox.items" :key="item" :item="item"
                     :name="useInbox.focusedBuyForMe.name">
                     <template #options>
                       <package-more :item="item" />
                     </template>
-                  </package-item>
+</package-item>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>-->
+
+      <div class="w-full h-full overflow-y-auto">
+        <div class="w-full h-fit flex flex-col gap-4">
+          <div class="w-full h-fit gap-4">
+            <div
+              class="w-full h-fit flex flex-col gap-y-2 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl p-4 uppercase">
+              <div class="w-full h-10 flex items-center">
+                <span class="pixa-title h-10 flex items-center">Details Package</span>
+              </div>
+
+              <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text uppercase">name </span>
+                </div>
+                <input type="text" required v-model="useInbox.focusedBuyForMe.name"
+                  class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+              </label>
+
+              <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text uppercase">url </span>
+                </div>
+                <input type="text" required v-model="useInbox.focusedBuyForMe.url"
+                  class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+              </label>
+
+              <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text uppercase">instructions </span>
+                </div>
+                <input type="text" required v-model="useInbox.focusedBuyForMe.Instructions"
+                  class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+              </label>
+
+              <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text uppercase">domestic shipping </span>
+                </div>
+                <input type="number" required v-model="useInbox.focusedBuyForMe.domestic_shipping"
+                  class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+              </label>
+
+              <div class="w-full grid grid-cols-2 gap-x-4 gap-y-2 pt-4 border-t border-slate-200 mt-2">
+
+                <span class="font-semibold h-10 flex items-center">Items Value</span>
+                <span class="text-right my-auto"> $ {{ numberFormat(useInbox.focusedBuyForMe.price_item) }}</span><span
+                  class="font-semibold h-10 flex items-center">Service
+                </span>
+                <span class="text-right my-auto"> $ {{ numberFormat(useInbox.focusedBuyForMe.service) }}</span>
+                <span class="font-semibold h-10 flex items-center">total</span>
+                <span class="text-right my-auto"> $ {{ numberFormat(useInbox.focusedBuyForMe.total_price) }} </span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="w-full h-full gap-4 col-span-2 overflow-hidden">
+            <div
+              class="w-full h-full flex flex-col gap-4 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl py-4 uppercase overflow-hidden">
+              <div class="w-full flex gap-4 items-center px-4">
+                <span class="pixa-title">Package</span>
+                <span
+                  class=" my-auto flex items-center truncate bg-slate-100 w-fit px-3 py-1.5 rounded font-semibold">{{
+                    useInbox.items.length }}</span>
+
+                <div class="flex-1 flex justify-end">
+                  <button @click="useWidget.addItem.open = true" v-if="useInbox.focusedBuyForMe.state === 'n'"
+                    class="btn btn-sm pixa-btn btn-primary">
+                    <PlusIcon class="w-5 h-5" />
+                    <span>add item</span>
+                  </button>
+                </div>
+
+              </div>
+
+              <div class="w-full flex-1 overflow-hidden">
+                <div :class="[useWidget.userLanguage === 'ar' ? 'pr-4 pl-2' : ' pr-2 pl-4']"
+                  class="w-full md:h-full md:overflow-auto  border-t border-slate-200">
+                  <div class="w-full h-fit grid grid-cols-3 gap-4 py-4">
+                    <package-item v-for="item in useInbox.items" :key="item" :item="item"
+                      :name="useInbox.focusedBuyForMe.name">
+                      <template #options>
+                        <package-more :item="item" />
+                      </template>
+                    </package-item>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-
-        <!--
-        <div class="w-full h-fit md:h-full pb-4 flex flex-col gap-4 md:col-span-2">
-          <div v-auto-animate
-            class="w-full h-fit md:h-full flex flex-col gap-4 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl p-4">
-            <label @click="show = !show"
-              class="w-full flex items-center justify-between   fill-slate-500 hover:fill-primary pr-1.5">
-              <div class="flex gap-4 items-center">
-                <span class="pixa-title">Package</span>
-                <span
-                  class=" my-auto flex items-center truncate bg-slate-100 w-fit px-3 py-1.5 rounded font-semibold">{{
-                    useInbox.items.length }}</span>
-              </div>
-              <PlusIcon :class="[
-                show ? 'rotate-45' : 'rotate-0',
-                'w-5 h-5 transition-all duration-200']" />
-            </label>
-
-            <div v-if="show" class="w-full grid grid-cols-3 gap-4 mt-4">
-              <package-item v-for="item in 12" :key="item" :item="item" />
-            </div>
-
-          </div>
-        </div> -->
       </div>
 
     </div>
