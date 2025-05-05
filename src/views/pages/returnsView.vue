@@ -21,18 +21,20 @@
 
       <date-filter-modal @filterItems="onFilterItems" />
 
+
+
       <div class="w-full md:h-10 flex  flex-col gap-2 md:flex-row items-center justify-between">
         <div class="flex gap-3 items-center w-full md:w-fit">
           <div class="flex gap-3 items-center flex-1 w-full">
             <commun-input-search @searchQuery="searchQuery" class="w-fit  lg:w-96" />
           </div>
         </div>
-        <div class="flex gap-2 w-full md:w-fit">
+        <div class="flex gap-2 w-full flex-col md:flex-row md:w-fit">
           <commun-list-box :list="datesFilter" :selected="selectedType" @onSelectedItem="async (id) => {
 
           }" />
           <button @click="useWidget.dateFilter = true"
-            class="btn btn-sm pixa-btn pixa-btn-nofloat flex gap-2 w-full md:w-fit">
+            class="btn btn-sm pixa-btn pixa-btn-nofloat flex gap-2 w-fit flex-1 md:w-full">
             <calendar-icon class="w-5 h-5" />
             <span>from {{ filterDate.from ? format(filterDate.from, 'dd-MM-yyyy') : '-- -- ----' }}</span>
             <arrow-icon class="w-5 h-5 rotate-90 mx-2" />

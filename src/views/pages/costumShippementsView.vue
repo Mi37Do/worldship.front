@@ -30,28 +30,35 @@
           <commun-input-search @searchQuery="searchQuery" />
         </div>
 
-        <div class="flex gap-2 w-full lg:w-fit">
 
-          <commun-list-box :list="datesFilter" :selected="selectedType" @onSelectedItem="async (id) => {
+        <div class="flex flex-col lg:flex-row gap-2 w-full lg:w-fit">
+          <div class="flex gap-2 w-full">
+            <commun-list-box :list="datesFilter" :selected="selectedType" @onSelectedItem="async (id) => {
 
-          }" />
+            }" />
 
-          <commun-list-box :list="types" :selected="selectedType" @onSelectedItem="async (id) => {
-            selectedType = id
-            console.log(id);
+            <commun-list-box :list="types" :selected="selectedType" @onSelectedItem="async (id) => {
+              selectedType = id
+              console.log(id);
 
-            if (id === 'all') {
-              useInbox.filtredShippements = useInbox.shippements
-            } else {
-              useInbox.filtredShippements = id === 'p' ? useInbox.shippements.filter(item => item.is_payed === true) : useInbox.shippements.filter(item => item.is_payed === false)
-            }
-          }" />
-          <button @click="useWidget.dateFilter = true" class="btn btn-sm pixa-btn pixa-btn-nofloat flex gap-2 flex-1">
-            <calendar-icon class="w-5 h-5" />
-            <span>from {{ filterDate.from ? format(filterDate.from, 'dd-MM-yyyy') : '-- -- ----' }}</span>
-            <arrow-icon class="w-5 h-5 rotate-90 mx-2" />
-            <span>to {{ filterDate.to ? format(filterDate.to, 'dd-MM-yyyy') : '-- -- ----' }}</span>
-          </button>
+              if (id === 'all') {
+                useInbox.filtredShippements = useInbox.shippements
+              } else {
+                useInbox.filtredShippements = id === 'p' ? useInbox.shippements.filter(item => item.is_payed === true) : useInbox.shippements.filter(item => item.is_payed === false)
+              }
+            }" />
+          </div>
+
+          <div class="flex-none w-full lg:w-fit">
+            <button @click="useWidget.dateFilter = true"
+              class="btn btn-sm pixa-btn pixa-btn-nofloat flex gap-2 w-full lg:w-fit flex-1">
+              <calendar-icon class="w-5 h-5" />
+              <span>from {{ filterDate.from ? format(filterDate.from, 'dd-MM-yyyy') : '-- -- ----' }}</span>
+              <arrow-icon class="w-5 h-5 rotate-90 mx-2" />
+              <span>to {{ filterDate.to ? format(filterDate.to, 'dd-MM-yyyy') : '-- -- ----' }}</span>
+            </button>
+          </div>
+
         </div>
 
       </div>

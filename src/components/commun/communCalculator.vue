@@ -1,7 +1,7 @@
 <template>
   <input type="checkbox" :checked="useWidget.calculator" class="modal-toggle" />
   <div class="modal modal-bottom md:modal-middle" role="dialog">
-    <div class="w-full max-w-screen-md h-full modal-box flex flex-col p-4">
+    <div class="w-full md:max-w-screen-md h-full modal-box flex flex-col p-4">
       <div class="w-full h-14 flex items-center justify-between pb-4">
         <span class="pixa-title">calculator</span>
         <div class="flex gap-2">
@@ -17,8 +17,8 @@
       -->
 
       <div class="w-full flex-1 flex flex-col gap-4 overflow-y-auto overflow-x-hidden">
-
-        <div class="w-full p-1 bg-primary rounded-lg grid grid-cols-3 gap-1">
+        <!-- grid must be 3 after releasing buy for me -->
+        <div class="w-full p-1 bg-primary rounded-lg grid grid-cols-2 gap-1">
 
           <button @click="() => {
             Object.assign(shippement, {
@@ -95,7 +95,7 @@
 
           }" :class="tab === 'costume' ? 'bg-white hover:bg-white' : 'bg-transparent hover:bg-white/20 text-white'"
             class="btn btn-sm pixa-btn border-0">costume shippement</button>
-
+          <!--
           <button @click="() => {
             Object.assign(shippement, {
               weight: 0,
@@ -132,7 +132,7 @@
             tab = 'bfm'
           }" :class="tab === 'bfm' ? 'bg-white hover:bg-white' : 'bg-transparent hover:bg-white/20 text-white'"
             class="btn btn-sm pixa-btn border-0">buy for me</button>
-
+ -->
         </div>
 
 
@@ -459,10 +459,32 @@
             <span class="font-semibold">Total Cost</span>
             <span class="font-semibold">${{ (resultShip.result + resultShip.insurance).toFixed(2) }}</span>
 
+            <div @click="async () => {
+              createCostume(shippement)
+            }" :class="'bg-primary text-white'" class="w-full h-14 p-2 rounded flex items-center col-span-2 -mb-3">
+              <div class="flex-1 flex flex-col">
+                <span>dhl</span>
+                <span>$ {{ numberFormat(resultShip.result) }}
+                </span>
+              </div>
+              <div class="w-fit h-6 px-2 bg-white/40 rounded-full flex items-center justify-center">
+                create now
+              </div>
+            </div>
 
+            <div @click="async () => {
+              createCostume(shippement)
+            }" :class="'bg-primary text-white'" class="w-full h-14 p-2 rounded flex items-center col-span-2">
+              <div class="flex-1 flex flex-col">
+                <span>fedex</span>
+                <span>$ {{ numberFormat(resultShip.result) }}
+                </span>
+              </div>
+              <div class="w-fit h-6 px-2 bg-white/40 rounded-full flex items-center justify-center">
+                create now
+              </div>
+            </div>
 
-            <button type="button" @click=" createCostume(shippement)"
-              class="btn btn-sm pixa-btn pixa-btn-nofloat w-full col-span-2">create shipement</button>
           </div>
 
           <div v-else
@@ -539,6 +561,14 @@ const resultShip = reactive(
     total: 0, website: '', isBfm: false
   }
 )
+
+watch(() => [shippement.weightUnit, shippement.lengthUnit], () => {
+  if (shippement.weightUnit === 'kg') {
+    shippement.lengthUnit = 'cm'
+  } else {
+    shippement.lengthUnit = 'in'
+  }
+})
 
 const calculateShipement = async () => {
 

@@ -203,7 +203,7 @@
 
           <div class="w-full h-fit small-bg-glass-effect flex flex-col gap-4 p-4">
 
-            <div class="w-full p-1 bg-primary rounded-lg grid grid-cols-3 gap-1">
+            <div class="w-full p-1 bg-primary rounded-lg grid grid-cols-2 gap-1">
 
 
               <button @click="() => {
@@ -283,6 +283,7 @@
               }" :class="tab === 'costume' ? 'bg-white hover:bg-white' : 'bg-transparent hover:bg-white/20 text-white'"
                 class="btn btn-sm pixa-btn border-0">costume shippement</button>
 
+              <!--
               <button @click="() => {
                 Object.assign(shippement, {
                   weight: 0,
@@ -318,7 +319,7 @@
 
                 tab = 'bfm'
               }" :class="tab === 'bfm' ? 'bg-white hover:bg-white' : 'bg-transparent hover:bg-white/20 text-white'"
-                class="btn btn-sm pixa-btn border-0">buy for me</button>
+                class="btn btn-sm pixa-btn border-0">buy for me</button> -->
 
             </div>
 
@@ -662,7 +663,7 @@
 
 
       </div>
-
+      <!--
       <div class="w-full py-24 flex flex-col max-w-screen-xl justify-center items-center gap-12 px-6">
         <span class="text-4xl font-bold text-primary">payment types</span>
 
@@ -679,7 +680,7 @@
         </div>
 
       </div>
-
+ -->
       <div class="w-full py-24 flex flex-col max-w-screen-xl justify-center items-center gap-12 px-6">
         <span class="text-4xl font-bold text-primary">{{ t('commun.prohibited') }}</span>
 
