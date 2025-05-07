@@ -21,7 +21,7 @@
             <span class="text-red-500">Insurance </span>
             <span class="text-right my-auto text-red-500"> $ {{ numberFormat(item.add_insurance ? item.total_insurance :
               0)
-            }} </span>
+              }} </span>
             <span class="text-red-500">Package Options </span>
             <span class="text-right my-auto text-red-500">$ {{ numberFormat(item.total_price_options) }} </span>
             <span>Coins </span>
@@ -29,7 +29,7 @@
 
             <span v-if="item.deliver_to_type === 'h'">Shipping Cost </span>
             <span v-if="item.deliver_to_type === 'h'" class="text-right my-auto">$ {{ numberFormat(item.deliver_to_home)
-            }}
+              }}
             </span>
             <span v-if="!item.use_cargo">DHL </span>
             <span v-if="!item.use_cargo" class="text-right my-auto">$ {{ numberFormat(item.shipping_cost) }}
@@ -245,6 +245,9 @@ const newPayment = async () => {
     pack_pay_type_id: walletType.value,
     image: payment.image
   }
+
+  console.log(tempWallet)
+
 
   let formData = new FormData()
 
