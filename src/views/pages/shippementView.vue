@@ -205,7 +205,9 @@
 
                 <div class="flex gap-2 w-full justify-end">
                   <book-combobox v-if="!useInbox.focusedShippement.is_payed" :list="useBook.tempBooks"
-                    :selected="tempBook" @onSelectedItem="onChangeBook" class="block" />
+                    :selected="tempBook" @onSelectedItem="async (id) => {
+                      await onChangeBook(id)
+                    }" class="block" />
                   <button v-if="!useInbox.focusedShippement.is_payed" @click="Object.assign(useWidget.addAddressBook, {
                     open: true,
                     add: true
@@ -225,7 +227,8 @@
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">city</span>
                     <span>
-                      {{formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).city_id.name)}}</span>
+                      {{ useInbox.focusedShippement.address_book.city_id ?
+                        useInbox.focusedShippement.address_book.city_id.name : '-----' }}</span>
                   </div>
 
                   <div class="flex flex-col gap-1">
@@ -325,7 +328,7 @@
 
               <form @submit.prevent="useCoins" class="w-fit h-fit relative overflow-hidden">
                 <input type="number" min="500" placeholder="coins"
-                  :disabled="useInbox.focusedShippement.total_coins < 500" v-model="tempCoins"
+                  :disabled="useProfile.totalCoins < 500 || useInbox.focusedShippement.is_payed" v-model="tempCoins"
                   class="pixa-input px-4 w-full ml-auto placeholder:uppercase">
 
                 <button type="submit" :disabled="loadingCoin || tempCoins > useProfile.totalCoins"
@@ -340,7 +343,7 @@
 
               <form @submit.prevent="usePromoCode" class="w-fit h-fit relative overflow-hidden">
                 <input type="text" placeholder="your promo code" v-model="useInbox.focusedShippement.promo_code"
-                  :disabled="!useInbox.focusedShippement.is_payed"
+                  :disabled="useInbox.focusedShippement.is_payed"
                   class="pixa-input px-4 w-full ml-auto placeholder:uppercase">
 
                 <button v-if="!useInbox.focusedShippement.is_payed" type="submit" :disabled="loadingCode"
@@ -351,7 +354,9 @@
                 </button>
               </form>
 
-              <div class="col-span-2">
+              <div class="col-span-2 relative">
+                <div v-if="useInbox.focusedShippement.is_payed" class="w-full h-full bg-white/60 absolute inset-0">
+                </div>
                 <div class="w-full h-fit bg-primary/10 flex flex-col p-1 gap-1 rounded-md">
                   <div @click="async () => {
                     isCargo = false
@@ -580,14 +585,19 @@ const onSelectedEnabledInsurance = async (value) => {
 }
 
 const onChangeBook = async (id) => {
+  console.log(id)
+  console.log(tempBook.value)
+
   try {
-
-    let response1 = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/0`)
-
+    /**
+        let response1 = await axios.get(`/Dashboard/usePickUpLocal_API/${route.params.id}/0`)
+    */
     let response = await axios.get(`/Dashboard/updateAddressPk_API/${route.params.id}/${id}`)
-    tempBook.value = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : useBook.tempBooks[0].id
 
     await useInbox.getShippements(null, route.params.id)
+    tempBook.value = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : useBook.tempBooks[0].id
+    console.log(useInbox.focusedShippement);
+
     await useBook.getAddresses(localStorage.getItem('ws-user-id'))
   } catch (error) {
     console.error(error)

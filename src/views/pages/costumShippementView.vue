@@ -201,7 +201,6 @@
                   :list="useBook.adrTo" :selected="tempBookTo" @onSelectedItem="async (id) => {
                     if (tempBookTo !== id) {
                       tempBookTo = id
-                      console.log(id)
                       try {
                         let response = await axios.get(`/Shipments/updateAddress_ToPk_API/${route.params.id}/${id}`)
 
@@ -424,7 +423,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-                }}
+              }}
               </span>
             </div>
 

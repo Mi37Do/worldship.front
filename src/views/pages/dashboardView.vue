@@ -34,7 +34,7 @@
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ useProfile.profile.user.first_name }} {{
                   useProfile.profile.user.last_name
-                  }}</span>
+                }}</span>
                 <div :class="[copied && typeCopied === 'name' ? 'tooltip' : '']" data-tip="copied">
                   <button
                     @click="copyText(useProfile.profile.user.first_name + ' ' + useProfile.profile.user.last_name, 'name')"
@@ -63,7 +63,7 @@
               <span class="w-32 font-semibold  my-auto">{{ $t('commun.addressLine') }} 2</span>
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ useProfile.profile.user.code
-                  }}</span>
+                }}</span>
                 <div :class="[copied && typeCopied === 'code' ? 'tooltip' : '']" data-tip="copied">
                   <button @click="copyText(useProfile.profile.user.code, 'code')"
                     class="btn btn-sm btn-square btn-ghost">
@@ -116,7 +116,7 @@
               <span class="w-32 font-semibold  my-auto">{{ $t('commun.phone') }}</span>
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ formatPhoneNumber(useProfile.profile.user.phone)
-                  }}</span>
+                }}</span>
                 <div :class="[copied && typeCopied === 'phone' ? 'tooltip' : '']" data-tip="copied">
                   <button @click="copyText(useProfile.profile.user.phone, 'phone')"
                     class="btn btn-sm btn-square btn-ghost">
@@ -128,7 +128,13 @@
 
           </div>
 
-          <button class="btn btn-sm pixa-btn mt-4 btn-primary w-full">copy</button>
+          <button @click="copyText(useProfile.profile.user.first_name + ' ' + useProfile.profile.user.last_name + ', ' +
+            useProfile.profile.user.addresse_site.adr + ', ' +
+            useProfile.profile.user.code + ', ' +
+            useProfile.profile.user.addresse_site.city + ', ' +
+            useProfile.profile.user.addresse_site.state + ', ' +
+            useProfile.profile.user.addresse_site.zip_code + ', ' +
+            useProfile.profile.user.phone, 'full')" class="btn btn-sm pixa-btn mt-4 btn-primary w-full">copy</button>
 
         </div>
 
