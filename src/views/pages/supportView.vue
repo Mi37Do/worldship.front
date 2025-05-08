@@ -37,7 +37,7 @@
       </div>
 
       <div v-else
-        class="w-full flex-1 bg-white rounded-lg shadow-2xl shadow-primary/5 border border-slate-200 grid grid-cols-4 overflow-hidden">
+        class="w-full flex-1 bg-white rounded-lg shadow-2xl shadow-primary/5 border border-slate-200 grid md:grid-cols-4 overflow-hidden">
 
         <date-filter-modal @filterItems="onFilterItems" />
 
@@ -100,7 +100,7 @@
 
 
 
-        <div class="flex-1 h-full col-span-3 overflow-hidden">
+        <div class="flex-1 h-full col-span-3 overflow-hidden hidden md:block">
           <router-view></router-view>
         </div>
 
@@ -117,7 +117,7 @@ import plusIcon from '@/assets/icons/plusIcon.vue';
 import topAppBar from '@/components/navigations/topAppBar.vue';
 import ticketItem from '@/components/support/ticketItem.vue';
 import { useSupportStore } from '@/stores/support';
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
 import addNewSupport from '@/components/support/addNewSupport.vue';
 import { useWidgetStore } from '@/stores/widget';
 import arrowIcon from '@/assets/icons/arrowIcon.vue';
@@ -126,6 +126,8 @@ import dateFilterModal from '@/components/commun/dateFilterModal.vue';
 import { format, isAfter, isBefore } from 'date-fns';
 import menuIcon from '@/assets/icons/menuIcon.vue';
 import sideMenu from '@/assets/icons/sideMenu.vue';
+import { useMediaQuery } from '@vueuse/core'
+import { useRouter } from 'vue-router';
 
 const useSupport = useSupportStore()
 const type = ref('new')
@@ -142,6 +144,8 @@ const filterDate = reactive(
     to: null
   }
 )
+const router = useRouter()
+const isMobile = useMediaQuery('(max-width: 785px)')
 
 const types = ref(
   [
@@ -213,6 +217,14 @@ onMounted(async () => {
     }, 300)
   } catch (error) {
     tempMessages.value = []
+  }
+})
+
+watch(isMobile, (value) => {
+  if (value) {
+    router.push({ name: 'support' })
+  } else {
+    null
   }
 })
 

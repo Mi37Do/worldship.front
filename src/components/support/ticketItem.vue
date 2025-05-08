@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'chat', params: { id: item.id } }"
+  <router-link :to="{ name: isMobile ? 'chat-mobile' : 'chat', params: { id: item.id } }"
     class="w-full h-20  border-b border-slate-200 hover:bg-slate-50 transition-all duration-200 p-4 flex gap-4 cursor-pointer">
     <div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center">
       <user-icon class="w-5 h-5 fill-primary" />
@@ -20,7 +20,7 @@
       <div class="flex-1 w-full flex items-center gap-4 overflow-hidden">
         <span class="flex-1 truncate">{{ item.support_ticket_message.length > 0 ?
           item.support_ticket_message[item.support_ticket_message.length - 1].message : '-------'
-          }}</span>
+        }}</span>
         <span class="h-full w-6 bg-slate-100 text-center text-slate-600 font-semibold rounded pt-[0.07rem]">{{
           item.support_ticket_message.length }}</span>
       </div>
@@ -38,8 +38,10 @@ import userIcon from '@/assets/icons/userIcon.vue';
 import angleRightIcon from '@/assets/icons/angleRightIcon.vue';
 import { useSupportStore } from '@/stores/support';
 import { useRoute, useRouter } from 'vue-router';
+import { useMediaQuery } from '@vueuse/core';
 
 const props = defineProps(['item'])
+const isMobile = useMediaQuery('(max-width: 785px)')
 const route = useRoute()
 const router = useRouter()
 const useSupport = useSupportStore()

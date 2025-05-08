@@ -113,6 +113,11 @@ const router = createRouter({
           ],
         },
         {
+          path: '/chat-mobile/:id',
+          name: 'chat-mobile',
+          component: () => import('@/views/pages/newChatView.vue'),
+        },
+        {
           path: '/warehouse-invoices',
           name: 'warehouse-invoices',
           component: () => import('@/views/pages/invoices/wareHouseInvoicesView.vue'),
