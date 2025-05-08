@@ -1,8 +1,7 @@
 <template>
   <div class="w-full flex flex-col hover:bg-slate-50 transition-all duration-150 rounded-md">
     <div class="w-full h-40 bg-slate-100 rounded-md flex items-center justify-center overflow-hidden">
-      <img v-if="item.images" :src="item.images" alt=""
-        v-viewer="{ button: true, title: false, movable: false, rotatable: false, scalable: false, keyboard: true }">
+      <img v-if="item.images" :src="item.images" alt="">
       <no-image-icon v-else class="w-6 h-6 fill-slate-500" />
     </div>
 

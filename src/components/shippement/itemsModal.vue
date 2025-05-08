@@ -86,7 +86,8 @@
 
 
         <div v-if="isGrid" class="w-full flex-1 overflow-auto">
-          <div class="w-full h-fit grid grid-cols-4 gap-3 py-4 pr-2">
+          <div class="w-full h-fit grid grid-cols-4 gap-3 py-4 pr-2"
+            v-viewer="{ button: true, title: false, movable: false, rotatable: false, scalable: false, keyboard: true }">
             <modal-item v-for="item in useInbox.items" :key="item" :item="item" />
           </div>
         </div>
@@ -104,8 +105,16 @@
               <span v-if="route.name === 'inbox'" class="my-auto h-8 flex items-center">state</span>
             </div>
             <div class="w-full flex-1 overflow-auto">
-              <div class="flex flex-col w-full h-fit">
-                <modal-list-item v-for="item in useInbox.items" :key="item" :item="item" />
+              <div class="flex flex-col w-full h-fit"
+                v-viewer="{ button: true, title: false, movable: false, rotatable: false, scalable: false, keyboard: true }">
+                <modal-list-item v-for="item in useInbox.items" :key="item" :item="item">
+                  <template #pic_item>
+                    <div class="w-10 h-10 bg-slate-100 rounded-md flex items-center justify-center">
+                      <img v-if="item.images" :src="item.images" alt="">
+                      <no-image-icon v-else class="w-6 h-6 fill-slate-500" />
+                    </div>
+                  </template>
+                </modal-list-item>
               </div>
 
             </div>
@@ -132,7 +141,7 @@ import timesIcon from '@/assets/icons/timesIcon.vue';
 import listIcon from '@/assets/icons/listIcon.vue';
 import externalLinkIcon from '@/assets/icons/externalLinkIcon.vue';
 import modalListItem from './modalListItem.vue';
-
+import noImageIcon from '@/assets/icons/noImageIcon.vue';
 import modalItem from './modalItem.vue';
 import { ref } from 'vue';
 import { useInboxStore } from '@/stores/inbox';
