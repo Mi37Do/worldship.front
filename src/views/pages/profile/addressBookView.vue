@@ -21,15 +21,7 @@
             address</router-link>
         </div>
         <div class="flex gap-2">
-          <commun-list-box :list="types" :selected="selectedType" @onSelectedItem="async (id) => {
-            selectedType = id
 
-            if (id === 'all') {
-              useBook.filtredAdresses = useBook.addresses
-            } else {
-              useBook.filtredAdresses = id === 'from' ? useBook.addresses.filter(item => item.type === 'from') : useBook.addresses.filter(item => item.type === 'to')
-            }
-          }" />
           <button @click="useWidget.addAddressBook.open = true" class="btn btn-sm pixa-btn btn-primary">
             <plus-icon class="w-5 h-5" />
             {{ $t('commun.addAddress') }}</button>

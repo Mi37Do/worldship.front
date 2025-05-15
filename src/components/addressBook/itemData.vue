@@ -6,7 +6,7 @@
     <span class="h-8 my-auto flex items-center truncate">{{ formatPhoneNumber(item.phone) }} </span>
     <span class="h-8 my-auto flex items-center truncate">{{ item.zip }}</span>
     <span class="h-8 my-auto flex items-center truncate">{{ item.type === 'to' ? item.city_id.name :
-      item.countrie_id.name }}</span>
+      item.city_c }}</span>
     <span class="h-8 my-auto flex items-center truncate">{{ item.adr || '-----' }} </span>
     <div class="flex items-center justify-between my-auto ">
       <span class="h-8 my-auto flex items-center truncate">{{ item.instruction || '-----' }}</span>

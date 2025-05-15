@@ -87,7 +87,14 @@
         </div>
       </div>
 
-      <div v-if="useInbox.inboxs.length > 0" class="w-full flex-1  flex flex-col overflow-hidden">
+      <div v-if="useInbox.inboxs.length > 0" class="w-full flex-1  flex flex-col overflow-hidden relative">
+
+        <div
+          class="w-fit h-10 bg-white rounded-lg border text-red-500 border-red-500 px-3 flex items-center absolute bottom-1 right-1 uppercase">
+          items without price cannot be shipped, please provide all the informations
+        </div>
+
+
         <div :class="[useWidget.userLanguage === 'ar' ? 'text-right ' : ' ']"
           class="w-full h-12 rounded-lg border border-slate-200 px-4 hidden lg:grid grid-cols-5 gap-2 uppercase font-bold text-primary bg-white">
 
