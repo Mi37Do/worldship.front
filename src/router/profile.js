@@ -1,3 +1,5 @@
+import addressRoutes from './address'
+
 const profileRoutes = [
   {
     path: 'welcome',
@@ -31,6 +33,8 @@ const profileRoutes = [
     path: 'address-book',
     name: 'address-book',
     component: () => import('@/views/pages/profile/addressBookView.vue'),
+    redirect: { name: 'from-addresses' },
+    children: addressRoutes,
   },
   {
     path: 'coins',

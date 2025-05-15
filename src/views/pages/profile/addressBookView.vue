@@ -7,10 +7,18 @@
     <add-adress-book />
     <deleteModal :item="useBook.focusedBook" @deleteItem="onDeleteItem" />
     <div class="w-full flex-1 pb-4 flex flex-col gap-4 overflow-hidden">
-      <div class="w-full h-10 flex items-center justify-between">
-        <div class="flex gap-3 items-center">
-          <div class="w-1 h-6 bg-primary"></div>
-          <span class="pixa-title">{{ $t('commun.addressBook') }}</span>
+      <div class="w-full h-fit flex items-center justify-between">
+        <div class="flex gap-1 items-center p-1 bg-white border border-slate-200 rounded-lg">
+          <router-link :to="{ name: 'from-addresses' }"
+            :class="route.name === 'from-addresses' ? 'btn-primary' : 'btn-ghost'" class="btn btn-sm pixa-btn">from
+            address</router-link>
+          <router-link :to="{ name: 'to-addresses' }"
+            :class="route.name === 'to-addresses' ? 'btn-primary' : 'btn-ghost'" class="btn btn-sm pixa-btn">to
+            address</router-link>
+          <router-link :to="{ name: 'billing-addresses' }"
+            :class="route.name === 'billing-addresses' ? 'btn-primary' : 'btn-ghost'"
+            class="btn btn-sm pixa-btn">billing
+            address</router-link>
         </div>
         <div class="flex gap-2">
           <commun-list-box :list="types" :selected="selectedType" @onSelectedItem="async (id) => {
@@ -29,21 +37,7 @@
       </div>
 
       <div class="w-full flex-1 flex flex-col overflow-hidden">
-        <div :class="[useWidget.userLanguage === 'ar' ? 'text-right  pl-7' : ' pr-7']"
-          class="w-full h-12 rounded-lg border border-slate-200 px-4 hidden lg:grid grid-cols-6 gap-2 uppercase font-bold text-primary bg-white">
-          <span class="h-8  my-auto flex items-center">{{ $t('commun.name') }}</span>
-          <span class="h-8  my-auto flex items-center">{{ $t('commun.phone') }}</span>
-          <span class="h-8  my-auto flex items-center">{{ $t('commun.secondPhone') }}</span>
-          <span class="h-8 my-auto flex items-center">{{ $t('commun.city') }}</span>
-          <span class="h-8 my-auto flex items-center">{{ $t('commun.addressLine') }}</span>
-          <span class="h-8 my-auto flex items-center">{{ $t('commun.instructions') }}</span>
-        </div>
-
-        <div class="w-full flex-1 overflow-auto flex flex-col">
-          <div class="w-full h-fit flex flex-col gap-2 pt-2">
-            <itemData v-for="item in useBook.filtredAdresses" :key="item" :item="item" />
-          </div>
-        </div>
+        <router-view></router-view>
       </div>
 
     </div>
@@ -63,11 +57,13 @@ import { useI18n } from 'vue-i18n';
 import { objectToFormData } from '@/utils/formDataUtils'
 import communListBox from '@/components/commun/communListBox.vue';
 import axios from 'axios';
+import { useRoute } from 'vue-router';
 
 const useWidget = useWidgetStore()
 const useBook = useBookStore()
 const loading = ref(true)
 const { t } = useI18n()
+const route = useRoute()
 
 const selectedType = ref('all')
 

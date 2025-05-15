@@ -16,33 +16,22 @@
 
       <form @submit.prevent="addEditBook" class="grid grid-cols-2 gap-3 flex-1">
 
-        <label class="form-control w-full">
+        <div class="form-control w-full">
           <div class="label">
             <span class="label-text uppercase">type </span>
           </div>
-          <div class="w-full grid grid-cols-2 gap-1.5 bg-primary h-10 p-1 rounded-lg">
-            <button type="button" @click="() => {
-              addressBook.type = 'from'
-              addressBook.City = null
-            }"
-              :class="addressBook.type === 'from' ? 'pixa-btn-nofloat' : 'bg-transparent hover:bg-white/20 text-white border-0'"
-              class="btn btn-sm">from</button>
-            <button type="button" @click="() => {
-              addressBook.type = 'to'
-              addressBook.countrie = null
-            }"
-              :class="addressBook.type === 'to' ? 'pixa-btn-nofloat' : 'bg-transparent hover:bg-white/20 text-white border-0'"
-              class="btn btn-sm">to</button>
-          </div>
-        </label>
+          <commun-combobox :list="types" :selected="addressBook.type" :top="true" @onSelectedItem="(id) => {
+            addressBook.type = id
+          }" :required="true" />
+        </div>
 
-        <label v-if="addressBook.type === 'to'" class="form-control w-full">
+        <div v-if="addressBook.type === 'to'" class="form-control w-full">
           <div class="label">
             <span class="label-text uppercase">City </span>
           </div>
           <commun-combobox :list="useBook.cities" :selected="addressBook.City" :top="true"
             @onSelectedItem="onSelectedItem" :required="true" />
-        </label>
+        </div>
 
 
 
@@ -158,9 +147,16 @@ const addressBook = reactive(
     Second_phone: '',
     City: null,
     adr: '', type: 'from',
-    instruction: '',
+    instruction: '', city_c: '', zip_code
+      : '', state: '', adr_l2: '',
     countrie: null, useDefault: false
   }
+)
+
+const types = ref(
+  [
+    { id: 'from', designation: "from" }, { id: 'to', designation: "to" }, { id: 'billing', designation: "billing" }
+  ]
 )
 
 watch(() => useWidget.addAddressBook.open, () => {
