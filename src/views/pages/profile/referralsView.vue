@@ -118,7 +118,6 @@
 <script setup>
 import coinItem from '@/components/referrals/coinItem.vue';
 import referralsItem from '@/components/referrals/referralsItem.vue';
-import item from '@/components/coins/item.vue';
 import copyIcon from '@/assets/icons/copyIcon.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { useProfileStore } from '@/stores/profile';
