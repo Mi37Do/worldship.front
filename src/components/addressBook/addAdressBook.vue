@@ -86,7 +86,6 @@
         </label>
 
 
-
         <label v-else class="form-control w-full col-span-2">
           <div class="label">
             <span class="label-text uppercase">address line </span>
