@@ -1,5 +1,10 @@
 <template>
-  <div class="w-full h-screen bg-slate-100 flex items-center justify-center">
+  <div class="w-full h-screen bg-slate-100 flex items-center justify-center relative">
+
+    <router-link :to="{ name: 'home' }" class="btn btn-sm pixa-btn absolute left-4 top-4 pixa-btn-float">
+      <AngleIcon class="w-5 h-5" /> home
+    </router-link>
+
     <form @submit.prevent="login(loginUser, saveLogin)"
       class="w-96 h-fit bg-white rounded-lg border border-slate-200 flex flex-col items-center gap-2 p-3">
 
@@ -9,7 +14,8 @@
 
       <label class="form-control w-full">
         <div class="label">
-          <span class="label-text uppercase">username or email address <span class="text-red-500">*</span></span>
+          <span class="label-text uppercase">phone or email address or unit number <span
+              class="text-red-500">*</span></span>
         </div>
         <input type="text" required v-model="loginUser.username"
           class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -59,6 +65,7 @@
 </template>
 
 <script setup>
+import AngleIcon from '@/assets/icons/angleIcon.vue';
 import eyeIcon from '@/assets/icons/eyeIcon.vue';
 import eyeSlashIcon from '@/assets/icons/eyeSlashIcon.vue';
 import { useProfileStore } from '@/stores/profile';

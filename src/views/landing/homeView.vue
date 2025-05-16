@@ -5,7 +5,7 @@
     <span class="loading loading-ring loading-sm"></span>
   </div>
 
-  <div class="w-full flex flex-col overflow-x-hidden">
+  <div v-else class="w-full flex flex-col overflow-x-hidden">
     <div id="home" class="w-full h-fit relative flex flex-col gap-4 items-center overflow-hidden">
 
       <div
@@ -13,13 +13,15 @@
       </div>
 
       <div class="flex-1 flex flex-col justify-center items-center text-center pt-40 z-10 mt-20">
-        <span class="text-[5vw] h-[5vw]">Ship from the <span class="font-extrabold text-blue-700">U.S.</span> to
+        <span class="text-[5vw] h-[5vw]">{{ useProfile.webConfig.titre_1 }} <span
+            class="font-extrabold text-blue-700">{{ useProfile.webConfig.titre_2 }}</span> {{
+              useProfile.webConfig.titre_3 }}
         </span>
 
         <span class="text-[5vw] h-[5vw] mt-4 mb-12">
-          <span class="font-extrabold text-blue-700">Kurdistan</span>
-          and
-          <span class="font-extrabold text-blue-700">Iraq</span>
+          <span class="font-extrabold text-blue-700">{{ useProfile.webConfig.titre_4 }}</span>
+          {{ useProfile.webConfig.titre_5 }}
+          <span class="font-extrabold text-blue-700">{{ useProfile.webConfig.titre_6 }}</span>
         </span>
 
         <span class="lg:text-lg max-w-md px-4 lg:px-0 lg:max-w-xl mt-8 lg:mt-0">The safest and most reliable shipping

@@ -9,24 +9,6 @@
       </div>
 
 
-      <label class="form-control w-full md:min-w-96">
-        <div class="label">
-          <span class="label-text uppercase">{{ t('commun.username') }}<span class="text-red-500">*</span></span>
-        </div>
-        <input type="text" required v-model="itemToAdd.username"
-          class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
-      </label>
-
-
-
-      <label class="form-control w-full md:min-w-96">
-        <div class="label">
-          <span class="label-text uppercase">parent referral code</span>
-        </div>
-        <input type="text" :disabled="route.name === 'register-child'" v-model="itemToAdd.parent_referral_code"
-          class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
-      </label>
-
 
       <label class="form-control w-full md:min-w-96">
         <div class="label">
@@ -90,6 +72,26 @@
         </div>
       </label>
 
+
+
+      <label class="form-control w-full md:min-w-96">
+        <div class="label">
+          <span class="label-text uppercase">{{ t('commun.username') }}<span class="text-red-500">*</span></span>
+        </div>
+        <input type="text" disabled required v-model="itemToAdd.username"
+          class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+      </label>
+
+
+
+      <label class="form-control w-full md:min-w-96">
+        <div class="label">
+          <span class="label-text uppercase">parent referral code</span>
+        </div>
+        <input type="text" :disabled="route.name === 'register-child'" v-model="itemToAdd.parent_referral_code"
+          class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+      </label>
+
       <button :disabled="lodingLogin" type="submit" class="btn btn-sm pixa-btn btn-primary w-full mt-4  md:col-span-2">
         <span v-if="lodingLogin" class="loading loading-ring loading-sm"></span>
         <span v-else>register</span>
@@ -111,10 +113,11 @@
 <script setup>
 import { useProfileStore } from '@/stores/profile';
 import axios from 'axios';
-import { onBeforeMount, onMounted, reactive, ref } from 'vue';
+import { onBeforeMount, onMounted, reactive, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import communCombobox from '@/components/commun/communCombobox.vue';
 import { useRoute, useRouter } from 'vue-router';
+import { format } from 'date-fns';
 
 
 const env = import.meta.env.VITE_WORLDSHIP_API
@@ -185,6 +188,13 @@ const registration = async () => {
   }
   lodingLogin.value = false
 }
+
+watch(() => [itemToAdd.first_name, itemToAdd.last_name], () => {
+  itemToAdd.username = itemToAdd.first_name + '_' + itemToAdd.last_name + '_' + format(new Date(), 'dd_MM_HHmm')
+
+  itemToAdd.email = itemToAdd.first_name + '_' + itemToAdd.last_name + '_' + format(new Date(), 'dd_MM_HHmm') + '@worldship.com'
+})
+
 </script>
 
 <style lang="scss" scoped></style>

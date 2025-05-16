@@ -6,7 +6,7 @@
   <div v-else class="w-full h-full flex items-center justify-center">
     <addWallet :types="useProfile.profile.payments_methodes"></addWallet>
     <button @click="useWidget.addWallet = true" class="btn btn-sm pixa-btn btn-primary"><plus-icon class="w-5 h-5" />
-      add wallet</button>
+      add account deposit</button>
   </div>
   <!--
   <div class="w-full h-full flex justify-center">
