@@ -71,19 +71,30 @@
 
         <label class="form-control w-full">
           <div class="label">
-            <span class="label-text uppercase">phone number </span>
+            <span class="label-text uppercase">zip </span>
           </div>
-          <input type="text" required v-model="addressBook.Second_phone"
+          <input type="text" required v-model="addressBook.zip_code"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </label>
 
-        <label class="form-control w-full col-span-2">
+        <label v-if="addressBook.type === 'to'" class="form-control w-full col-span-2">
           <div class="label">
             <span class="label-text uppercase">address line </span>
           </div>
           <input type="text" v-model="addressBook.adr"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </label>
+
+
+
+        <label v-else class="form-control w-full col-span-2">
+          <div class="label">
+            <span class="label-text uppercase">address line </span>
+          </div>
+          <input type="text" v-model="addressBook.adr_l2"
+            class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+        </label>
+
 
         <label class="form-control w-full col-span-2">
           <div class="label">
