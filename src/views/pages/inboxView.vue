@@ -91,7 +91,7 @@
 
         <div
           class="w-fit h-10 bg-white rounded-lg border text-red-500 border-red-500 px-3 flex items-center absolute bottom-1 right-1 uppercase">
-          items without price cannot be shipped, please provide all the informations
+          {{ useProfile.webConfig.info_inbox }}
         </div>
 
 
@@ -160,11 +160,13 @@ import calendarIcon from '@/assets/icons/calendarIcon.vue';
 import dateFilterModal from '@/components/commun/dateFilterModal.vue';
 import { format, isAfter, isBefore } from 'date-fns';
 import sideMenu from '@/assets/icons/sideMenu.vue';
+import { useProfileStore } from '@/stores/profile';
 
 
 const useWidget = useWidgetStore()
 const useInbox = useInboxStore()
 const loading = ref(true)
+const useProfile = useProfileStore()
 const inboxsToShip = ref([])
 const enabled = ref(false)
 const selectAll = ref(false)

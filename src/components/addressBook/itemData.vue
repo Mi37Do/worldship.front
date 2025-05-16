@@ -4,10 +4,10 @@
     class="w-full py-3 border bg-white rounded-md border-slate-200 px-4 grid grid-cols-2 lg:grid-cols-6 gap-2 uppercase font-medium lg:hover:bg-slate-50 transition-all duration-150 cursor-pointer relative">
     <span class="h-8 my-auto flex items-center truncate">{{ item.name }}</span>
     <span class="h-8 my-auto flex items-center truncate">{{ formatPhoneNumber(item.phone) }} </span>
-    <span class="h-8 my-auto flex items-center truncate">{{ item.zip }}</span>
+    <span class="h-8 my-auto flex items-center truncate">{{ item.zip_code }}</span>
     <span class="h-8 my-auto flex items-center truncate">{{ item.type === 'to' ? item.city_id.name :
       item.city_c }}</span>
-    <span class="h-8 my-auto flex items-center truncate">{{ item.adr || '-----' }} </span>
+    <span class="h-8 my-auto flex items-center truncate">{{ item.type === 'to' ? item.adr : item.adr_l2 }} </span>
     <div class="flex items-center justify-between my-auto ">
       <span class="h-8 my-auto flex items-center truncate">{{ item.instruction || '-----' }}</span>
       <item-more :item="item" />

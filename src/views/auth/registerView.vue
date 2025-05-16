@@ -74,7 +74,7 @@
           <span class="label-text uppercase">{{ t('commun.password') }} <span class="text-red-500">*</span></span>
         </div>
         <div class="flex items-center relative">
-          <input type="text" required v-model="itemToAdd.password"
+          <input type="password" required v-model="itemToAdd.password"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </div>
       </label>
@@ -85,7 +85,7 @@
               class="text-red-500">*</span></span>
         </div>
         <div class="flex items-center relative">
-          <input type="text" required v-model="itemToAdd.password"
+          <input type="password" required v-model="itemToAdd.passwordVerification"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </div>
       </label>
@@ -137,6 +137,7 @@ const itemToAdd = reactive(
     parent_referral_code: '',
   }
 )
+const passwordVerification = ref('')
 
 onBeforeMount(() => {
   if (route.name === 'register-child') {
@@ -173,9 +174,12 @@ const registration = async () => {
   formData.append('parent_referral_code', itemToAdd.parent_referral_code)
 
   try {
-    let response = await axios.post(`/register_API
+    if (itemToAdd.password === passwordVerification.value) {
+      let response = await axios.post(`/register_API
 `, formData)
-    router.push({ name: 'home' })
+      router.push({ name: 'home' })
+    }
+
   } catch (error) {
     console.error(error)
   }

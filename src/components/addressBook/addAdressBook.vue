@@ -77,6 +77,25 @@
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </label>
 
+
+
+        <label v-if="addressBook.type !== 'to'" class="form-control w-full">
+          <div class="label">
+            <span class="label-text uppercase">city </span>
+          </div>
+          <input type="text" required v-model="addressBook.city_c"
+            class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+        </label>
+
+
+        <label v-if="addressBook.type !== 'to'" class="form-control w-full">
+          <div class="label">
+            <span class="label-text uppercase">state </span>
+          </div>
+          <input type="text" required v-model="addressBook.state"
+            class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+        </label>
+
         <label v-if="addressBook.type === 'to'" class="form-control w-full col-span-2">
           <div class="label">
             <span class="label-text uppercase">address line </span>
@@ -165,7 +184,7 @@ const addressBook = reactive(
 
 const types = ref(
   [
-    { id: 'from', designation: "from" }, { id: 'to', designation: "to" }, { id: 'billing', designation: "billing" }
+    { id: 'from', designation: "from" }, { id: 'to', designation: "to" }, { id: 'b', designation: "billing" }
   ]
 )
 

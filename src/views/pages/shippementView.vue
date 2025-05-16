@@ -53,7 +53,7 @@
                     :class="isPicture ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
                     class="btn btn-sm pixa-btn">pictures</button>
                 </div>
-
+                <!---->
                 <div v-if="!isPicture" class="w-full grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
 
                   <package-item v-for="item in tempItems" :key="item.id" :item="item" />
@@ -216,7 +216,7 @@
                     add address</button>
                 </div>
 
-                <div
+                <div v-if="tempBook"
                   class="w-full h-fit rounded-md border border-slate-200 overflow-hidden bg-primary/5 p-3 grid grid-cols-2 gap-3 uppercase">
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">name</span>
@@ -502,10 +502,10 @@ onMounted(async () => {
     /***/
     if (useInbox.focusedShippement.deliver_type === 'p') {
       deliverToCenter.value = true
-      tempBook.value = useInbox.focusedShippement.pickUp_local.id
+      tempBook.value = useInbox.focusedShippement.pickUp_local ? useInbox.focusedShippement.pickUp_local.id : null
     } else if (useInbox.focusedShippement.deliver_type === 'h') {
       deliverToCenter.value = false
-      tempBook.value = useInbox.focusedShippement.address_book.id
+      tempBook.value = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : null
     }
 
     if (useInbox.focusedShippement.use_cargo) isCargo.value = true
@@ -540,6 +540,10 @@ onMounted(async () => {
 
       for (let j = 0; j < element.wh_order.length; j++) {
         const elementx = element.wh_order[j]
+
+        console.log(elementx)
+
+
         tempItems.value.push(
           {
             id: elementx.id,
@@ -552,6 +556,9 @@ onMounted(async () => {
       }
     }
 
+    console.log(tempItems.value);
+
+
     useBook.tempBooks = useBook.addresses.map(item => ({
       id: item.id,
       designation: item.name
@@ -562,6 +569,8 @@ onMounted(async () => {
     tempInsurance.value = useInbox.focusedShippement.add_insurance
     loading.value = false
   } catch (error) {
+    console.error(error)
+
     loading.value = true
   }
 })
