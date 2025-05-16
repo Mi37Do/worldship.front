@@ -2,6 +2,7 @@
 import { RouterView } from 'vue-router'
 import { useWidgetStore } from './stores/widget';
 const useWidget = useWidgetStore()
+localStorage.setItem('user-language', 'en')
 </script>
 
 <template>

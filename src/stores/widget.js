@@ -52,9 +52,8 @@ export const useWidgetStore = defineStore('widget', () => {
 
   const toggleLanguage = () => {
     const activeLanguage = localStorage.getItem('user-language')
-    if (activeLanguage === 'ar') setLanguage('fr')
-    else if (activeLanguage === 'ar') setLanguage('fr')
-    else setLanguage('ar')
+    if (activeLanguage === 'ar') setLanguage('ar')
+    else setLanguage('en')
   }
 
   const setLanguage = (language) => {
