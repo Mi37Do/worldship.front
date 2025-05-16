@@ -45,7 +45,7 @@
 
         <div class="w-full flex-1 overflow-auto flex flex-col">
           <div class="w-full h-fit flex flex-col gap-2 pt-2">
-            <item v-for="item in useProfile.coins.coins_details" :key="item" :item="item" />
+            <item-data v-for="item in useProfile.coins.coins_details" :key="item" :item="item" />
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@
 <script setup>
 import planIcon from '@/assets/icons/planIcon.vue';
 import topAppBar from '@/components/navigations/topAppBar.vue';
-import item from '@/components/coins/item.vue';
+import itemData from '@/components/coins/itemData.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { useI18n } from 'vue-i18n';
 import { useProfileStore } from '@/stores/profile';

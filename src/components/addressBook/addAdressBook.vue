@@ -1,7 +1,7 @@
 <template>
   <input type="checkbox" :checked="useWidget.addAddressBook.open" class="modal-toggle" />
   <div class="modal modal-bottom md:modal-middle" role="dialog">
-    <div class="w-full max-w-[600px] h-fit modal-box flex flex-col p-4">
+    <div class="w-full md:max-w-screen-md h-fit modal-box flex flex-col p-4">
       <div class="w-full h-14 flex items-center justify-between pb-4">
         <span class="pixa-title">new address</span>
         <div class="flex gap-2">
@@ -96,7 +96,7 @@
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </label>
 
-        <label v-if="addressBook.type === 'to'" class="form-control w-full col-span-2">
+        <label class="form-control w-full">
           <div class="label">
             <span class="label-text uppercase">address line </span>
           </div>
@@ -105,16 +105,16 @@
         </label>
 
 
-        <label v-else class="form-control w-full col-span-2">
+        <label class="form-control w-full">
           <div class="label">
-            <span class="label-text uppercase">address line </span>
+            <span class="label-text uppercase">address line 2</span>
           </div>
           <input type="text" v-model="addressBook.adr_l2"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </label>
 
 
-        <label class="form-control w-full col-span-2">
+        <label class="form-control w-full">
           <div class="label">
             <span class="label-text uppercase">instruction </span>
           </div>
@@ -122,6 +122,14 @@
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </label>
 
+
+        <label class="form-control w-full">
+          <div class="label">
+            <span class="label-text uppercase">company name </span>
+          </div>
+          <input type="text" v-model="addressBook.instruction"
+            class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+        </label>
 
         <label class="form-control w-full col-span-2">
           <div class="label">
@@ -178,7 +186,7 @@ const addressBook = reactive(
     adr: '', type: 'from',
     instruction: '', city_c: '', zip_code
       : '', state: '', adr_l2: '',
-    countrie: null, useDefault: false
+    countrie: null, useDefault: false, company_name: ''
   }
 )
 
@@ -198,7 +206,7 @@ watch(() => useWidget.addAddressBook.open, () => {
       City: null,
       adr: '', type: 'from',
       instruction: '',
-      countrie: null, useDefault: false
+      countrie: null, useDefault: false, company_name: ''
     })
   } else {
     Object.assign(addressBook, {
@@ -210,7 +218,7 @@ watch(() => useWidget.addAddressBook.open, () => {
       City: useBook.focusedBook.City_id.id,
       adr: useBook.focusedBook.adr, type: useBook.focusedBook.type,
       instruction: useBook.focusedBook.instruction,
-      countrie: useBook.focusedBook.countrie, useDefault: useBook.focusedBook.useDefault
+      countrie: useBook.focusedBook.countrie, useDefault: useBook.focusedBook.useDefault, company_name: useBook.company_name
     })
 
   }
