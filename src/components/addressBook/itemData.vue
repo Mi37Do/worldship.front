@@ -15,9 +15,9 @@
     <span class="h-8 my-auto flex items-center truncate">{{ item.type === 'to' ? item.city_id.name :
       item.city_c }}</span>
     <span class="h-8 my-auto flex items-center truncate">{{ item.adr }} </span>
-
+    <span class="h-8 my-auto flex items-center truncate">{{ item.adr_l2 || '----' }} </span>
     <div class="flex items-center justify-between my-auto ">
-      <span class="h-8 my-auto flex items-center truncate">{{ item.adr_l2 }} </span>
+      <span class="h-8 my-auto flex items-center truncate">{{ item.instructions || '----' }} </span>
       <item-more :item="item" />
     </div>
 

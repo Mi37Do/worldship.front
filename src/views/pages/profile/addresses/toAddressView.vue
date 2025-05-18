@@ -8,7 +8,7 @@
       <span class="h-8 my-auto flex items-center">{{ $t('commun.company') }}</span>
       <span class="h-8 my-auto flex items-center">{{ $t('commun.city') }}</span>
       <span class="h-8 my-auto flex items-center">{{ $t('commun.addressLine') }}</span>
-      <span class="h-8 my-auto flex items-center">{{ $t('commun.addressLine') }}</span>
+      <span class="h-8 my-auto flex items-center">{{ $t('commun.addressLine') }} 2</span>
       <span class="h-8 my-auto flex items-center">{{ $t('commun.instructions') }}</span>
     </div>
 

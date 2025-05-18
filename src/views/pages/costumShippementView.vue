@@ -40,6 +40,29 @@
         <payment-modal :item="useInbox.focusedShippement" :types="useProfile.profile.payments_methodes"
           :cards="tempCards" />
 
+        <div class="w-full flex gap-2 justify-end">
+
+          <button class="btn btn-sm pixa-btn pixa-btn-nofloat w-24">
+            <span v-if="loadingSave">
+              <span class="loading loading-ring loading-sm"></span>
+            </span>
+            <div v-else class="flex gap-2 items-center">
+              <trash-icon class="w-5 h-5" />
+              delete
+            </div>
+          </button>
+
+          <button class="btn btn-sm pixa-btn btn-primary w-24">
+            <span v-if="loadingSave">
+              <span class="loading loading-ring loading-sm"></span>
+            </span>
+            <div v-else class="flex gap-2 items-center">
+              <message-icon class="w-5 h-5" />
+              save
+            </div>
+          </button>
+        </div>
+
         <div class="w-full h-full grid lg:grid-cols-3 gap-4">
           <div class="w-full flex flex-col gap-4 lg:col-span-2">
             <div
@@ -444,7 +467,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-              }}
+                }}
               </span>
             </div>
 
@@ -487,6 +510,8 @@ import itemPackageMore from '@/components/shippement/itemPackageMore.vue';
 import DeleteModal from '@/components/commun/deleteModal.vue';
 import sideMenu from '@/assets/icons/sideMenu.vue';
 import countries from '@/assets/countries.json'
+import trashIcon from '@/assets/icons/trashIcon.vue';
+import messageIcon from '@/assets/icons/messageIcon.vue';
 
 
 const env = import.meta.env.VITE_WORLDSHIP_API
@@ -513,6 +538,7 @@ const tempAdresses = ref([])
 const adressFrom = ref(true)
 const isCargo = ref(false)
 const isPicture = ref(false)
+const loadingSave = ref(false)
 
 onMounted(async () => {
   try {

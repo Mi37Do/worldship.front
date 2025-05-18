@@ -84,11 +84,30 @@
         <span class="pixa-title">new password</span>
         <label class="form-control w-full">
           <div class="label">
+            <span class="label-text uppercase">old password </span>
+          </div>
+          <input type="text" required v-model="oldPassword"
+            class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+        </label>
+
+        <label class="form-control w-full">
+          <div class="label">
             <span class="label-text uppercase">new password </span>
           </div>
           <input type="text" required v-model="new_password"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </label>
+
+        <label class="form-control w-full">
+          <div class="label">
+            <span class="label-text uppercase">confirm new password </span>
+          </div>
+          <input type="text" required v-model="confirmPassword"
+            class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+        </label>
+
+        <span v-if="message" class="text-red-500 uppercase">{{ message }}</span>
+
         <button :disabled="loadingPassword" type="submit" class="btn btn-sm pixa-btn btn-primary w-full mt-3">
           <span v-if="loadingPassword" class="loading loading-ring loading-sm"></span>
           <span v-else>save</span>
@@ -107,8 +126,11 @@ import { reactive, ref } from 'vue';
 
 const useProfile = useProfileStore()
 const new_password = ref('')
+const oldPassword = ref('')
+const confirmPassword = ref('')
 const loadingPassword = ref(false)
 const loadingEdit = ref(false)
+const message = ref('')
 const tab = ref('profile')
 
 const editProfile = async () => {
@@ -127,13 +149,20 @@ const editProfile = async () => {
 
 const resetPassword = async () => {
   loadingPassword.value = true
+  message.value = ''
   let formData = new FormData()
+  formData.append('pswd', oldPassword.value)
   formData.append('new_password', new_password.value)
-  try {
-    let response = await axios.post(`/Dashboard/change_pswd_API/${localStorage.getItem('ws-user-id')}`, formData)
-  } catch (error) {
-    console.error(error)
+  if (new_password.value === confirmPassword.value) {
+    try {
+      let response = await axios.post(`/Dashboard/change_pswd_API/${localStorage.getItem('ws-user-id')}`, formData)
+    } catch (error) {
+      console.error(error)
+    }
+  } else {
+    message.value = 'please confirm that the new password is confirmed correctly'
   }
+
   loadingPassword.value = false
 }
 </script>

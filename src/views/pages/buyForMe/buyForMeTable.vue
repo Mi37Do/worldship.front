@@ -47,7 +47,7 @@
 
       </div>
 
-      <div class="flex gap-2 items-center">
+      <div class="flex gap-2 items-center lg:hidden">
 
         <commun-list-box :list="datesFilter" :selected="selectedType" @onSelectedItem="async (id) => {
 
