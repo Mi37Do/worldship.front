@@ -97,6 +97,7 @@
     "email": "email",
     "confirm": "confirm",
     "prohibited": "Prohibited Items",
-    "restricted": "Restricted Items"
+    "restricted": "Restricted Items",
+    "country": "country"
   }
 }

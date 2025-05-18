@@ -67,20 +67,11 @@
               class="text-red-500">*</span></span>
         </div>
         <div class="flex items-center relative">
-          <input type="password" required v-model="itemToAdd.passwordVerification"
+          <input type="password" required v-model="passwordVerification"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </div>
       </label>
 
-
-
-      <label class="form-control w-full md:min-w-96">
-        <div class="label">
-          <span class="label-text uppercase">{{ t('commun.username') }}<span class="text-red-500">*</span></span>
-        </div>
-        <input type="text" disabled required v-model="itemToAdd.username"
-          class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
-      </label>
 
 
 
@@ -91,6 +82,8 @@
         <input type="text" :disabled="route.name === 'register-child'" v-model="itemToAdd.parent_referral_code"
           class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
       </label>
+
+      <span v-if="message" class="text-red-500 uppercase md:col-span-2">{{ message }}</span>
 
       <button :disabled="lodingLogin" type="submit" class="btn btn-sm pixa-btn btn-primary w-full mt-4  md:col-span-2">
         <span v-if="lodingLogin" class="loading loading-ring loading-sm"></span>
@@ -140,6 +133,7 @@ const itemToAdd = reactive(
     parent_referral_code: '',
   }
 )
+const message = ref('')
 const passwordVerification = ref('')
 
 onBeforeMount(() => {
@@ -162,6 +156,7 @@ const phoneInd = ref(
 
 const registration = async () => {
   lodingLogin.value = true
+  message.value = ''
   const formData = new FormData()
 
   console.log(itemToAdd)
@@ -176,24 +171,28 @@ const registration = async () => {
   formData.append('username', itemToAdd.username)
   formData.append('parent_referral_code', itemToAdd.parent_referral_code)
 
-  try {
-    if (itemToAdd.password === passwordVerification.value) {
+  console.log(itemToAdd.password)
+  console.log(passwordVerification.value)
+
+
+
+  if (itemToAdd.password === passwordVerification.value) {
+    try {
       let response = await axios.post(`/register_API
 `, formData)
       router.push({ name: 'home' })
-    }
 
-  } catch (error) {
-    console.error(error)
+    } catch (error) {
+      console.error(error)
+    }
+  } else {
+    message.value = 'please make sure your password and password verification are the same'
   }
+
+
   lodingLogin.value = false
 }
 
-watch(() => [itemToAdd.first_name, itemToAdd.last_name], () => {
-  itemToAdd.username = itemToAdd.first_name + '_' + itemToAdd.last_name + '_' + format(new Date(), 'dd_MM_HHmm')
-
-  itemToAdd.email = itemToAdd.first_name + '_' + itemToAdd.last_name + '_' + format(new Date(), 'dd_MM_HHmm') + '@worldship.com'
-})
 
 </script>
 

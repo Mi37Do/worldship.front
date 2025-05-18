@@ -13,7 +13,7 @@
 
       </div>
 
-      <form @submit.prevent="addEditItem" class="w-full flex-1 overflow-auto">
+      <form @submit.prevent="saveAndClose" class="w-full flex-1 overflow-auto">
         <div class="w-full h-fit grid sm:grid-cols-2 gap-x-4 gap-y-2">
 
           <label class="form-control w-full">
@@ -55,11 +55,13 @@
               <span class="label-text uppercase">coutry <span class="text-red-500">*</span></span>
             </div>
 
-            <commun-combobox :list="useProfile.countries" :selected="itemToAdd.code_countrie
-              " :top="true" @onSelectedItem="(id) => {
-                itemToAdd.code_countrie
-                  = id
-              }" :required="true" />
+
+            <commun-combobox-countries class="mt-auto" :required="true" :list="countries"
+              :selected="itemToAdd.code_countrie" @onSelectedItem="(id) => {
+                console.log(id);
+
+                itemToAdd.code_countrie = id
+              }" />
           </label>
 
           <label class="form-control w-full">
@@ -98,10 +100,16 @@
           </div>
         </div>
 
-        <div class="w-full grid grid-cols-2 gap-4 mt-4">
+        <div class="w-full grid grid-cols-3 gap-2 mt-4">
           <button type="submit" :disabled="loadingAdd" class="btn btn-sm pixa-btn btn-primary"><span v-if="loadingAdd"
               class="loading loading-ring loading-sm"></span>
             <span v-else>save</span></button>
+
+          <button type="button" :disabled="loadingAdd" @click="addEditItem"
+            class="btn btn-sm pixa-btn pixa-btn-nofloat"><span v-if="loadingAdd"
+              class="loading loading-ring loading-sm"></span>
+            <span v-else>save and add another</span></button>
+
           <button type="button" :disabled="loadingAdd" class="btn btn-sm pixa-btn pixa-btn-nofloat">cancel</button>
         </div>
       </form>
@@ -126,6 +134,8 @@ import axios from 'axios';
 import { useRoute } from 'vue-router';
 import communCombobox from '../commun/communCombobox.vue';
 import { useProfileStore } from '@/stores/profile';
+import countries from '@/assets/countries.json'
+import communComboboxCountries from '../commun/communComboboxCountries.vue';
 
 const useWidget = useWidgetStore()
 const useInbox = useInboxStore()
@@ -259,8 +269,19 @@ const addEditItem = async () => {
       })
     }
 
+    Object.assign(itemToAdd, {
+      sh_ref: null,
+      id: null,
+      name: '',
+      hs_code: '',
+      status_item: 'n',
+      code_countrie: null,
+      qty: 1,
+      price: 0,
+      image: null
+    })
+
     await useInbox.getShippements(null, route.params.id)
-    closeModal()
     console.log(response)
 
   } catch (error) {
@@ -269,6 +290,11 @@ const addEditItem = async () => {
   }
 
   loadingAdd.value = false
+}
+
+const saveAndClose = async () => {
+  await addEditItem()
+  closeModal()
 }
 
 </script>

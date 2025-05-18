@@ -28,50 +28,6 @@
         <div class="w-full h-full grid lg:grid-cols-3 gap-4">
           <div class="w-full flex flex-col gap-4 lg:col-span-2">
 
-            <div v-auto-animate
-              class="w-full h-fit flex flex-col gap-4 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl p-4">
-              <label @click="show = !show"
-                class="w-full flex items-center justify-between   fill-slate-500 hover:fill-primary pr-1.5">
-                <div class="flex gap-4 items-center">
-                  <span class="pixa-title">Package</span>
-                  <span
-                    class=" my-auto flex items-center truncate bg-slate-100 w-fit px-3 py-1.5 rounded font-semibold">{{
-                      useInbox.focusedShippement && useInbox.focusedShippement.warehouse_order_ids ?
-                        useInbox.focusedShippement.warehouse_order_ids.length : 0 }}</span>
-                </div>
-                <plus-icon :class="[
-                  show ? 'rotate-45' : 'rotate-0',
-                  'w-5 h-5 transition-all duration-200']" />
-              </label>
-              <div v-if="show" class="w-full flex flex-col gap-3">
-
-                <div class="w-full p-1 bg-primary rounded-md grid grid-cols-2 gap-1">
-                  <button @click="isPicture = false"
-                    :class="!isPicture ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
-                    class="btn btn-sm pixa-btn">items</button>
-                  <button @click="isPicture = true"
-                    :class="isPicture ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
-                    class="btn btn-sm pixa-btn">pictures</button>
-                </div>
-                <!---->
-                <div v-if="!isPicture" class="w-full grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-
-                  <package-item v-for="item in tempItems" :key="item.id" :item="item" />
-                </div>
-
-
-                <div v-else class="w-full grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                  <div v-for="pics in useInbox.focusedShippement.wh_pk_ad_picture" :key="pics"
-                    class="w-full h-40 bg-slate-100 rounded-md overflow-hidden">
-                    <img :src="env + pics.image"
-                      v-viewer="{ button: true, title: false, movable: false, rotatable: false, scalable: false, keyboard: true }"
-                      alt="">
-                  </div>
-                </div>
-              </div>
-
-
-            </div>
 
             <div
               class="w-full h-fit flex flex-col gap-4 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl p-4 col-span-2">
@@ -177,21 +133,7 @@
                       {{formatPhoneNumber(useProfile.locations.find(item => item.id === tempBook).phone)}}</span>
                   </div>
 
-                  <div class="flex flex-col gap-1">
-                    <span class=" font-medium">second phone</span>
-                    <span>
-                      {{useProfile.locations.find(item => item.id === tempBook).second_phone ?
-                        formatPhoneNumber(useProfile.locations.find(item => item.id === tempBook).second_phone) :
-                        '-------'
-                      }}</span>
-                  </div>
 
-                  <div class="flex flex-col gap-1">
-                    <span class=" font-medium">instruction</span>
-                    <span>
-                      {{ useInbox.focusedShippement.pickUp_local.instruction
-                      }}</span>
-                  </div>
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">address line</span>
                     <span>
@@ -227,7 +169,7 @@
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">city</span>
                     <span>
-                      {{ useInbox.focusedShippement.address_book.city_id ?
+                      {{ useInbox.focusedShippement.address_book ?
                         useInbox.focusedShippement.address_book.city_id.name : '-----' }}</span>
                   </div>
 
@@ -237,33 +179,77 @@
                       {{formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).phone)}}</span>
                   </div>
 
-                  <div class="flex flex-col gap-1">
-                    <span class=" font-medium">second phone</span>
-                    <span>
-                      {{useBook.addresses.find(item => item.id === tempBook).second_phone ?
-                        formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).second_phone) : '-------'
-                      }}</span>
-                  </div>
+                  <span></span>
 
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">adress line</span>
                     <span>
-                      {{ useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book
+                      {{ useInbox.focusedShippement.address_book && useInbox.focusedShippement.address_book
+                        .adr ? useInbox.focusedShippement.address_book
                         .adr : '--------'
                       }}</span>
                   </div>
 
 
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">instruction</span>
+                    <span class=" font-medium">adress line 2</span>
                     <span>
-                      {{ useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book
-                        .instruction : '--------'
+                      {{ useInbox.focusedShippement.address_book && useInbox.focusedShippement.address_book
+                        .adr_l2 ? useInbox.focusedShippement.address_book
+                        .adr_l2 : '--------'
                       }}</span>
                   </div>
+
+
                 </div>
               </div>
             </div>
+
+            <div v-auto-animate
+              class="w-full h-fit flex flex-col gap-4 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl p-4">
+              <label @click="show = !show"
+                class="w-full flex items-center justify-between   fill-slate-500 hover:fill-primary pr-1.5">
+                <div class="flex gap-4 items-center">
+                  <span class="pixa-title">Package</span>
+                  <span
+                    class=" my-auto flex items-center truncate bg-slate-100 w-fit px-3 py-1.5 rounded font-semibold">{{
+                      useInbox.focusedShippement && useInbox.focusedShippement.warehouse_order_ids ?
+                        useInbox.focusedShippement.warehouse_order_ids.length : 0 }}</span>
+                </div>
+                <plus-icon :class="[
+                  show ? 'rotate-45' : 'rotate-0',
+                  'w-5 h-5 transition-all duration-200']" />
+              </label>
+              <div v-if="show" class="w-full flex flex-col gap-3">
+
+                <div class="w-full p-1 bg-primary rounded-md grid grid-cols-2 gap-1">
+                  <button @click="isPicture = false"
+                    :class="!isPicture ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
+                    class="btn btn-sm pixa-btn">items</button>
+                  <button @click="isPicture = true"
+                    :class="isPicture ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
+                    class="btn btn-sm pixa-btn">pictures</button>
+                </div>
+                <!---->
+                <div v-if="!isPicture" class="w-full grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+
+                  <package-item v-for="item in tempItems" :key="item.id" :item="item" />
+                </div>
+
+
+                <div v-else class="w-full grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                  <div v-for="pics in useInbox.focusedShippement.wh_pk_ad_picture" :key="pics"
+                    class="w-full h-40 bg-slate-100 rounded-md overflow-hidden">
+                    <img :src="env + pics.image"
+                      v-viewer="{ button: true, title: false, movable: false, rotatable: false, scalable: false, keyboard: true }"
+                      alt="">
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
 
             <div class="w-full h-fit bg-white rounded-lg border border-gray-200 p-3">
               <div v-if="useInbox.focusedShippement.label_shipp"

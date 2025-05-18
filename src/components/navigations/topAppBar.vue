@@ -5,10 +5,10 @@
 
     <div class="flex gap-1 items-center flex-1">
       <div class="hidden lg:flex flex-col mr-4 flex-1 overflow-hidden">
-        <span class="flex gap-2 items-center justify-end">
+        <router-link :to="{ name: 'add' }" class="flex gap-2 items-center justify-end">
           <span class="font-semibold">$ {{ numberFormat(useProfile.profile.wallets.total_wallets) }} </span>
           <wallet-icon class="w-5 h-5 fill-slate-500" />
-        </span>
+        </router-link>
 
       </div>
 

@@ -19,13 +19,14 @@
               useInbox.costumeShipItem = item
               console.log(env + item.images);
 
+
               Object.assign(useInbox.costumeShipItem, {
                 id: item.id,
                 sh_ref: null,
                 name: item.name_id.name,
                 hs_code: item.name_id.code,
                 status_item: item.status_items,
-                code_countrie: item.countrie.id,
+                code_countrie: item.countrie_id,
                 qty: item.qty,
                 price: item.price,
                 image: env + item.images

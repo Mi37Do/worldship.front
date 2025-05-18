@@ -120,7 +120,7 @@ export const useProfileStore = defineStore('profile', () => {
 
   const getWebConfig = async () => {
     let response = await axios.get(`/config_web_API`)
-    console.log(response.data.config_web)
+    console.log(response.data.config_web.info_inbox)
 
     services.value = response.data.services
     webConfig.value = response.data.config_web

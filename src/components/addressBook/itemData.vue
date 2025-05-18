@@ -5,13 +5,19 @@
     <span class="h-8 my-auto flex items-center truncate">{{ item.name }}</span>
     <span class="h-8 my-auto flex items-center truncate">{{ formatPhoneNumber(item.phone) }} </span>
     <span v-if="item.type !== 'b'" class="h-8 my-auto flex items-center truncate">{{ item.company_name }} </span>
+
+    <span v-if="item.type !== 'to'" class="h-8 my-auto flex items-center truncate gap-2">
+      <img :src="countries.find(i => i.id ===
+        item.countrie).image" class="w-6" alt="">
+      {{countries.find(i => i.id ===
+        item.countrie).name}} </span>
     <span v-if="item.type !== 'to'" class="h-8 my-auto flex items-center truncate">{{ item.zip_code }}</span>
     <span class="h-8 my-auto flex items-center truncate">{{ item.type === 'to' ? item.city_id.name :
       item.city_c }}</span>
     <span class="h-8 my-auto flex items-center truncate">{{ item.adr }} </span>
-    <span class="h-8 my-auto flex items-center truncate">{{ item.adr_l2 }} </span>
+
     <div class="flex items-center justify-between my-auto ">
-      <span class="h-8 my-auto flex items-center truncate">{{ item.instruction || '-----' }}</span>
+      <span class="h-8 my-auto flex items-center truncate">{{ item.adr_l2 }} </span>
       <item-more :item="item" />
     </div>
 
@@ -25,6 +31,7 @@ import itemMore from './itemMore.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { formatPhoneNumber } from '@/utils/phoneUtils';
 import { useRoute } from 'vue-router';
+import countries from '@/assets/countries.json'
 
 const useWidget = useWidgetStore()
 const props = defineProps(['item', 'index'])

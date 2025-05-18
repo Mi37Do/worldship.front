@@ -5,11 +5,11 @@
       <span class="h-8  my-auto flex items-center">{{ $t('commun.name') }}</span>
       <span class="h-8  my-auto flex items-center">{{ $t('commun.phone') }}</span>
       <span class="h-8 my-auto flex items-center">{{ $t('commun.company') }}</span>
+      <span class="h-8 my-auto flex items-center">{{ $t('commun.country') }}</span>
       <span class="h-8  my-auto flex items-center">zip code</span>
       <span class="h-8 my-auto flex items-center">{{ $t('commun.city') }}</span>
       <span class="h-8 my-auto flex items-center">{{ $t('commun.addressLine') }}</span>
       <span class="h-8 my-auto flex items-center">{{ $t('commun.addressLine') }} 2</span>
-      <span class="h-8 my-auto flex items-center">{{ $t('commun.instructions') }}</span>
     </div>
 
     <div class="w-full flex-1 overflow-auto flex flex-col">

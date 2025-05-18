@@ -36,12 +36,8 @@
           <span>{{ useProfile.profile.user.email }}</span>
         </div>
         <div class="w-full flex overflow-hidden mt-4">
-          <span class="w-32 font-semibold truncate">code</span>
+          <span class="w-32 font-semibold truncate">unit number</span>
           <span>{{ useProfile.profile.user.code }}</span>
-        </div>
-        <div class="w-full flex overflow-hidden mt-4">
-          <span class="w-32 font-semibold truncate">city</span>
-          <span>{{ useProfile.profile.user.addresse_site.city }}</span>
         </div>
       </div>
 
@@ -73,7 +69,7 @@
           <div class="label">
             <span class="label-text uppercase">email </span>
           </div>
-          <input type="text" required v-model="useProfile.profile.user.email"
+          <input type="text" disabled v-model="useProfile.profile.user.email"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </label>
 

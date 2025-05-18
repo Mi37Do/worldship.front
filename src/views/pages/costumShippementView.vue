@@ -42,73 +42,12 @@
 
         <div class="w-full h-full grid lg:grid-cols-3 gap-4">
           <div class="w-full flex flex-col gap-4 lg:col-span-2">
-
-            <div v-auto-animate
-              class="w-full h-fit flex flex-col gap-4 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl p-4">
-              <label @click="show = !show"
-                class="w-full flex items-center justify-between   fill-slate-500 hover:fill-primary pr-1.5">
-                <div class="flex gap-4 items-center">
-                  <span class="pixa-title">Package</span>
-                  <span
-                    class=" my-auto flex items-center truncate bg-slate-100 w-fit px-3 py-1.5 rounded font-semibold">{{
-                      useInbox.focusedShippement && useInbox.focusedShippement.sh_package ?
-                        useInbox.focusedShippement.sh_package.length : 0 }}</span>
-                </div>
-                <plus-icon :class="[
-                  show ? 'rotate-45' : 'rotate-0',
-                  'w-5 h-5 transition-all duration-200']" />
-              </label>
-              <div v-if="show" class="w-full flex flex-col gap-3">
-
-                <div class="w-full flex justify-end">
-                  <button @click="Object.assign(useWidget.addEditShippementItem, {
-                    add: true,
-                    open: true
-                  })" class="btn btn-sm pixa-btn btn-primary">add
-                    item</button>
-                </div>
-
-                <div class="w-full border border-slate-200 rounded-lg flex flex-col">
-                  <div class="w-full grid grid-cols-5 gap-1.5 p-3 border-b border-slate-200">
-                    <span class="border-r truncate border-slate-200">item</span>
-                    <span class="border-r truncate border-slate-200">price</span>
-                    <span class="border-r truncate border-slate-200">company cost</span>
-                    <span class="border-r truncate border-slate-200">country</span>
-                    <span class="truncate ">state</span>
-                  </div>
-
-
-                  <div v-for="item in useInbox.focusedShippement.sh_package
-" :key="item" class="w-full grid grid-cols-5 gap-1.5 p-3 border-b border-slate-200">
-                    <span class="truncate ">{{ item.qty }} x {{ item.name_id.name }}</span>
-                    <span class="truncate ">$ {{ numberFormat(item.price) }}</span>
-                    <span class="truncate ">$ {{ item.company_cost ? numberFormat(item.company_cost) : '----' }}</span>
-                    <span class="truncate ">{{ item.countrie.name }}</span>
-
-                    <div class="w-full flex items-center justify-between">
-
-                      <span
-                        :class="item.status_items === 'n' ? 'bg-emerald-100 text-emerald-500' : 'bg-indigo-100 text-indigo-500'"
-                        class="truncate uppercase py-1 w-fit px-2 rounded-md text-xs font-semibold">{{
-                          item.status_items === 'n' ? 'new' : 'used' }}</span>
-
-                      <item-package-more :item="item" />
-                    </div>
-
-                  </div>
-                </div>
-
-              </div>
-
-
-            </div>
-
             <div
               class="w-full h-fit flex flex-col gap-4 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl p-4 col-span-2">
               <div class="w-full flex items-center justify-between">
                 <span class="pixa-title h-10 flex items-center">delivery point</span>
                 <!--
-                <commun-switch :enabled="useInbox.focusedShippement.deliver_type !== 'n' ? true : false"
+                <commun-switch :enabled="useInbox.focusedShippement.deliver_type !== 'n' || useInbox.focusedShippement.deliver_type !== 'na' ? true : false"
                   @selectedEnabled="(value) => {
                     if (value) {
 
@@ -120,7 +59,8 @@
               </div>
 
 
-              <div v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
+              <div
+                v-if="!useInbox.focusedShippement.is_payed && (useInbox.focusedShippement.deliver_type !== 'n' || useInbox.focusedShippement.deliver_type !== 'na')"
                 class="w-full p-1 bg-primary rounded-md grid grid-cols-2 gap-1">
                 <button @click="async () => {
                   adressFrom = true
@@ -138,7 +78,7 @@
 
 
                 <book-combobox
-                  v-if="!useInbox.focusedShippement.is_payed && useInbox.focusedShippement.deliver_type !== 'n'"
+                  v-if="!useInbox.focusedShippement.is_payed && (useInbox.focusedShippement.deliver_type !== 'n' || useInbox.focusedShippement.deliver_type !== 'na')"
                   :list="useBook.adrFrom" :selected="tempBookFrom" @onSelectedItem="async (id) => {
                     if (tempBookFrom !== id) {
                       tempBookFrom = id
@@ -158,37 +98,55 @@
                   </div>
 
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">country</span>
-                    <span>
-                      {{ useInbox.focusedShippement.address_book_from.countrie_id.name
-                      }}</span>
-                  </div>
-
-                  <div class="flex flex-col gap-1">
                     <span class=" font-medium">phone</span>
                     <span>
                       {{ formatPhoneNumber(useInbox.focusedShippement.address_book_from.phone) }}</span>
                   </div>
 
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">second phone</span>
+                    <span class=" font-medium">country</span>
                     <span>
-                      {{ useInbox.focusedShippement.address_book_from.second_phone ?
-                        formatPhoneNumber(useInbox.focusedShippement.address_book_from.second_phone) :
-                        '-------'
+                      {{useInbox.focusedShippement.address_book_from.countrie_id ? countries.find(i => i.id ===
+                        useInbox.focusedShippement.address_book_from.countrie_id).name : '-----'
+                      }}</span>
+                  </div>
+
+
+
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">state</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book_from.state
                       }}</span>
                   </div>
 
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">instruction</span>
+                    <span class=" font-medium">city</span>
                     <span>
-                      {{ useInbox.focusedShippement.address_book_from.instruction }}</span>
+                      {{ useInbox.focusedShippement.address_book_from.city_c
+                      }}</span>
+                  </div>
+
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">zip</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book_from.zip_code || '-------'
+                      }}</span>
                   </div>
 
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">address line</span>
                     <span>
-                      {{ useInbox.focusedShippement.address_book_from.adr
+                      {{ useInbox.focusedShippement.address_book_from.adr || '-------'
+                      }}</span>
+                  </div>
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">address line 2</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book_from.adr_l2 || '-------'
                       }}</span>
                   </div>
                 </div>
@@ -197,7 +155,7 @@
               <div v-else class="w-full flex flex-col gap-3">
 
                 <book-combobox
-                  v-if="useInbox.focusedShippement.deliver_type !== 'n' && !useInbox.focusedShippement.is_payed"
+                  v-if="(useInbox.focusedShippement.deliver_type !== 'n' || useInbox.focusedShippement.deliver_type !== 'na') && !useInbox.focusedShippement.is_payed"
                   :list="useBook.adrTo" :selected="tempBookTo" @onSelectedItem="async (id) => {
                     if (tempBookTo !== id) {
                       tempBookTo = id
@@ -226,43 +184,106 @@
                   </div>
 
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">city</span>
-                    <span>
-                      {{ useInbox.focusedShippement.address_book_to.city_id.name
-                      }}</span>
-                  </div>
-
-                  <div class="flex flex-col gap-1">
                     <span class=" font-medium">phone</span>
                     <span>
                       {{ formatPhoneNumber(useInbox.focusedShippement.address_book_to.phone) }}</span>
                   </div>
 
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">second phone</span>
+                    <span class=" font-medium">city</span>
                     <span>
-                      {{ useInbox.focusedShippement.address_book_to.second_phone ?
-                        formatPhoneNumber(useInbox.focusedShippement.address_book_to.second_phone) :
-                        '-------'
+                      {{ useInbox.focusedShippement.address_book_to.city_id.name || '-----'
                       }}</span>
                   </div>
 
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">instruction</span>
+                    <span class=" font-medium">zip</span>
                     <span>
-                      {{ useInbox.focusedShippement.address_book_to.instruction }}</span>
+                      {{ useInbox.focusedShippement.address_book_to.zip_code || '-----'
+                      }}</span>
                   </div>
 
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">address line</span>
                     <span>
-                      {{ useInbox.focusedShippement.address_book_to.adr
+                      {{ useInbox.focusedShippement.address_book_to.adr || '-----'
+                      }}</span>
+                  </div>
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">address line 2</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book_to.adr_l2 || '-----'
                       }}</span>
                   </div>
                 </div>
 
               </div>
             </div>
+            <div v-auto-animate
+              class="w-full h-fit flex flex-col gap-4 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl p-4">
+              <label @click="show = !show"
+                class="w-full flex items-center justify-between   fill-slate-500 hover:fill-primary pr-1.5">
+                <div class="flex gap-4 items-center">
+                  <span class="pixa-title">Package</span>
+                  <span
+                    class=" my-auto flex items-center truncate bg-slate-100 w-fit px-3 py-1.5 rounded font-semibold">{{
+                      useInbox.focusedShippement && useInbox.focusedShippement.sh_package ?
+                        useInbox.focusedShippement.sh_package.length : 0 }}</span>
+                </div>
+                <plus-icon :class="[
+                  show ? 'rotate-45' : 'rotate-0',
+                  'w-5 h-5 transition-all duration-200']" />
+              </label>
+              <div v-if="show" class="w-full flex flex-col gap-3">
+
+                <div class="w-full flex justify-end">
+                  <button @click="Object.assign(useWidget.addEditShippementItem, {
+                    add: true,
+                    open: true
+                  })" class="btn btn-sm pixa-btn btn-primary">add
+                    item</button>
+                </div>
+
+                <div class="w-full border border-slate-200 rounded-lg flex flex-col">
+                  <div class="w-full grid grid-cols-4 gap-1.5 p-3 border-b border-slate-200">
+                    <span class="border-r truncate border-slate-200">item</span>
+                    <span class="border-r truncate border-slate-200">price</span>
+                    <span class="border-r truncate border-slate-200">country</span>
+                    <span class="truncate ">state</span>
+                  </div>
+
+
+                  <div v-for="item in useInbox.focusedShippement.sh_package
+" :key="item" class="w-full grid grid-cols-4 gap-1.5 p-3 border-b border-slate-200">
+                    <span class="truncate ">{{ item.qty }} x {{ item.name_id.name }}</span>
+                    <span class="truncate ">$ {{ numberFormat(item.price) }}</span>
+                    <span class="truncate flex items-center gap-2">
+                      <img :src="countries.find(i => i.id ===
+                        item.countrie_id).image" class="w-6" alt="">
+                      <span>{{countries.find(i => i.id ===
+                        item.countrie_id).name}}</span>
+                    </span>
+
+                    <div class="w-full flex items-center justify-between">
+
+                      <span
+                        :class="item.status_items === 'n' ? 'bg-emerald-100 text-emerald-500' : 'bg-indigo-100 text-indigo-500'"
+                        class="truncate uppercase py-1 w-fit px-2 rounded-md text-xs font-semibold">{{
+                          item.status_items === 'n' ? 'new' : 'used' }}</span>
+
+                      <item-package-more :item="item" />
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+
+
 
             <div class="w-full h-fit bg-white rounded-lg border border-gray-200 p-3">
               <div v-if="useInbox.focusedShippement.label_shipp"
@@ -427,8 +448,9 @@
               </span>
             </div>
 
-            <button v-if="!useInbox.focusedShippement.is_payed" @click="useWidget.newPayment = true"
-              class="btn btn-sm pixa-btn w-full btn-primary">show state and
+            <button v-if="!useInbox.focusedShippement.is_payed && useInbox.focusedShippement.state === 'wp'"
+              @click="useWidget.newPayment = true" class="btn btn-sm pixa-btn w-full btn-primary">show
+              state and
               open
               invoice</button>
 
@@ -464,6 +486,7 @@ import addEditItem from '@/components/shippement/addEditItem.vue';
 import itemPackageMore from '@/components/shippement/itemPackageMore.vue';
 import DeleteModal from '@/components/commun/deleteModal.vue';
 import sideMenu from '@/assets/icons/sideMenu.vue';
+import countries from '@/assets/countries.json'
 
 
 const env = import.meta.env.VITE_WORLDSHIP_API
