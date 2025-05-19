@@ -675,10 +675,14 @@
                 <span>{{ resultShip.weight > resultShip.mass ? resultShip.weight + ' ' + resultShip.weightUnit :
                   resultShip.mass.toFixed(2) + ' ≥ (' + resultShip.weight + ' ' +
                   resultShip.weightUnit + ')' }}</span>
-                <span>Shipping Cost</span>
-                <span>${{ resultShip.result.toFixed(2) }}</span>
-                <span class="font-semibold">Total Cost</span>
-                <span class="font-semibold">${{ (resultShip.result + resultShip.insurance).toFixed(2) }}</span>
+
+
+                <div :class="'bg-primary text-white'"
+                  class="w-full h-14 p-2 rounded flex gap-4 items-center col-span-2 -mb-3 justify-between ">
+                  <span>Shipping Cost</span>
+                  <span>${{ (resultShip.result.shipp_cost + resultShip.insurance).toFixed(2) }}</span>
+                </div>
+
               </div>
 
               <div v-else
@@ -910,6 +914,7 @@ const calculateShipement = async () => {
   const response = await axios.get(`/calculator_API/${shippement.cityCode}/${shippement.weight > mass ? shippement.weight : mass.toFixed(0)}`)
 
   Object.assign(resultShip, shippement)
+  console.log(response.data)
 
   resultShip.mass = mass
   resultShip.result = response.data

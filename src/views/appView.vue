@@ -100,7 +100,8 @@
             <button @click="useWidget.calculator = true" class="btn btn-sm pixa-btn btn-primary">calculator</button>
           </div>
 
-          <router-link :to="{ name: 'profile' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost mb-6">
+          <router-link :to="{ name: 'profile' }"
+            class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost mb-6 lg:hidden">
             <user-icon class="w-5" /><span>profile</span>
           </router-link>
 

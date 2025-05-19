@@ -504,7 +504,7 @@
                 ship now
               </div>
             </div>
-
+            <!--
             <div @click="async () => {
               createCostume(shippement)
             }" :class="'bg-primary text-white'" class="w-full h-14 p-2 rounded flex items-center col-span-2">
@@ -516,7 +516,7 @@
               <div class="w-fit h-6 px-2 bg-white/40 rounded-full flex items-center justify-center">
                 ship now
               </div>
-            </div>
+            </div> -->
 
           </div>
 
