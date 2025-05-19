@@ -17,7 +17,7 @@
 
     <div class="w-full flex-1 overflow-auto flex flex-col">
       <div class="w-full h-fit flex flex-col gap-2 pt-2">
-        <item v-for="item in useProfile.wallets" :key="item" :item="item" />
+        <itemData v-for="item in useProfile.wallets" :key="item" :item="item" />
       </div>
     </div>
   </div>
@@ -26,7 +26,7 @@
 <script setup>
 import { useProfileStore } from '@/stores/profile';
 import { useWidgetStore } from '@/stores/widget';
-import item from '@/components/wallet/item.vue';
+import itemData from '@/components/wallet/itemData.vue';
 import { onMounted, ref } from 'vue';
 
 

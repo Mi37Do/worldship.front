@@ -483,12 +483,6 @@
           </label>
           <div v-if="resultShip.result"
             class="w-full h-fit bg-slate-50 rounded-xl my-6 grid grid-cols-2 p-4 gap-4 uppercase">
-            <span>Chargeable Weight</span>
-            <span>{{ resultShip.weight > resultShip.mass ? resultShip.weight + ' ' + resultShip.weightUnit :
-              resultShip.mass.toFixed(2) + ' ≥ (' + resultShip.weight + ' ' +
-              resultShip.weightUnit + ')' }}</span>
-            <span>Shipping Cost</span>
-            <span>${{ resultShip.result.toFixed(2) }}</span>
             <span class="font-semibold">Total Cost</span>
             <span class="font-semibold">${{ (resultShip.result + resultShip.insurance).toFixed(2) }}</span>
 
