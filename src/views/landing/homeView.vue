@@ -25,20 +25,20 @@
         </span>
 
         <span class="lg:text-lg max-w-md px-4 lg:px-0 lg:max-w-xl mt-8 lg:mt-0">{{
-          useProfile.webConfig.text_entet}}</span>
+          useProfile.webConfig.text_entet }}</span>
 
 
         <div class="max-w-[60vw] h-fit relative">
 
 
-          <img src="@/assets/pics/box01.png" class="absolute w-32 lg:w-52 -top-12 -right-12 lg:-right-24 " alt="">
+          <img src="@/assets/pics/box01.png" class="absolute w-32 lg:w-52 -top-0 -right-12 lg:-right-24 " alt="">
 
 
 
           <img src="@/assets/pics/plane.png" class="absolute w-60 -right-12 bottom-10 lg:-right-32" alt="">
 
           <div
-            class="w-full max-w-[70vw] h-fit bg-slate-100 bg-glass-effect px-3 pt-3 relative shadow-2xl shadow-blue-200 my-28 grid grid-cols-4 gap-4  font-semibold">
+            class="w-full max-w-[70vw] h-fit bg-slate-100 bg-glass-effect px-3 pt-3 relative shadow-2xl shadow-blue-200 my-28 grid  md:grid-cols-4 gap-4  font-semibold">
 
             <div class="flex flex-col items-center justify-center gap-2 my-6 min-w-48">
               <span class="text-3xl text-primary">232</span>
@@ -61,7 +61,7 @@
 
 
 
-          <img src="@/assets/pics/drop.png" class="absolute w-32 lg:w-96 -top-12 -left-12 lg:-top-20 lg:-left-48 z-0"
+          <img src="@/assets/pics/drop.png" class="absolute w-32 lg:w-96 -top-0 -left-12 lg:-top-20 lg:-left-48 z-0"
             alt="">
 
 

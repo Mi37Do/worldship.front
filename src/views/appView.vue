@@ -100,6 +100,9 @@
             <button @click="useWidget.calculator = true" class="btn btn-sm pixa-btn btn-primary">calculator</button>
           </div>
 
+          <router-link :to="{ name: 'profile' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost mb-6">
+            <user-icon class="w-5" /><span>profile</span>
+          </router-link>
 
           <button @click="async () => {
             let response = await axios.get(`/logout_API`)
@@ -120,6 +123,7 @@
 <script setup>
 import billIcon from '@/assets/icons/billIcon.vue';
 import boxIcon from '@/assets/icons/boxIcon.vue';
+import userIcon from '@/assets/icons/userIcon.vue';
 import callingIcon from '@/assets/icons/callingIcon.vue';
 import exclamationTriangleIcon from '@/assets/icons/exclamationTriangleIcon.vue';
 import planIcon from '@/assets/icons/planIcon.vue';

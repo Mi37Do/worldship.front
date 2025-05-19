@@ -20,7 +20,7 @@
         <bell-icon class="w-7 h-7" />
       </button>
 
-      <router-link :to="{ name: 'profile' }" class="btn btn-sm pixa-btn w-10 p-0 btn-ghost">
+      <router-link :to="{ name: 'profile' }" class="btn btn-sm pixa-btn w-10 p-0 btn-ghost hidden lg:block">
         <user-icon class="w-5 h-5" />
       </router-link>
     </div>
