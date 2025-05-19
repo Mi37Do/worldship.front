@@ -57,7 +57,7 @@ onMounted(async () => {
     await useInvoices.getTransactions(localStorage.getItem('ws-user-id'))
     loading.value = false
   } catch (error) {
-
+error
   }
 })
 

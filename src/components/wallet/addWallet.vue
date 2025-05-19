@@ -61,7 +61,7 @@
         </div>
       </div>
 
-      <div class="w-full h-40 flex items-center justify-center text-lg font-semibold uppercase">
+      <div v-else class="w-full h-40 flex items-center justify-center text-lg font-semibold uppercase">
         <span>under construction !</span>
       </div>
 
