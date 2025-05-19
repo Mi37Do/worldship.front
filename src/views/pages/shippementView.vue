@@ -21,9 +21,8 @@
 
         <add-adress-book />
 
-
-        <payment-modal :item="useInbox.focusedShippement" :types="useProfile.profile.payments_methodes"
-          :cards="tempCards" />
+        <payment-modal :item="useInbox.focusedShippement"
+          :types="useProfile.profile.payments_methodes.filter(item => item.type_payment !== 'c')" :cards="tempCards" />
 
         <div class="w-full h-full grid lg:grid-cols-3 gap-4">
           <div class="w-full flex flex-col gap-4 lg:col-span-2">
@@ -332,7 +331,8 @@
                   :disabled="useInbox.focusedShippement.is_payed"
                   class="pixa-input px-4 w-full ml-auto placeholder:uppercase">
 
-                <button v-if="!useInbox.focusedShippement.is_payed" type="submit" :disabled="loadingCode"
+                <button v-if="!useInbox.focusedShippement.is_payed" type="submit"
+                  :disabled="useInbox.focusedShippement.is_payed"
                   :class="!useInbox.focusedShippement.promo_code ? '-right-12' : 'right-1'"
                   class="btn btn-sm btn-square absolute btn-primary top-1 transition-all duration-150 ">
                   <span v-if="loadingCode" class="loading loading-ring loading-sm"></span>
@@ -374,6 +374,25 @@
                     <div class="flex-1 flex flex-col">
                       <span>cargo</span>
                       <span>$ {{ numberFormat(useInbox.focusedShippement.cargo_shipping_cost) }}
+                      </span>
+                    </div>
+                    <div v-if="isCargo" class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
+                      <check-icon class="w-4 h-4 fill-white" />
+                    </div>
+                  </div>
+
+                  <div @click="async () => {
+                    isCargo = true
+                    useInbox.focusedShippement.use_cargo = true
+                    let response = await axios.get(`/Dashboard/choose_ship_API/${route.params.id}/2`)
+                    console.log(response.data)
+                    useInbox.focusedShippement.total_price_cost = response.data.reslut
+
+                  }" :class="isCargo ? 'bg-primary text-white' : 'hover:bg-white/80'"
+                    class="w-full h-14 p-2 rounded flex items-center">
+                    <div class="flex-1 flex flex-col">
+                      <span>ocean</span>
+                      <span>$ {{ numberFormat(useInbox.focusedShippement.occain_shipping_cost) }}
                       </span>
                     </div>
                     <div v-if="isCargo" class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
@@ -515,7 +534,7 @@ onMounted(async () => {
     useProfile.profile.payments_methodes.push(
       {
         id: 0,
-        name: 'wallet',
+        name: 'balance',
         type_payment: 'w'
       }
     )

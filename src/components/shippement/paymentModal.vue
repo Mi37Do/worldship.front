@@ -61,7 +61,7 @@
 
       <div class="form-control w-full">
         <div class="label">
-          <span class="label-text uppercase">wallet type </span>
+          <span class="label-text uppercase">balance type </span>
         </div>
 
         <walletsTypeDropsown :list="types" :selected="walletType" @onSelectedType="(id) => {
@@ -69,7 +69,7 @@
           onSelectedType(id)
         }" />
       </div>
-
+      <!--
       <div v-if="types.find(item => item.id === walletType).type_payment === 'c'"
         class="w-full flex-1 overflow-auto pt-8 flex flex-col gap-4">
         <div class="w-full rounded-lg bg-primary p-1 grid grid-cols-2 gap-1">
@@ -104,9 +104,9 @@
 
           <payment-view />
         </div>
-      </div>
+      </div>-->
 
-      <div v-else class="w-full flex-1 overflow-auto">
+      <div class="w-full flex-1 overflow-auto">
         <div class="w-full h-fit flex flex-col items-center gap-3 py-4">
 
           <div class="w-full mt-4 flex items-center justify-center uppercase font-semibold text-lg">payment by {{

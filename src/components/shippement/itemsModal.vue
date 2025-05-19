@@ -76,7 +76,7 @@
           </div>
 
 
-          <div class="w-full grid grid-cols-2 gap-2">
+          <div v-if="useInbox.focusedInbox.density > 0" class="w-full grid grid-cols-2 gap-2">
             <span class="font-semibold">(L,W,H,Density)</span>
             <span> ( {{ useInbox.focusedInbox.dim_l + ', ' + useInbox.focusedInbox.dim_w + ', ' +
               useInbox.focusedInbox.dim_h + ', ' + useInbox.focusedInbox.density }} )</span>

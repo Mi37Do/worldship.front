@@ -3,7 +3,7 @@
   <div class="modal" role="dialog">
     <form @submit.prevent="addWallet()" class="w-full max-w-lg h-fit modal-box flex flex-col p-4">
       <div class="w-full h-14 flex items-center justify-between pb-4">
-        <span class="pixa-title">add wallet</span>
+        <span class="pixa-title">add balance</span>
         <div class="flex gap-2">
           <button type="button" @click="closeModal()" class="btn btn-sm pixa-btn w-10 pixa-btn-nofloat p-0">
             <times-icon class="w-5 h-5" />
@@ -14,13 +14,12 @@
 
       <div class="form-control w-full">
         <div class="label">
-          <span class="label-text uppercase">wallet type </span>
+          <span class="label-text uppercase">balance type </span>
         </div>
-
         <WalletsTypeDropsown :list="types" @onSelectedType="onSelectedType" />
       </div>
 
-      <div class="w-full flex-1 overflow-auto">
+      <div v-if="types.find(item => item.id === walletType).type_payment !== 'c'" class="w-full flex-1 overflow-auto">
         <div class="w-full h-fit flex flex-col items-center gap-3 py-4">
 
           <img v-if="types.find(item => item.id === walletType).type_payment === 'zn'"
@@ -34,7 +33,7 @@
 
           <label class="form-control w-full">
             <div class="label">
-              <span class="label-text uppercase">wallet value </span>
+              <span class="label-text uppercase">balance value </span>
             </div>
             <input type="number" required v-model="walletValue.value"
               class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -62,7 +61,12 @@
         </div>
       </div>
 
-      <button :disabled="loadingAdd" type="submit" class="btn btn-sm pixa-btn btn-primary mt-4">
+      <div class="w-full h-40 flex items-center justify-center text-lg font-semibold uppercase">
+        <span>under construction !</span>
+      </div>
+
+      <button v-if="types.find(item => item.id === walletType).type_payment !== 'c'" :disabled="loadingAdd"
+        type="submit" class="btn btn-sm pixa-btn btn-primary mt-4">
         <span v-if="loadingAdd" class="loading loading-ring loading-sm"></span>
         <span v-else>add wallet</span>
       </button>
@@ -85,6 +89,7 @@ import { reactive, ref } from 'vue';
 import axios from 'axios';
 import { useProfileStore } from '@/stores/profile';
 import WalletsTypeDropsown from './walletsTypeDropsown.vue';
+import { useRouter } from 'vue-router';
 
 const props = defineProps(['types'])
 const useWidget = useWidgetStore()
@@ -94,6 +99,7 @@ const env = import.meta.env.VITE_WORLDSHIP_API
 const walletType = ref(props.types[0].id)
 const fileName = ref('')
 const tempImage = ref('')
+const router = useRouter()
 const walletValue = reactive(
   {
     value: 0,
@@ -150,6 +156,7 @@ const addWallet = async () => {
     })
 
     await useProfile.getProfile(localStorage.getItem('ws-user-id'))
+    router.push({ name: 'transfers' })
     closeModal()
   } catch (error) {
     console.error(error)

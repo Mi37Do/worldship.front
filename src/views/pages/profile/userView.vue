@@ -81,12 +81,19 @@
 
       <form v-if="tab === 'password'" @submit.prevent="resetPassword"
         class="w-full h-fit bg-white rounded-lg border border-slate-200 p-3 flex flex-col gap-3">
-        <span class="pixa-title">new password</span>
+        <div class="flex items-center justify-between">
+
+          <span class="pixa-title">new password</span>
+          <button type="buttonds" @click="showPassword = !showPassword" class="btn btn-sm btn-square pixa-btn-nofloat">
+            <eye-icon v-if="showPassword" class="w-5" />
+            <eye-slash-icon v-else class="w-5 h-5" />
+          </button>
+        </div>
         <label class="form-control w-full">
           <div class="label">
             <span class="label-text uppercase">old password </span>
           </div>
-          <input type="text" required v-model="oldPassword"
+          <input :type="showPassword ? 'text' : 'password'" required v-model="oldPassword"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </label>
 
@@ -94,7 +101,7 @@
           <div class="label">
             <span class="label-text uppercase">new password </span>
           </div>
-          <input type="text" required v-model="new_password"
+          <input :type="showPassword ? 'text' : 'password'" required v-model="new_password"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </label>
 
@@ -102,7 +109,7 @@
           <div class="label">
             <span class="label-text uppercase">confirm new password </span>
           </div>
-          <input type="text" required v-model="confirmPassword"
+          <input :type="showPassword ? 'text' : 'password'" required v-model="confirmPassword"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </label>
 
@@ -123,9 +130,12 @@ import { useProfileStore } from '@/stores/profile';
 import axios from 'axios';
 import userIcon from '@/assets/icons/userIcon.vue';
 import { reactive, ref } from 'vue';
+import eyeSlashIcon from '@/assets/icons/eyeSlashIcon.vue';
+import eyeIcon from '@/assets/icons/eyeIcon.vue';
 
 const useProfile = useProfileStore()
 const new_password = ref('')
+const showPassword = ref(false)
 const oldPassword = ref('')
 const confirmPassword = ref('')
 const loadingPassword = ref(false)

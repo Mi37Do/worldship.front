@@ -40,19 +40,37 @@
         <payment-modal :item="useInbox.focusedShippement" :types="useProfile.profile.payments_methodes"
           :cards="tempCards" />
 
-        <div class="w-full flex gap-2 justify-end">
+        <div v-if="useInbox.focusedShippement.state === 'n'" class="w-full flex gap-2 justify-end">
 
-          <button class="btn btn-sm pixa-btn pixa-btn-nofloat w-24">
+          <button @click="async () => {
+            loadingSave = true
+
+            try {
+              let response = await axios.get(`/Shipments/CancelShip_API/${route.params.id}/`)
+              router.push({ name: 'costume-shippements' })
+            } catch (error) {
+
+            }
+          }" class="btn btn-sm pixa-btn pixa-btn-nofloat w-24">
             <span v-if="loadingSave">
               <span class="loading loading-ring loading-sm"></span>
             </span>
             <div v-else class="flex gap-2 items-center">
               <trash-icon class="w-5 h-5" />
-              delete
+              cancel
             </div>
           </button>
 
-          <button class="btn btn-sm pixa-btn btn-primary w-24">
+          <button @click="async () => {
+            loadingSave = true
+
+            try {
+              let response = await axios.get(`/Shipments/SendShip_API/${route.params.id}/`)
+              router.push({ name: 'costume-shippements' })
+            } catch (error) {
+
+            }
+          }" class="btn btn-sm pixa-btn btn-primary w-24">
             <span v-if="loadingSave">
               <span class="loading loading-ring loading-sm"></span>
             </span>
@@ -81,9 +99,7 @@
                   }" /> -->
               </div>
 
-
-              <div
-                v-if="!useInbox.focusedShippement.is_payed && (useInbox.focusedShippement.deliver_type !== 'n' || useInbox.focusedShippement.deliver_type !== 'na')"
+              <div v-if="useInbox.focusedShippement.state === 'n'"
                 class="w-full p-1 bg-primary rounded-md grid grid-cols-2 gap-1">
                 <button @click="async () => {
                   adressFrom = true
@@ -99,10 +115,8 @@
 
               <div v-if="adressFrom" class="w-full flex flex-col gap-3">
 
-
-                <book-combobox
-                  v-if="!useInbox.focusedShippement.is_payed && (useInbox.focusedShippement.deliver_type !== 'n' || useInbox.focusedShippement.deliver_type !== 'na')"
-                  :list="useBook.adrFrom" :selected="tempBookFrom" @onSelectedItem="async (id) => {
+                <div v-if="useInbox.focusedShippement.state === 'n'" class="flex gap-3 w-full justify-end">
+                  <book-combobox :list="useBook.adrFrom" :selected="tempBookFrom" @onSelectedItem="async (id) => {
                     if (tempBookFrom !== id) {
                       tempBookFrom = id
                       let response = await axios.get(`/Shipments/updateAddress_FromPk_API/${route.params.id}/${id}`)
@@ -110,6 +124,14 @@
                       await useInbox.getShippements(null, route.params.id)
                     }
                   }" class="hidden md:block" />
+                  <button v-if="!useInbox.focusedShippement.is_payed" @click="Object.assign(useWidget.addAddressBook, {
+                    open: true,
+                    add: true
+                  })" class="btn btn-sm pixa-btn btn-primary">
+                    <plusIcon class="w-5 h-5" />
+                    add address
+                  </button>
+                </div>
 
                 <div v-if="useInbox.focusedShippement.address_book_from"
                   class="w-full h-fit rounded-md border border-slate-200 overflow-hidden bg-primary/5 p-3 grid grid-cols-2 gap-3 uppercase">
@@ -177,24 +199,31 @@
 
               <div v-else class="w-full flex flex-col gap-3">
 
-                <book-combobox
-                  v-if="(useInbox.focusedShippement.deliver_type !== 'n' || useInbox.focusedShippement.deliver_type !== 'na') && !useInbox.focusedShippement.is_payed"
-                  :list="useBook.adrTo" :selected="tempBookTo" @onSelectedItem="async (id) => {
-                    if (tempBookTo !== id) {
-                      tempBookTo = id
-                      try {
-                        let response = await axios.get(`/Shipments/updateAddress_ToPk_API/${route.params.id}/${id}`)
+                <div v-if="useInbox.focusedShippement.state === 'n'" class="flex gap-3 w-full justify-end">
+                  <book-combobox v-if="useInbox.focusedShippement.state === 'n'" :list="useBook.adrTo"
+                    :selected="tempBookTo" @onSelectedItem="async (id) => {
+                      if (tempBookTo !== id) {
+                        tempBookTo = id
+                        try {
+                          let response = await axios.get(`/Shipments/updateAddress_ToPk_API/${route.params.id}/${id}`)
 
-                        await useInbox.getShippements(null, route.params.id)
-                      } catch (error) {
-                        console.error(error)
+                          await useInbox.getShippements(null, route.params.id)
+                        } catch (error) {
+                          console.error(error)
 
+                        }
                       }
-                    }
+                    }" class="hidden md:block" />
+                  <button v-if="!useInbox.focusedShippement.is_payed" @click="Object.assign(useWidget.addAddressBook, {
+                    open: true,
+                    add: true
+                  })" class="btn btn-sm pixa-btn btn-primary">
+                    <plusIcon class="w-5 h-5" />
+                    add address
+                  </button>
+                </div>
 
 
-
-                  }" class="hidden md:block" />
 
 
                 <div v-if="useInbox.focusedShippement.address_book_to"
@@ -261,7 +290,7 @@
               <div v-if="show" class="w-full flex flex-col gap-3">
 
                 <div class="w-full flex justify-end">
-                  <button @click="Object.assign(useWidget.addEditShippementItem, {
+                  <button v-if="useInbox.focusedShippement.state === 'n'" @click="Object.assign(useWidget.addEditShippementItem, {
                     add: true,
                     open: true
                   })" class="btn btn-sm pixa-btn btn-primary">add
@@ -360,7 +389,7 @@
               <span class="font-semibold h-10 flex items-center">add Insurance $ {{
                 numberFormat(useInbox.focusedShippement.total_insurance) }} </span>
 
-              <div v-if="!useInbox.focusedShippement.is_payed" class="flex justify-end">
+              <div v-if="useInbox.focusedShippement.state === 'n'" class="flex justify-end">
                 <commun-switch @selectedEnabled="onSelectedEnabledInsurance" :enabled="tempInsurance" />
               </div>
 
@@ -372,8 +401,8 @@
 
               <form @submit.prevent="useCoins" class="w-fit h-fit relative overflow-hidden">
                 <input type="number" min="500" placeholder="coins"
-                  :disabled="useInbox.focusedShippement.total_coins < 500" v-model="tempCoins"
-                  class="pixa-input px-4 w-full ml-auto placeholder:uppercase">
+                  :disabled="loadingCoin || tempCoins > useProfile.totalCoins && useInbox.focusedShippement.state !== 'n'"
+                  v-model="tempCoins" class="pixa-input px-4 w-full ml-auto placeholder:uppercase">
 
                 <button type="submit" :disabled="loadingCoin || tempCoins > useProfile.totalCoins"
                   :class="!tempCoins || tempCoins < 500 ? '-right-12' : 'right-1'"
@@ -387,10 +416,10 @@
 
               <form @submit.prevent="usePromoCode" class="w-fit h-fit relative overflow-hidden">
                 <input type="text" placeholder="your promo code" v-model="useInbox.focusedShippement.promo_code"
-                  :disabled="!useInbox.focusedShippement.is_payed"
+                  :disabled="useInbox.focusedShippement.state !== 'n'"
                   class="pixa-input px-4 w-full ml-auto placeholder:uppercase">
 
-                <button v-if="!useInbox.focusedShippement.is_payed" type="submit" :disabled="loadingCode"
+                <button v-if="useInbox.focusedShippement.state !== 'n'" type="submit" :disabled="loadingCode"
                   :class="!useInbox.focusedShippement.promo_code ? '-right-12' : 'right-1'"
                   class="btn btn-sm btn-square absolute btn-primary top-1 transition-all duration-150 ">
                   <span v-if="loadingCode" class="loading loading-ring loading-sm"></span>
@@ -417,7 +446,7 @@
                       <check-icon class="w-4 h-4 fill-white" />
                     </div>
                   </div>
-
+                  <!--
                   <div @click="async () => {
                     isCargo = true
                     useInbox.focusedShippement.use_cargo = true
@@ -435,7 +464,7 @@
                     <div v-if="isCargo" class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
                       <check-icon class="w-4 h-4 fill-white" />
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
@@ -467,7 +496,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-                }}
+              }}
               </span>
             </div>
 
@@ -490,7 +519,7 @@ import contactItem from '@/components/shippement/contactItem.vue';
 import topAppBar from '@/components/navigations/topAppBar.vue';
 import checkIcon from '@/assets/icons/checkIcon.vue';
 import packageItem from '@/components/shippement/packageItem.vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import plusIcon from '@/assets/icons/plusIcon.vue';
 import communSwitch from '@/components/commun/communSwitch.vue';
 import { useInboxStore } from '@/stores/inbox';
@@ -539,6 +568,7 @@ const adressFrom = ref(true)
 const isCargo = ref(false)
 const isPicture = ref(false)
 const loadingSave = ref(false)
+const router = useRouter()
 
 onMounted(async () => {
   try {

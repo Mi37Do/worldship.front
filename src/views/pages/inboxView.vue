@@ -90,13 +90,13 @@
       <div v-if="useInbox.inboxs.length > 0" class="w-full flex-1  flex flex-col overflow-hidden relative">
 
         <div
-          class="w-fit h-10 bg-white rounded-lg border text-red-500 border-red-500 px-3 flex items-center absolute bottom-1 right-1 uppercase">
+          class="w-fit h-10 bg-white rounded-lg border text-red-500 border-red-500 px-3 flex items-center absolute bottom-1 right-1 uppercase z-10">
           {{ useProfile.webConfig.info_inbox }}
         </div>
 
 
         <div :class="[useWidget.userLanguage === 'ar' ? 'text-right ' : ' ']"
-          class="w-full h-12 rounded-lg border border-slate-200 px-4 hidden lg:grid grid-cols-5 gap-2 uppercase font-bold text-primary bg-white">
+          class="w-full h-12 rounded-lg border border-slate-200 px-4 hidden lg:grid grid-cols-6 gap-2 uppercase font-bold text-primary bg-white">
 
           <span class="h-8 my-auto flex items-center truncate gap-4"> <input type="checkbox" v-model="selectAll"
               :checked="selectAll"> {{
@@ -109,8 +109,10 @@
           <div class="flex items-center justify-between my-auto">
 
             <span class="h-8  my-auto flex items-center ">{{ $t('commun.price') }}</span>
+
           </div>
 
+          <span class="h-8  my-auto flex items-center ">{{ $t('commun.state') }}</span>
         </div>
 
         <div class="w-full flex-1 overflow-auto">
@@ -182,7 +184,7 @@ onMounted(async () => {
   try {
     useInbox.inboxsToShip = []
     await useInbox.getInbox(localStorage.getItem('ws-user-id'))
-    useInbox.filtredInboxs = useInbox.inboxs
+    useInbox.filtredInboxs = useInbox.inboxs.filter(item => item.state_wh !== 'dg')
 
     console.log(useInbox.filtredInboxs)
 

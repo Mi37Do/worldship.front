@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full py-3 border bg-white rounded-md border-slate-200 px-4 grid grid-cols-2 lg:grid-cols-5 gap-2 uppercase font-medium lg:hover:bg-slate-50 transition-all duration-150 cursor-pointer relative">
+    class="w-full py-3 border bg-white rounded-md border-slate-200 px-4 grid grid-cols-2 lg:grid-cols-6 gap-2 uppercase font-medium lg:hover:bg-slate-50 transition-all duration-150 cursor-pointer relative">
 
 
     <div class="w-full flex items-center gap-4">
@@ -57,10 +57,25 @@
       {{ $t('commun.price')
       }}</span>
 
+    <span class="h-8 my-auto flex items-center truncate  "> $ {{ numberFormat(item.total_price) }}</span>
+
+
+
+
+    <span class="uppercase h-8 my-auto flex items-center truncate font-bold  lg:hidden  ">
+      {{ $t('commun.state')
+      }}</span>
+
     <div class="flex items-center justify-between">
 
 
-      <span class="h-8 my-auto flex items-center truncate  "> $ {{ numberFormat(item.total_price) }}</span>
+      <span
+        :class="item.state_wh === 'a' ? 'bg-emerald-100 text-emerald-500' : item.state_wh === 'r' ? 'bg-red-100 text-red-500' : 'bg-red-100 text-red-500'"
+        class="h-8 my-auto flex items-center truncate   px-2 rounded-md "> {{ item.state_wh === 'a' ?
+          'aprouved' : item.state_wh === 'r' ?
+            'aprouved' : 'Dangerous Goods' }}
+      </span>
+
 
       <item-more :item="item" class="hidden lg:block" />
     </div>

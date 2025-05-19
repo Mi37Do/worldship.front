@@ -24,13 +24,8 @@
           <span class="font-extrabold text-blue-700">{{ useProfile.webConfig.titre_6 }}</span>
         </span>
 
-        <span class="lg:text-lg max-w-md px-4 lg:px-0 lg:max-w-xl mt-8 lg:mt-0">The safest and most reliable shipping
-          service.
-          Register
-          for a
-          free
-          account and
-          start shipping today.</span>
+        <span class="lg:text-lg max-w-md px-4 lg:px-0 lg:max-w-xl mt-8 lg:mt-0">{{
+          useProfile.webConfig.text_entet}}</span>
 
 
         <div class="max-w-[60vw] h-fit relative">
@@ -182,9 +177,8 @@
     <div class="w-full h-96 overflow-hidden flex items-center relative">
       <div class="w-full h-full bg-blue-600/70 absolute inset-0 flex justify-center">
         <div class="w-full h-full max-w-[600px] px-6 flex flex-col text-white gap-6 items-center justify-center">
-          <span class="text-4xl font-bold text-center">READY TO START?</span>
-          <span class=" text-center">Manage your inbox items by logging into your account or by using our mobile apps.
-            You can ship your items to any of our branches in Kurdistan & Iraq or return items to a U.S. address.</span>
+          <span class="text-4xl font-bold text-center"> {{ useProfile.webConfig.titre_ready_start }}</span>
+          <span class=" text-center"> {{ useProfile.webConfig.text_ready_start }}</span>
         </div>
       </div>
       <img src="@/assets/pics/ship01.jpg" class="w-full object-cover" alt="">
@@ -472,9 +466,14 @@
                   <input type="number" required v-model="shippement.weight"
                     class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
                 </label>
-                <commun-combobox class="mt-auto"
+                <commun-dropdown class="mt-auto"
                   :list="[{ id: 'lbs', designation: 'lbs' }, { id: 'kg', designation: 'kg' }]"
                   :selected="shippement.weightUnit" @onSelectedItem="(id) => {
+                    if (id === 'kg') {
+                      shippement.lengthUnit = 'cm'
+                    } else {
+                      shippement.lengthUnit = 'in'
+                    }
                     shippement.weightUnit = id
                   }" />
               </div>
@@ -506,9 +505,14 @@
                 </label>
 
 
-                <commun-combobox class="mt-auto"
+                <commun-dropdown class="mt-auto"
                   :list="[{ id: 'in', designation: 'in' }, { id: 'cm', designation: 'cm' }]"
                   :selected="shippement.lengthUnit" @onSelectedItem="(id) => {
+                    if (id === 'cm') {
+                      shippement.weightUnit = 'kg'
+                    } else {
+                      shippement.weightUnit = 'lbs'
+                    }
                     shippement.lengthUnit = id
                   }" />
               </div>
@@ -541,10 +545,26 @@
                 <span>{{ resultShip.weight > resultShip.mass ? resultShip.weight + ' ' + resultShip.weightUnit :
                   resultShip.mass.toFixed(2) + ' ≥ (' + resultShip.weight + ' ' +
                   resultShip.weightUnit + ')' }}</span>
-                <span>Shipping Cost</span>
-                <span>${{ resultShip.result.toFixed(2) }}</span>
-                <span class="font-semibold">Total Cost</span>
-                <span class="font-semibold">${{ (resultShip.result + resultShip.insurance).toFixed(2) }}</span>
+                <div v-if="resultShip.result.shipp_cost > 0" :class="'bg-primary text-white'"
+                  class="w-full h-14 p-2 rounded flex justify-between  gap-4 items-center col-span-2 -mb-3">
+                  <span>DHL</span>
+                  <span>${{ (resultShip.result.shipp_cost +
+                    resultShip.insurance).toFixed(2) }}</span>
+                </div>
+
+                <div v-if="resultShip.result.cargo > 0" :class="'bg-primary text-white'"
+                  class="w-full h-14 p-2 rounded flex justify-between gap-4 items-center col-span-2 -mb-3">
+                  <span>cargo</span>
+                  <span>${{ (resultShip.result.cargo +
+                    resultShip.insurance).toFixed(2) }}</span>
+                </div>
+
+                <div v-if="resultShip.result.occain > 0" :class="'bg-primary text-white'"
+                  class="w-full h-14 p-2 rounded flex gap-4 items-center col-span-2 -mb-3 justify-between ">
+                  <span>ocean</span>
+                  <span>${{ (resultShip.result.occain +
+                    resultShip.insurance).toFixed(2) }}</span>
+                </div>
               </div>
 
               <div v-else
@@ -567,9 +587,14 @@
                   <input type="number" required v-model="shippement.weight"
                     class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
                 </label>
-                <commun-combobox class="mt-auto"
+                <commun-dropdown class="mt-auto"
                   :list="[{ id: 'lbs', designation: 'lbs' }, { id: 'kg', designation: 'kg' }]"
                   :selected="shippement.weightUnit" @onSelectedItem="(id) => {
+                    if (id === 'kg') {
+                      shippement.lengthUnit = 'cm'
+                    } else {
+                      shippement.lengthUnit = 'in'
+                    }
                     shippement.weightUnit = id
                   }" />
               </div>
@@ -601,9 +626,14 @@
                 </label>
 
 
-                <commun-combobox class="mt-auto"
+                <commun-dropdown class="mt-auto"
                   :list="[{ id: 'in', designation: 'in' }, { id: 'cm', designation: 'cm' }]"
                   :selected="shippement.lengthUnit" @onSelectedItem="(id) => {
+                    if (id === 'cm') {
+                      shippement.weightUnit = 'kg'
+                    } else {
+                      shippement.weightUnit = 'lbs'
+                    }
                     shippement.lengthUnit = id
                   }" />
               </div>
@@ -684,12 +714,11 @@
       </div>
  -->
       <div class="w-full py-24 flex flex-col max-w-screen-xl justify-center items-center gap-12 px-6">
-        <span class="text-4xl font-bold text-primary">{{ t('commun.prohibited') }}</span>
+        <span class="text-4xl font-bold text-primary">{{ useProfile.webConfig.titre_prohibited }}</span>
 
         <div class="w-full max-w-screen-xl flex flex-col items-center gap-12 px-8">
           <span class="text-center max-w-2xl">
-            Prohibited items are not allowed to be exported from the USA under any circumstances. If a prohibited order
-            is submitted to us, it will be canceled. </span>
+            {{ useProfile.webConfig.text_prohibited }} </span>
 
           <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-12 p-4">
             <div v-for="item in useProfile.prohibItems" :key="item"
@@ -721,6 +750,7 @@ import { useWidgetStore } from '@/stores/widget';
 import receiptIcon from '@/assets/icons/receiptIcon.vue';
 import { useI18n } from 'vue-i18n';
 import communComboboxCountries from '@/components/commun/communComboboxCountries.vue';
+import communDropdown from '@/components/commun/communDropdown.vue';
 import axios from 'axios';
 
 import countries from '@/assets/countries.json'
@@ -882,7 +912,7 @@ const calculateShipement = async () => {
   Object.assign(resultShip, shippement)
 
   resultShip.mass = mass
-  resultShip.result = response.data.shipp_cost
+  resultShip.result = response.data
 
   /**
   Object.assign(shippement, {
