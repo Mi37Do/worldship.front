@@ -190,7 +190,9 @@ const addressBook = reactive(
 
 const types = ref(
   [
-    { id: 'from', designation: "from" }, { id: 'to', designation: "to" }, { id: 'b', designation: "billing" }
+    { id: 'from', designation: "from" }, { id: 'to', designation: "to" }
+    /**
+    , { id: 'b', designation: "billing" } */
   ]
 )
 

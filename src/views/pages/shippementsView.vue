@@ -180,6 +180,8 @@ onMounted(async () => {
 
     await useInbox.getShippements(localStorage.getItem('ws-user-id'))
     useInbox.filtredShippements = useInbox.shippements
+
+
     loading.value = false
   } catch (error) {
     loading.value = true

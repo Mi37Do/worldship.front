@@ -7,17 +7,25 @@
     <span v-if="item.type !== 'b'" class="h-8 my-auto flex items-center truncate">{{ item.company_name }} </span>
 
     <span v-if="item.type !== 'to'" class="h-8 my-auto flex items-center truncate gap-2">
-      <img :src="countries.find(i => i.id ===
-        item.countrie).image" class="w-6" alt="">
+      <img v-if="countries.find(i => i.id ===
+        item.countrie)" :src="countries.find(i => i.id ===
+          item.countrie).image" class="w-6" alt="">
+      <no-image-icon v-else class="w-6 h-6 fill-slate-500" />
       {{countries.find(i => i.id ===
-        item.countrie).name}} </span>
+        item.countrie) ? countries.find(i => i.id ===
+          item.countrie).name : '-----'}} </span>
     <span v-if="item.type !== 'to'" class="h-8 my-auto flex items-center truncate">{{ item.zip_code }}</span>
     <span class="h-8 my-auto flex items-center truncate">{{ item.type === 'to' ? item.city_id.name :
       item.city_c }}</span>
     <span class="h-8 my-auto flex items-center truncate">{{ item.adr }} </span>
-    <span class="h-8 my-auto flex items-center truncate">{{ item.adr_l2 || '----' }} </span>
+
+    <span v-if="item.type === 'to'" class="h-8 my-auto flex items-center truncate">{{ item.adr_l2 || '----' }} </span>
     <div class="flex items-center justify-between my-auto ">
-      <span class="h-8 my-auto flex items-center truncate">{{ item.instructions || '----' }} </span>
+      <span v-if="item.type === 'to'" class="h-8 my-auto flex items-center truncate">{{ item.instructions || '----' }}
+      </span>
+
+
+      <span v-else class="h-8 my-auto flex items-center truncate">{{ item.adr_l2 || '----' }} </span>
       <item-more :item="item" />
     </div>
 
@@ -30,6 +38,7 @@ import eyeIcon from '@/assets/icons/eyeIcon.vue';
 import itemMore from './itemMore.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { formatPhoneNumber } from '@/utils/phoneUtils';
+import noImageIcon from '@/assets/icons/noImageIcon.vue';
 import { useRoute } from 'vue-router';
 import countries from '@/assets/countries.json'
 

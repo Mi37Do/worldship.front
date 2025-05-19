@@ -1,16 +1,17 @@
 <template>
-  <div class="w-full h-fit lg:h-[4.5rem] border bg-white rounded-md border-slate-200  transition-all duration-150">
+  <div :class="item.is_dg ? 'border-red-500' : 'border-slate-200'"
+    class="w-full h-fit lg:h-[4.5rem] border bg-white rounded-md   transition-all duration-150">
 
     <div :class="route.name === 'shippements' ? 'grid-cols-5' : 'g:grid grid-cols-4'"
       class="w-full h-full hidden lg:grid  gap-2 uppercase font-medium hover:bg-slate-50 px-4 ">
       <div class="w-full h-full flex items-center gap-4">
-        <div class="w-12 h-12 bg-slate-100 rounded-md flex items-center justify-center overflow-hidden">
+        <div class="w-12 h-12  rounded-md flex items-center justify-center overflow-hidden">
           <img v-if="item.images" :src="item.images" alt=""
             v-viewer="{ button: true, navbar: false, title: false, toolbar: false, tooltip: false, movable: false, zoomable: false, rotatable: false, scalable: false, keyboard: true }">
           <no-image-icon v-else class="w-6 h-6 fill-slate-500" />
         </div>
         <span class="h-8  my-auto  flex items-center truncate">{{ format(item.created_at, 'dd-MM-yyyy | hh:mm')
-        }}</span>
+          }}</span>
       </div>
 
 
@@ -56,7 +57,7 @@
         <div class="w-full flex items-center justify-between ">
           <div class="flex-1 flex flex-col">
             <span class="h-8  my-auto  flex items-center truncate">{{ format(item.created_at, 'dd-MM-yyyy | hh:mm')
-            }}</span><span class=" my-auto flex items-center truncate">{{ item.code }}</span>
+              }}</span><span class=" my-auto flex items-center truncate">{{ item.code }}</span>
           </div>
 
 

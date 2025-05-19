@@ -148,7 +148,7 @@ import itemData from '@/components/inbox/itemData.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { useInboxStore } from '@/stores/inbox';
 import shipSelectedItemsModal from '@/components/inbox/shipSelectedItemsModal.vue';
-import { computed, onMounted, reactive, ref, watch } from 'vue';
+import { computed, onBeforeMount, onMounted, reactive, ref, watch } from 'vue';
 import addNoteModal from '@/components/inbox/addNoteModal.vue';
 import returnModal from '@/components/inbox/returnModal.vue';
 import itemsModal from '@/components/shippement/itemsModal.vue';
@@ -179,6 +179,11 @@ const filterDate = reactive(
     to: null
   }
 )
+
+onBeforeMount(() => {
+  useInbox.filtredInboxs = []
+})
+
 
 onMounted(async () => {
   try {

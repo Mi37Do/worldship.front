@@ -121,6 +121,11 @@
                   </div>
 
                   <div class="flex flex-col gap-1">
+                    <span class=" font-medium">name</span>
+                    <span>
+                      {{useProfile.locations.find(item => item.id === tempBook).name}}</span>
+                  </div>
+                  <div class="flex flex-col gap-1">
                     <span class=" font-medium">city</span>
                     <span>
                       {{formatPhoneNumber(useProfile.locations.find(item => item.id === tempBook).city_id.name)}}</span>
@@ -166,10 +171,10 @@
                   </div>
 
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">city</span>
+                    <span class=" font-medium">company name</span>
                     <span>
-                      {{ useInbox.focusedShippement.address_book ?
-                        useInbox.focusedShippement.address_book.city_id.name : '-----' }}</span>
+                      {{
+                        useInbox.focusedShippement.address_book.company_name || '-----' }}</span>
                   </div>
 
                   <div class="flex flex-col gap-1">
@@ -177,8 +182,12 @@
                     <span>
                       {{formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).phone)}}</span>
                   </div>
-
-                  <span></span>
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">city</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book ?
+                        useInbox.focusedShippement.address_book.city_id.name : '-----' }}</span>
+                  </div>
 
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">adress line</span>
@@ -199,6 +208,14 @@
                       }}</span>
                   </div>
 
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">instructions</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book
+                        .instructions || '--------'
+                      }}</span>
+                  </div>
 
                 </div>
               </div>
@@ -345,57 +362,60 @@
                 </div>
                 <div class="w-full h-fit bg-primary/10 flex flex-col p-1 gap-1 rounded-md">
                   <div @click="async () => {
-                    isCargo = false
+                    isCargo = 'dhl'
                     useInbox.focusedShippement.use_cargo = false
                     let response = await axios.get(`/Dashboard/choose_ship_API/${route.params.id}/0`)
                     console.log(response.data)
                     useInbox.focusedShippement.total_price_cost = response.data.reslut
-                  }" :class="!isCargo ? 'bg-primary text-white' : 'hover:bg-white/80'"
+                  }" :class="isCargo === 'dhl' ? 'bg-primary text-white' : 'hover:bg-white/80 cursor-pointer'"
                     class="w-full h-14 p-2 rounded flex items-center">
                     <div class="flex-1 flex flex-col">
                       <span>dhl</span>
                       <span>$ {{ numberFormat(useInbox.focusedShippement.shipping_cost) }}
                       </span>
                     </div>
-                    <div v-if="!isCargo" class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
+                    <div v-if="isCargo === 'dhl'"
+                      class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
                       <check-icon class="w-4 h-4 fill-white" />
                     </div>
                   </div>
 
                   <div @click="async () => {
-                    isCargo = true
+                    isCargo = 'crg'
                     useInbox.focusedShippement.use_cargo = true
                     let response = await axios.get(`/Dashboard/choose_ship_API/${route.params.id}/1`)
                     console.log(response.data)
                     useInbox.focusedShippement.total_price_cost = response.data.reslut
 
-                  }" :class="isCargo ? 'bg-primary text-white' : 'hover:bg-white/80'"
+                  }" :class="isCargo === 'crg' ? 'bg-primary text-white' : 'hover:bg-white/80  cursor-pointer'"
                     class="w-full h-14 p-2 rounded flex items-center">
                     <div class="flex-1 flex flex-col">
                       <span>cargo</span>
                       <span>$ {{ numberFormat(useInbox.focusedShippement.cargo_shipping_cost) }}
                       </span>
                     </div>
-                    <div v-if="isCargo" class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
+                    <div v-if="isCargo === 'crg'"
+                      class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
                       <check-icon class="w-4 h-4 fill-white" />
                     </div>
                   </div>
 
                   <div @click="async () => {
-                    isCargo = true
+                    isCargo = 'occ'
                     useInbox.focusedShippement.use_cargo = true
                     let response = await axios.get(`/Dashboard/choose_ship_API/${route.params.id}/2`)
-                    console.log(response.data)
+
                     useInbox.focusedShippement.total_price_cost = response.data.reslut
 
-                  }" :class="isCargo ? 'bg-primary text-white' : 'hover:bg-white/80'"
+                  }" :class="isCargo === 'occ' ? 'bg-primary text-white' : 'hover:bg-white/80  cursor-pointer'"
                     class="w-full h-14 p-2 rounded flex items-center">
                     <div class="flex-1 flex flex-col">
                       <span>ocean</span>
                       <span>$ {{ numberFormat(useInbox.focusedShippement.occain_shipping_cost) }}
                       </span>
                     </div>
-                    <div v-if="isCargo" class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
+                    <div v-if="isCargo === 'occ'"
+                      class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
                       <check-icon class="w-4 h-4 fill-white" />
                     </div>
                   </div>
@@ -411,7 +431,7 @@
               <div v-for="item in useInbox.packageOptions" :key="item.id" class="w-full grid grid-cols-2 gap-4">
 
                 <span class="font-semibold h-10 flex items-center">{{ item.name }} <br> ($ {{ numberFormat(item.price)
-                }})</span>
+                  }})</span>
                 <div class="flex justify-end">
                   <commun-switch v-if="!useInbox.focusedShippement.is_payed"
                     :enabled="!!useInbox.focusedShippement.option_package_ids.find(i => i.id === item.id)"
@@ -429,7 +449,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-              }}
+                }}
               </span>
             </div>
 
@@ -489,7 +509,7 @@ const tempCards = ref([])
 const tempItems = ref([])
 const deliverToCenter = ref(true)
 const tempAdresses = ref([])
-const isCargo = ref(false)
+const isCargo = ref('dhl')
 const isPicture = ref(false)
 
 onMounted(async () => {
@@ -513,7 +533,7 @@ onMounted(async () => {
       tempBook.value = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : null
     }
 
-    if (useInbox.focusedShippement.use_cargo) isCargo.value = true
+    useInbox.focusedShippement.type_sh = isCargo.value
 
 
     tempCards.value = useInvoices.cards.map((item) => {
@@ -563,7 +583,7 @@ onMounted(async () => {
 
     console.log(tempItems.value);
 
-
+    useBook.addresses = useBook.addresses.filter(item => item.type === 'to')
     useBook.tempBooks = useBook.addresses.map(item => ({
       id: item.id,
       designation: item.name

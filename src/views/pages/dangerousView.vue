@@ -247,7 +247,7 @@ const onFilterItems = (item) => {
         <button @click="useWidget.openSide = true" class="btn btn-sm btn-square btn-ghost  md:hidden">
           <side-menu />
         </button>
-        <span class="pixa-title flex-1">{{ $t('navigation.links.inbox') }}</span>
+        <span class="pixa-title flex-1">dg</span>
       </template>
     </top-app-bar>
 
@@ -390,7 +390,7 @@ import itemData from '@/components/inbox/itemData.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { useInboxStore } from '@/stores/inbox';
 import shipSelectedItemsModal from '@/components/inbox/shipSelectedItemsModal.vue';
-import { computed, onMounted, reactive, ref, watch } from 'vue';
+import { computed, onBeforeMount, onMounted, reactive, ref, watch } from 'vue';
 import addNoteModal from '@/components/inbox/addNoteModal.vue';
 import returnModal from '@/components/inbox/returnModal.vue';
 import itemsModal from '@/components/shippement/itemsModal.vue';
@@ -422,13 +422,14 @@ const filterDate = reactive(
   }
 )
 
+onBeforeMount(() => {
+  useInbox.filtredInboxs = []
+})
+
 onMounted(async () => {
   try {
     useInbox.inboxsToShip = []
     await useInbox.getInbox(localStorage.getItem('ws-user-id'))
-    useInbox.filtredInboxs = useInbox.inboxs.filter(item => item.state_wh === 'dg')
-
-    console.log(useInbox.filtredInboxs)
 
 
     useInbox.inboxs.map(item => ({

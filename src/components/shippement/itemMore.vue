@@ -17,20 +17,37 @@
           <div class="px-1 py-1">
             <MenuItem>
             <button @click="() => {
-              for (let index = 0; index < item.warehouse_order_ids.length; index++) {
-                const element = item.warehouse_order_ids[index]
-                for (let i = 0; i < element.wh_order.length; i++) {
-                  const elementx = element.wh_order[i]
+
+              if (route.name === 'shippement') {
+                for (let index = 0; index < item.warehouse_order_ids.length; index++) {
+                  const element = item.warehouse_order_ids[index]
+                  for (let i = 0; i < element.wh_order.length; i++) {
+                    const elementx = element.wh_order[i]
+                    useInbox.items.push({
+                      id: elementx.id,
+                      name: elementx.name_id.name,
+                      qty: elementx.qty,
+                      images: elementx.images,
+                      price: elementx.price,
+                      code: elementx.name_id.code,
+                    })
+                  }
+                }
+              } else {
+                for (let index = 0; index < item.sh_package.length; index++) {
+                  const element = item.sh_package[index]
                   useInbox.items.push({
-                    id: elementx.id,
-                    name: elementx.name_id.name,
-                    qty: elementx.qty,
-                    images: elementx.images,
-                    price: elementx.price,
-                    code: elementx.name_id.code,
+                    id: element.id,
+                    name: element.name_id.name,
+                    qty: element.qty,
+                    images: element.images,
+                    price: element.price,
+                    code: element.name_id.code,
                   })
                 }
               }
+
+
 
               useWidget.orderItems = true
             }

@@ -99,8 +99,7 @@
                   }" /> -->
               </div>
 
-              <div v-if="useInbox.focusedShippement.state === 'n'"
-                class="w-full p-1 bg-primary rounded-md grid grid-cols-2 gap-1">
+              <div class="w-full p-1 bg-primary rounded-md grid grid-cols-2 gap-1">
                 <button @click="async () => {
                   adressFrom = true
                 }" :class="adressFrom ? ' pixa-btn-float' : 'border-0 bg-transparent hover:bg-white/20 text-white'"
@@ -143,17 +142,30 @@
                   </div>
 
                   <div class="flex flex-col gap-1">
+                    <span class=" font-medium">company name</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book_from.company_name || '------' }}</span>
+                  </div>
+
+                  <div class="flex flex-col gap-1">
                     <span class=" font-medium">phone</span>
                     <span>
                       {{ formatPhoneNumber(useInbox.focusedShippement.address_book_from.phone) }}</span>
                   </div>
 
+                  <span></span>
+
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">country</span>
-                    <span>
-                      {{useInbox.focusedShippement.address_book_from.countrie_id ? countries.find(i => i.id ===
-                        useInbox.focusedShippement.address_book_from.countrie_id).name : '-----'
-                      }}</span>
+                    <div class="flex gap-2 items-center">
+                      <img v-if="useInbox.focusedShippement.address_book_from.countrie" :src="countries.find(i => i.id ===
+                        useInbox.focusedShippement.address_book_from.countrie).image" class="w-6" alt="">
+                      <span>
+                        {{useInbox.focusedShippement.address_book_from.countrie ? countries.find(i => i.id ===
+                          useInbox.focusedShippement.address_book_from.countrie).name : '-----'
+                        }}</span>
+                    </div>
+
                   </div>
 
 
@@ -236,22 +248,21 @@
                   </div>
 
                   <div class="flex flex-col gap-1">
+                    <span class=" font-medium">company name</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book_to.company_name || '------' }}</span>
+                  </div>
+
+
+                  <div class="flex flex-col gap-1">
                     <span class=" font-medium">phone</span>
                     <span>
                       {{ formatPhoneNumber(useInbox.focusedShippement.address_book_to.phone) }}</span>
                   </div>
-
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">city</span>
                     <span>
                       {{ useInbox.focusedShippement.address_book_to.city_id.name || '-----'
-                      }}</span>
-                  </div>
-
-                  <div class="flex flex-col gap-1">
-                    <span class=" font-medium">zip</span>
-                    <span>
-                      {{ useInbox.focusedShippement.address_book_to.zip_code || '-----'
                       }}</span>
                   </div>
 
@@ -266,6 +277,13 @@
                     <span class=" font-medium">address line 2</span>
                     <span>
                       {{ useInbox.focusedShippement.address_book_to.adr_l2 || '-----'
+                      }}</span>
+                  </div>
+
+                  <div class="flex flex-col gap-1">
+                    <span class=" font-medium">instructions</span>
+                    <span>
+                      {{ useInbox.focusedShippement.address_book_to.instructions || '-----'
                       }}</span>
                   </div>
                 </div>
@@ -324,7 +342,7 @@
                         class="truncate uppercase py-1 w-fit px-2 rounded-md text-xs font-semibold">{{
                           item.status_items === 'n' ? 'new' : 'used' }}</span>
 
-                      <item-package-more :item="item" />
+                      <item-package-more v-if="useInbox.focusedShippement.state === 'n'" :item="item" />
                     </div>
 
                   </div>
@@ -379,12 +397,12 @@
               <span class="font-semibold h-10 flex items-center">Package Value</span>
 
               <span class="text-right my-auto">$ {{ numberFormat(useInbox.focusedShippement.total_price) }}</span>
-
+              <!--
               <span v-if="useInbox.focusedShippement.deliver_type === 'h'"
                 class="font-semibold h-10 flex items-center">deliver to home</span>
 
               <span v-if="useInbox.focusedShippement.deliver_type === 'h'" class="text-right my-auto">$ {{
-                numberFormat(useInbox.focusedShippement.deliver_to_home) }}</span>
+                numberFormat(useInbox.focusedShippement.deliver_to_home) }}</span>-->
 
               <span class="font-semibold h-10 flex items-center">add Insurance $ {{
                 numberFormat(useInbox.focusedShippement.total_insurance) }} </span>
@@ -399,17 +417,21 @@
                 useProfile.totalCoins }}
                   coin)</span></span>
 
-              <form @submit.prevent="useCoins" class="w-fit h-fit relative overflow-hidden">
+              <form @submit.prevent="useCoins" class="w-fit h-fit relative overflow-hidden flex flex-col ">
                 <input type="number" min="500" placeholder="coins"
-                  :disabled="loadingCoin || tempCoins > useProfile.totalCoins && useInbox.focusedShippement.state !== 'n'"
+                  :disabled="(loadingCoin || tempCoins > useProfile.totalCoins) && useInbox.focusedShippement.state !== 'n'"
                   v-model="tempCoins" class="pixa-input px-4 w-full ml-auto placeholder:uppercase">
 
-                <button type="submit" :disabled="loadingCoin || tempCoins > useProfile.totalCoins"
+                <button type="submit"
+                  :disabled="(loadingCoin || tempCoins > useProfile.totalCoins) && useInbox.focusedShippement.state !== 'n'"
                   :class="!tempCoins || tempCoins < 500 ? '-right-12' : 'right-1'"
                   class="btn btn-sm btn-square absolute btn-primary top-1 transition-all duration-150 ">
                   <span v-if="loadingCoin" class="loading loading-ring loading-sm"></span>
                   <check-icon v-else class="w-5 h-5" />
                 </button>
+
+                <span v-if="useInbox.focusedShippement.state === 'n'" class="text-red-500 mt-2">minimum coins to use
+                  500</span>
               </form>
 
               <span class="font-semibold my-auto">Use Promo Code</span>

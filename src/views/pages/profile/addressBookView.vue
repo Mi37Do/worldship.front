@@ -15,10 +15,11 @@
           <router-link :to="{ name: 'to-addresses' }"
             :class="route.name === 'to-addresses' ? 'btn-primary' : 'btn-ghost'" class="btn btn-sm pixa-btn">to
             address</router-link>
+          <!--
           <router-link :to="{ name: 'billing-addresses' }"
             :class="route.name === 'billing-addresses' ? 'btn-primary' : 'btn-ghost'"
             class="btn btn-sm pixa-btn">billing
-            address</router-link>
+            address</router-link> -->
         </div>
         <div class="flex gap-2">
 

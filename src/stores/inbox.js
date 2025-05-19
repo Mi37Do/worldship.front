@@ -28,8 +28,13 @@ export const useInboxStore = defineStore('inbox', () => {
     inboxsToShip.value = []
     try {
       if (user_id) {
-        response = await axios.get(`/Warehouse/InBoxsAll/${user_id}/`)
-        inboxs.value = response.data.reverse()
+        if (route.name === 'inbox') {
+          response = await axios.get(`/Warehouse/InBoxsAll/${user_id}/`)
+          inboxs.value = response.data.reverse()
+        } else {
+          response = await axios.get(`/Warehouse/DGInBoxsAll/${user_id}/`)
+          inboxs.value = response.data.reverse()
+        }
       }
     } catch (error) {
       console.error(error)
