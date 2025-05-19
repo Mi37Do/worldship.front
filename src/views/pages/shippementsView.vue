@@ -16,7 +16,13 @@
       <span class="loading loading-ring loading-sm"></span>
     </div>
 
-    <div v-else class="w-full flex-1 py-4 flex flex-col gap-4 overflow-hidden">
+    <div v-else class="w-full flex-1 py-4 flex flex-col gap-4 overflow-hidden relative">
+
+
+      <div
+        class="w-fit h-10 bg-white rounded-lg border text-red-500 border-red-500 px-3 flex items-center absolute bottom-3 right-1 uppercase z-10">
+        {{ useProfile.webConfig.alert_wh_dg }}
+      </div>
 
       <tracking-modal />
       <items-modal />
@@ -110,9 +116,11 @@ import dateFilterModal from '@/components/commun/dateFilterModal.vue';
 import { format, isAfter, isBefore } from 'date-fns';
 import sideMenu from '@/assets/icons/sideMenu.vue';
 import { useInvoicesStore } from '@/stores/invoices';
+import { useProfileStore } from '@/stores/profile';
 
 const useWidget = useWidgetStore()
 const useInbox = useInboxStore()
+const useProfile = useProfileStore()
 const useInvoices = useInvoicesStore()
 const loading = ref(true)
 const filterDate = reactive(
