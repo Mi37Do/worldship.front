@@ -21,11 +21,13 @@
               <div class="label">
                 <span class="label-text uppercase">type </span>
               </div>
+              <input type="text" disabled v-model="addressBook.type"
+                class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+              <!--
               <commun-combobox :list="types" :selected="addressBook.type" :top="true" @onSelectedItem="(id) => {
                 addressBook.type = id
-              }" :required="true" />
+              }" :required="true" /> -->
             </div>
-
 
 
             <label class="form-control w-full">
@@ -75,25 +77,32 @@
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
             </label>
 
-
+            <!--
             <div v-if="addressBook.type === 'to'" class="form-control w-full">
               <div class="label">
                 <span class="label-text uppercase">City </span>
               </div>
               <commun-combobox :list="useBook.cities" :selected="addressBook.City" :top="true"
                 @onSelectedItem="onSelectedItem" :required="true" />
-            </div>
+            </div> -->
 
 
 
-            <label v-else class="form-control w-full">
+            <label class="form-control w-full">
               <div class="label">
                 <span class="label-text uppercase">country </span>
               </div>
 
-              <commun-combobox-countries class="mt-auto" :required="true" :list="countries"
+
+
+              <commun-combobox v-if="addressBook.type === 'to'" :list="useProfile.countries"
+                :selected="addressBook.countrie" :top="true" @onSelectedItem="(id) => {
+                  addressBook.countrie = id
+                }" :required="true" />
+
+              <commun-combobox-countries v-else class="mt-auto" :required="true" :list="countries"
                 :selected="addressBook.countrie" @onSelectedItem="(id) => {
-                  console.log(id);
+                  console.log(id)
 
                   addressBook.countrie = id
                 }" />
@@ -108,7 +117,7 @@
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
             </label>
 
-            <label v-if="addressBook.type !== 'to'" class="form-control w-full">
+            <label class="form-control w-full">
               <div class="label">
                 <span class="label-text uppercase">city </span>
               </div>
@@ -169,19 +178,22 @@ import axios from 'axios';
 import { objectToFormData } from '@/utils/formDataUtils'
 import CommunSwitch from '../commun/communSwitch.vue';
 import { useProfileStore } from '@/stores/profile';
+import { useRoute } from 'vue-router';
 
 const useProfile = useProfileStore()
 const useWidget = useWidgetStore()
+const props = defineProps(['type'])
 const useBook = useBookStore()
 const loadingSave = ref(false)
 const loading = ref(true)
+const route = useRoute()
 const addressBook = reactive(
   {
     name: '',
     phone: '',
     Second_phone: '',
     City: null,
-    adr: '', type: 'from',
+    adr: '', type: route.name.replace('-addresses', ''),
     instruction: '', city_c: '', zip_code
       : '', state: '', adr_l2: '',
     countrie: null, useDefault: false, company_name: ''
@@ -203,14 +215,12 @@ watch(() => useWidget.addAddressBook.open, () => {
       phone: '',
       Second_phone: '',
       City: null,
-      adr: '', type: 'from',
+      adr: '',
       instruction: '', city_c: '', zip_code
         : '', state: '', adr_l2: '',
       countrie: null, useDefault: false, company_name: ''
     })
   } else {
-    console.log(useBook.focusedBook)
-
     Object.assign(addressBook, {
       id: useBook.focusedBook.id,
       name: useBook.focusedBook.name,
@@ -228,6 +238,11 @@ watch(() => useWidget.addAddressBook.open, () => {
 const onSelectedItem = (id) => {
   addressBook.City = id
 }
+
+watch(() => props.type, () => {
+
+  addressBook.type = props.type
+})
 
 const addEditBook = async () => {
 

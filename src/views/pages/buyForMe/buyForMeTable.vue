@@ -26,11 +26,12 @@
           <commun-list-box :list="types" :selected="selectedType" @onSelectedItem="async (id) => {
             selectedType = id
             console.log(id);
+            console.log(useInbox.filterBuyForMes)
 
             if (id === 'all') {
-              useInbox.filtredShippements = useInbox.shippements
+              useInbox.filterBuyForMes = useInbox.buyForMes
             } else {
-              useInbox.filtredShippements = id === 'p' ? useInbox.shippements.filter(item => item.is_payed === true) : useInbox.shippements.filter(item => item.is_payed === false)
+              useInbox.filterBuyForMes = useInbox.buyForMes.filter(item => item.state === id)
             }
           }" />
         </div>

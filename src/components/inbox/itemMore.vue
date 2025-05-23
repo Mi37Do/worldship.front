@@ -15,7 +15,7 @@
             useWidget.userLanguage === 'en' ? ' origin-top-right right-12' : ' origin-top-left left-12',
             'absolute  w-48 divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black/5 focus:outline-none z-50 top-0']">
           <div class="px-1 py-1">
-            <MenuItem>
+            <MenuItem class="lg:hidden">
             <button @click="() => {
               useInbox.focusedInbox = item
               console.log(item);

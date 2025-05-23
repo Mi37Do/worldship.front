@@ -185,7 +185,7 @@
                   <div class="flex flex-col gap-1">
                     <span class=" font-medium">city</span>
                     <span>
-                      {{ useInbox.focusedShippement.address_book ?
+                      {{ useInbox.focusedShippement.address_book && useInbox.focusedShippement.address_book.city_id ?
                         useInbox.focusedShippement.address_book.city_id.name : '-----' }}</span>
                   </div>
 
@@ -598,6 +598,10 @@ onMounted(async () => {
 
     loading.value = true
   }
+})
+
+watch(() => useBook.addresses, () => {
+
 })
 
 const onSelectedEnabledOption = async (value, id) => {

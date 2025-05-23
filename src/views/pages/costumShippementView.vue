@@ -19,7 +19,7 @@
     <div v-else class="w-full flex-1 overflow-auto ">
       <div class="w-full h-fit py-4 flex flex-col gap-4">
 
-        <add-adress-book />
+        <add-adress-book :type="adressFrom ? 'from' : 'to'" />
         <add-edit-item />
         <DeleteModal :item="useInbox.focusedItem" @deleteItem="async (id) => {
           try {
@@ -518,7 +518,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-              }}
+                }}
               </span>
             </div>
 

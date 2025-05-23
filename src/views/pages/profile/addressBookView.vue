@@ -4,7 +4,7 @@
   </div>
 
   <div v-else class="w-full h-full flex flex-col overflow-hidden">
-    <add-adress-book />
+    <add-adress-book :type="route.name.replace('-addresses', '')" />
     <deleteModal :item="useBook.focusedBook" @deleteItem="onDeleteItem" />
     <div class="w-full flex-1 pb-4 flex flex-col gap-4 overflow-hidden">
       <div class="w-full h-fit flex items-center justify-between">

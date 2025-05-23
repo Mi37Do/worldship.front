@@ -18,7 +18,8 @@
             <MenuItem>
             <button @click="() => {
 
-              if (route.name === 'shippement') {
+              /***/
+              if (route.name === 'shippements') {
                 for (let index = 0; index < item.warehouse_order_ids.length; index++) {
                   const element = item.warehouse_order_ids[index]
                   for (let i = 0; i < element.wh_order.length; i++) {

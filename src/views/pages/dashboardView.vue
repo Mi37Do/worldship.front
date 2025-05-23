@@ -9,7 +9,6 @@
       </template>
     </top-app-bar>
 
-
     <div :style="backgroundStyle" class="w-full flex-1 py-4 flex flex-col gap-4 overflow-hidden ">
       <div class="w-full h-10 flex items-center justify-between">
         <div class="flex gap-3 items-center">
@@ -24,9 +23,9 @@
           class="w-full h-fit lg:w-[400px] xl:w-[550px] bg-white rounded-lg border border-slate-200 flex flex-col items-center gap-4 p-4">
 
           <div class="w-28 h-28 bg-slate-300 rounded-md p-0.5">
-            <img :src="env + useProfile.profile.config_web.backgroud_dash_image" alt=""
-              class="w-full h-full object-cover">
+            <img :src="env + useProfile.profile.user.addresse_site.image" alt="" class="w-full h-full object-cover">
           </div>
+
 
           <div class="w-full h-fit mt-4 flex flex-col gap-4 uppercase">
             <div class="w-full flex gap-4">
@@ -36,11 +35,12 @@
                   useProfile.profile.user.last_name
                   }}</span>
                 <div :class="[copied && typeCopied === 'name' ? 'tooltip' : '']" data-tip="copied">
+                  <!--
                   <button
                     @click="copyText(useProfile.profile.user.first_name + ' ' + useProfile.profile.user.last_name, 'name')"
                     class="btn btn-sm btn-square btn-ghost">
                     <copy-icon class="w-5 h-5" />
-                  </button>
+                  </button> -->
                 </div>
 
               </span>
@@ -51,10 +51,11 @@
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1">{{ useProfile.profile.user.addresse_site.adr }}</span>
                 <div :class="[copied && typeCopied === 'adr1' ? 'tooltip' : '']" data-tip="copied">
+                  <!--
                   <button @click="copyText(useProfile.profile.user.addresse_site.adr, 'adr1')"
                     class="btn btn-sm btn-square btn-ghost">
                     <copy-icon class="w-5 h-5" />
-                  </button>
+                  </button>-->
                 </div>
               </span>
             </div>
@@ -65,10 +66,11 @@
                 <span class="flex-1 truncate">{{ useProfile.profile.user.code
                   }}</span>
                 <div :class="[copied && typeCopied === 'code' ? 'tooltip' : '']" data-tip="copied">
+                  <!--
                   <button @click="copyText(useProfile.profile.user.code, 'code')"
                     class="btn btn-sm btn-square btn-ghost">
                     <copy-icon class="w-5 h-5" />
-                  </button>
+                  </button>-->
                 </div>
               </span>
             </div>
@@ -78,10 +80,11 @@
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ useProfile.profile.user.addresse_site.city }}</span>
                 <div :class="[copied && typeCopied === 'city' ? 'tooltip' : '']" data-tip="copied">
+                  <!--
                   <button @click="copyText(useProfile.profile.user.addresse_site.city, 'city')"
                     class="btn btn-sm btn-square btn-ghost">
                     <copy-icon class="w-5 h-5" />
-                  </button>
+                  </button>-->
                 </div>
               </span>
             </div>
@@ -91,10 +94,11 @@
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ useProfile.profile.user.addresse_site.state }}</span>
                 <div :class="[copied && typeCopied === 'state' ? 'tooltip' : '']" data-tip="copied">
+                  <!--
                   <button @click="copyText(useProfile.profile.user.addresse_site.state, 'state')"
                     class="btn btn-sm btn-square btn-ghost">
                     <copy-icon class="w-5 h-5" />
-                  </button>
+                  </button>-->
                 </div>
               </span>
             </div>
@@ -104,10 +108,11 @@
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ useProfile.profile.user.addresse_site.zip_code }}</span>
                 <div :class="[copied && typeCopied === 'zip' ? 'tooltip' : '']" data-tip="copied">
+                  <!--
                   <button @click="copyText(useProfile.profile.user.addresse_site.zip_code, 'zip')"
                     class="btn btn-sm btn-square btn-ghost">
                     <copy-icon class="w-5 h-5" />
-                  </button>
+                  </button>-->
                 </div>
               </span>
             </div>
@@ -118,10 +123,11 @@
                 <span class="flex-1 truncate">{{ formatPhoneNumber(useProfile.profile.user.addresse_site.phone)
                   }}</span>
                 <div :class="[copied && typeCopied === 'phone' ? 'tooltip' : '']" data-tip="copied">
+                  <!--
                   <button @click="copyText(useProfile.profile.user.addresse_site.phone, 'phone')"
                     class="btn btn-sm btn-square btn-ghost">
                     <copy-icon class="w-5 h-5" />
-                  </button>
+                  </button>-->
                 </div>
               </span>
             </div>
@@ -137,6 +143,7 @@
             useProfile.profile.user.phone, 'full')" class="btn btn-sm pixa-btn mt-4 btn-primary w-full">copy</button>
 
         </div>
+
 
         <div class="flex-1 h-fit grid xl:grid-cols-2 gap-4">
           <div class="w-full h-fit bg-white rounded-lg border border-slate-200 flex flex-col gap-2 p-4">
