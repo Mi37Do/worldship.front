@@ -1,10 +1,16 @@
 <script setup>
 import { useProfileStore } from '@/stores/profile';
 import sideMenu from '@/assets/icons/sideMenu.vue';
+import signoutIcon from '@/assets/icons/signoutIcon.vue';
 import { onMounted } from 'vue';
+import Cookies from 'js-cookie';
+import languageSwitcher from '@/components/navigations/languageSwitcher.vue';
+import axios from 'axios';
+import { useWidgetStore } from '@/stores/widget';
 
 const env = import.meta.env.VITE_WORLDSHIP_API
 const useProfile = useProfileStore()
+const useWidget = useWidgetStore()
 
 onMounted(async () => {
   await useProfile.getWebConfig()
@@ -15,8 +21,8 @@ onMounted(async () => {
   <div class="drawer">
     <input id="landing-drawer" type="checkbox" class="drawer-toggle" />
     <main class=" w-full min-h-screen flex flex-col items-center relative  uppercase drawer-content">
-      <div
-        class="w-full h-16 fixed top-4 bg-white rounded-2xl overflow-hidden shadow-2xl shadow-blue-700/20 max-w-[560px] z-20 flex items-center justify-between pr-3">
+      <div :class="useWidget.userLanguage === 'en' ? ' pr-3' : 'pl-3'"
+        class="w-full h-16 fixed top-4 bg-white rounded-2xl overflow-hidden shadow-2xl shadow-blue-700/20 max-w-[600px] z-20 flex items-center justify-between">
 
         <label for="landing-drawer" class="btn btn-sm pixa-btn w-10  md:hidden ml-4 btn-ghost flex  p-0">
           <side-menu class="w-5 h-5" />
@@ -37,8 +43,24 @@ onMounted(async () => {
           name: useProfile.isAuth ? 'dashboard'
             : 'login'
         }" class="btn btn-sm pixa-btn btn-primary">{{ useProfile.isAuth ? 'dashboard'
-            : 'login' }} </router-link>
+          : 'login' }} </router-link>
+
       </div>
+
+
+      <div class="flex gap-3  absolute right-4 top-6  z-10">
+        <language-switcher />
+        <button v-if="Cookies.get('token')" @click="async () => {
+          let response = await axios.get(`/logout_API`)
+          Cookies.remove('token')
+          window.location.reload()
+        }" class="btn btn-sm pixa-btn hidden md:flex pixa-menu-btn-delete btn-ghost">
+          <signoutIcon class="w-5 h-5" />
+          <span>signout</span>
+        </button>
+      </div>
+
+
       <router-view></router-view>
       <div class="w-full h-fit bg-[#0e1d34] rounded-t-3xl grid md:grid-cols-2 gap-4 px-6 py-12 text-white relative">
 
@@ -87,6 +109,15 @@ onMounted(async () => {
           <a href="#services" class="btn btn-sm pixa-btn btn-ghost w-full">services</a>
           <a href="#pricing" class="btn btn-sm pixa-btn btn-ghost w-full">pricing</a>
         </nav>
+
+        <button v-if="Cookies.get('token')" @click="async () => {
+          let response = await axios.get(`/logout_API`)
+          Cookies.remove('token')
+          window.location.reload()
+        }" class="btn btn-sm pixa-btn mt-auto w-full pixa-menu-btn-delete btn-ghost">
+          <signoutIcon class="w-5 h-5" />
+          <span>signout</span>
+        </button>
       </ul>
     </div>
   </div>

@@ -21,7 +21,7 @@
             <span class="text-red-500">Insurance </span>
             <span class="text-right my-auto text-red-500"> $ {{ numberFormat(item.add_insurance ? item.total_insurance :
               0)
-            }} </span>
+              }} </span>
             <span class="text-red-500">Package Options </span>
             <span class="text-right my-auto text-red-500">$ {{ numberFormat(item.total_price_options) }} </span>
             <span>Coins </span>
@@ -29,7 +29,7 @@
 
             <span v-if="item.deliver_to_type === 'h'">Shipping Cost </span>
             <span v-if="item.deliver_to_type === 'h'" class="text-right my-auto">$ {{ numberFormat(item.deliver_to_home)
-            }}
+              }}
             </span>
             <span v-if="!item.use_cargo">DHL </span>
             <span v-if="!item.use_cargo" class="text-right my-auto">$ {{ numberFormat(item.shipping_cost) }}
@@ -59,6 +59,7 @@
         </div>
       </div>
 
+      <!--
       <div class="form-control w-full">
         <div class="label">
           <span class="label-text uppercase">balance type </span>
@@ -68,7 +69,9 @@
           preview = null
           onSelectedType(id)
         }" />
-      </div>
+      </div>-->
+
+
       <!--
       <div v-if="types.find(item => item.id === walletType).type_payment === 'c'"
         class="w-full flex-1 overflow-auto pt-8 flex flex-col gap-4">
@@ -192,7 +195,7 @@ const useWidget = useWidgetStore()
 const loadingAdd = ref(false)
 const useProfile = useProfileStore()
 const env = import.meta.env.VITE_WORLDSHIP_API
-const walletType = ref(props.types[0].id)
+const walletType = ref(0)
 const preview = ref(null)
 const fileName = ref('')
 const route = useRoute()
@@ -236,8 +239,12 @@ const closeModal = () => {
     pack_pay_type_id: null,
     image: null
   })
-  walletType.value = props.types[0].id
+  walletType.value = 0
 }
+
+console.log(props.types)
+
+
 
 const newPayment = async () => {
 

@@ -46,6 +46,11 @@
           </button>
         </div>
 
+        <router-link :to="{ name: 'add-buyForMe' }" class="btn btn-sm pixa-btn btn-primary">
+          <plus-icon class="w-5" />
+          add buy for me
+        </router-link>
+
       </div>
 
       <div class="flex gap-2 items-center lg:hidden">

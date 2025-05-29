@@ -456,8 +456,48 @@
 
             </form>
 
-            <form @submit.prevent="calculateShipement" v-else-if="tab === 'shipement'"
+            <form @submit.prevent="calculateShipement" v-if="tab === 'shipement'"
               class="w-full h-fit flex flex-col gap-4">
+              <label class="form-control w-full md:col-span-3">
+                <div class="label">
+                  <span class="label-text uppercase">type <span class="text-red-500">*</span></span>
+                </div>
+
+                <commun-combobox class="mt-auto" :required="true" :list="[
+                  { id: 'exprec', designation: 'express' },
+                  { id: 'cargo', designation: 'cargo' },
+                  { id: 'occain', designation: 'ocean ' }
+                ]" :selected="shippement.type" @onSelectedItem="(id) => {
+                  shippement.type = id
+                  shippement.cityCode = useProfile.countries.find(item => item.designation.toUpperCase() === 'IRAK').id
+                }" />
+              </label>
+
+              <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text uppercase">shipping from <span class="text-red-500">*</span></span>
+                </div>
+
+
+                <input disabled :placeholder="useProfile.address_site.find(item => item.use_defaulte).name"
+                  class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4">
+
+              </label>
+
+              <div class="form-control w-full">
+                <div class="label">
+                  <span class="label-text uppercase">deliver to <span class="text-red-500">*</span></span>
+                </div>
+                <input v-if="shippement.type === 'cargo'" disabled placeholder="IRAK"
+                  class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4">
+
+                <commun-combobox v-else class="mt-auto" :required="true" :list="useProfile.countries"
+                  :selected="shippement.city" @onSelectedItem="(id) => {
+                    shippement.city = id
+                    shippement.cityCode = id
+                  }" />
+              </div>
+
               <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <label class="form-control w-full md:col-span-3">
                   <div class="label">
@@ -479,28 +519,39 @@
               </div>
 
 
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <label class="form-control w-full">
+
+              <div v-if="showSize" class="w-full h-40 flex items-center justify-center uppercase">
+                <span @click="showSize = false" class="w-72 text-center cursor-pointer">if your package's length + widht
+                  +
+                  height is
+                  greater than 72 inches, please
+                  click here to
+                  provide the dimensions</span>
+              </div>
+
+              <div v-else class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <label class="form-control
+             flex-col gap-2">
                   <div class="label">
-                    <span class="label-text uppercase">l <span class="text-red-500">*</span></span>
+                    <span class="label-text uppercase">l</span>
                   </div>
-                  <input type="number" required v-model="shippement.l"
+                  <input type="number" v-model="shippement.l"
                     class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
                 </label>
 
-                <label class="form-control w-full">
+                <label class="form-control w-full mt-auto">
                   <div class="label">
-                    <span class="label-text uppercase">w <span class="text-red-500">*</span></span>
+                    <span class="label-text uppercase">w</span>
                   </div>
-                  <input type="number" required v-model="shippement.w"
+                  <input type="number" v-model="shippement.w"
                     class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
                 </label>
 
-                <label class="form-control w-full">
+                <label class="form-control w-full mt-auto">
                   <div class="label">
-                    <span class="label-text uppercase">h <span class="text-red-500">*</span></span>
+                    <span class="label-text uppercase">h</span>
                   </div>
-                  <input type="number" required v-model="shippement.h"
+                  <input type="number" v-model="shippement.h"
                     class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
                 </label>
 
@@ -520,24 +571,15 @@
 
 
 
-              <label class="form-control w-full">
-                <div class="label">
-                  <span class="label-text uppercase">city <span class="text-red-500">*</span></span>
-                </div>
-                <commun-combobox class="mt-auto" :required="true" :list="useBook.cities" :selected="shippement.city"
-                  @onSelectedItem="(id) => {
-                    shippement.city = id
-                    shippement.cityCode = useBook.cities.find(item => item.id === id).code
-                  }" />
-              </label>
-
-              <label class="form-control w-full">
-                <div class="label">
-                  <span class="label-text uppercase">insurance <span class="text-red-500">*</span></span>
-                </div>
-                <input type="number" required v-model="shippement.insurance"
-                  class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
-              </label>
+              <!--
+          <label class="form-control w-full">
+            <div class="label">
+              <span class="label-text uppercase">insurance <span class="text-red-500">*</span></span>
+            </div>
+            <input type="number" required v-model="shippement.insurance"
+              class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+          </label>
+ -->
 
               <div v-if="resultShip.result"
                 class="w-full h-fit bg-slate-50 rounded-xl my-6 grid grid-cols-2 p-4 gap-4 uppercase">
@@ -545,26 +587,53 @@
                 <span>{{ resultShip.weight > resultShip.mass ? resultShip.weight + ' ' + resultShip.weightUnit :
                   resultShip.mass.toFixed(2) + ' ≥ (' + resultShip.weight + ' ' +
                   resultShip.weightUnit + ')' }}</span>
+
                 <div v-if="resultShip.result.shipp_cost > 0" :class="'bg-primary text-white'"
                   class="w-full h-14 p-2 rounded flex justify-between  gap-4 items-center col-span-2 -mb-3">
                   <span>DHL</span>
-                  <span>${{ (resultShip.result.shipp_cost +
+                  <span>${{ (resultShip.result.dhl +
                     resultShip.insurance).toFixed(2) }}</span>
                 </div>
 
-                <div v-if="resultShip.result.cargo > 0" :class="'bg-primary text-white'"
+                <div v-if="shippement.type === 'exprec'" :class="'bg-primary text-white'"
+                  class="w-full h-14 p-2 rounded flex justify-between  gap-4 items-center col-span-2 -mb-3">
+                  <span class="flex gap-3 items-center"><img src="@/assets/pics/dhl-1.svg" alt="" class="w-10 mx-1">
+                    DHL</span>
+                  <span>${{ (resultShip.result.fedex +
+                    resultShip.insurance).toFixed(2) }}</span>
+                </div>
+
+                <div v-if="shippement.type === 'exprec'" :class="'bg-primary text-white'"
+                  class="w-full h-14 p-2 rounded flex justify-between  gap-4 items-center col-span-2 -mb-3">
+                  <span class="flex gap-3 items-center">
+                    <div class="bg-white h-8 w-12 flex items-center justify-center">
+                      <img src="@/assets/pics/fedex-express-6.svg" alt="" class="w-10">
+                    </div>
+                    fedex
+                  </span>
+                  <span>${{ (resultShip.result.fedex +
+                    resultShip.insurance).toFixed(2) }}</span>
+                </div>
+
+                <div v-if="shippement.type === 'cargo'" :class="'bg-primary text-white'"
                   class="w-full h-14 p-2 rounded flex justify-between gap-4 items-center col-span-2 -mb-3">
-                  <span>cargo</span>
+                  <span class="flex gap-3 items-center">
+                    <parcel-icon class="w-6 fill-white" />
+                    cargo</span>
                   <span>${{ (resultShip.result.cargo +
                     resultShip.insurance).toFixed(2) }}</span>
                 </div>
 
-                <div v-if="resultShip.result.occain > 0" :class="'bg-primary text-white'"
+                <div v-if="shippement.type === 'occain'" :class="'bg-primary text-white'"
                   class="w-full h-14 p-2 rounded flex gap-4 items-center col-span-2 -mb-3 justify-between ">
-                  <span>ocean</span>
-                  <span>${{ (resultShip.result.occain +
+                  <span class="flex gap-3 items-center">
+                    <ship-icon class="w-6 fill-white" />
+                    ocean</span>
+                  <span>cbm ${{ (resultShip.result.occain +
                     resultShip.insurance).toFixed(2) }}</span>
                 </div>
+
+
               </div>
 
               <div v-else
@@ -578,7 +647,45 @@
             </form>
 
 
-            <form @submit.prevent="calculateShipement" v-else class="w-full h-fit flex flex-col gap-4">
+            <form @submit.prevent="calculateCostume" v-else class="w-full h-fit flex flex-col gap-4">
+
+              <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text uppercase">type <span class="text-red-500">*</span></span>
+                </div>
+                <input disabled placeholder="EXPRESS"
+                  class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4">
+              </label>
+
+              <label class="form-control w-full md:col-span-3">
+                <div class="label">
+                  <span class="label-text uppercase">shipping from <span class="text-red-500">*</span></span>
+                </div>
+
+                <commun-combobox-countries class="mt-auto" :required="true" :list="countries"
+                  :selected="shippement.from" @onSelectedItem="(id) => {
+                    shippement.from = id
+                  }" />
+              </label>
+
+
+
+
+
+              <div class="form-control w-full">
+                <div class="label">
+                  <span class="label-text uppercase">deliver to <span class="text-red-500">*</span></span>
+                </div>
+                <input v-if="shippement.type === 'cargo'" disabled placeholder="IRAK"
+                  class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4">
+
+                <commun-combobox v-else class="mt-auto" :required="true" :list="useProfile.countries"
+                  :selected="shippement.city" @onSelectedItem="(id) => {
+                    shippement.city = id
+                    shippement.cityCode = id
+                  }" />
+              </div>
+
               <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <label class="form-control w-full md:col-span-3">
                   <div class="label">
@@ -599,29 +706,37 @@
                   }" />
               </div>
 
+              <div v-if="showSize" class="w-full h-40 flex items-center justify-center uppercase">
+                <span @click="showSize = false" class="w-72 text-center cursor-pointer">if your package's length + widht
+                  +
+                  height is
+                  greater than 72 inches, please
+                  click here to
+                  provide the dimensions</span>
+              </div>
 
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <label class="form-control w-full">
+              <div v-else class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <label class="form-control w-full flex items-center justify-center flex-col gap-2">
                   <div class="label">
-                    <span class="label-text uppercase">l <span class="text-red-500">*</span></span>
+                    <span class="label-text uppercase">l</span>
                   </div>
-                  <input type="number" required v-model="shippement.l"
+                  <input type="number" v-model="shippement.l"
                     class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
                 </label>
 
-                <label class="form-control w-full">
+                <label class="form-control w-full mt-auto">
                   <div class="label">
-                    <span class="label-text uppercase">w <span class="text-red-500">*</span></span>
+                    <span class="label-text uppercase">w</span>
                   </div>
-                  <input type="number" required v-model="shippement.w"
+                  <input type="number" v-model="shippement.w"
                     class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
                 </label>
 
-                <label class="form-control w-full">
+                <label class="form-control w-full mt-auto">
                   <div class="label">
-                    <span class="label-text uppercase">h <span class="text-red-500">*</span></span>
+                    <span class="label-text uppercase">h</span>
                   </div>
-                  <input type="number" required v-model="shippement.h"
+                  <input type="number" v-model="shippement.h"
                     class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
                 </label>
 
@@ -639,49 +754,82 @@
               </div>
 
 
-              <label class="form-control w-full md:col-span-3">
-                <div class="label">
-                  <span class="label-text uppercase">from <span class="text-red-500">*</span></span>
-                </div>
+              <!--
 
-                <commun-combobox-countries class="mt-auto" :required="true" :list="countries"
-                  :selected="shippement.from" @onSelectedItem="(id) => {
-                    shippement.from = id
-                  }" />
-              </label>
-
-              <label class="form-control w-full">
-                <div class="label">
-                  <span class="label-text uppercase">city <span class="text-red-500">*</span></span>
-                </div>
-                <commun-combobox class="mt-auto" :required="true" :list="useBook.cities" :selected="shippement.city"
-                  @onSelectedItem="(id) => {
-                    shippement.city = id
-                    shippement.cityCode = useBook.cities.find(item => item.id === id).code
-                  }" />
-              </label>
-
-              <label class="form-control w-full">
-                <div class="label">
-                  <span class="label-text uppercase">insurance <span class="text-red-500">*</span></span>
-                </div>
-                <input type="number" required v-model="shippement.insurance"
-                  class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
-              </label>
-
+          <label class="form-control w-full">
+            <div class="label">
+              <span class="label-text uppercase">insurance <span class="text-red-500">*</span></span>
+            </div>
+            <input type="number" required v-model="shippement.insurance"
+              class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+          </label>-->
               <div v-if="resultShip.result"
                 class="w-full h-fit bg-slate-50 rounded-xl my-6 grid grid-cols-2 p-4 gap-4 uppercase">
-                <span>Chargeable Weight</span>
-                <span>{{ resultShip.weight > resultShip.mass ? resultShip.weight + ' ' + resultShip.weightUnit :
-                  resultShip.mass.toFixed(2) + ' ≥ (' + resultShip.weight + ' ' +
-                  resultShip.weightUnit + ')' }}</span>
 
+                <!--
+            <span class="font-semibold">Total Cost</span>
+            <span class="font-semibold">${{ (resultShip.result.dhl + resultShip.insurance).toFixed(2) }}</span> -->
 
-                <div :class="'bg-primary text-white'"
-                  class="w-full h-14 p-2 rounded flex gap-4 items-center col-span-2 -mb-3 justify-between ">
-                  <span>Shipping Cost</span>
-                  <span>${{ (resultShip.result.shipp_cost + resultShip.insurance).toFixed(2) }}</span>
+                <div @click="async () => {
+                  createCostume(shippement)
+                }" :class="'bg-primary text-white'" class="w-full h-14 p-2 rounded flex items-center col-span-2 -mb-3">
+                  <div class="flex-1 flex flex-col">
+                    <span class="flex gap-3 items-center"><img src="@/assets/pics/dhl-1.svg" alt="" class="w-10 mx-1">
+                      DHL</span>
+                    <span>${{ (resultShip.result.fedex +
+                      resultShip.insurance).toFixed(2) }}</span>
+                    <span>$ {{ numberFormat(resultShip.result.dhl + resultShip.insurance) }}
+                    </span>
+                  </div><!--
+                  <div class="w-fit h-6 px-2 bg-white/40 rounded-full flex items-center justify-center">
+                    ship now
+                  </div> -->
                 </div>
+
+                <div @click="async () => {
+                  createCostume(shippement)
+                }" :class="'bg-primary text-white'" class="w-full h-14 p-2 rounded flex items-center col-span-2 -mb-3">
+                  <div class="flex-1 flex flex-col">
+                    <span class="flex gap-3 items-center"><img src="@/assets/pics/dhl-1.svg" alt="" class="w-10 mx-1">
+                      DHL $ {{ numberFormat(resultShip.result.dhl + resultShip.insurance) }}</span>
+                    <span>
+                    </span>
+                  </div><!--
+                  <div class="w-fit h-6 px-2 bg-white/40 rounded-full flex items-center justify-center">
+                    ship now
+                  </div> -->
+                </div>
+
+                <div @click="async () => {
+                  createCostume(shippement)
+                }" :class="'bg-primary text-white'" class="w-full h-14 p-2 rounded flex items-center col-span-2 -mb-3">
+                  <div class="flex-1 flex flex-col">
+                    <span class="flex gap-3 items-center">
+                      <div class="bg-white h-8 w-12 flex items-center justify-center">
+                        <img src="@/assets/pics/fedex-express-6.svg" alt="" class="w-10">
+                      </div>
+                      fedex $ {{ numberFormat(resultShip.result.fedex + resultShip.insurance) }}
+                    </span>
+                    <span>
+                    </span>
+                  </div>
+                  <div class="w-fit h-6 px-2 bg-white/40 rounded-full flex items-center justify-center">
+                    ship now
+                  </div>
+                </div>
+                <!--
+            <div @click="async () => {
+              createCostume(shippement)
+            }" :class="'bg-primary text-white'" class="w-full h-14 p-2 rounded flex items-center col-span-2">
+              <div class="flex-1 flex flex-col">
+                <span>fedex</span>
+                <span>$ {{ numberFormat(resultShip.result) }}
+                </span>
+              </div>
+              <div class="w-fit h-6 px-2 bg-white/40 rounded-full flex items-center justify-center">
+                ship now
+              </div>
+            </div> -->
 
               </div>
 
@@ -757,6 +905,7 @@ import communComboboxCountries from '@/components/commun/communComboboxCountries
 import communDropdown from '@/components/commun/communDropdown.vue';
 import axios from 'axios';
 
+import shipIcon from '@/assets/icons/shipIcon.vue';
 import countries from '@/assets/countries.json'
 
 const offset = ref(0);
@@ -765,6 +914,7 @@ const isHovered = ref(false);
 const useBook = useBookStore()
 const useProfile = useProfileStore()
 const useWidget = useWidgetStore()
+const showSize = ref(true)
 const slider = ref(null);
 
 const shippement = reactive(
@@ -782,7 +932,7 @@ const shippement = reactive(
     result: null,
     items: 0,
     itemPrice: 0,
-    total: 0, website: ''
+    total: 0, website: '', type: 'exprec'
   }
 )
 
@@ -906,36 +1056,39 @@ onMounted(async () => {
 });
 
 const calculateShipement = async () => {
-  console.log(shippement)
-  let mass = (shippement.l * shippement.w * shippement.h) / 139
-  console.log(mass)
 
-  /***/
-  const response = await axios.get(`/calculator_API/${shippement.cityCode}/${shippement.weight > mass ? shippement.weight : mass.toFixed(0)}`)
+  let mass = (shippement.l * shippement.w * shippement.h) / 139
+  let response = await axios.get(`/calculator_API/${shippement.cityCode}/${shippement.weight > mass ? shippement.weight : mass.toFixed(0)}`)
+  console.log(response.data);
 
   Object.assign(resultShip, shippement)
-  console.log(response.data)
-
-  resultShip.mass = mass
   resultShip.result = response.data
 
-  /**
-  Object.assign(shippement, {
-    weight: 0,
-    l: 0,
-    w: 0,
-    h: 0,
-    weightUnit: 'kg',
-    lengthUnit: 'cm',
-    city: null,
-    cityCode: null,
-    insurance: 0,
-    result: null,
-    items: 0,
-    itemPrice: 0,
-    total: 0, website: ''
-  })*/
+  resultShip.mass = mass
 
+}
+
+const calculateCostume = async () => {
+
+  let mass = (shippement.l * shippement.w * shippement.h) / shippement.type === 'occain' ? 64000 : 139
+  let response = await axios.get(`/calculator_shp_API/${shippement.from}/${shippement.cityCode}/${shippement.weight > mass ? shippement.weight : mass.toFixed(0)}`)
+
+  console.log(response.data)
+
+  Object.assign(resultShip, shippement)
+  resultShip.result = response.data
+
+  resultShip.mass = mass
+
+}
+
+const createCostume = async (shippement) => {
+  try {
+    let response = await axios.get(`/Shipments/create_ship_API/${shippement.weight}/${shippement.l}/${shippement.w}/${shippement.h}/${shippement.weightUnit}/${shippement.lengthUnit}/${localStorage.getItem('ws-user-id')}/`)
+  } catch (error) {
+    console.error(error)
+
+  }
 }
 
 // Cleanup animation frame
