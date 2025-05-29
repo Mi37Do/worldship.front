@@ -137,13 +137,6 @@
               <list-icon class="w-5 h-5" />
             </button>
           </div>
-          <button @click="() => {
-            useInbox.items = []
-            useInbox.focusedInbox = null
-            useWidget.orderItems = false
-          }" class="btn btn-sm pixa-btn w-10 pixa-btn-nofloat p-0">
-            <times-icon class="w-5 h-5" />
-          </button>
         </div>
 
       </div>
@@ -153,52 +146,16 @@
       </div>
 
       <div v-else class="w-full flex-1 flex flex-col overflow-hidden">
-        <span v-if="useInbox.focusedInbox"
-          class="h-40 grid grid-cols-2 gap-2 p-4 uppercase bg-slate-100 rounded-lg border border-slate-200">
-          <div class="w-full grid grid-cols-2 gap-2">
-            <span class="font-semibold">code</span>
-            <span>{{ useInbox.focusedInbox.code }}</span>
-          </div>
-          <div class="w-full grid grid-cols-2 gap-2">
-            <span class="font-semibold">tracking</span>
-            <a :href="useInbox.focusedInbox.tracking_url" target="_blank"
-              :class="useInbox.focusedInbox.tracking_url ? 'cursor-pointer' : 'cursor-not-allowed'"
-              class="w-full flex items-center gap-3 ">
-              <div class="flex-1 flex flex-col gap-0 ">
-
-                <span :class="[
-                  'my-auto items-center truncate w-fit rounded flex overflow-hidden']">{{
-                    useInbox.focusedInbox.no_tracking
-                  }}</span>
-                <span class="my-auto flex items-center truncate text-xs text-slate-400"> {{
-                  useInbox.focusedInbox.company }}</span>
-              </div>
-
-              <ExternalLinkIcon :class="useInbox.focusedInbox.tracking_url ? 'fill-slate-500' : 'fill-slate-300'"
-                class="w-5 h-5 mr-4" />
-            </a>
-          </div>
-
-          <div class="w-full grid grid-cols-2 gap-2">
-            <span class="font-semibold">weight</span>
-            <span>{{ useInbox.focusedInbox.weight }} lbs</span>
-          </div>
-
-          <div class="w-full grid grid-cols-2 gap-2">
-            <span class="font-semibold">price</span>
-            <span>$ {{ useInbox.focusedInbox.total_price }}</span>
-          </div>
-
+        <span class="h-fit grid grid-cols-2 gap-2 p-4 uppercase bg-slate-100 rounded-lg border border-slate-200 mt-3">
           <div class="w-full grid grid-cols-2 gap-2">
             <span class="font-semibold">note</span>
-            <span> {{ useInbox.focusedInbox ? useInbox.focusedInbox.my_note : '-------' }}</span>
+            <span> {{ item ? item.my_note : '-------' }}</span>
           </div>
 
-
-          <div v-if="useInbox.focusedInbox.density > 0" class="w-full grid grid-cols-2 gap-2">
+          <div v-if="item.density > 0" class="w-full grid grid-cols-2 gap-2">
             <span class="font-semibold">(L,W,H,Density)</span>
-            <span> ( {{ useInbox.focusedInbox.dim_l + ', ' + useInbox.focusedInbox.dim_w + ', ' +
-              useInbox.focusedInbox.dim_h + ', ' + useInbox.focusedInbox.density }} )</span>
+            <span> ( {{ item.dim_l + ', ' + item.dim_w + ', ' +
+              item.dim_h + ', ' + item.density }} )</span>
           </div>
 
         </span>

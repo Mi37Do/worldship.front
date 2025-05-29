@@ -22,7 +22,7 @@
                 <span class="label-text uppercase">type </span>
               </div>
               <input type="text" disabled v-model="addressBook.type"
-                class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+                class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4 uppercase" />
               <!--
               <commun-combobox :list="types" :selected="addressBook.type" :top="true" @onSelectedItem="(id) => {
                 addressBook.type = id
@@ -59,23 +59,6 @@
 
 
 
-
-            <label class="form-control w-full">
-              <div class="label">
-                <span class="label-text uppercase">address line </span>
-              </div>
-              <input type="text" v-model="addressBook.adr"
-                class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
-            </label>
-
-
-            <label class="form-control w-full">
-              <div class="label">
-                <span class="label-text uppercase">address line 2</span>
-              </div>
-              <input type="text" v-model="addressBook.adr_l2"
-                class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
-            </label>
 
             <!--
             <div v-if="addressBook.type === 'to'" class="form-control w-full">
@@ -132,12 +115,32 @@
               <input type="text" required v-model="addressBook.zip_code"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
             </label>
-
+            <!--
             <label class="form-control w-full">
               <div class="label">
                 <span class="label-text uppercase">instruction </span>
               </div>
               <input type="text" v-model="addressBook.instruction"
+                class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+            </label>
+-->
+
+
+
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text uppercase">address line </span>
+              </div>
+              <input type="text" v-model="addressBook.adr"
+                class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
+            </label>
+
+
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text uppercase">address line 2</span>
+              </div>
+              <input type="text" v-model="addressBook.adr_l2"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
             </label>
 
@@ -202,7 +205,7 @@ const addressBook = reactive(
 
 const types = ref(
   [
-    { id: 'from', designation: "from" }, { id: 'to', designation: "to" }
+    { id: 'from', designation: "FROM" }, { id: 'to', designation: "TO" }
     /**
     , { id: 'b', designation: "billing" } */
   ]
