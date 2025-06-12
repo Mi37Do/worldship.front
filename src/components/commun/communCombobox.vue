@@ -7,7 +7,8 @@
             class="w-full pixa-input placeholder:capitalize ring-inset focus:ring-0 px-4"
             :displayValue="(item) => useWidget.userLanguage === 'en' ? item.designation : item.designation_ar"
             @change="query = $event.target.value" />
-          <ComboboxButton class="absolute inset-y-0 right-0 flex items-center pr-2">
+          <ComboboxButton :class="useWidget.userLanguage === 'ar' ? 'left-0' : 'right-0'"
+            class="absolute inset-y-0  flex items-center pr-2">
             <sort-icon class="h-5 w-5 fill-slate-500" aria-hidden="true" />
           </ComboboxButton>
         </div>

@@ -291,20 +291,13 @@
               <span class="label-text uppercase">shipping from <span class="text-red-500">*</span></span>
             </div>
 
-            <!--
-            <commun-combobox class="mt-auto" :required="true" :list="useBook.cities" :selected="shippement.city"
-              @onSelectedItem="(id) => {
-                shippement.city = id
-                shippement.cityCode = shippement.city ? useBook.cities.find(item => item.id === id).code : null
-              }" /> -->
-
 
             <input disabled :placeholder="useProfile.address_site.find(item => item.use_defaulte).name"
               class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4">
 
           </label>
 
-          <label class="form-control w-full">
+          <div class="form-control w-full">
             <div class="label">
               <span class="label-text uppercase">deliver to <span class="text-red-500">*</span></span>
             </div>
@@ -316,7 +309,7 @@
                 shippement.city = id
                 shippement.cityCode = id
               }" />
-          </label>
+          </div>
 
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <label class="form-control w-full md:col-span-3">

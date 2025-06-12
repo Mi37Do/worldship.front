@@ -12,7 +12,8 @@
         leave-from-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
         <MenuItems
           :class="[
-            'absolute right-12 w-40 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black/5 focus:outline-none z-50 top-0']">
+            useWidget.userLanguage === 'en' ? ' origin-top-right right-12' : ' origin-top-left left-12',
+            'absolute  w-40 divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black/5 focus:outline-none z-50 top-0']">
           <div class="px-1 py-1">
             <MenuItem>
             <button @click="() => {
@@ -24,7 +25,7 @@
             }" :class="[
               'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
             ]">
-              edit
+              {{ t('commun.edit') }}
               <EditIcon class="w-5 h-5" />
             </button>
             </MenuItem>
@@ -40,7 +41,7 @@
             }" :class="[
               'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn-delete',
             ]">
-              delete
+              {{ t('commun.delete') }}
               <TrashIcon class="w-5 h-5" />
             </button>
             </MenuItem>
@@ -63,8 +64,10 @@ import { useWidgetStore } from '@/stores/widget';
 import EditIcon from '@/assets/icons/editIcon.vue';
 import TrashIcon from '@/assets/icons/trashIcon.vue';
 import { useBookStore } from '@/stores/addressBook';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps(['item'])
+const { t } = useI18n()
 const useWidget = useWidgetStore()
 const useBook = useBookStore()
 

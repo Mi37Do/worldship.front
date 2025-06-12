@@ -53,14 +53,14 @@
 
 
     <span class="uppercase h-8 my-auto flex items-center truncate font-bold  lg:hidden">{{ $t('commun.code')
-    }}</span>
+      }}</span>
 
     <div class="w-full flex items-center gap-4">
       <span class="h-8 my-auto flex items-center truncate">{{ item.code }}</span>
     </div>
 
     <span class="uppercase h-8 my-auto flex items-center truncate font-bold  lg:hidden">{{ $t('commun.company')
-    }}</span>
+      }}</span>
     <a :href="item.tracking_url" target="_blank" :class="item.tracking_url ? 'cursor-pointer' : 'cursor-not-allowed'"
       class="w-full flex items-center gap-3 ">
       <div class="flex-1 flex flex-col gap-0 ">
@@ -77,7 +77,7 @@
 
     <span class="uppercase h-8 my-auto flex items-center truncate font-bold  lg:hidden  ">{{
       $t('commun.weight')
-    }}</span>
+      }}</span>
     <span class="h-8 my-auto flex items-center truncate  "> {{ numberFormat(item.weight) }} lbs</span>
 
 
@@ -122,7 +122,7 @@
 
     <div v-if="showItems" ref="detailItems" class="w-full col-span-2 lg:col-span-6 h-fit hidden lg:block">
       <div class="w-full h-14 flex items-center justify-between pb-4 border-b border-slate-200">
-        <span class="pixa-title">items</span>
+        <span class="pixa-title">{{ t('commun.items') }}</span>
         <div class="flex gap-2">
           <div class="grid grid-cols-2 gap-1 h-10 rounded bg-slate-100 px-1">
             <button @click="isGrid = true" :class="[
@@ -172,13 +172,17 @@
         <div v-else class="w-full flex-1 overflow-hidden pt-4">
           <div class="w-full h-full border border-slate-200 rounded-lg flex flex-col overflow-hidden bg-white">
             <div class="w-full h-14 border-b border-slate-200  px-4 grid gap-2 uppercase font-medium grid-cols-4">
-              <span class="pl-16 my-auto border-r border-slate-200 h-8 flex items-center">item</span>
+              <span :class="useWidget.userLanguage === 'ar' ? 'border-l' : 'border-r'"
+                class="pl-16 my-auto  border-slate-200 h-8 flex items-center">{{ t('commun.item') }}</span>
 
-              <span class="my-auto border-r border-slate-200 h-8 flex items-center">code</span>
+              <span :class="useWidget.userLanguage === 'ar' ? 'border-l' : 'border-r'"
+                class="my-auto  border-slate-200 h-8 flex items-center">{{ t('commun.code') }}</span>
 
-              <span class="my-auto h-8 flex items-center border-r border-slate-200 ">price</span>
-              <span class="my-auto h-8 flex items-center">state</span>
+              <span :class="useWidget.userLanguage === 'ar' ? 'border-l' : 'border-r'"
+                class="my-auto h-8 flex items-center border-slate-200 ">{{ t('commun.price') }}</span>
+              <span class="my-auto h-8 flex items-center">{{ t('commun.status') }}</span>
             </div>
+            154872
             <div class="w-full flex-1 overflow-auto">
               <div class="flex flex-col w-full h-fit"
                 v-viewer="{ button: true, title: false, movable: false, rotatable: false, scalable: false, keyboard: true }">
@@ -221,6 +225,7 @@ import timesIcon from '@/assets/icons/timesIcon.vue';
 import listIcon from '@/assets/icons/listIcon.vue';
 import appsIcon from '@/assets/icons/appsIcon.vue';
 import { useInboxStore } from '@/stores/inbox';
+import { useWidgetStore } from '@/stores/widget';
 
 const props = defineProps(['item', 'shipped', 'index'])
 const emits = defineEmits(['selectEnabledEmited'])
@@ -230,6 +235,7 @@ const useInbox = useInboxStore()
 const isGrid = ref(false)
 const targetItems = ref(null)
 const detailItems = ref(null)
+const useWidget = useWidgetStore()
 
 const { t } = useI18n()
 

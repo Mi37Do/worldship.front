@@ -12,7 +12,8 @@
         leave-from-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
         <MenuItems
           :class="[
-            'absolute right-12 w-40 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black/5 focus:outline-none z-50 top-0']">
+            useWidget.userLanguage === 'en' ? ' origin-top-right right-12' : ' origin-top-left left-12',
+            'absolute  w-40 divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black/5 focus:outline-none z-50 top-0']">
           <div class="px-1 py-1">
             <MenuItem>
             <button @click="() => {
@@ -26,7 +27,7 @@
             }" :class="[
               'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
             ]">
-              items
+              {{ t('commun.items') }}
               <ListIcon class="w-5 h-5" />
             </button>
             </MenuItem>
@@ -35,7 +36,7 @@
             <button :class="[
               'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
             ]">
-              open ticket
+              {{ t('commun.openTicket') }}
               <comment-icon class="w-5 h-5" />
             </button>
             </MenuItem>
@@ -56,8 +57,10 @@ import billIcon from '@/assets/icons/billIcon.vue';
 import commentIcon from '@/assets/icons/commentIcon.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { useInboxStore } from '@/stores/inbox';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps(['item'])
+const { t } = useI18n()
 const useWidget = useWidgetStore()
 const useInbox = useInboxStore()
 

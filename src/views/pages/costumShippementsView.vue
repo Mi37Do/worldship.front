@@ -5,7 +5,7 @@
         <button @click="useWidget.openSide = true" class="btn btn-sm btn-square btn-ghost  md:hidden">
           <side-menu />
         </button>
-        <span class="pixa-title flex-1">{{ $t('navigation.links.costumShippements') }}</span>
+        <span class="pixa-title flex-1">{{ $t('navigation.links.costumeShipments') }}</span>
 
       </template>
     </top-app-bar>

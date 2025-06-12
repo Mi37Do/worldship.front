@@ -55,7 +55,7 @@
             " :class="[
               'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
             ]">
-              items
+              {{ t('commun.items') }}
               <ListIcon class="w-5 h-5" />
             </button>
             </MenuItem>
@@ -65,7 +65,7 @@
               :class="[
                 'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
               ]">
-              detail
+              {{ t('commun.detail') }}
               <eye-icon class="w-5 h-5" />
             </router-link>
             </MenuItem>
@@ -81,7 +81,7 @@
               item.label_shipp ? '' : 'btn-disabled',
               'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
             ]">
-              tracking
+              {{ t('commun.tracking') }}
               <plan-icon class="w-5 h-5" />
             </button>
             </MenuItem>
@@ -90,7 +90,7 @@
             <button @click="openTickets" :class="[
               'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
             ]">
-              open ticket
+              {{ t('commun.openTicket') }}
               <comment-icon class="w-5 h-5" />
             </button>
             </MenuItem>
@@ -112,8 +112,10 @@ import commentIcon from '@/assets/icons/commentIcon.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { useInboxStore } from '@/stores/inbox';
 import { useRoute, useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps(['item'])
+const { t } = useI18n()
 const useWidget = useWidgetStore()
 const useInbox = useInboxStore()
 const router = useRouter()

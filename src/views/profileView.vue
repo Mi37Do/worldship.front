@@ -71,11 +71,11 @@
               <div class="flex-1 flex flex-col gap-2">
                 <router-link :to="{ name: 'add' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
                   <addWallet class="w-5 h-5" />
-                  <span>add account deposit</span>
+                  <span>{{ $t('commun.addAccountDeposit') }}</span>
                 </router-link>
                 <router-link :to="{ name: 'history' }" class="btn btn-sm pixa-btn flex gap-3 justify-start btn-ghost">
                   <ListIcon class="w-5 h-5" />
-                  <span>transactions</span>
+                  <span> {{ $t('commun.transactions') }}</span>
                 </router-link>
               </div>
             </div>

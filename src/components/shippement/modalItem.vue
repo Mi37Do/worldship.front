@@ -28,9 +28,11 @@
 
 <script setup>
 import noImageIcon from '@/assets/icons/noImageIcon.vue';
+import { useWidgetStore } from '@/stores/widget';
 import { useRoute } from 'vue-router';
 
 const props = defineProps(['item'])
+const useWidget = useWidgetStore()
 const route = useRoute()
 </script>
 

@@ -6,13 +6,13 @@
       <div class="grid grid-cols-3 gap-1 p-1 bg-primary rounded-lg">
         <button @click="tab = 'profile'"
           :class="tab === 'profile' ? 'bg-white hover:bg-white' : 'bg-transparent hover:bg-white/20 text-white'"
-          class="btn btn-sm pixa-btn border-0">profile</button>
+          class="btn btn-sm pixa-btn border-0">{{ t('commun.profile') }}</button>
         <button @click="tab = 'edit'"
           :class="tab === 'edit' ? 'bg-white hover:bg-white' : 'bg-transparent hover:bg-white/20 text-white'"
-          class="btn btn-sm pixa-btn border-0">edit</button>
+          class="btn btn-sm pixa-btn border-0">{{ t('commun.edit') }}</button>
         <button @click="tab = 'password'"
           :class="tab === 'password' ? 'bg-white hover:bg-white' : 'bg-transparent hover:bg-white/20 text-white'"
-          class="btn btn-sm pixa-btn border-0">change password</button>
+          class="btn btn-sm pixa-btn border-0">{{ t('commun.changePassword') }}</button>
       </div>
 
       <div v-if="tab === 'profile'"
@@ -22,21 +22,21 @@
         </div>
 
         <div class="w-full flex overflow-hidden mt-4">
-          <span class="w-32 font-semibold truncate">full name</span>
+          <span class="w-32 font-semibold truncate">{{ t('commun.name') }}</span>
           <span>{{ useProfile.profile.user.first_name }} {{ useProfile.profile.user.last_name }}</span>
         </div>
 
         <div class="w-full flex overflow-hidden mt-4">
-          <span class="w-32 font-semibold truncate">phone</span>
+          <span class="w-32 font-semibold truncate">{{ t('commun.phone') }}</span>
           <span>{{ useProfile.profile.user.phone }}</span>
         </div>
 
         <div class="w-full flex overflow-hidden mt-4">
-          <span class="w-32 font-semibold truncate">email</span>
+          <span class="w-32 font-semibold truncate">{{ t('commun.email') }}</span>
           <span>{{ useProfile.profile.user.email }}</span>
         </div>
         <div class="w-full flex overflow-hidden mt-4">
-          <span class="w-32 font-semibold truncate">unit number</span>
+          <span class="w-32 font-semibold truncate">{{ t('commun.unitNumber') }}</span>
           <span>{{ useProfile.profile.user.code }}</span>
         </div>
       </div>
@@ -45,21 +45,21 @@
         class="w-full h-fit bg-white rounded-lg border border-slate-200 p-3 grid lg:grid-cols-2 gap-3">
         <label class="form-control w-full">
           <div class="label">
-            <span class="label-text uppercase">first name </span>
+            <span class="label-text uppercase">{{ t('commun.first_name') }} </span>
           </div>
           <input type="text" required v-model="useProfile.profile.user.first_name"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </label>
         <label class="form-control w-full">
           <div class="label">
-            <span class="label-text uppercase">last name </span>
+            <span class="label-text uppercase">{{ t('commun.last_name') }} </span>
           </div>
           <input type="text" required v-model="useProfile.profile.user.last_name"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </label>
         <label class="form-control w-full">
           <div class="label">
-            <span class="label-text uppercase">phone </span>
+            <span class="label-text uppercase">{{ t('commun.phone') }} </span>
           </div>
           <input type="text" required v-model="useProfile.profile.user.phone"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -67,7 +67,7 @@
 
         <label class="form-control w-full">
           <div class="label">
-            <span class="label-text uppercase">email </span>
+            <span class="label-text uppercase">{{ t('commun.email') }} </span>
           </div>
           <input type="text" disabled v-model="useProfile.profile.user.email"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -75,7 +75,7 @@
 
         <button :disabled="loadingEdit" type="submit" class="btn btn-sm pixa-btn btn-primary w-full mt-3 lg:col-span-2">
           <span v-if="loadingEdit" class="loading loading-ring loading-sm"></span>
-          <span v-else>save</span>
+          <span v-else>{{ t('commun.save') }}</span>
         </button>
       </form>
 
@@ -83,7 +83,7 @@
         class="w-full h-fit bg-white rounded-lg border border-slate-200 p-3 flex flex-col gap-3">
         <div class="flex items-center justify-between">
 
-          <span class="pixa-title">new password</span>
+          <span class="pixa-title">{{ t('commun.changePassword') }}</span>
           <button type="buttonds" @click="showPassword = !showPassword" class="btn btn-sm btn-square pixa-btn-nofloat">
             <eye-icon v-if="showPassword" class="w-5" />
             <eye-slash-icon v-else class="w-5 h-5" />
@@ -91,7 +91,7 @@
         </div>
         <label class="form-control w-full">
           <div class="label">
-            <span class="label-text uppercase">old password </span>
+            <span class="label-text uppercase">{{ t('commun.oldPassword') }}</span>
           </div>
           <input :type="showPassword ? 'text' : 'password'" required v-model="oldPassword"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -99,7 +99,7 @@
 
         <label class="form-control w-full">
           <div class="label">
-            <span class="label-text uppercase">new password </span>
+            <span class="label-text uppercase">{{ t('commun.newPassword') }}</span>
           </div>
           <input :type="showPassword ? 'text' : 'password'" required v-model="new_password"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -107,7 +107,7 @@
 
         <label class="form-control w-full">
           <div class="label">
-            <span class="label-text uppercase">confirm new password </span>
+            <span class="label-text uppercase">{{ t('commun.confirmPassword') }}</span>
           </div>
           <input :type="showPassword ? 'text' : 'password'" required v-model="confirmPassword"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -117,7 +117,7 @@
 
         <button :disabled="loadingPassword" type="submit" class="btn btn-sm pixa-btn btn-primary w-full mt-3">
           <span v-if="loadingPassword" class="loading loading-ring loading-sm"></span>
-          <span v-else>save</span>
+          <span v-else>{{ t('commun.save') }}</span>
         </button>
       </form>
     </div>
@@ -132,6 +132,7 @@ import userIcon from '@/assets/icons/userIcon.vue';
 import { reactive, ref } from 'vue';
 import eyeSlashIcon from '@/assets/icons/eyeSlashIcon.vue';
 import eyeIcon from '@/assets/icons/eyeIcon.vue';
+import { useI18n } from 'vue-i18n';
 
 const useProfile = useProfileStore()
 const new_password = ref('')
@@ -142,6 +143,7 @@ const loadingPassword = ref(false)
 const loadingEdit = ref(false)
 const message = ref('')
 const tab = ref('profile')
+const { t } = useI18n()
 
 const editProfile = async () => {
   loadingEdit.value = true

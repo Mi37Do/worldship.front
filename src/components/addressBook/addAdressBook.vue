@@ -3,7 +3,7 @@
   <div class="modal modal-bottom md:modal-middle" role="dialog">
     <div class="w-full  h-[600px] modal-box flex flex-col p-4 overflow-hidden">
       <div class="w-full h-14 flex items-center justify-between pb-4">
-        <span class="pixa-title">new address</span>
+        <span class="pixa-title">{{ t('commun.newAddress') }}</span>
         <div class="flex gap-2">
           <button @click="() => {
             useWidget.addAddressBook.open = false
@@ -19,7 +19,7 @@
           <div class="w-full h-fit flex flex-col gap-3 py-4 pr-2">
             <div class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">type </span>
+                <span class="label-text uppercase">{{ t('commun.type') }} </span>
               </div>
               <input type="text" disabled v-model="addressBook.type"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4 uppercase" />
@@ -32,7 +32,7 @@
 
             <label class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">company name </span>
+                <span class="label-text uppercase">{{ t('commun.companyName') }} </span>
               </div>
               <input type="text" v-model="addressBook.company_name"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -42,7 +42,7 @@
 
             <label class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">full name </span>
+                <span class="label-text uppercase">{{ t('commun.fullName') }} </span>
               </div>
               <input type="text" required v-model="addressBook.name"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -50,7 +50,7 @@
 
             <label class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">phone number </span>
+                <span class="label-text uppercase">{{ t('commun.phone') }} </span>
               </div>
               <input type="text" required v-model="addressBook.phone"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -73,7 +73,7 @@
 
             <label class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">country </span>
+                <span class="label-text uppercase">{{ t('commun.country') }} </span>
               </div>
 
 
@@ -94,7 +94,7 @@
 
             <label v-if="addressBook.type !== 'to'" class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">state </span>
+                <span class="label-text uppercase">{{ t('commun.state') }} </span>
               </div>
               <input type="text" required v-model="addressBook.state"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -102,7 +102,7 @@
 
             <label class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">city </span>
+                <span class="label-text uppercase">{{ t('commun.city') }} </span>
               </div>
               <input type="text" required v-model="addressBook.city_c"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -110,7 +110,7 @@
 
             <label class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">zip </span>
+                <span class="label-text uppercase">{{ t('commun.zipCode') }} </span>
               </div>
               <input type="text" required v-model="addressBook.zip_code"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -129,7 +129,7 @@
 
             <label class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">address line </span>
+                <span class="label-text uppercase">{{ t('commun.addressLine') }} </span>
               </div>
               <input type="text" v-model="addressBook.adr"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -138,7 +138,7 @@
 
             <label class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">address line 2</span>
+                <span class="label-text uppercase">{{ t('commun.addressLine') }} 2</span>
               </div>
               <input type="text" v-model="addressBook.adr_l2"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -146,7 +146,7 @@
 
             <label class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">use default </span>
+                <span class="label-text uppercase">{{ t('commun.useDefault') }} </span>
               </div>
               <CommunSwitch :enabled="addressBook.useDefault" @selectedEnabled="(status) => {
                 addressBook.useDefault = status
@@ -155,7 +155,8 @@
           </div>
         </div>
 
-        <button :disabled="loadingSave" type="submit" class="btn btn-sm pixa-btn btn-primary">save</button>
+        <button :disabled="loadingSave" type="submit"
+          class="btn btn-sm pixa-btn btn-primary">{{ t('commun.save') }}</button>
       </form>
 
 
@@ -182,8 +183,10 @@ import { objectToFormData } from '@/utils/formDataUtils'
 import CommunSwitch from '../commun/communSwitch.vue';
 import { useProfileStore } from '@/stores/profile';
 import { useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 
 const useProfile = useProfileStore()
+const { t } = useI18n()
 const useWidget = useWidgetStore()
 const props = defineProps(['type'])
 const useBook = useBookStore()

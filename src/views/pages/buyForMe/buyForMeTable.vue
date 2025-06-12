@@ -48,7 +48,8 @@
 
         <router-link :to="{ name: 'add-buyForMe' }" class="btn btn-sm pixa-btn btn-primary">
           <plus-icon class="w-5" />
-          add buy for me
+          {{ t('commun.add') }}
+          {{ t('navigation.links.buyForMe') }}
         </router-link>
 
       </div>
@@ -123,10 +124,12 @@ import arrowIcon from '@/assets/icons/arrowIcon.vue';
 import calendarIcon from '@/assets/icons/calendarIcon.vue';
 import dateFilterModal from '@/components/commun/dateFilterModal.vue';
 import { format, isAfter, isBefore } from 'date-fns';
+import { useI18n } from 'vue-i18n';
 
 const useWidget = useWidgetStore()
 const useInbox = useInboxStore()
 const loading = ref(true)
+const { t } = useI18n()
 const filterDate = reactive(
   {
     from: null,

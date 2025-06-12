@@ -4,7 +4,7 @@
     <div class="modal-box flex flex-col md:max-w-sm h-fit gap-2 items-center justify-center p-4">
       <form @submit.prevent="addNote(item.id)" class="w-full flex flex-col h-fit gap-4 items-center ">
         <div class="flex items-center justify-between w-full">
-          <span class="pixa-title">add note</span>
+          <span class="pixa-title">{{ t('commun.add') }} {{ t('commun.note') }}</span>
           <button type="button" @click="closeModal" class="btn btn-sm pixa-btn w-10 pixa-btn-nofloat p-0">
             <times-icon class="w-5 h-5" />
           </button>
@@ -20,7 +20,7 @@
           </label> -->
           <label class="form-control w-full">
             <div class="label">
-              <span class="label-text uppercase">message <span class="text-red-500">*</span></span>
+              <span class="label-text uppercase">{{ t('commun.message') }} <span class="text-red-500">*</span></span>
             </div>
             <textarea name="" required v-model="newNote.my_note_wh_or" class="pixa-textarea w-full h-full"
               id=""></textarea>
@@ -38,7 +38,7 @@
         <button :disabled="loadingAdd" type="submit" class="btn btn-sm pixa-btn btn-primary border-0 w-full">
 
           <span v-if="loadingAdd" class="loading loading-ring loading-sm"></span>
-          <span v-else>send note</span>
+          <span v-else>{{ t('commun.save') }} </span>
         </button>
       </form>
 
@@ -55,9 +55,11 @@ import { useRoute } from 'vue-router';
 import axios from 'axios';
 import { objectToFormData } from '@/utils/formDataUtils'
 import { useInboxStore } from '@/stores/inbox';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps(['item'])
 const emits = defineEmits(['deleteItem'])
+const { t } = useI18n()
 const useWidget = useWidgetStore()
 const loadingAdd = ref(false)
 const useInbox = useInboxStore()

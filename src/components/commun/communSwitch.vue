@@ -6,7 +6,7 @@
         'flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-gray-900/5 transition-colors duration-200 ease-in-out ring-inset focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
       ]">
         <span aria-hidden="true" :class="[
-          localEnabled ? 'translate-x-3.5' : 'translate-x-0',
+          localEnabled ? (useWidget.userLanguage === 'ar' ? '-translate-x-3.5' : 'translate-x-3.5') : 'translate-x-0',
           'size-4 transform rounded-full bg-white ring-1 shadow-xs ring-gray-900/5 transition duration-200 ease-in-out'
         ]" />
       </Switch>
@@ -17,12 +17,13 @@
 <script setup>
 import { ref, watch, watchEffect } from 'vue'
 import { Switch, SwitchGroup } from '@headlessui/vue'
+import { useWidgetStore } from '@/stores/widget'
 
 const props = defineProps({
   enabled: Boolean
 })
 const emits = defineEmits(['selectedEnabled'])
-
+const useWidget = useWidgetStore()
 const localEnabled = ref(false)
 
 watchEffect(() => {

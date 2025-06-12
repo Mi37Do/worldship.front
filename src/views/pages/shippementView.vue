@@ -31,7 +31,7 @@
             <div
               class="w-full h-fit flex flex-col gap-4 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl p-4 col-span-2">
               <div v-if="useInbox.focusedShippement" class="w-full flex items-center justify-between">
-                <span class="pixa-title h-10 flex items-center">delivery point</span>
+                <span class="pixa-title h-10 flex items-center">{{ t('commun.deliveryPoint') }}</span>
                 <!--
                 <commun-switch :enabled="useInbox.focusedShippement.deliver_type !== 'n' ? true : false"
                   @selectedEnabled="(value) => {
@@ -61,7 +61,7 @@
                   :class="deliverToCenter ? 'bg-primary hover:bg-primary/40 text-white' : 'hover:bg-white/80 text-primary bg-transparent border-0'"
                   class="btn btn-sm pixa-btn flex justify-between">
                   <span>
-                    Pick Up Local Office (FREE)</span>
+                    {{ t('commun.pickUpLocal') }} ({{ t('commun.free') }})</span>
 
                   <div v-if="deliverToCenter" class="w-5 h-5 bg-white/40 rounded-full flex items-center justify-center">
                     <check-icon class="w-4 h-4 fill-white" />
@@ -85,8 +85,8 @@
                 }"
                   :class="!deliverToCenter ? 'bg-primary hover:bg-primary/40 text-white' : 'hover:bg-white/80 text-primary bg-transparent border-0'"
                   class="btn btn-sm pixa-btn  flex justify-between">
-                  <span>Deliver to Home (${{ useInbox.focusedShippement.deliver_to_home }}
-                    FEE)</span>
+                  <span>{{ t('commun.deliverToHome') }} (${{ useInbox.focusedShippement.deliver_to_home }}
+                    {{ t('commun.fee') }})</span>
 
 
                   <div v-if="!deliverToCenter"
@@ -115,7 +115,7 @@
                   class="w-full h-fit rounded-md border border-slate-200 overflow-hidden bg-primary/5 p-3 grid grid-cols-2 gap-3 uppercase">
 
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">name</span>
+                    <span class=" font-medium">{{ $t('commun.name') }}</span>
                     <span>
                       {{useProfile.locations.find(item => item.id === tempBook).name}}</span>
                   </div>
@@ -126,20 +126,20 @@
                       {{useProfile.locations.find(item => item.id === tempBook).name}}</span>
                   </div>
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">city</span>
+                    <span class=" font-medium">{{ $t('commun.city') }}</span>
                     <span>
                       {{formatPhoneNumber(useProfile.locations.find(item => item.id === tempBook).city_id.name)}}</span>
                   </div>
 
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">phone</span>
+                    <span class=" font-medium">{{ $t('commun.phone') }}</span>
                     <span>
                       {{formatPhoneNumber(useProfile.locations.find(item => item.id === tempBook).phone)}}</span>
                   </div>
 
 
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">address line</span>
+                    <span class=" font-medium">{{ $t('commun.addressLine') }}</span>
                     <span>
                       {{ useInbox.focusedShippement.pickUp_local.adr
                       }}</span>
@@ -159,38 +159,38 @@
                     add: true
                   })" class="btn btn-sm pixa-btn btn-primary">
                     <plus-icon class="w-5 h-5" />
-                    add address</button>
+                    {{ $t('commun.addAddress') }}</button>
                 </div>
 
                 <div v-if="tempBook"
                   class="w-full h-fit rounded-md border border-slate-200 overflow-hidden bg-primary/5 p-3 grid grid-cols-2 gap-3 uppercase">
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">name</span>
+                    <span class=" font-medium">{{ $t('commun.name') }}</span>
                     <span>
                       {{useBook.addresses.find(item => item.id === tempBook).name}}</span>
                   </div>
 
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">company name</span>
+                    <span class=" font-medium">{{ $t('commun.company') }}</span>
                     <span>
                       {{
                         useInbox.focusedShippement.address_book.company_name || '-----' }}</span>
                   </div>
 
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">phone</span>
+                    <span class=" font-medium">{{ $t('commun.phone') }}</span>
                     <span>
                       {{formatPhoneNumber(useBook.addresses.find(item => item.id === tempBook).phone)}}</span>
                   </div>
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">city</span>
+                    <span class=" font-medium">{{ $t('commun.city') }}</span>
                     <span>
                       {{ useInbox.focusedShippement.address_book && useInbox.focusedShippement.address_book.city_id ?
                         useInbox.focusedShippement.address_book.city_id.name : '-----' }}</span>
                   </div>
 
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">adress line</span>
+                    <span class=" font-medium">{{ $t('commun.addressLine') }}</span>
                     <span>
                       {{ useInbox.focusedShippement.address_book && useInbox.focusedShippement.address_book
                         .adr ? useInbox.focusedShippement.address_book
@@ -200,7 +200,7 @@
 
 
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">adress line 2</span>
+                    <span class=" font-medium">{{ $t('commun.addressLine') }} 2</span>
                     <span>
                       {{ useInbox.focusedShippement.address_book && useInbox.focusedShippement.address_book
                         .adr_l2 ? useInbox.focusedShippement.address_book
@@ -210,7 +210,7 @@
 
 
                   <div class="flex flex-col gap-1">
-                    <span class=" font-medium">instructions</span>
+                    <span class=" font-medium">{{ $t('commun.instructions') }}</span>
                     <span>
                       {{ useInbox.focusedShippement.address_book
                         .instructions || '--------'
@@ -226,7 +226,7 @@
               <label @click="show = !show"
                 class="w-full flex items-center justify-between   fill-slate-500 hover:fill-primary pr-1.5">
                 <div class="flex gap-4 items-center">
-                  <span class="pixa-title">Package</span>
+                  <span class="pixa-title">{{ t('commun.package') }}</span>
                   <span
                     class=" my-auto flex items-center truncate bg-slate-100 w-fit px-3 py-1.5 rounded font-semibold">{{
                       useInbox.focusedShippement && useInbox.focusedShippement.warehouse_order_ids ?
@@ -293,29 +293,30 @@
           <div
             class="w-full h-fit flex flex-col gap-4 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl p-4 uppercase">
 
-            <span class="pixa-title h-10 flex items-center">Details Package</span>
+            <span class="pixa-title h-10 flex items-center">{{ $t('commun.detailsPackage') }}</span>
 
             <div class="w-full h-fit grid grid-cols-2 gap-4">
-              <span class="font-semibold h-10 flex items-center">Package Quantity</span>
+              <span class="font-semibold h-10 flex items-center">{{ $t('commun.packageQuantiy') }}</span>
 
               <span class="text-right my-auto">{{
-                useInbox.focusedShippement.warehouse_order_ids.length }} Packages</span>
+                useInbox.focusedShippement.warehouse_order_ids.length }} {{ $t('commun.packageQuantiy') }}</span>
 
-              <span class="font-semibold h-10 flex items-center">Package Weight</span>
+              <span class="font-semibold h-10 flex items-center">{{ $t('commun.packageQuantiy') }}</span>
 
               <span class="text-right my-auto">{{ numberFormat(useInbox.focusedShippement.total_weight) }} Lbs</span>
 
-              <span class="font-semibold h-10 flex items-center">Package Value</span>
+              <span class="font-semibold h-10 flex items-center">{{ $t('commun.packageValue') }}</span>
 
               <span class="text-right my-auto">$ {{ numberFormat(useInbox.focusedShippement.total_price) }}</span>
 
               <span v-if="useInbox.focusedShippement.deliver_type === 'h'"
-                class="font-semibold h-10 flex items-center">deliver to home</span>
+                class="font-semibold h-10 flex items-center">{{
+                  t('commun.deliverToHome') }}</span>
 
               <span v-if="useInbox.focusedShippement.deliver_type === 'h'" class="text-right my-auto">$ {{
                 numberFormat(useInbox.focusedShippement.deliver_to_home) }}</span>
 
-              <span class="font-semibold h-10 flex items-center">add Insurance $ {{
+              <span class="font-semibold h-10 flex items-center">{{ $t('commun.addInstruction') }} $ {{
                 numberFormat(useInbox.focusedShippement.total_insurance) }} </span>
 
               <div v-if="!useInbox.focusedShippement.is_payed" class="flex justify-end">
@@ -324,8 +325,9 @@
 
               <div v-else></div>
 
-              <span class="font-semibold h-10 flex items-center gap-2">Use Coins<span class="text-emerald-600">({{
-                useProfile.totalCoins }}
+              <span class="font-semibold h-10 flex items-center gap-2">{{ $t('commun.useCoin') }}<span
+                  class="text-emerald-600">({{
+                    useProfile.totalCoins }}
                   coin)</span></span>
 
               <form @submit.prevent="useCoins" class="w-fit h-fit relative overflow-hidden">
@@ -341,11 +343,11 @@
                 </button>
               </form>
 
-              <span class="font-semibold my-auto">Use Promo Code</span>
+              <span class="font-semibold my-auto">{{ $t('commun.usePromoCode') }}</span>
 
               <form @submit.prevent="usePromoCode" class="w-fit h-fit relative overflow-hidden">
-                <input type="text" placeholder="your promo code" v-model="useInbox.focusedShippement.promo_code"
-                  :disabled="useInbox.focusedShippement.is_payed"
+                <input type="text" :placeholder="$t('commun.yourPromoCode')"
+                  v-model="useInbox.focusedShippement.promo_code" :disabled="useInbox.focusedShippement.is_payed"
                   class="pixa-input px-4 w-full ml-auto placeholder:uppercase">
 
                 <button v-if="!useInbox.focusedShippement.is_payed" type="submit"
@@ -425,7 +427,7 @@
             </div>
 
 
-            <span class="pixa-title h-10 flex items-center">Package Options</span>
+            <span class="pixa-title h-10 flex items-center">{{ $t('commun.packageOptions') }}</span>
             <!---->
             <div class="w-full">
               <div v-for="item in useInbox.packageOptions" :key="item.id" class="w-full grid grid-cols-2 gap-4">
@@ -446,7 +448,7 @@
             <span class="w-full h-px bg-slate-200"></span>
 
             <div class="w-full grid grid-cols-2 gap-4">
-              <span class="font-bold h-10 flex items-center">Total </span>
+              <span class="font-bold h-10 flex items-center">{{ $t('commun.total') }} </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
                 }}
@@ -454,9 +456,7 @@
             </div>
 
             <button v-if="!useInbox.focusedShippement.is_payed" @click="useWidget.newPayment = true"
-              class="btn btn-sm pixa-btn w-full btn-primary">show state and
-              open
-              invoice</button>
+              class="btn btn-sm pixa-btn w-full btn-primary">{{ $t('commun.showStateAndOpenInvoice') }}</button>
 
           </div>
         </div>
@@ -487,6 +487,7 @@ import paymentModal from '@/components/shippement/paymentModal.vue';
 import { useInvoicesStore } from '@/stores/invoices';
 import sideMenu from '@/assets/icons/sideMenu.vue';
 import { format } from 'date-fns';
+import { useI18n } from 'vue-i18n';
 
 
 const env = import.meta.env.VITE_WORLDSHIP_API
@@ -511,6 +512,7 @@ const deliverToCenter = ref(true)
 const tempAdresses = ref([])
 const isCargo = ref('dhl')
 const isPicture = ref(false)
+const { t } = useI18n()
 
 onMounted(async () => {
   try {

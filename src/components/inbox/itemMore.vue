@@ -50,7 +50,7 @@
             }" :class="[
               'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
             ]">
-              return
+              {{ t('commun.return') }}
               <RedoIcon class="w-5 h-5" />
             </button>
             </MenuItem>
@@ -62,7 +62,7 @@
             }" :class="[
               'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
             ]">
-              my note
+              {{ t('commun.myNote') }}
               <ClipboardIcon class="w-5 h-5" />
             </button>
             </MenuItem>
@@ -71,7 +71,8 @@
             <button @click="openTickets" :class="[
               'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',
             ]">
-              open ticket
+
+              {{ t('commun.openTicket') }}
               <comment-icon class="w-5 h-5" />
             </button>
             </MenuItem>
@@ -99,11 +100,13 @@ import axios from 'axios';
 import CheckIcon from '@/assets/icons/checkIcon.vue';
 import CheckCircleIcon from '@/assets/icons/checkCircleIcon.vue';
 import TimesCircleIcon from '@/assets/icons/timesCircleIcon.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps(['item'])
 const useWidget = useWidgetStore()
 const useInbox = useInboxStore()
 const router = useRouter()
+const { t } = useI18n()
 
 const openTickets = async () => {
 

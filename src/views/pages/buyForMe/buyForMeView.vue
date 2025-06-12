@@ -9,14 +9,14 @@
     <send-modal :item="useInbox.focusedBuyForMe" />
     <add-item-modal :item="selectedItem" />
     <delete-modal :item="useInbox.focusedItem" @deleteItem="onDeleteItem" />
-
+    <!--
     <payment-modal :item="{
       id: useInbox.focusedBuyForMe.id,
       total_price: useInbox.focusedBuyForMe.price_item,
       total_price_options: useInbox.focusedBuyForMe.service,
       total_price_cost: useInbox.focusedBuyForMe.total_price
     }" :types="useProfile.profile.payments_methodes" :cards="tempCards" />
-
+-->
     <div class="w-full h-10 flex items-center justify-between">
       <div class="flex gap-3 items-center">
         <div class="w-1 h-6 bg-primary"></div>

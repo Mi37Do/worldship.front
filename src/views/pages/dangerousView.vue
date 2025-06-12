@@ -354,7 +354,7 @@ const onFilterItems = (item) => {
 
           </div>
 
-          <span class="h-8  my-auto flex items-center ">{{ $t('commun.state') }}</span>
+          <span class="h-8  my-auto flex items-center ">{{ $t('commun.status') }}</span>
         </div>
 
         <div class="w-full flex-1 overflow-auto">

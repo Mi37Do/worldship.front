@@ -6,7 +6,7 @@
       <span class="h-8  my-auto flex items-center">{{ $t('commun.phone') }}</span>
       <span class="h-8 my-auto flex items-center">{{ $t('commun.company') }}</span>
       <span class="h-8 my-auto flex items-center">{{ $t('commun.country') }}</span>
-      <span class="h-8  my-auto flex items-center">zip code</span>
+      <span class="h-8  my-auto flex items-center">{{ $t('commun.zipCode') }}</span>
       <span class="h-8 my-auto flex items-center">{{ $t('commun.city') }}</span>
       <span class="h-8 my-auto flex items-center">{{ $t('commun.addressLine') }}</span>
       <span class="h-8 my-auto flex items-center">{{ $t('commun.addressLine') }} 2</span>
