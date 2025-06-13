@@ -15,7 +15,7 @@
           <div class="w-full grid sm:grid-cols-2 gap-x-4 gap-y-2 px-4 border-b border-slate-200 pb-4">
             <label class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">website name <span class="text-red-500">*</span></span>
+                <span class="label-text uppercase">{{ $t('commun.website') }} <span class="text-red-500">*</span></span>
               </div>
               <input type="text" required v-model="buyToAdd.site_name"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -24,7 +24,7 @@
 
             <label class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">website url <span class="text-red-500">*</span></span>
+                <span class="label-text uppercase">{{ $t('commun.url') }} <span class="text-red-500">*</span></span>
               </div>
               <input type="text" required v-model="buyToAdd.site_url"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -33,12 +33,12 @@
 
 
           <div v-auto-animate class="w-full px-2 flex flex-col gap-4 py-4">
-            <span class="pixa-title ml-2 py-2">items</span>
+            <span class="pixa-title ml-2 py-2">{{ $t('commun.items') }}</span>
             <div v-for="(i, index) in items" :key="i.id"
               class="w-full sm:col-span-2 bg-primary/5 h-fit rounded-md border border-slate-200 p-2 grid grid-cols-2 gap-x-4 gap-y-2">
               <label class="form-control w-full">
                 <div class="label">
-                  <span class="label-text uppercase">name <span class="text-red-500">*</span></span>
+                  <span class="label-text uppercase">{{ $t('commun.name') }} <span class="text-red-500">*</span></span>
                 </div>
                 <input type="text" required v-model="i.name"
                   class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -46,7 +46,7 @@
 
               <label class="form-control w-full">
                 <div class="label">
-                  <span class="label-text uppercase">url <span class="text-red-500">*</span></span>
+                  <span class="label-text uppercase">{{ $t('commun.url') }} <span class="text-red-500">*</span></span>
                 </div>
                 <input type="text" required v-model="i.url"
                   class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -54,7 +54,8 @@
 
               <label class="form-control w-full">
                 <div class="label">
-                  <span class="label-text uppercase">quantity <span class="text-red-500">*</span></span>
+                  <span class="label-text uppercase">{{ $t('commun.quantity') }} <span
+                      class="text-red-500">*</span></span>
                 </div>
                 <input type="number" required v-model="i.qty"
                   class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -62,7 +63,7 @@
 
               <label class="form-control w-full">
                 <div class="label">
-                  <span class="label-text uppercase">price <span class="text-red-500">*</span></span>
+                  <span class="label-text uppercase">{{ $t('commun.price') }} <span class="text-red-500">*</span></span>
                 </div>
                 <input type="number" required v-model="i.price"
                   class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -72,7 +73,8 @@
 
               <label class="form-control w-full sm:col-span-2">
                 <div class="label">
-                  <span class="label-text uppercase">model/color <span class="text-red-500">*</span></span>
+                  <span class="label-text uppercase">{{ $t('commun.modelColor') }} <span
+                      class="text-red-500">*</span></span>
                 </div>
                 <input type="text" required v-model="i.options"
                   class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -99,7 +101,7 @@
 
               <div
                 class="w-full sm:col-span-2 p-4 bg-white border border-primary/10 my-2 rounded h-10 flex items-center justify-center font-semibold text-primary uppercase">
-                total : {{ i.price * i.qty }}
+                {{ $t('commun.total') }} : {{ i.price * i.qty }}
               </div>
 
 
@@ -107,7 +109,7 @@
                 <button type="button" @click="() => {
                   items.splice(index, 1)
                 }" class="btn btn-sm pixa-btn w-full pixa-btn-delete">
-                  <trash-icon class="w-5 h-5" /> <span>remove item</span>
+                  <trash-icon class="w-5 h-5" /> <span>{{ $t('commun.remove') }} {{ $t('commun.item') }}</span>
                 </button>
               </div>
             </div>
@@ -117,14 +119,14 @@
               items.push(item)
             }" class="btn btn-sm pixa-btn w-full pixa-btn-nofloat">
               <plus-icon class="w-5 h-5" />
-              add new item</button>
+              {{ $t('commun.add') }} {{ $t('commun.item') }}</button>
           </div>
 
 
           <div class="w-full px-4 border-t border-slate-200 pt-4">
             <label class="form-control w-full col-span-2">
               <div class="label">
-                <span class="label-text uppercase"> Notes </span>
+                <span class="label-text uppercase"> {{ $t('commun.note') }} </span>
               </div>
               <textarea type="text" v-model="buyToAdd.instruction_bfm"
                 class="pixa-textarea w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -134,7 +136,7 @@
           <div class="w-full grid sm:grid-cols-2  gap-x-4 gap-y-2 px-4">
             <label class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">items Value </span>
+                <span class="label-text uppercase">{{ $t('commun.itemsValue') }} </span>
               </div>
               <input type="number" disabled v-model="finalValues.items"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -142,7 +144,7 @@
 
             <label class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">service </span>
+                <span class="label-text uppercase">{{ $t('commun.service') }} </span>
               </div>
               <input type="number" disabled v-model="finalValues.service"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -150,7 +152,8 @@
 
             <label class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">Domestic Fee <span class="text-red-500">*</span></span>
+                <span class="label-text uppercase">{{ $t('commun.domesticFee') }} <span
+                    class="text-red-500">*</span></span>
               </div>
               <input type="number" required v-model="buyToAdd.domestique_shipp"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -158,7 +161,7 @@
 
             <label class="form-control w-full">
               <div class="label">
-                <span class="label-text uppercase">Total </span>
+                <span class="label-text uppercase">{{ $t('commun.total') }} </span>
               </div>
               <input type="number" disabled v-model="finalValues.total"
                 class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -175,10 +178,11 @@
         <div class="w-full grid grid-cols-2 gap-4">
           <button :disabled="loading" type="submit" class="btn btn-sm pixa-btn btn-primary">
             <span v-if="loading" class="loading loading-ring loading-sm"></span>
-            <span v-else>save</span>
+            <span v-else>{{ $t('commun.save') }}</span>
           </button>
 
-          <button :disabled="loading" type="button" class="btn btn-sm pixa-btn pixa-btn-float">cancel</button>
+          <button :disabled="loading" type="button" class="btn btn-sm pixa-btn pixa-btn-float">{{ $t('commun.cancel')
+          }}</button>
         </div>
       </div>
 
@@ -271,8 +275,6 @@ const addNewBuyForMe = async () => {
     formdata.append(`price_${index}`, element.price)
     formdata.append(`image_${index}`, blob)
   }
-  console.log(formdata)
-
   try {
     let response = await axios.post(`/Dashboard/create_buy_for_me_order_API/${localStorage.getItem('ws-user-id')}`, formdata)
     router.push({ name: 'table-buyForMe' })
@@ -301,7 +303,6 @@ function base64ToBlob(base64, type = 'image/png') {
 }
 
 const handleFileChange = (index, event) => {
-  console.log(index)
 
   const file = event.target.files[0]; // Get the first file
 

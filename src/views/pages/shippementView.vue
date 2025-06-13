@@ -76,7 +76,6 @@
 
                   await useInbox.getShippements(null, route.params.id)
 
-                  console.log(useInbox.focusedShippement);
                   //  useInbox.focusedShippement.total_price_cost = response.data.reslut
 
                   tempBook = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : useBook.tempBooks[0].id
@@ -367,7 +366,6 @@
                     isCargo = 'dhl'
                     useInbox.focusedShippement.use_cargo = false
                     let response = await axios.get(`/Dashboard/choose_ship_API/${route.params.id}/0`)
-                    console.log(response.data)
                     useInbox.focusedShippement.total_price_cost = response.data.reslut
                   }" :class="isCargo === 'dhl' ? 'bg-primary text-white' : 'hover:bg-white/80 cursor-pointer'"
                     class="w-full h-14 p-2 rounded flex items-center">
@@ -386,7 +384,7 @@
                     isCargo = 'crg'
                     useInbox.focusedShippement.use_cargo = true
                     let response = await axios.get(`/Dashboard/choose_ship_API/${route.params.id}/1`)
-                    console.log(response.data)
+
                     useInbox.focusedShippement.total_price_cost = response.data.reslut
 
                   }" :class="isCargo === 'crg' ? 'bg-primary text-white' : 'hover:bg-white/80  cursor-pointer'"
@@ -524,8 +522,6 @@ onMounted(async () => {
 
 
 
-    console.log(useInbox.focusedShippement)
-
     /***/
     if (useInbox.focusedShippement.deliver_type === 'p') {
       deliverToCenter.value = true
@@ -568,7 +564,6 @@ onMounted(async () => {
       for (let j = 0; j < element.wh_order.length; j++) {
         const elementx = element.wh_order[j]
 
-        console.log(elementx)
 
 
         tempItems.value.push(
@@ -583,7 +578,6 @@ onMounted(async () => {
       }
     }
 
-    console.log(tempItems.value);
 
     useBook.addresses = useBook.addresses.filter(item => item.type === 'to')
     useBook.tempBooks = useBook.addresses.map(item => ({
@@ -625,8 +619,6 @@ const onSelectedEnabledInsurance = async (value) => {
 }
 
 const onChangeBook = async (id) => {
-  console.log(id)
-  console.log(tempBook.value)
 
   try {
     /**
@@ -636,7 +628,6 @@ const onChangeBook = async (id) => {
 
     await useInbox.getShippements(null, route.params.id)
     tempBook.value = useInbox.focusedShippement.address_book ? useInbox.focusedShippement.address_book.id : useBook.tempBooks[0].id
-    console.log(useInbox.focusedShippement);
 
     await useBook.getAddresses(localStorage.getItem('ws-user-id'))
   } catch (error) {
@@ -657,7 +648,6 @@ const usePromoCode = async () => {
   tempCodePromo.value = useInbox.focusedShippement.promo_code
   try {
     let response = await axios.get(`/Dashboard/updatePromo_codesPk_API/${route.params.id}/${tempCodePromo.value}`)
-    console.log(response.data)
 
     await useInbox.getShippements(null, route.params.id)
   } catch (error) {

@@ -12,7 +12,7 @@
 
         <span class="uppercase text-lg mt-2">are you sure?</span>
         <span class="mb-6">You are going to return <span class="font-bold">{{ item.code
-            }}</span></span>
+        }}</span></span>
 
         <div class="w-full flex-1 flex flex-col gap-2 mb-2">
           <label class="form-control w-full">
@@ -100,7 +100,6 @@ const returnInbox = async (id) => {
   loadingReturn.value = true
   returnPackage.row_id = id
 
-  console.log(returnPackage)
 
 
   let formData = new FormData()

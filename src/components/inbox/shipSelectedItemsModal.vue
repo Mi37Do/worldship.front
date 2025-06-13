@@ -56,7 +56,6 @@ const sendItem = async () => {
 
   for (let index = 0; index < props.list.length; index++) {
     const element = props.list[index];
-    console.log(element)
     if (orders) orders = orders + '|' + element.id
     else orders = element.id
   }

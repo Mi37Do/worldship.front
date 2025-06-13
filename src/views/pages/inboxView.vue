@@ -191,7 +191,6 @@ onMounted(async () => {
     await useInbox.getInbox(localStorage.getItem('ws-user-id'))
     useInbox.filtredInboxs = useInbox.inboxs.filter(item => item.state_wh !== 'dg')
 
-    console.log(useInbox.filtredInboxs)
 
 
     useInbox.inboxs.map(item => ({

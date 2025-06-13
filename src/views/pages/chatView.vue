@@ -57,7 +57,7 @@
           </div>
           <span class="uppercase font-semibold text-lg">{{ useSupport.focusedTicket.user_id.first_name }} {{
             useSupport.focusedTicket.user_id.last_name
-          }}</span>
+            }}</span>
           <div class="w-full h-fit fill-slate-600 flex flex-col gap-2">
             <div class="flex gap-2">
               <phone-icon class="w-5 h-5" />
@@ -177,7 +177,6 @@ const getMessages = async () => {
   files.value = []
   try {
     let response = await axios.get(`/Dashboard/view_message_suport_ticket_API/${route.params.id}`)
-    console.log(useSupport.focusedTicket)
 
     useSupport.focusedTicket = response.data.ticket
 

@@ -54,7 +54,6 @@ onMounted(async () => {
   try {
     await useInvoices.getCards(localStorage.getItem('ws-user-id'))
     loading.value = false
-    console.log(useInvoices.cards);
 
   } catch (error) {
 

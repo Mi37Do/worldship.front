@@ -133,6 +133,19 @@
     "companyName": "اسم الشركة",
     "fullName": "الاسم الكامل",
     "phoneNumber": "رقم الهاتف",
-    "useDefault": "استخدام كافتراضي"
+    "useDefault": "استخدام كافتراضي",
+    "url": "الرابط",
+    "service": "الخدمة",
+    "domesticShipment": "شحنة داخلية",
+    "issueDate": "تاريخ الإصدار",
+    "costumer": "العميل",
+    "payment": "الدفع",
+    "print": "طباعة",
+    "totalDue": "المبلغ المستحق",
+    "cancel": "إلغاء",
+    "domesticFee": "رسوم الشحن الداخلي",
+    "modelColor": "لون /الموديل",
+    "quantity": "الكمية",
+    "website": "الموقع الإلكتروني"
   }
 }

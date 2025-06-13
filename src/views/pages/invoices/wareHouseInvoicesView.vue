@@ -68,7 +68,6 @@ const loading = ref(true)
 onMounted(async () => {
   useInvoices.invoices = []
   try {
-    console.log(localStorage.getItem('ws-user-id'));
 
     await useInvoices.getInvoices("wrhs", localStorage.getItem('ws-user-id'), null)
     loading.value = false

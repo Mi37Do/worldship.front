@@ -142,6 +142,19 @@
     "companyName": "Company Name",
     "fullName": "Full Name",
     "phoneNumber": "Phone Number",
-    "useDefault": "Use as Default"
+    "useDefault": "Use as Default",
+    "url": "URL",
+    "service": "Service",
+    "domesticShipment": "Domestic Shipment",
+    "issueDate": "Issue Date",
+    "costumer": "Customer",
+    "payment": "Payment",
+    "print": "Print",
+    "totalDue": "Total Due",
+    "cancel": "Cancel",
+    "domesticFee": "Domestic Fee",
+    "modelColor": "Model / Color",
+    "quantity": "Quantity",
+    "website": "Website"
   }
 }

@@ -17,8 +17,6 @@
             <MenuItem>
             <button @click="() => {
               useInbox.costumeShipItem = item
-              console.log(env + item.images);
-
 
               Object.assign(useInbox.costumeShipItem, {
                 id: item.id,
@@ -31,8 +29,6 @@
                 price: item.price,
                 image: env + item.images
               })
-              console.log(item);
-
 
               Object.assign(useWidget.addEditShippementItem, {
                 add: false, open: true
@@ -53,7 +49,6 @@
                 designation: item.name_id.name,
                 open: true
               })
-              console.log(useWidget.deleteModal);
 
             }" :class="[
               'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn-delete',

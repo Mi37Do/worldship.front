@@ -99,13 +99,11 @@ export const useProfileStore = defineStore('profile', () => {
 
     try {
       let response = await axios.post(`/login_API`, formData)
-      console.log(response)
       if (response.data.rslt === 0) {
         Object.assign(loginError, {
           open: true,
           message: 'invalide credentials, please retry login',
         })
-        console.log('error')
       } else {
         Cookies.set('token', response.data.token)
         localStorage.setItem('ws-user-id', response.data.user.id)
@@ -121,7 +119,7 @@ export const useProfileStore = defineStore('profile', () => {
 
   const getWebConfig = async () => {
     let response = await axios.get(`/config_web_API`)
-    console.log(response.data)
+
     address_site.value = response.data.address_site
     services.value = response.data.services
     webConfig.value = response.data.config_web

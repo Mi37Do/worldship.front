@@ -132,9 +132,6 @@ const itemToAdd = reactive(
 watch(() => useWidget.addItem.open, () => {
   if (useWidget.addItem.open) {
     loading.value = false
-  } else {
-    console.log(props.item);
-
   }
 })
 

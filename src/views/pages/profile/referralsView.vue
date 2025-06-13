@@ -132,7 +132,6 @@ const copied = ref(false)
 onMounted(async () => {
   try {
     await useProfile.getRefferals(localStorage.getItem('ws-user-id'))
-    console.log(useProfile.refferals)
     loading.value = false
   } catch (error) {
     loading.value = true

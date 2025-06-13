@@ -455,7 +455,6 @@
                     isCargo = false
                     useInbox.focusedShippement.use_cargo = false
                     let response = await axios.get(`/Dashboard/choose_ship_API/${route.params.id}/0`)
-                    console.log(response.data)
                     useInbox.focusedShippement.total_price_cost = response.data.reslut
                   }" :class="!isCargo ? 'bg-primary text-white' : 'hover:bg-white/80'"
                     class="w-full h-14 p-2 rounded flex items-center">
@@ -473,7 +472,6 @@
                     isCargo = true
                     useInbox.focusedShippement.use_cargo = true
                     let response = await axios.get(`/Dashboard/choose_ship_API/${route.params.id}/1`)
-                    console.log(response.data)
                     useInbox.focusedShippement.total_price_cost = response.data.reslut
 
                   }" :class="isCargo ? 'bg-primary text-white' : 'hover:bg-white/80'"
@@ -518,7 +516,7 @@
               <span class="font-bold h-10 flex items-center">Total </span>
 
               <span class="text-right my-auto font-bold">$ {{ numberFormat(useInbox.focusedShippement.total_price_cost)
-                }}
+              }}
               </span>
             </div>
 
@@ -602,7 +600,6 @@ onMounted(async () => {
     await useProfile.getWebConfig()
 
     useBook.filterAdr()
-    console.log(useInbox.focusedShippement)
 
     if (useInbox.focusedShippement.address_book_from
     ) {
@@ -726,7 +723,6 @@ const usePromoCode = async () => {
   tempCodePromo.value = useInbox.focusedShippement.promo_code
   try {
     let response = await axios.get(`/Shipments/updatePromo_codesPk_API/${route.params.id}/${tempCodePromo.value}`)
-    console.log(response.data)
 
     await useInbox.getShippements(null, route.params.id)
   } catch (error) {

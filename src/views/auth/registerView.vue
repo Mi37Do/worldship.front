@@ -159,7 +159,6 @@ const registration = async () => {
   message.value = ''
   const formData = new FormData()
 
-  console.log(itemToAdd)
 
 
   formData.append('first_name', itemToAdd.first_name)
@@ -170,9 +169,6 @@ const registration = async () => {
   formData.append('password', itemToAdd.password)
   formData.append('username', itemToAdd.username)
   formData.append('parent_referral_code', itemToAdd.parent_referral_code)
-
-  console.log(itemToAdd.password)
-  console.log(passwordVerification.value)
 
 
 

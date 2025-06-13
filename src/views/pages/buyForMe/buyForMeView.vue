@@ -154,12 +154,12 @@
             <div
               class="w-full h-fit flex flex-col gap-y-2 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl p-4 uppercase">
               <div class="w-full h-10 flex items-center">
-                <span class="pixa-title h-10 flex items-center">Details Package</span>
+                <span class="pixa-title h-10 flex items-center">{{ t('commun.detailsPackage') }}</span>
               </div>
 
               <label class="form-control w-full">
                 <div class="label">
-                  <span class="label-text uppercase">name </span>
+                  <span class="label-text uppercase">{{ t('commun.name') }} </span>
                 </div>
                 <input type="text" required v-model="useInbox.focusedBuyForMe.name"
                   class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -167,7 +167,7 @@
 
               <label class="form-control w-full">
                 <div class="label">
-                  <span class="label-text uppercase">url </span>
+                  <span class="label-text uppercase">{{ t('commun.url') }} </span>
                 </div>
                 <input type="text" required v-model="useInbox.focusedBuyForMe.url"
                   class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -175,7 +175,7 @@
 
               <label class="form-control w-full">
                 <div class="label">
-                  <span class="label-text uppercase">instructions </span>
+                  <span class="label-text uppercase">{{ t('commun.instructions') }} </span>
                 </div>
                 <input type="text" required v-model="useInbox.focusedBuyForMe.Instructions"
                   class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -183,7 +183,7 @@
 
               <label class="form-control w-full">
                 <div class="label">
-                  <span class="label-text uppercase">domestic shipping </span>
+                  <span class="label-text uppercase">{{ t('commun.domesticShipment') }} </span>
                 </div>
                 <input type="number" required v-model="useInbox.focusedBuyForMe.domestic_shipping"
                   class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -191,12 +191,12 @@
 
               <div class="w-full grid grid-cols-2 gap-x-4 gap-y-2 pt-4 border-t border-slate-200 mt-2">
 
-                <span class="font-semibold h-10 flex items-center">Items Value</span>
+                <span class="font-semibold h-10 flex items-center">{{ t('commun.itemsValue') }}</span>
                 <span class="text-right my-auto"> $ {{ numberFormat(useInbox.focusedBuyForMe.price_item) }}</span><span
-                  class="font-semibold h-10 flex items-center">Service
+                  class="font-semibold h-10 flex items-center">{{ t('commun.service') }}
                 </span>
                 <span class="text-right my-auto"> $ {{ numberFormat(useInbox.focusedBuyForMe.service) }}</span>
-                <span class="font-semibold h-10 flex items-center">total</span>
+                <span class="font-semibold h-10 flex items-center">{{ t('commun.total') }}</span>
                 <span class="text-right my-auto"> $ {{ numberFormat(useInbox.focusedBuyForMe.total_price) }} </span>
               </div>
             </div>
@@ -207,7 +207,7 @@
             <div
               class="w-full h-full flex flex-col gap-4 bg-white rounded-lg border border-gray-200 shadow-primary/5 shadow-2xl py-4 uppercase overflow-hidden">
               <div class="w-full flex gap-4 items-center px-4">
-                <span class="pixa-title">Package</span>
+                <span class="pixa-title">{{ t('commun.package') }}</span>
                 <span
                   class=" my-auto flex items-center truncate bg-slate-100 w-fit px-3 py-1.5 rounded font-semibold">{{
                     useInbox.items.length }}</span>
@@ -216,7 +216,7 @@
                   <button @click="useWidget.addItem.open = true" v-if="useInbox.focusedBuyForMe.state === 'n'"
                     class="btn btn-sm pixa-btn btn-primary">
                     <PlusIcon class="w-5 h-5" />
-                    <span>add item</span>
+                    <span>{{ t('commun.add') }} {{ t('commun.item') }}</span>
                   </button>
                 </div>
 
@@ -262,6 +262,7 @@ import paymentModal from '@/components/shippement/paymentModal.vue';
 import usdCircleIcon from '@/assets/icons/usdCircleIcon.vue';
 import { useProfileStore } from '@/stores/profile';
 import { useInvoicesStore } from '@/stores/invoices';
+import { useI18n } from 'vue-i18n';
 
 const useWidget = useWidgetStore()
 const useInbox = useInboxStore()
@@ -274,13 +275,13 @@ const useProfile = useProfileStore()
 const loadingSave = ref(false)
 const tempCards = ref(null)
 const useInvoices = useInvoicesStore()
+const { t } = useI18n()
 
 onMounted(async () => {
   useInbox.items = []
   try {
     await useInbox.getBuyForMes(null, route.params.id)
     useInbox.items = useInbox.focusedBuyForMe.b4m_order
-    console.log(useInbox.focusedBuyForMe)
     await useInvoices.getCards(localStorage.getItem('ws-user-id'))
 
 
@@ -332,7 +333,6 @@ const editBuyForMe = async () => {
     })
 
     await useInbox.getBuyForMes(null, route.params.id)
-    console.log(response.data)
 
   } catch (error) {
     console.error(error)

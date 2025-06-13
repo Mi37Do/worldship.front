@@ -43,7 +43,6 @@
             }" />
             <commun-list-box :list="types" :selected="selectedType" @onSelectedItem="async (id) => {
               selectedType = id
-              console.log(id);
 
               if (id === 'all') {
                 useInbox.filtredShippements = useInbox.shippements
@@ -198,7 +197,6 @@ const searchQuery = (query) => {
 
 
 const onSupportEmits = async (item) => {
-  console.log(item);
 
   let formData = new FormData()
 
@@ -213,7 +211,6 @@ const onSupportEmits = async (item) => {
         'Content-Type': 'multipart/form-data',
       }
     })
-    console.log(response.data)
 
   } catch (error) {
     console.error(error)

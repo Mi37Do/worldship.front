@@ -85,7 +85,6 @@
 
               <commun-combobox-countries v-else class="mt-auto" :required="true" :list="countries"
                 :selected="addressBook.countrie" @onSelectedItem="(id) => {
-                  console.log(id)
 
                   addressBook.countrie = id
                 }" />
@@ -155,8 +154,8 @@
           </div>
         </div>
 
-        <button :disabled="loadingSave" type="submit"
-          class="btn btn-sm pixa-btn btn-primary">{{ t('commun.save') }}</button>
+        <button :disabled="loadingSave" type="submit" class="btn btn-sm pixa-btn btn-primary">{{ t('commun.save')
+          }}</button>
       </form>
 
 

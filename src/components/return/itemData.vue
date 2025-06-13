@@ -5,7 +5,7 @@
     <div class="w-full h-full hidden lg:grid grid-cols-7 gap-2">
       <span class=" my-auto flex items-center truncate">{{ item.created_at ? format(item.created_at, 'dd-MM-yyyy') :
         '------'
-      }}</span>
+        }}</span>
       <span class=" my-auto flex items-center truncate">{{ item.code }}</span>
 
       <span class="flex-1  flex items-center truncate my-auto ">{{ item.company }}</span>
@@ -19,7 +19,7 @@
       <div class="flex items-center justify-between my-auto ">
         <span class=" flex items-center truncate bg-emerald-100 w-fit px-3 rounded text-emerald-600 py-1">{{ item.state
           === 'ip' ? 'In Process' : item.state === 'nr' ? 'Pending' : 'Returned'
-        }}</span>
+          }}</span>
         <!-- (
         ('p', 'In Process'),
         ('wp', 'Wait Payment'),
@@ -36,7 +36,7 @@
         <span class="flex-1 my-auto flex items-center truncate">{{ item.created_at ? format(item.created_at,
           'dd-MM-yyyy') :
           '------'
-        }}</span>
+          }}</span>
         <item-more :item="item" />
       </div>
 
@@ -72,7 +72,6 @@ import itemMore from './itemMore.vue';
 const useWidget = useWidgetStore()
 const props = defineProps(['item', 'index'])
 
-console.log(props.item);
 
 </script>
 

@@ -129,7 +129,6 @@ onMounted(async () => {
   try {
     await useInbox.getReturns(localStorage.getItem('ws-user-id'))
     useInbox.filtredReturns = useInbox.returns
-    console.log(useInbox.returns);
 
     loading.value = false
   } catch (error) {

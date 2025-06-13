@@ -138,8 +138,6 @@ const onSelectedItem = (id) => {
     selectedTicketFor.value = selectedList.value.length > 0 ? selectedList.value[0].id : null
   }
   selectedType.value = id
-  console.log(selectedTicketFor.value)
-  /***/
   setTimeout(() => {
     loading.value = false
   }, 100)

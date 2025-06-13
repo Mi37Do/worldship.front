@@ -25,8 +25,6 @@
 
           <commun-list-box :list="types" :selected="selectedType" @onSelectedItem="async (id) => {
             selectedType = id
-            console.log(id);
-            console.log(useInbox.filterBuyForMes)
 
             if (id === 'all') {
               useInbox.filterBuyForMes = useInbox.buyForMes

@@ -18,7 +18,6 @@
             <MenuItem class="lg:hidden">
             <button @click="() => {
               useInbox.focusedInbox = item
-              console.log(item);
 
               for (let index = 0; index < item.wh_order.length; index++) {
                 const element = item.wh_order[index]

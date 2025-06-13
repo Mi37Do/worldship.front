@@ -61,7 +61,6 @@ const handlePayment = async (event) => {
 
   try {
     const result = await card.tokenize();
-    console.log(result)
 
     if (result.status === 'OK') {
       // Send the token to your server to process the payment

@@ -1042,8 +1042,6 @@ onMounted(async () => {
   try {
 
     await useBook.getAddresses(1)
-    console.log(useProfile.webConfig
-    )
 
     loading.value = false
   } catch (error) {
@@ -1059,8 +1057,6 @@ const calculateShipement = async () => {
 
   let mass = (shippement.l * shippement.w * shippement.h) / 139
   let response = await axios.get(`/calculator_API/${shippement.cityCode}/${shippement.weight > mass ? shippement.weight : mass.toFixed(0)}`)
-  console.log(response.data);
-
   Object.assign(resultShip, shippement)
   resultShip.result = response.data
 
@@ -1072,8 +1068,6 @@ const calculateCostume = async () => {
 
   let mass = (shippement.l * shippement.w * shippement.h) / shippement.type === 'occain' ? 64000 : 139
   let response = await axios.get(`/calculator_shp_API/${shippement.from}/${shippement.cityCode}/${shippement.weight > mass ? shippement.weight : mass.toFixed(0)}`)
-
-  console.log(response.data)
 
   Object.assign(resultShip, shippement)
   resultShip.result = response.data

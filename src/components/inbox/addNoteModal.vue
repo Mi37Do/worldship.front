@@ -83,7 +83,6 @@ const addNote = async (id) => {
   loadingAdd.value = true
   newNote.row_m_n_id = id
 
-  console.log(newNote);
 
 
   let formData = new FormData()

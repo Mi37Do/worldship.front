@@ -58,7 +58,6 @@
 
             <commun-combobox-countries class="mt-auto" :required="true" :list="countries"
               :selected="itemToAdd.code_countrie" @onSelectedItem="(id) => {
-                console.log(id);
 
                 itemToAdd.code_countrie = id
               }" />
@@ -180,8 +179,6 @@ watch(() => useWidget.addEditShippementItem, () => {
     }
 
     loading.value = false
-  } else {
-    console.log(props.item)
   }
 }, { deep: true })
 
@@ -282,7 +279,6 @@ const addEditItem = async () => {
     })
 
     await useInbox.getShippements(null, route.params.id)
-    console.log(response)
 
   } catch (error) {
     console.error(error)

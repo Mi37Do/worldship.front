@@ -123,8 +123,6 @@ const addWallet = async () => {
     pack_pay_type_id: walletType.value
   }
 
-  console.log(tempWallet)
-
 
   let formData = new FormData()
 

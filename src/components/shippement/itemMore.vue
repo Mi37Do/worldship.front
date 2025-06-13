@@ -75,7 +75,6 @@
               useWidget.tracking = true
               useInbox.focusedShippement = item
 
-              console.log(useInbox.focusedShippement)
 
             }" :class="[
               item.label_shipp ? '' : 'btn-disabled',
@@ -122,7 +121,6 @@ const router = useRouter()
 const route = useRoute()
 
 const openTickets = async () => {
-  console.log(props.item)
   if (props.item.suport_ticket) {
     router.push({ name: 'chat', params: { id: props.item.suport_ticket.id } })
   } else {

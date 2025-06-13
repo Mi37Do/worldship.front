@@ -208,7 +208,6 @@ onMounted(async () => {
       }
     ))
 
-    console.log(useSupport.tickets)
 
 
     useSupport.tempMessages = useSupport.tickets.tickets_new

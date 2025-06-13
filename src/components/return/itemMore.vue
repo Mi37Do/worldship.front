@@ -22,7 +22,6 @@
                 const element = item.wh_order[index]
                 useInbox.items.push(element)
               }
-              console.log(useInbox.items)
 
             }" :class="[
               'btn btn-sm pixa-btn btn-ghost flex justify-between w-full items-center capitalize pixa-menu-btn',

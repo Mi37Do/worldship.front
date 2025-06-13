@@ -7,7 +7,7 @@
 
       <div class="h-full w-full  flex flex-col">
         <div class="w-full h-14 flex items-center justify-between pb-4 border-b border-slate-200">
-          <span class="pixa-title">invoice</span>
+          <span class="pixa-title">{{ t('commun.invoice') }}</span>
           <button @click="() => {
             useWidget.invoiceDetail = false
             useInvoices.focusedInvoice = null
@@ -112,7 +112,7 @@
             <div class="w-full mb-2 flex items-center justify-between gap-3">
 
               <span class="flex flex-col h-fit">
-                <span class="font-semibold">issue date:</span>
+                <span class="font-semibold">{{ t('commun.issueDate') }}:</span>
                 <span class="capitalize">{{ format(useInvoices.focusedInvoice.updated_at, 'MMM-dd-yyyy') }}</span>
               </span>
 
@@ -127,7 +127,7 @@
 
             <span class="w-full h-2 bg-primary"></span>
 
-            <span class="font-bold text-2xl my-4">invoice {{ useInvoices.focusedInvoice.code }}</span>
+            <span class="font-bold text-2xl my-4">{{ t('commun.invoice') }} {{ useInvoices.focusedInvoice.code }}</span>
 
             <div class="w-full grid grid-cols-3 gap-2">
               <span v-for="i in 3" :key="i" class="w-full h-px bg-slate-300"></span>
@@ -137,7 +137,7 @@
 
               <div class="flex flex-col gap-2">
                 <div class="flex gap-2">
-                  <span class="w-16 font-semibold">costumer:</span>
+                  <span class="w-16 font-semibold">{{ t('commun.costumer') }}:</span>
                 </div>
 
                 <span>{{ route.name === 'warehouse-invoices' ? useInvoices.focusedInvoice.wh_pk.user.first_name + ' ' +
@@ -155,7 +155,7 @@
 
               <div class="flex flex-col gap-2">
                 <div class="flex gap-2">
-                  <span class="w-16 font-semibold">payment:</span>
+                  <span class="w-16 font-semibold">{{ t('commun.payment') }}:</span>
                 </div>
 
                 <span class="capitalize">{{ format(useInvoices.focusedInvoice.updated_at, 'MMM-dd-yyyy') }}</span>
@@ -170,18 +170,18 @@
 
             <div class="w-full mt-4 flex flex-col">
               <div class="w-full h-14 border-b border-slate-200 grid grid-cols-5 gap-4 font-semibold">
-                <span class="my-auto col-span-2">Items</span>
-                <span class="my-auto">qty</span>
-                <span class="my-auto">price</span>
-                <span class="my-auto">amount</span>
+                <span class="my-auto col-span-2">{{ t('commun.items') }}</span>
+                <span class="my-auto">{{ t('commun.quantity') }}</span>
+                <span class="my-auto">{{ t('commun.price') }}</span>
+                <span class="my-auto">{{ t('commun.amount') }}</span>
               </div>
 
               <div v-for="item in useInvoices.items
 " :key="item.id" class="w-full h-12 border-b border-slate-200 grid grid-cols-5 gap-4">
                 <span class="my-auto col-span-2">{{ route.name === 'warehouse-invoices' ? item.name_id.name : item.name
-                }}</span>
+                  }}</span>
                 <span class="my-auto">{{ item.qty
-                }}</span>
+                  }}</span>
                 <span class="my-auto">$ {{ numberFormat(item.price) }}</span>
                 <span class="my-auto">$ {{ numberFormat(item.qty * item.price) }}</span>
               </div>
@@ -192,7 +192,7 @@
               <span></span>
 
               <div class="w-full grid grid-cols-2 gap-2">
-                <span class="font-semibold h-10 flex items-center">total due</span>
+                <span class="font-semibold h-10 flex items-center">{{ t('commun.totalDue') }}</span>
                 <span class="text-right my-auto"> $ {{ numberFormat(route.name === 'warehouse-invoices' ?
                   useInvoices.focusedInvoice.wh_pk.total_price : useInvoices.focusedInvoice.bfm_pk.total_price) }}
                 </span>
@@ -206,7 +206,7 @@
 
         </div>
         <button v-if="useInvoices.focusedInvoice" @click="generatePDF"
-          class="btn btn-sm pixa-btn w-full btn-primary mt-4">print</button>
+          class="btn btn-sm pixa-btn w-full btn-primary mt-4">{{ t('commun.print') }}</button>
       </div>
 
 
@@ -226,6 +226,7 @@ import { ref } from 'vue';
 import { useProfileStore } from '@/stores/profile';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas-pro';
+import { useI18n } from 'vue-i18n';
 
 
 const useInvoices = useInvoicesStore()
@@ -234,6 +235,7 @@ const route = useRoute()
 const printableDiv = ref(null)
 const useProfile = useProfileStore()
 const pdfContent = ref(null)
+const { t } = useI18n()
 
 const generatePDF = async () => {
   const element = pdfContent.value;
