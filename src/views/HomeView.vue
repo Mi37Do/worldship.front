@@ -68,17 +68,12 @@ onMounted(async () => {
 
         <div class="w-full h-full flex flex-col gap-4 md:max-w-[30vw] m-auto z-10">
           <span class="text-2xl font-bold">worldship</span>
-          <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, animi autem! Cum architecto
-            doloribus
-            asperiores sed accusantium, accusamus dolor aut illo modi adipisci sint obcaecati, vitae minus quia ipsam
-            nisi.</span>
+          <span>{{ useProfile.webConfig.footer_disc }}</span>
         </div>
 
         <div class="w-full h-full flex flex-col gap-4 md:max-w-[30vw] m-auto z-10">
           <span class="font-bold">Contact Us</span>
-          <span>A108 Adam Street
-            New York, NY 535022
-            United States</span>
+          <span>{{ useProfile.webConfig.footer_adr }}</span>
 
           <span class="font-bold">Contact Us</span>
           <span>{{ useProfile.webConfig.phone }}</span>

@@ -34,6 +34,10 @@
             <eye-slash-icon v-else class="w-5 h-5" />
           </button>
         </div>
+        <div class="label">
+          <a target="_blank" href="https://customer.worldshipus.com/password-reset/" class="uppercase">forgot password
+            !</a>
+        </div>
       </label>
 
       <label class="form-control w-full mt-4">
