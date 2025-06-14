@@ -770,21 +770,6 @@
             <span class="font-semibold">Total Cost</span>
             <span class="font-semibold">${{ (resultShip.result.dhl + resultShip.insurance).toFixed(2) }}</span> -->
 
-                <div @click="async () => {
-                  createCostume(shippement)
-                }" :class="'bg-primary text-white'" class="w-full h-14 p-2 rounded flex items-center col-span-2 -mb-3">
-                  <div class="flex-1 flex flex-col">
-                    <span class="flex gap-3 items-center"><img src="@/assets/pics/dhl-1.svg" alt="" class="w-10 mx-1">
-                      DHL</span>
-                    <span>${{ (resultShip.result.fedex +
-                      resultShip.insurance).toFixed(2) }}</span>
-                    <span>$ {{ numberFormat(resultShip.result.dhl + resultShip.insurance) }}
-                    </span>
-                  </div><!--
-                  <div class="w-fit h-6 px-2 bg-white/40 rounded-full flex items-center justify-center">
-                    ship now
-                  </div> -->
-                </div>
 
                 <div @click="async () => {
                   createCostume(shippement)

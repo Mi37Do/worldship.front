@@ -1,13 +1,36 @@
 <script setup>
 import { RouterView } from 'vue-router'
 import { useWidgetStore } from './stores/widget';
+
+import { ref } from 'vue';
+import { useProfileStore } from './stores/profile';
+
+
+
+
 const useWidget = useWidgetStore()
+const useProfile = useProfileStore()
 localStorage.setItem('user-language', 'en')
+
+const phoneNumber = ref('1234567890'); // Make this reactive
+const defaultMessage = ref('Hello! I have a question.');
+
+const openWhatsApp = () => {
+  const formattedNumber = phoneNumber.value.replace(/\D/g, '');
+  const encodedMessage = encodeURIComponent(defaultMessage.value);
+
+  window.open(`https://wa.me/${useProfile.webConfig.phone}?text=${encodedMessage}`, '_blank');
+};
 </script>
 
 <template>
-  <div :dir="useWidget.userLanguage === 'en' ? 'ltr' : 'rtl'" class="w-full h-screen"
+  <div :dir="useWidget.userLanguage === 'en' ? 'ltr' : 'rtl'" class="w-full h-screen relative"
     :style="{ fontFamily: useWidget.userLanguage === 'en' ? 'inter' : 'cairo' }">
+
+    <div @click="openWhatsApp" class="w-14 h-14 fixed bottom-6 right-6 rounded-full z-50">
+      <img src="@/assets/pics/WhatsApp.svg" alt="">
+    </div>
+
     <RouterView />
   </div>
 </template>

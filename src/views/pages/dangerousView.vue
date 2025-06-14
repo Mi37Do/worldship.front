@@ -149,12 +149,10 @@ onMounted(async () => {
     let response = await axios.get(`/Warehouse/DgItemsAll/${localStorage.getItem('ws-user-id')}/`)
     dgs.value = response.data
     dgsFiltred.value = response.data
-    console.log(response.data)
 
 
     useInbox.filtredInboxs = useInbox.inboxs
 
-    console.log(useInbox.filtredInboxs)
 
 
     useInbox.inboxs.map(item => ({

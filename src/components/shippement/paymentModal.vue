@@ -242,9 +242,6 @@ const closeModal = () => {
   walletType.value = 0
 }
 
-console.log(props.types)
-
-
 
 const newPayment = async () => {
 
@@ -256,8 +253,6 @@ const newPayment = async () => {
     pack_pay_type_id: walletType.value,
     image: payment.image
   }
-
-  console.log(tempWallet)
 
 
   let formData = new FormData()

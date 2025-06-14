@@ -155,6 +155,18 @@
     "domesticFee": "Domestic Fee",
     "modelColor": "Model / Color",
     "quantity": "Quantity",
-    "website": "Website"
+    "website": "Website",
+    "home": "home",
+    "about": "about",
+    "services": "services",
+    "pricing": "pricing",
+    "login": "login",
+    "phoneOrEmailAddressOrUnitNumber": "Phone, Email Address, or Unit Number",
+    "rememberMe": "remember me",
+    "welcome": "welcome",
+    "or": "or",
+    "createAccont": "create account",
+    "register": "Register",
+    "parentReferralCode": "Parent Referral Code"
   }
 }

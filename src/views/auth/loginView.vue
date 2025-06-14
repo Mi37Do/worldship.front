@@ -10,11 +10,11 @@
 
       <img :src="env + useProfile.webConfig.images_logo" class="w-48 " alt="">
 
-      <span class="uppercase font-semibold text-lg my-8">welcome</span>
+      <span class="uppercase font-semibold text-lg my-8">{{ t('commun.welcome') }}</span>
 
       <label class="form-control w-full">
         <div class="label">
-          <span class="label-text uppercase">phone or email address or unit number <span
+          <span class="label-text uppercase">{{ t('commun.phoneOrEmailAddressOrUnitNumber') }} <span
               class="text-red-500">*</span></span>
         </div>
         <input type="text" required v-model="loginUser.username"
@@ -23,7 +23,7 @@
 
       <label class="form-control w-full">
         <div class="label">
-          <span class="label-text uppercase">password <span class="text-red-500">*</span></span>
+          <span class="label-text uppercase">{{ t('commun.password') }} <span class="text-red-500">*</span></span>
         </div>
         <div class="flex items-center relative">
           <input :type="showPassword ? 'text' : 'password'" required v-model="loginUser.password"
@@ -39,7 +39,7 @@
       <label class="form-control w-full mt-4">
         <div class="w-full flex gap-2 items-center">
           <input type="checkbox" v-model="saveLogin" name="" id="" class="w-4 h-4">
-          <span class="flex-1 uppercase">remember me</span>
+          <span class="flex-1 uppercase">{{ t('commun.rememberMe') }}</span>
         </div>
 
       </label>
@@ -49,16 +49,16 @@
           useProfile.loginError.message }}
       </div>
 
-      <button type="submit" class="btn btn-sm pixa-btn btn-primary w-full mt-4">login</button>
+      <button type="submit" class="btn btn-sm pixa-btn btn-primary w-full mt-4">{{ t('commun.login') }}</button>
 
       <div class="w-full flex items-center gap-2 my-2">
         <span class="flex-1 h-px bg-slate-200"></span>
-        <span>OR</span>
+        <span class="uppercase">{{ t('commun.or') }}</span>
         <span class="flex-1 h-px bg-slate-200"></span>
       </div>
 
-      <router-link :to="{ name: 'register' }" class="btn btn-sm pixa-btn pixa-btn-nofloat w-full">create
-        account</router-link>
+      <router-link :to="{ name: 'register' }" class="btn btn-sm pixa-btn pixa-btn-nofloat w-full">{{
+        t('commun.createAccont') }}</router-link>
 
     </form>
   </div>
@@ -70,9 +70,11 @@ import eyeIcon from '@/assets/icons/eyeIcon.vue';
 import eyeSlashIcon from '@/assets/icons/eyeSlashIcon.vue';
 import { useProfileStore } from '@/stores/profile';
 import { reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 
 const env = import.meta.env.VITE_WORLDSHIP_API
+const { t } = useI18n()
 const showPassword = ref(false)
 const saveLogin = ref(false)
 const useProfile = useProfileStore()

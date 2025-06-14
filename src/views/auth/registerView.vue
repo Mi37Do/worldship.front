@@ -5,7 +5,7 @@
       <div class="w-full flex flex-col items-center gap-4  md:col-span-2">
         <img :src="env + useProfile.webConfig.images_logo" class="w-48 flex items-center justify-center" alt="">
 
-        <span class="uppercase font-semibold text-lg my-4">welcome</span>
+        <span class="uppercase font-semibold text-lg my-4">{{ t('commun.password') }}</span>
       </div>
 
 
@@ -77,7 +77,7 @@
 
       <label class="form-control w-full md:min-w-96">
         <div class="label">
-          <span class="label-text uppercase">parent referral code</span>
+          <span class="label-text uppercase">{{ t('commun.parentReferralCode') }}</span>
         </div>
         <input type="text" :disabled="route.name === 'register-child'" v-model="itemToAdd.parent_referral_code"
           class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
@@ -87,17 +87,17 @@
 
       <button :disabled="lodingLogin" type="submit" class="btn btn-sm pixa-btn btn-primary w-full mt-4  md:col-span-2">
         <span v-if="lodingLogin" class="loading loading-ring loading-sm"></span>
-        <span v-else>register</span>
+        <span v-else>{{ t('commun.register') }}</span>
       </button>
 
       <div class="w-full flex items-center gap-2 my-2 md:col-span-2">
         <span class="flex-1 h-px bg-slate-200"></span>
-        <span>OR</span>
+        <span class="uppercase">{{ t('commun.or') }}</span>
         <span class="flex-1 h-px bg-slate-200"></span>
       </div>
 
-      <router-link :to="{ name: 'login' }"
-        class="btn btn-sm pixa-btn pixa-btn-nofloat w-full md:col-span-2">login</router-link>
+      <router-link :to="{ name: 'login' }" class="btn btn-sm pixa-btn pixa-btn-nofloat w-full md:col-span-2">{{
+        t('commun.login') }}</router-link>
 
     </form>
   </div>

@@ -119,6 +119,7 @@ export const useProfileStore = defineStore('profile', () => {
 
   const getWebConfig = async () => {
     let response = await axios.get(`/config_web_API`)
+    console.log(response.data)
 
     address_site.value = response.data.address_site
     services.value = response.data.services

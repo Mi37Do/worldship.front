@@ -7,10 +7,12 @@ import Cookies from 'js-cookie';
 import languageSwitcher from '@/components/navigations/languageSwitcher.vue';
 import axios from 'axios';
 import { useWidgetStore } from '@/stores/widget';
+import { useI18n } from 'vue-i18n';
 
 const env = import.meta.env.VITE_WORLDSHIP_API
 const useProfile = useProfileStore()
 const useWidget = useWidgetStore()
+const { t } = useI18n()
 
 onMounted(async () => {
   await useProfile.getWebConfig()
@@ -31,19 +33,19 @@ onMounted(async () => {
         <img :src="env + useProfile.webConfig.images_logo" class="w-20" alt="">
 
         <nav class="gap-8 hidden md:flex items-center justify-between my-auto">
-          <a href="#home" class="btn btn-sm pixa-btn btn-ghost">home</a>
+          <a href="#home" class="btn btn-sm pixa-btn btn-ghost">{{ t('commun.home') }}</a>
 
-          <a href="#about" class="btn btn-sm pixa-btn btn-ghost">about</a>
+          <a href="#about" class="btn btn-sm pixa-btn btn-ghost">{{ t('commun.about') }}</a>
 
-          <a href="#services" class="btn btn-sm pixa-btn btn-ghost">services</a>
-          <a href="#pricing" class="btn btn-sm pixa-btn btn-ghost">pricing</a>
+          <a href="#services" class="btn btn-sm pixa-btn btn-ghost">{{ t('commun.services') }}</a>
+          <a href="#pricing" class="btn btn-sm pixa-btn btn-ghost">{{ t('commun.pricing') }}</a>
         </nav>
 
         <router-link :to="{
           name: useProfile.isAuth ? 'dashboard'
             : 'login'
-        }" class="btn btn-sm pixa-btn btn-primary">{{ useProfile.isAuth ? 'dashboard'
-          : 'login' }} </router-link>
+        }" class="btn btn-sm pixa-btn btn-primary">{{ useProfile.isAuth ? t('commun.dashboard')
+          : t('commun.login') }} </router-link>
 
       </div>
 
@@ -79,10 +81,10 @@ onMounted(async () => {
             United States</span>
 
           <span class="font-bold">Contact Us</span>
-          <span>+1 5589 55488 55</span>
+          <span>{{ useProfile.webConfig.phone }}</span>
 
           <span class="font-bold">email</span>
-          <span>info@example.com</span>
+          <span>{{ useProfile.webConfig.email }}</span>
         </div>
 
         <div class="w-full h-full absolute inset-0 overflow-hidden">

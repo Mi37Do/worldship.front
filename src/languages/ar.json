@@ -146,6 +146,18 @@
     "domesticFee": "رسوم الشحن الداخلي",
     "modelColor": "لون /الموديل",
     "quantity": "الكمية",
-    "website": "الموقع الإلكتروني"
+    "website": "الموقع الإلكتروني",
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "services": "الخدمات",
+    "pricing": "الأسعار",
+    "login": "تسجيل الدخول",
+    "phoneOrEmailAddressOrUnitNumber": "رقم الهاتف أو البريد الإلكتروني أو رقم الوحدة",
+    "rememberMe": "تذكرني",
+    "welcome": "مرحبًا",
+    "or": "أو",
+    "createAccont": "إنشاء حساب",
+    "register": "تسجيل",
+    "parentReferralCode": "رمز الإحالة الأصلية"
   }
 }
