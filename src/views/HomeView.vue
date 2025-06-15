@@ -44,7 +44,7 @@ onMounted(async () => {
         <router-link :to="{
           name: useProfile.isAuth ? 'dashboard'
             : 'login'
-        }" class="btn btn-sm pixa-btn btn-primary">{{ useProfile.isAuth ? t('commun.dashboard')
+        }" class="btn btn-sm pixa-btn btn-primary">{{ useProfile.isAuth ? t('navigation.links.dashboard')
           : t('commun.login') }} </router-link>
 
       </div>

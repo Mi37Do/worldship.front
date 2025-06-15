@@ -334,11 +334,8 @@
 
 
           <div v-if="showSize" class="w-full h-40 flex items-center justify-center uppercase">
-            <span @click="showSize = false" class="w-72 text-center cursor-pointer">if your package's length + widht +
-              height is
-              greater than 72 inches, please
-              click here to
-              provide the dimensions</span>
+            <span @click="showSize = false" class="w-72 text-center cursor-pointer">If the total of your package's
+              length, width, and height exceeds 72 inches, please click here to enter the dimensions.</span>
           </div>
 
           <div v-else class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -515,11 +512,8 @@
           </div>
 
           <div v-if="showSize" class="w-full h-40 flex items-center justify-center uppercase">
-            <span @click="showSize = false" class="w-72 text-center cursor-pointer">if your package's length + widht +
-              height is
-              greater than 72 inches, please
-              click here to
-              provide the dimensions</span>
+            <span @click="showSize = false" class="w-72 text-center cursor-pointer">If the total of your package's
+              length, width, and height exceeds 72 inches, please click here to enter the dimensions.</span>
           </div>
 
           <div v-else class="grid grid-cols-2 md:grid-cols-4 gap-4">

@@ -521,12 +521,8 @@
 
 
               <div v-if="showSize" class="w-full h-40 flex items-center justify-center uppercase">
-                <span @click="showSize = false" class="w-72 text-center cursor-pointer">if your package's length + widht
-                  +
-                  height is
-                  greater than 72 inches, please
-                  click here to
-                  provide the dimensions</span>
+                <span @click="showSize = false" class="w-72 text-center cursor-pointer">If the total of your package's
+                  length, width, and height exceeds 72 inches, please click here to enter the dimensions.</span>
               </div>
 
               <div v-else class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -707,12 +703,8 @@
               </div>
 
               <div v-if="showSize" class="w-full h-40 flex items-center justify-center uppercase">
-                <span @click="showSize = false" class="w-72 text-center cursor-pointer">if your package's length + widht
-                  +
-                  height is
-                  greater than 72 inches, please
-                  click here to
-                  provide the dimensions</span>
+                <span @click="showSize = false" class="w-72 text-center cursor-pointer">If the total of your package's
+                  length, width, and height exceeds 72 inches, please click here to enter the dimensions.</span>
               </div>
 
               <div v-else class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -771,9 +763,8 @@
             <span class="font-semibold">${{ (resultShip.result.dhl + resultShip.insurance).toFixed(2) }}</span> -->
 
 
-                <div @click="async () => {
-                  createCostume(shippement)
-                }" :class="'bg-primary text-white'" class="w-full h-14 p-2 rounded flex items-center col-span-2 -mb-3">
+                <div :class="'bg-primary text-white'"
+                  class="w-full h-14 p-2 rounded flex items-center col-span-2 -mb-3">
                   <div class="flex-1 flex flex-col">
                     <span class="flex gap-3 items-center"><img src="@/assets/pics/dhl-1.svg" alt="" class="w-10 mx-1">
                       DHL $ {{ numberFormat(resultShip.result.dhl + resultShip.insurance) }}</span>
@@ -785,9 +776,8 @@
                   </div> -->
                 </div>
 
-                <div @click="async () => {
-                  createCostume(shippement)
-                }" :class="'bg-primary text-white'" class="w-full h-14 p-2 rounded flex items-center col-span-2 -mb-3">
+                <div :class="'bg-primary text-white'"
+                  class="w-full h-14 p-2 rounded flex items-center col-span-2 -mb-3">
                   <div class="flex-1 flex flex-col">
                     <span class="flex gap-3 items-center">
                       <div class="bg-white h-8 w-12 flex items-center justify-center">
@@ -797,9 +787,6 @@
                     </span>
                     <span>
                     </span>
-                  </div>
-                  <div class="w-fit h-6 px-2 bg-white/40 rounded-full flex items-center justify-center">
-                    ship now
                   </div>
                 </div>
                 <!--
