@@ -33,7 +33,7 @@
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ useProfile.profile.user.first_name }} {{
                   useProfile.profile.user.last_name
-                }}</span>
+                  }}</span>
                 <div :class="[copied && typeCopied === 'name' ? 'tooltip' : '']" data-tip="copied">
                   <!--
                   <button
@@ -64,7 +64,7 @@
               <span class="w-32 font-semibold  my-auto">{{ $t('commun.addressLine') }} 2</span>
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ useProfile.profile.user.code
-                }}</span>
+                  }}</span>
                 <div :class="[copied && typeCopied === 'code' ? 'tooltip' : '']" data-tip="copied">
                   <!--
                   <button @click="copyText(useProfile.profile.user.code, 'code')"
@@ -121,7 +121,7 @@
               <span class="w-32 font-semibold  my-auto">{{ $t('commun.phone') }}</span>
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ formatPhoneNumber(useProfile.profile.user.addresse_site.phone)
-                }}</span>
+                  }}</span>
                 <div :class="[copied && typeCopied === 'phone' ? 'tooltip' : '']" data-tip="copied">
                   <!--
                   <button @click="copyText(useProfile.profile.user.addresse_site.phone, 'phone')"
@@ -172,7 +172,7 @@
 
             <div class="w-full flex gap-4 items-center">
               <span class="w-10"></span>
-              <span class="text-2xl font-bold">9</span>
+              <span class="text-2xl font-bold">0</span>
             </div>
 
           </div>
@@ -187,7 +187,7 @@
 
             <div class="w-full flex gap-4 items-center">
               <span class="w-10"></span>
-              <span class="text-2xl font-bold">9</span>
+              <span class="text-2xl font-bold">0</span>
             </div>
 
           </div>
@@ -202,7 +202,7 @@
 
             <div class="w-full flex gap-4 items-center">
               <span class="w-10"></span>
-              <span class="text-2xl font-bold">9</span>
+              <span class="text-2xl font-bold">0</span>
             </div>
 
           </div>
