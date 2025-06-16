@@ -1,6 +1,7 @@
 import { ref, computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
 import { useI18n } from 'vue-i18n'
+import axios from 'axios'
 
 export const useWidgetStore = defineStore('widget', () => {
   const openSide = ref(false)
@@ -16,6 +17,7 @@ export const useWidgetStore = defineStore('widget', () => {
   const addCard = ref(false)
   const dateFilter = ref(false)
   const tracking = ref(false)
+  const notifications = ref([])
 
   const addEditShippementItem = reactive({
     add: true,
@@ -66,6 +68,17 @@ export const useWidgetStore = defineStore('widget', () => {
     return localStorage.getItem('user-language')
   }
 
+  const getNotifications = async (id) => {
+    try {
+      let response = await axios.get(`/get_notifications_API/${id}`)
+      notifications.value = response.data.notifications
+
+      console.log(notifications.value)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return {
     calculator,
     orderItems,
@@ -92,5 +105,7 @@ export const useWidgetStore = defineStore('widget', () => {
     addCard,
     tracking,
     addEditShippementItem,
+    getNotifications,
+    notifications,
   }
 })

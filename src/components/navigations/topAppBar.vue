@@ -16,9 +16,7 @@
 
       <language-switcher />
 
-      <button class="btn btn-sm pixa-btn w-10 p-0 btn-ghost">
-        <bell-icon class="w-7 h-7" />
-      </button>
+      <notification-dropdown />
 
       <router-link :to="{ name: 'profile' }" class="btn btn-sm pixa-btn w-10 p-0 btn-ghost hidden lg:flex">
         <user-icon class="w-5 h-5" />
@@ -29,6 +27,7 @@
 
 <script setup>
 import copyIcon from '@/assets/icons/copyIcon.vue';
+import notificationDropdown from './notificationDropdown.vue';
 import walletIcon from '@/assets/icons/walletIcon.vue';
 import userIcon from '@/assets/icons/userIcon.vue';
 import bellIcon from '@/assets/icons/bellIcon.vue';

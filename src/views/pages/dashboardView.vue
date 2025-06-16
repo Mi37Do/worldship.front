@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full flex flex-col overflow-hidden">
+  <div class="w-full h-full flex flex-col overflow-y-hidden overflow-x-hidden">
     <top-app-bar>
       <template #title>
         <button @click="useWidget.openSide = true" class="btn btn-sm btn-square btn-ghost  md:hidden">
@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <div class="w-full flex-1 flex flex-col lg:flex-row-reverse gap-4 overflow-auto">
+      <div class="w-full flex-1 flex flex-col lg:flex-row-reverse gap-4 overflow-y-auto overflow-x-hidden">
 
         <div
           class="w-full h-fit lg:w-[400px] xl:w-[550px] bg-white rounded-lg border border-slate-200 flex flex-col items-center gap-4 p-4">
@@ -144,67 +144,96 @@
 
         </div>
 
-
-        <div class="flex-1 h-fit grid xl:grid-cols-2 gap-4">
-          <div class="w-full h-fit bg-white rounded-lg border border-slate-200 flex flex-col gap-2 p-4">
-            <div class="w-full flex gap-4 items-center">
-              <div
-                class="w-10 h-10 bg-gradient-to-br from-primary to-[#0247ab] rounded-md flex items-center justify-center">
-                <WalletIcon class="w-5 h-5 fill-white" />
+        <div class="flex-1 h-full flex flex-col gap-3 overflow-hidden">
+          <div class="w-full h-fit grid xl:grid-cols-2 gap-4">
+            <div class="w-full h-fit bg-white rounded-lg border border-slate-200 flex flex-col gap-2 p-4">
+              <div class="w-full flex gap-4 items-center">
+                <div
+                  class="w-10 h-10 bg-gradient-to-br from-primary to-[#0247ab] rounded-md flex items-center justify-center">
+                  <WalletIcon class="w-5 h-5 fill-white" />
+                </div>
+                <span class="text-lg font-semibold uppercase">{{ $t('commun.wallets') }}</span>
               </div>
-              <span class="text-lg font-semibold uppercase">{{ $t('commun.wallets') }}</span>
-            </div>
 
-            <div class="w-full flex gap-4 items-center">
-              <span class="w-10"></span>
-              <span class="text-2xl font-bold">$ {{ numberFormat(useProfile.profile.wallets.total_wallets) }} </span>
+              <div class="w-full flex gap-4 items-center">
+                <span class="w-10"></span>
+                <span class="text-2xl font-bold">$ {{ numberFormat(useProfile.profile.wallets.total_wallets) }} </span>
+              </div>
+
+            </div>
+            <div class="w-full h-fit bg-white rounded-lg border border-slate-200 flex flex-col gap-2 p-4">
+              <div class="w-full flex gap-4 items-center">
+                <div
+                  class="w-10 h-10 bg-gradient-to-br from-primary to-[#0247ab] rounded-md flex items-center justify-center">
+                  <box-icon class="w-5 h-5 fill-white" />
+                </div>
+                <span class="text-lg font-semibold uppercase">{{ $t('navigation.links.inbox') }}</span>
+              </div>
+
+              <div class="w-full flex gap-4 items-center">
+                <span class="w-10"></span>
+                <span class="text-2xl font-bold">0</span>
+              </div>
+
+            </div>
+            <div class="w-full h-fit bg-white rounded-lg border border-slate-200 flex flex-col gap-2 p-4">
+              <div class="w-full flex gap-4 items-center">
+                <div
+                  class="w-10 h-10 bg-gradient-to-br from-primary to-[#0247ab] rounded-md flex items-center justify-center">
+                  <planIcon class="w-5 h-5 fill-white" />
+                </div>
+                <span class="text-lg font-semibold uppercase">{{ $t('navigation.links.shippements') }}</span>
+              </div>
+
+              <div class="w-full flex gap-4 items-center">
+                <span class="w-10"></span>
+                <span class="text-2xl font-bold">0</span>
+              </div>
+
+            </div>
+            <div class="w-full h-fit bg-white rounded-lg border border-slate-200 flex flex-col gap-2 p-4">
+              <div class="w-full flex gap-4 items-center">
+                <div
+                  class="w-10 h-10 bg-gradient-to-br from-primary to-[#0247ab] rounded-md flex items-center justify-center">
+                  <CartIcon class="w-5 h-5 fill-white" />
+                </div>
+                <span class="text-lg font-semibold uppercase">{{ $t('navigation.links.buyForMe') }}</span>
+              </div>
+
+              <div class="w-full flex gap-4 items-center">
+                <span class="w-10"></span>
+                <span class="text-2xl font-bold">0</span>
+              </div>
+
             </div>
 
           </div>
-          <div class="w-full h-fit bg-white rounded-lg border border-slate-200 flex flex-col gap-2 p-4">
-            <div class="w-full flex gap-4 items-center">
-              <div
-                class="w-10 h-10 bg-gradient-to-br from-primary to-[#0247ab] rounded-md flex items-center justify-center">
-                <box-icon class="w-5 h-5 fill-white" />
+
+
+          <!---->
+          <div class="flex-1 bg-white rounded-lg border border-slate-200 flex flex-col gap-2 p-4 overflow-hidden">
+            <div class="w-full h-full overflow-y-auto overflow-x-hidden">
+              <div v-for="item in useWidget.notifications" :key="item.id"
+                class="w-full h-fit border-b flex gap-3 items-center py-1.5 hover:bg-slate-50 px-3">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                  <planIcon v-if="item.type_n === 'w'" class="w-5 fill-primary" />
+                </div>
+                <div class="flex flex-1 gap-1 flex-col overflow-hidden">
+                  <span class="truncate font-semibold">{{ item.name }}</span>
+                  <span class="truncate">{{ item.details }} Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Suscipit, rerum nulla
+                    nobis sunt illo
+                    architecto vitae, velit nihil aliquam eius incidunt et labore! Id doloremque eveniet perspiciatis
+                    corporis nam consectetur!</span>
+                </div>
+
+                <span class="flex flex-col">
+                  <span>{{ format(item.created_at, 'dd-MM-yyyy') }}</span>
+                  <span>{{ format(item.created_at, 'HH:mm') }}</span>
+                </span>
+
               </div>
-              <span class="text-lg font-semibold uppercase">{{ $t('navigation.links.inbox') }}</span>
             </div>
-
-            <div class="w-full flex gap-4 items-center">
-              <span class="w-10"></span>
-              <span class="text-2xl font-bold">0</span>
-            </div>
-
-          </div>
-          <div class="w-full h-fit bg-white rounded-lg border border-slate-200 flex flex-col gap-2 p-4">
-            <div class="w-full flex gap-4 items-center">
-              <div
-                class="w-10 h-10 bg-gradient-to-br from-primary to-[#0247ab] rounded-md flex items-center justify-center">
-                <planIcon class="w-5 h-5 fill-white" />
-              </div>
-              <span class="text-lg font-semibold uppercase">{{ $t('navigation.links.shippements') }}</span>
-            </div>
-
-            <div class="w-full flex gap-4 items-center">
-              <span class="w-10"></span>
-              <span class="text-2xl font-bold">0</span>
-            </div>
-
-          </div>
-          <div class="w-full h-fit bg-white rounded-lg border border-slate-200 flex flex-col gap-2 p-4">
-            <div class="w-full flex gap-4 items-center">
-              <div
-                class="w-10 h-10 bg-gradient-to-br from-primary to-[#0247ab] rounded-md flex items-center justify-center">
-                <CartIcon class="w-5 h-5 fill-white" />
-              </div>
-              <span class="text-lg font-semibold uppercase">{{ $t('navigation.links.buyForMe') }}</span>
-            </div>
-
-            <div class="w-full flex gap-4 items-center">
-              <span class="w-10"></span>
-              <span class="text-2xl font-bold">0</span>
-            </div>
-
           </div>
         </div>
       </div>
@@ -227,6 +256,7 @@ import { onMounted, ref } from 'vue';
 import { formatPhoneNumber } from '@/utils/phoneUtils';
 import sideMenu from '@/assets/icons/sideMenu.vue';
 import { useWidgetStore } from '@/stores/widget';
+import { format } from 'date-fns';
 
 const { t } = useI18n()
 const useProfile = useProfileStore()

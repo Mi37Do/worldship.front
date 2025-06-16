@@ -97,8 +97,8 @@
               <span>{{ $t('commun.faq') }}</span>
             </router-link>
 
-            <button @click="useWidget.calculator = true"
-              class="btn btn-sm pixa-btn btn-primary">{{ t('commun.calculator') }}</button>
+            <button @click="useWidget.calculator = true" class="btn btn-sm pixa-btn btn-primary">{{
+              t('commun.calculator') }}</button>
           </div>
 
           <router-link :to="{ name: 'profile' }"
@@ -153,7 +153,10 @@ const router = useRouter()
 const useProfile = useProfileStore()
 const env = import.meta.env.VITE_WORLDSHIP_API
 
-onMounted(() => {
+onMounted(async () => {
+
+  await useWidget.getNotifications(localStorage.getItem('ws-user-id'))
+
   if (route.name === 'byforme-invoices' || route.name === 'warehouse-invoices') {
     showSubModules.value = true
   } else showSubModules.value = false
