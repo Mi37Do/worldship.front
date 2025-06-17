@@ -17,6 +17,7 @@ export const useWidgetStore = defineStore('widget', () => {
   const addCard = ref(false)
   const dateFilter = ref(false)
   const tracking = ref(false)
+  const filtredNotifications = ref([])
   const notifications = ref([])
 
   const addEditShippementItem = reactive({
@@ -72,6 +73,7 @@ export const useWidgetStore = defineStore('widget', () => {
     try {
       let response = await axios.get(`/get_notifications_API/${id}`)
       notifications.value = response.data.notifications
+      filtredNotifications.value = response.data.notifications
 
       console.log(notifications.value)
     } catch (error) {
@@ -107,5 +109,6 @@ export const useWidgetStore = defineStore('widget', () => {
     addEditShippementItem,
     getNotifications,
     notifications,
+    filtredNotifications,
   }
 })
