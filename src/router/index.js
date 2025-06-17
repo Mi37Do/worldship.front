@@ -123,6 +123,11 @@ const router = createRouter({
           component: () => import('@/views/pages/invoices/wareHouseInvoicesView.vue'),
         },
         {
+          path: '/costume-invoices',
+          name: 'costume-invoices',
+          component: () => import('@/views/pages/invoices/costumeInvoicesView.vue'),
+        },
+        {
           path: '/byforme-invoices',
           name: 'byforme-invoices',
           component: () => import('@/views/pages/invoices/byformeInvoicesView.vue'),

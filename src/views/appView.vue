@@ -71,13 +71,18 @@
               <span>{{ $t('navigation.links.invoices') }}</span>
             </button>
 
-            <div v-if="showSubModules" class="w-full h-[5.5rem] pl-4 flex gap-4">
+            <div v-if="showSubModules" class="w-full h-[8.5rem] pl-4 flex gap-4">
               <span class="w-px h-full bg-slate-300"></span>
               <div class="flex-1 flex flex-col gap-2">
                 <router-link :to="{ name: 'warehouse-invoices' }"
                   class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
                   <parcel-icon class="w-5 h-5" />
                   <span>{{ $t('navigation.links.warehouse') }}</span>
+                </router-link>
+                <router-link :to="{ name: 'costume-invoices' }"
+                  class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+                  <parcel-icon class="w-5 h-5" />
+                  <span>{{ $t('commun.costume') }}</span>
                 </router-link>
                 <router-link :to="{ name: 'byforme-invoices' }"
                   class="btn btn-sm pixa-btn flex gap-3 justify-start btn-ghost">

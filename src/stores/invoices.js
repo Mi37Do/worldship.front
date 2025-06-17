@@ -20,6 +20,14 @@ export const useInvoicesStore = defineStore('invoices', () => {
           const response = await axios.get(`/Invoice/BFMInvoice/${invoiceId}/`)
           focusedInvoice.value = response.data
         }
+      } else if (type === 'cstm') {
+        if (userId) {
+          const response = await axios.get(`/Invoice/CuShipInvoiceAll/${userId}/`)
+          invoices.value = response.data
+        } else {
+          const response = await axios.get(`/Invoice/CuShipInvoice/${invoiceId}/`)
+          focusedInvoice.value = response.data
+        }
       } else {
         if (userId) {
           const response = await axios.get(`/Invoice/ShipInvoiceAll/${userId}/`)

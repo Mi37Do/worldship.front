@@ -216,7 +216,11 @@
               <div v-for="item in useWidget.notifications" :key="item.id"
                 class="w-full h-fit border-b flex gap-3 items-center py-1.5 hover:bg-slate-50 px-3">
                 <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                  <planIcon v-if="item.type_n === 'w'" class="w-5 fill-primary" />
+                  <PlanIcon v-if="item.type_n === 's' || item.type_n === 'cs'" class="w-5 fill-primary" />
+                  <box-icon v-if="item.type_n === 'in'" class="w-5 fill-primary" />
+                  <bill-icon v-if="item.type_n === 'i'" class="w-5 fill-primary" />
+                  <ChartIcon v-if="item.type_n === 'b'" class="w-5 fill-primary" />
+                  <support-icon v-if="item.type_n === 's'" class="w-5 fill-primary" />
                 </div>
                 <div class="flex flex-1 gap-1 flex-col overflow-hidden">
                   <span class="truncate font-semibold">{{ item.name }}</span>
@@ -251,7 +255,10 @@ import WalletIcon from '@/assets/icons/walletIcon.vue';
 import CartIcon from '@/assets/icons/cartIcon.vue';
 import { useI18n } from 'vue-i18n';
 import { useProfileStore } from '@/stores/profile';
-import copyIcon from '@/assets/icons/copyIcon.vue';
+import PlanIcon from '@/assets/icons/planIcon.vue'
+import billIcon from '@/assets/icons/billIcon.vue'
+import ChartIcon from '@/assets/icons/chartIcon.vue'
+import supportIcon from '@/assets/icons/supportIcon.vue'
 import { onMounted, ref } from 'vue';
 import { formatPhoneNumber } from '@/utils/phoneUtils';
 import sideMenu from '@/assets/icons/sideMenu.vue';
