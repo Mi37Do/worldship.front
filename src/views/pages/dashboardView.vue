@@ -33,7 +33,7 @@
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ useProfile.profile.user.first_name }} {{
                   useProfile.profile.user.last_name
-                  }}</span>
+                }}</span>
                 <div :class="[copied && typeCopied === 'name' ? 'tooltip' : '']" data-tip="copied">
                   <!--
                   <button
@@ -64,7 +64,7 @@
               <span class="w-32 font-semibold  my-auto">{{ $t('commun.addressLine') }} 2</span>
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ useProfile.profile.user.code
-                  }}</span>
+                }}</span>
                 <div :class="[copied && typeCopied === 'code' ? 'tooltip' : '']" data-tip="copied">
                   <!--
                   <button @click="copyText(useProfile.profile.user.code, 'code')"
@@ -121,7 +121,7 @@
               <span class="w-32 font-semibold  my-auto">{{ $t('commun.phone') }}</span>
               <span class="flex-1 flex items-center gap-2">
                 <span class="flex-1 truncate">{{ formatPhoneNumber(useProfile.profile.user.addresse_site.phone)
-                  }}</span>
+                }}</span>
                 <div :class="[copied && typeCopied === 'phone' ? 'tooltip' : '']" data-tip="copied">
                   <!--
                   <button @click="copyText(useProfile.profile.user.addresse_site.phone, 'phone')"
@@ -144,7 +144,7 @@
 
         </div>
 
-        <div class="flex-1 h-full flex flex-col gap-3 overflow-hidden">
+        <div class="flex-1 h-full flex flex-col gap-3 md:overflow-hidden">
           <div class="w-full h-fit grid xl:grid-cols-2 gap-4">
             <div class="w-full h-fit bg-white rounded-lg border border-slate-200 flex flex-col gap-2 p-4">
               <div class="w-full flex gap-4 items-center">
@@ -209,9 +209,8 @@
 
           </div>
 
-
-          <!---->
-          <div class="flex-1 bg-white rounded-lg border border-slate-200 flex flex-col gap-2 p-4 overflow-hidden">
+          <div
+            class="h-[900px] md:flex-1 bg-white rounded-lg border border-slate-200 flex flex-col gap-2 p-4 overflow-hidden">
             <div class="w-full h-full overflow-y-auto overflow-x-hidden">
               <div v-for="item in useWidget.notifications" :key="item.id"
                 class="w-full h-fit border-b flex gap-3 items-center py-1.5 hover:bg-slate-50 px-3">
@@ -224,11 +223,7 @@
                 </div>
                 <div class="flex flex-1 gap-1 flex-col overflow-hidden">
                   <span class="truncate font-semibold">{{ item.name }}</span>
-                  <span class="truncate">{{ item.details }} Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Suscipit, rerum nulla
-                    nobis sunt illo
-                    architecto vitae, velit nihil aliquam eius incidunt et labore! Id doloremque eveniet perspiciatis
-                    corporis nam consectetur!</span>
+                  <span class="truncate">{{ item.details }} </span>
                 </div>
 
                 <span class="flex flex-col">

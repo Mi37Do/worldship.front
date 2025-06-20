@@ -19,91 +19,107 @@
       <label @click="useWidget.openSide = false" aria-label="close sidebar" class="drawer-overlay"></label>
       <nav class="menu text-base-content h-full w-72 md:p-4 flex flex-col gap-2">
         <div v-auto-animate
-          class="w-full flex-1 bg-white shadow-2xl shadow-primary/5 md:rounded-lg border border-slate-200 flex flex-col gap-1 p-4">
+          class="w-full flex-1 bg-white shadow-2xl shadow-primary/5 rounded-lg border border-slate-200 flex flex-col gap-1 p-4  overflow-hidden">
           <div class="w-full h-fit border-b border-slate-200 mb-2 flex gap-3 pt-1  justify-center">
 
             <router-link :to="{ name: 'home' }">
-              <img :src="env + useProfile.webConfig.images_logo" class="w-48 " alt="">
+              <img :src="env + useProfile.webConfig.images_logo" class="w-36 " alt="">
             </router-link>
           </div>
 
-          <div class="w-full flex-1 flex flex-col gap-1">
+          <div class="w-full flex-1  overflow-hidden">
 
-            <router-link :to="{ name: 'dashboard' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-              <apps-icon class="w-5 h-5" />
-              <span>{{ $t('navigation.links.dashboard') }}</span>
-            </router-link>
 
-            <router-link :to="{ name: 'inbox' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-              <box-icon class="w-5 h-5" />
-              <span>{{ $t('navigation.links.inbox') }}</span>
-            </router-link>
+            <div class="w-full h-full overflow-y-auto overflow-x-hidden">
 
-            <router-link :to="{ name: 'shippements' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-              <plan-icon class="w-5 h-5" />
-              <span>{{ $t('navigation.links.shippements') }}</span>
-            </router-link>
-
-            <router-link :to="{ name: 'costume-shippements' }"
-              class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-              <plan-icon class="w-5 h-5" />
-              <span>{{ $t('navigation.links.costumeShipments') }}</span>
-            </router-link>
-
-            <router-link :to="{ name: 'return' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-              <redo-icon class="w-5 h-5" />
-              <span>{{ $t('navigation.links.return') }}</span>
-            </router-link>
-
-            <router-link :to="{ name: 'dg' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-              <exclamation-triangle-icon class="w-5 h-5" />
-              <span>{{ $t('navigation.links.dangerous') }}</span>
-            </router-link>
-
-            <router-link :to="{ name: 'byforme' }" class="btn btn-sm pixa-btn flex gap-3 justify-start btn-ghost">
-              <cart-icon class="w-[1.5rem] h-[1.5rem]" />
-              <span>{{ $t('navigation.links.buyForMe') }}</span>
-            </router-link>
-
-            <button @click="showSubModules = !showSubModules"
-              class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-              <bill-icon class="w-5 h-5" />
-              <span>{{ $t('navigation.links.invoices') }}</span>
-            </button>
-
-            <div v-if="showSubModules" class="w-full h-[8.5rem] pl-4 flex gap-4">
-              <span class="w-px h-full bg-slate-300"></span>
-              <div class="flex-1 flex flex-col gap-2">
-                <router-link :to="{ name: 'warehouse-invoices' }"
-                  class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-                  <parcel-icon class="w-5 h-5" />
-                  <span>{{ $t('navigation.links.warehouse') }}</span>
+              <div class="w-full h-fit  flex flex-col gap-1">
+                <router-link :to="{ name: 'dashboard' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+                  <apps-icon class="w-5 h-5" />
+                  <span>{{ $t('navigation.links.dashboard') }}</span>
                 </router-link>
-                <router-link :to="{ name: 'costume-invoices' }"
-                  class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-                  <parcel-icon class="w-5 h-5" />
-                  <span>{{ $t('commun.costume') }}</span>
+
+                <router-link :to="{ name: 'inbox' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+                  <box-icon class="w-5 h-5" />
+                  <span>{{ $t('navigation.links.inbox') }}</span>
                 </router-link>
-                <router-link :to="{ name: 'byforme-invoices' }"
-                  class="btn btn-sm pixa-btn flex gap-3 justify-start btn-ghost">
-                  <receipt-icon class="w-5 h-5" />
+
+                <router-link :to="{ name: 'shippements' }"
+                  class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+                  <plan-icon class="w-5 h-5" />
+                  <span>{{ $t('navigation.links.shippements') }}</span>
+                </router-link>
+
+                <router-link :to="{ name: 'costume-shippements' }"
+                  class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+                  <plan-icon class="w-5 h-5" />
+                  <span>{{ $t('navigation.links.costumeShipments') }}</span>
+                </router-link>
+
+                <router-link :to="{ name: 'return' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+                  <redo-icon class="w-5 h-5" />
+                  <span>{{ $t('navigation.links.return') }}</span>
+                </router-link>
+
+                <router-link :to="{ name: 'dg' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+                  <exclamation-triangle-icon class="w-5 h-5" />
+                  <span>{{ $t('navigation.links.dangerous') }}</span>
+                </router-link>
+
+                <router-link :to="{ name: 'byforme' }" class="btn btn-sm pixa-btn flex gap-3 justify-start btn-ghost">
+                  <cart-icon class="w-[1.5rem] h-[1.5rem]" />
                   <span>{{ $t('navigation.links.buyForMe') }}</span>
                 </router-link>
+
+                <button @click="showSubModules = !showSubModules"
+                  class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+                  <bill-icon class="w-5 h-5" />
+                  <span>{{ $t('navigation.links.invoices') }}</span>
+                </button>
+
+                <div v-if="showSubModules" class="w-full h-[11.5rem] pl-4 flex gap-4">
+                  <span class="w-px h-full bg-slate-300"></span>
+                  <div class="flex-1 flex flex-col gap-2">
+                    <router-link :to="{ name: 'warehouse-invoices' }"
+                      class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+                      <parcel-icon class="w-5 h-5" />
+                      <span>{{ $t('navigation.links.warehouse') }}</span>
+                    </router-link>
+                    <router-link :to="{ name: 'costume-invoices' }"
+                      class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+                      <parcel-icon class="w-5 h-5" />
+                      <span>{{ $t('commun.custom') }}</span>
+                    </router-link>
+                    <router-link :to="{ name: 'byforme-invoices' }"
+                      class="btn btn-sm pixa-btn flex gap-3 justify-start btn-ghost">
+                      <receipt-icon class="w-5 h-5" />
+                      <span>{{ $t('navigation.links.buyForMe') }}</span>
+                    </router-link>
+                    <router-link :to="{ name: 'general-invoices' }"
+                      class="btn btn-sm pixa-btn flex gap-3 justify-start btn-ghost">
+                      <receipt-icon class="w-5 h-5" />
+                      <span>{{ $t('commun.general') }}</span>
+                    </router-link>
+                  </div>
+                </div>
+
+                <router-link :to="{ name: 'support' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+                  <calling-icon class="w-5 h-5" />
+                  <span>{{ $t('navigation.links.support') }}</span>
+                </router-link>
+
+                <router-link :to="{ name: 'faqs' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
+                  <question-icon class="w-[1.5rem] h-[1.5rem]" />
+                  <span>{{ $t('commun.faq') }}</span>
+                </router-link>
+
+                <button @click="useWidget.calculator = true" class="btn btn-sm pixa-btn btn-primary">{{
+                  t('commun.calculator') }}</button>
               </div>
+
+
             </div>
 
-            <router-link :to="{ name: 'support' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-              <calling-icon class="w-5 h-5" />
-              <span>{{ $t('navigation.links.support') }}</span>
-            </router-link>
 
-            <router-link :to="{ name: 'faqs' }" class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
-              <question-icon class="w-[1.5rem] h-[1.5rem]" />
-              <span>{{ $t('commun.faq') }}</span>
-            </router-link>
-
-            <button @click="useWidget.calculator = true" class="btn btn-sm pixa-btn btn-primary">{{
-              t('commun.calculator') }}</button>
           </div>
 
           <router-link :to="{ name: 'profile' }"

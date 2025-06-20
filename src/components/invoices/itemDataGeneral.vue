@@ -4,9 +4,8 @@
     <span class="h-8 my-auto flex items-center truncate">{{ item.code }}</span>
     <!---->
     <span class="h-8 my-auto flex items-center truncate">{{ item.pay_type ? item.pay_type.name : '-----' }}</span>
-    <span class="h-8 my-auto flex items-center truncate">$ {{ route.name === 'warehouse-invoices' ?
-      numberFormat(item.wh_pk.total_price) : route.name === 'byforme-invoices' ? numberFormat(item.bfm_pk.total_price) :
-        numberFormat(item.sh_pk.total_price) }} </span>
+    <span class="h-8 my-auto flex items-center truncate">$ {{
+      numberFormat(item.total_price) }} </span>
     <div class="flex items-center justify-between my-auto ">
       <span :class="[
         item.state
@@ -42,32 +41,11 @@ const useInvoices = useInvoicesStore('')
 const openDetails = async () => {
   useInvoices.items = []
   useWidget.invoiceDetail = true
-  await useInvoices.getInvoices(route.name === 'warehouse-invoices' ? 'wrhs' : route.name === 'byforme-invoices' ? 'bfm' : 'cstm', null, props.item.id)
+  await useInvoices.getInvoices('gnrl', null, props.item.id)
 
-  if (route.name === 'warehouse-invoices') {
-    for (let index = 0; index < useInvoices.focusedInvoice.wh_pk.warehouse_order_ids.length; index++) {
-      const element = useInvoices.focusedInvoice.wh_pk.warehouse_order_ids[index]
-
-      for (let j = 0; j < element.wh_order.length; j++) {
-        const elementx = element.wh_order[j];
-        useInvoices.items.push(elementx)
-      }
-
-    }
-  } else if (route.name === 'byforme-invoices') {
-    for (let index = 0; index < useInvoices.focusedInvoice.bfm_pk.b4m_order.length; index++) {
-      const element = useInvoices.focusedInvoice.bfm_pk.b4m_order[index]
-      useInvoices.items.push(element)
-    }
-  } else {
-    for (let index = 0; index < useInvoices.focusedInvoice.sh_pk
-      .sh_package
-      .length; index++) {
-      const element = useInvoices.focusedInvoice.sh_pk
-        .sh_package
-      [index]
-      useInvoices.items.push(element)
-    }
+  for (let j = 0; j < useInvoices.focusedInvoice.gr_invoice.length; j++) {
+    const elementx = useInvoices.focusedInvoice.gr_invoice[j];
+    useInvoices.items.push(elementx)
   }
 
 

@@ -158,6 +158,10 @@
     "or": "أو",
     "createAccont": "إنشاء حساب",
     "register": "تسجيل",
-    "parentReferralCode": "رمز الإحالة الأصلية"
+    "parentReferralCode": "رمز الإحالة الأصلية",
+    "custom": "مخصصة",
+    "general": "عام",
+    "generalInvoices": "فواتير عامة",
+    "customInvoices": "فواتير مخصصة"
   }
 }

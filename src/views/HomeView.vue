@@ -2,7 +2,7 @@
 import { useProfileStore } from '@/stores/profile';
 import sideMenu from '@/assets/icons/sideMenu.vue';
 import signoutIcon from '@/assets/icons/signoutIcon.vue';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import Cookies from 'js-cookie';
 import languageSwitcher from '@/components/navigations/languageSwitcher.vue';
 import axios from 'axios';
@@ -13,6 +13,15 @@ const env = import.meta.env.VITE_WORLDSHIP_API
 const useProfile = useProfileStore()
 const useWidget = useWidgetStore()
 const { t } = useI18n()
+
+
+const defaultMessage = ref('Hello! I have a question.');
+
+const openWhatsApp = () => {
+  const encodedMessage = encodeURIComponent(defaultMessage.value);
+
+  window.open(`https://wa.me/${useProfile.webConfig.phone}?text=${encodedMessage}`, '_blank');
+};
 
 onMounted(async () => {
   await useProfile.getWebConfig()
@@ -62,6 +71,9 @@ onMounted(async () => {
         </button>
       </div>
 
+      <div @click="openWhatsApp" class="w-14 h-14 fixed bottom-6 right-6 rounded-full z-50">
+        <img src="@/assets/pics/WhatsApp.svg" alt="">
+      </div>
 
       <router-view></router-view>
       <div class="w-full h-fit bg-[#0e1d34] rounded-t-3xl grid md:grid-cols-2 gap-4 px-6 py-12 text-white relative">

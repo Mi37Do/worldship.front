@@ -17,7 +17,7 @@
       <div class="w-full h-10 flex items-center justify-between">
         <div class="flex gap-3 items-center">
           <div class="w-1 h-6 bg-primary"></div>
-          <span class="pixa-title">{{ $t('commun.warehouseInvoices') }}</span>
+          <span class="pixa-title">{{ $t('commun.customInvoices') }}</span>
         </div>
         <div class="w-full max-w-96 flex gap-2">
 
@@ -41,9 +41,8 @@
 
         <div class="w-full flex-1 overflow-auto flex flex-col">
           <div class="w-full h-fit flex flex-col gap-2 pt-2">
-            <!--
-            <itemData v-for="item in useInvoices.invoices" :key="item.id" :item="item" /> -->
-            <span v-for="item in useInvoices.invoices" :key="item.id">{{ item }}</span>
+            <!-- -->
+            <itemData v-for="item in useInvoices.invoices" :key="item.id" :item="item" />
           </div>
         </div>
       </div>

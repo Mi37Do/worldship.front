@@ -3,6 +3,7 @@ import profileRoutes from './profile'
 import { useProfileStore } from '@/stores/profile'
 import Cookies from 'js-cookie'
 import landingRoutes from './landing'
+import { useWidgetStore } from '@/stores/widget'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -128,6 +129,11 @@ const router = createRouter({
           component: () => import('@/views/pages/invoices/costumeInvoicesView.vue'),
         },
         {
+          path: '/general-invoices',
+          name: 'general-invoices',
+          component: () => import('@/views/pages/invoices/generalInvoicesView.vue'),
+        },
+        {
           path: '/byforme-invoices',
           name: 'byforme-invoices',
           component: () => import('@/views/pages/invoices/byformeInvoicesView.vue'),
@@ -153,9 +159,9 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const useProfile = useProfileStore()
-
+  const useWidget = useWidgetStore()
   await useProfile.getWebConfig()
-
+  useWidget.openSide = false
   /***/
   if (localStorage.getItem('ws-user-id') && Cookies.get('token')) {
     try {

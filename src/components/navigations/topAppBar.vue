@@ -21,6 +21,10 @@
       <router-link :to="{ name: 'profile' }" class="btn btn-sm pixa-btn w-10 p-0 btn-ghost hidden lg:flex">
         <user-icon class="w-5 h-5" />
       </router-link>
+
+      <div @click="openWhatsApp" class="w-8 h-8 rounded-full">
+        <img src="@/assets/pics/WhatsApp.svg" alt="">
+      </div>
     </div>
   </div>
 </template>
@@ -33,9 +37,17 @@ import userIcon from '@/assets/icons/userIcon.vue';
 import bellIcon from '@/assets/icons/bellIcon.vue';
 import languageSwitcher from './languageSwitcher.vue'
 import { useProfileStore } from '@/stores/profile';
+import { ref } from 'vue';
 
 const useProfile = useProfileStore()
 
+const defaultMessage = ref('Hello! I have a question.');
+
+const openWhatsApp = () => {
+  const encodedMessage = encodeURIComponent(defaultMessage.value);
+
+  window.open(`https://wa.me/${useProfile.webConfig.phone}?text=${encodedMessage}`, '_blank');
+};
 </script>
 
 <style lang="scss" scoped></style>

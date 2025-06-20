@@ -27,9 +27,10 @@ const openWhatsApp = () => {
   <div :dir="useWidget.userLanguage === 'en' ? 'ltr' : 'rtl'" class="w-full h-screen relative"
     :style="{ fontFamily: useWidget.userLanguage === 'en' ? 'inter' : 'cairo' }">
 
+    <!--
     <div @click="openWhatsApp" class="w-14 h-14 fixed bottom-6 right-6 rounded-full z-50">
       <img src="@/assets/pics/WhatsApp.svg" alt="">
-    </div>
+    </div>-->
 
     <RouterView />
   </div>

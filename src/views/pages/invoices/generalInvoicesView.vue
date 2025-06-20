@@ -17,7 +17,7 @@
       <div class="w-full h-10 flex items-center justify-between">
         <div class="flex gap-3 items-center">
           <div class="w-1 h-6 bg-primary"></div>
-          <span class="pixa-title">{{ $t('commun.warehouseInvoices') }}</span>
+          <span class="pixa-title">{{ $t('commun.generalInvoices') }}</span>
         </div>
         <div class="w-full max-w-96 flex gap-2">
 
@@ -41,9 +41,8 @@
 
         <div class="w-full flex-1 overflow-auto flex flex-col">
           <div class="w-full h-fit flex flex-col gap-2 pt-2">
-            <!--
-            <itemData v-for="item in useInvoices.invoices" :key="item.id" :item="item" /> -->
-            <span v-for="item in useInvoices.invoices" :key="item.id">{{ item }}</span>
+            <!---->
+            <ItemDataGeneral v-for="item in useInvoices.invoices" :key="item.id" :item="item" />
           </div>
         </div>
       </div>
@@ -56,12 +55,12 @@
 <script setup>
 import invoiceDetail from '@/components/invoices/invoiceDetail.vue';
 import topAppBar from '@/components/navigations/topAppBar.vue';
-import itemData from '@/components/invoices/itemData.vue';
 import communInputSearch from '@/components/commun/communInputSearch.vue';
 import { useWidgetStore } from '@/stores/widget';
 import { useInvoicesStore } from '@/stores/invoices';
 import { onMounted, ref } from 'vue';
 import sideMenu from '@/assets/icons/sideMenu.vue';
+import ItemDataGeneral from '@/components/invoices/itemDataGeneral.vue';
 
 const useWidget = useWidgetStore()
 const useInvoices = useInvoicesStore()
@@ -71,7 +70,7 @@ onMounted(async () => {
   useInvoices.invoices = []
   try {
 
-    await useInvoices.getInvoices("cstm", localStorage.getItem('ws-user-id'), null)
+    await useInvoices.getInvoices("gnrl", localStorage.getItem('ws-user-id'), null)
     console.log(useInvoices.invoices)
 
     loading.value = false

@@ -4,7 +4,7 @@
       "dashboard": "dashboard",
       "inbox": "inbox",
       "shippements": "warehouse Shipments",
-      "costumeShipments": "costum Shipments",
+      "costumeShipments": "custom Shipments",
       "return": "return",
       "buyForMe": "buy for me",
       "invoices": "invoices",
@@ -168,6 +168,9 @@
     "createAccont": "create account",
     "register": "Register",
     "parentReferralCode": "Parent Referral Code",
-    "costume": "costume"
+    "custom": "custom",
+    "general": "general",
+    "generalInvoices": "general Invoices",
+    "customInvoices": "custom Invoices"
   }
 }
