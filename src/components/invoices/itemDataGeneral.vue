@@ -8,14 +8,9 @@
       numberFormat(item.total_price) }} </span>
     <div class="flex items-center justify-between my-auto ">
       <span :class="[
-        item.state
-          === 'wa' ? 'bg-purple-100 text-purple-600' :
-          item.state === 'a' ? 'bg-emerald-100 text-emerald-600' :
-            item.state === 'na' ? 'bg-red-100 text-red-600' : ''
+        item.state === 'py' ? 'bg-emerald-100 text-emerald-600' : 'bg-amber-100 text-amber-600'
       ]" class=" flex items-center truncate w-fit px-3 rounded  py-1">{{ item.state
-        === 'wa' ? 'Need To Approved' : item.state
-          === 'a' ? 'approved' : item.state
-            === 'na' ? 'not approved' : item.state }}</span>
+        === 'py' ? 'payed' : 'pending' }}</span>
 
       <button @click="openDetails" class="btn btn-sm pixa-btn w-10 btn-ghost p-0">
         <eye-icon class="w-5 h-5" />
