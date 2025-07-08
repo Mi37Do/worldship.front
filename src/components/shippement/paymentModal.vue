@@ -21,7 +21,7 @@
             <span class="text-red-500">Insurance </span>
             <span class="text-right my-auto text-red-500"> $ {{ numberFormat(item.add_insurance ? item.total_insurance :
               0)
-              }} </span>
+            }} </span>
             <span class="text-red-500">Package Options </span>
             <span class="text-right my-auto text-red-500">$ {{ numberFormat(item.total_price_options) }} </span>
             <span>Coins </span>
@@ -29,7 +29,7 @@
 
             <span v-if="item.deliver_to_type === 'h'">Shipping Cost </span>
             <span v-if="item.deliver_to_type === 'h'" class="text-right my-auto">$ {{ numberFormat(item.deliver_to_home)
-              }}
+            }}
             </span>
             <span v-if="!item.use_cargo">DHL </span>
             <span v-if="!item.use_cargo" class="text-right my-auto">$ {{ numberFormat(item.shipping_cost) }}
@@ -112,9 +112,10 @@
       <div class="w-full flex-1 overflow-auto">
         <div class="w-full h-fit flex flex-col items-center gap-3 py-4">
 
-          <div class="w-full mt-4 flex items-center justify-center uppercase font-semibold text-lg">payment by {{
-            types.find(item => item.id
-              === walletType).name}}</div>
+          <div v-if="types" class="w-full mt-4 flex items-center justify-center uppercase font-semibold text-lg">payment
+            by {{
+              types.find(item => item.id
+                === walletType).name}}</div>
 
 
           <div v-if="types.find(item => item.id === walletType).type_payment === 'zn'" class="w-full h-10  text-center">

@@ -14,6 +14,11 @@
 
       <span class="w-px h-8 bg-gray-200 mr-2"></span>
 
+      <div class="w-fit h-10 flex gap-4 items-center font-semibold">
+        <img src="@/assets/pics/usa.svg" class="w-8" alt="">
+        <span>USD - $</span>
+      </div>
+
       <language-switcher />
 
       <notification-dropdown />

@@ -5,7 +5,7 @@
       <div class="w-full flex flex-col items-center gap-4  md:col-span-2">
         <img :src="env + useProfile.webConfig.images_logo" class="w-48 flex items-center justify-center" alt="">
 
-        <span class="uppercase font-semibold text-lg my-4">{{ t('commun.password') }}</span>
+        <span class="uppercase font-semibold text-lg my-4">{{ t('commun.register') }}</span>
       </div>
 
 
@@ -44,7 +44,7 @@
         <div class="flex gap-2">
           <commun-combobox :list="phoneInd" :top="true" :selected="itemToAdd.ph_ind" @onSelectedItem="(id) => {
             itemToAdd.ph_ind = id
-          }" :required="true" />
+          }" :required="true" class="hidden" />
           <input type="text" required v-model="itemToAdd.phone"
             class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
         </div>
@@ -82,6 +82,12 @@
         <input type="text" :disabled="route.name === 'register-child'" v-model="itemToAdd.parent_referral_code"
           class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4" />
       </label>
+
+      <div class="w-full h-10 col-span-2 mt-3 flex items-center gap-3">
+        <input type="checkbox" required class="w-5 h-5" name="" id="">
+        <span class="uppercase">i accept <router-link :to="{ name: 'terms-and-conditions' }" class="text-primary">terms
+            and conditions</router-link></span>
+      </div>
 
       <span v-if="message" class="text-red-500 uppercase md:col-span-2">{{ message }}</span>
 

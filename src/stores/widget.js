@@ -19,12 +19,16 @@ export const useWidgetStore = defineStore('widget', () => {
   const tracking = ref(false)
   const filtredNotifications = ref([])
   const notifications = ref([])
+  const commingSoon = ref(false)
 
   const addEditShippementItem = reactive({
     add: true,
     open: false,
   })
 
+  const confirmShip = ref(false)
+
+  const costumeShip = ref(null)
   const calculator = ref(false)
 
   const supportTicket = reactive({
@@ -110,5 +114,8 @@ export const useWidgetStore = defineStore('widget', () => {
     getNotifications,
     notifications,
     filtredNotifications,
+    commingSoon,
+    costumeShip,
+    confirmShip,
   }
 })

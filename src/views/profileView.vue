@@ -95,7 +95,7 @@
               <span>{{ $t('commun.referrals') }}</span>
             </router-link>
 
-            <button @click="showSubModules = !showSubModules"
+            <button @click="useWidget.commingSoon = true"
               class="btn btn-sm pixa-btn flex gap-4 justify-start btn-ghost">
               <transaction-icon class="w-5 h-5" />
               <span>{{ $t('commun.cards') }} & {{ $t('commun.transfers') }}</span>

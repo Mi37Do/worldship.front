@@ -16,7 +16,7 @@
         <div class="label">
           <span class="label-text uppercase">balance type </span>
         </div>
-        <WalletsTypeDropsown :list="types" @onSelectedType="onSelectedType" />
+        <WalletsTypeDropsown :list="types.filter(item => item.id !== 3)" @onSelectedType="onSelectedType" />
       </div>
 
       <div v-if="types.find(item => item.id === walletType).type_payment !== 'c'" class="w-full flex-1 overflow-auto">
@@ -30,6 +30,7 @@
             v-if="types.find(item => item.id === walletType).type_payment === 'z' || types.find(item => item.id === walletType).type_payment === 'zn'">transfer
             to this account <span v-if="types.find(item => item.id === walletType).type_payment === 'z'">: {{
               useProfile.profile.payments_methodes.find(item => item.type_payment === 'z').account}}</span> </span>
+
 
           <label class="form-control w-full">
             <div class="label">
@@ -58,6 +59,14 @@
 
             </div>
           </div>
+
+
+          <label v-if="walletType !== 3">
+            <div class="w-full h-10 col-span-2 mt-3 flex items-center gap-3">
+              <input type="checkbox" required class="w-5 h-5" name="" id="">
+              <span class="uppercase">i accept this transfer <span class="text-red-500">*</span></span>
+            </div>
+          </label>
         </div>
       </div>
 

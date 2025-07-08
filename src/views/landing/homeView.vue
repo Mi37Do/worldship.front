@@ -199,6 +199,9 @@
 
           <div class="w-full h-fit small-bg-glass-effect flex flex-col gap-4 p-4">
 
+            <span class="pixa-title text-center text-xl">Quickly Calculate & Ship</span>
+
+            <!--
             <div class="w-full p-1 bg-primary rounded-lg grid grid-cols-2 gap-1">
 
 
@@ -279,7 +282,7 @@
               }" :class="tab === 'costume' ? 'bg-white hover:bg-white' : 'bg-transparent hover:bg-white/20 text-white'"
                 class="btn btn-sm pixa-btn border-0">costume shippement</button>
 
-              <!--
+
               <button @click="() => {
                 Object.assign(shippement, {
                   weight: 0,
@@ -315,11 +318,11 @@
 
                 tab = 'bfm'
               }" :class="tab === 'bfm' ? 'bg-white hover:bg-white' : 'bg-transparent hover:bg-white/20 text-white'"
-                class="btn btn-sm pixa-btn border-0">buy for me</button> -->
+                class="btn btn-sm pixa-btn border-0">buy for me</button>
 
             </div>
 
-
+ -->
             <form v-if="tab === 'bfm'" @submit.prevent="calculateShipement" class="w-full h-fit flex flex-col gap-4">
 
               <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -458,6 +461,7 @@
 
             <form @submit.prevent="calculateShipement" v-if="tab === 'shipement'"
               class="w-full h-fit flex flex-col gap-4">
+              <!--
               <label class="form-control w-full md:col-span-3">
                 <div class="label">
                   <span class="label-text uppercase">type <span class="text-red-500">*</span></span>
@@ -472,7 +476,7 @@
                   shippement.cityCode = useProfile.countries.find(item => item.designation.toUpperCase() === 'IRAK').id
                 }" />
               </label>
-
+-->
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text uppercase">shipping from <span class="text-red-500">*</span></span>
@@ -644,22 +648,22 @@
 
 
             <form @submit.prevent="calculateCostume" v-else class="w-full h-fit flex flex-col gap-4">
-
+              <!--
               <label class="form-control w-full">
                 <div class="label">
                   <span class="label-text uppercase">type <span class="text-red-500">*</span></span>
                 </div>
                 <input disabled placeholder="EXPRESS"
                   class="pixa-input w-full placeholder:capitalize ring-inset focus:ring-0 px-4">
-              </label>
+              </label>-->
 
-              <label class="form-control w-full md:col-span-3">
+              <label class="form-control w-full md:col-span-3 relative">
                 <div class="label">
                   <span class="label-text uppercase">shipping from <span class="text-red-500">*</span></span>
                 </div>
 
-                <commun-combobox-countries class="mt-auto" :required="true" :list="countries"
-                  :selected="shippement.from" @onSelectedItem="(id) => {
+                <commun-combobox-countries class="mt-auto" :required="true"
+                  :list="countries.filter(item => item.id === 'US')" :selected="shippement.from" @onSelectedItem="(id) => {
                     shippement.from = id
                   }" />
               </label>
@@ -763,30 +767,44 @@
             <span class="font-semibold">${{ (resultShip.result.dhl + resultShip.insurance).toFixed(2) }}</span> -->
 
 
-                <div :class="'bg-primary text-white'"
-                  class="w-full h-14 p-2 rounded flex items-center col-span-2 -mb-3">
-                  <div class="flex-1 flex flex-col">
-                    <span class="flex gap-3 items-center"><img src="@/assets/pics/dhl-1.svg" alt="" class="w-10 mx-1">
-                      DHL $ {{ numberFormat(resultShip.result.dhl + resultShip.insurance) }}</span>
-                    <span>
+                <div @click="async () => {
+                  createCostume(shippement)
+                }" :class="'bg-primary text-white'" class="w-full h-14 p-2 rounded flex items-center col-span-2 -mb-3">
+                  <div class="flex-1 flex gap-4">
+                    <span class="flex gap-3 items-center"><img src="@/assets/pics/ups.png" alt="" class="w-10 mx-1">
                     </span>
-                  </div><!--
-                  <div class="w-fit h-6 px-2 bg-white/40 rounded-full flex items-center justify-center">
-                    ship now
-                  </div> -->
+                    <div class="flex flex-col my-auto">
+                      <span>ups</span><span class="text-xs">4 - 6 business days
+                      </span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span>$ {{ numberFormat(resultShip.result.dhl + resultShip.insurance) }}</span>
+                    <div class="w-fit h-6 px-2 bg-white/40 rounded-full flex items-center justify-center">
+                      ship now
+                    </div>
+                  </div>
+
                 </div>
 
-                <div :class="'bg-primary text-white'"
-                  class="w-full h-14 p-2 rounded flex items-center col-span-2 -mb-3">
-                  <div class="flex-1 flex flex-col">
-                    <span class="flex gap-3 items-center">
-                      <div class="bg-white h-8 w-12 flex items-center justify-center">
-                        <img src="@/assets/pics/fedex-express-6.svg" alt="" class="w-10">
-                      </div>
-                      fedex $ {{ numberFormat(resultShip.result.fedex + resultShip.insurance) }}
-                    </span>
-                    <span>
-                    </span>
+                <div @click="async () => {
+                  createCostume(shippement)
+                }" :class="'bg-primary text-white'" class="w-full h-14 p-2 rounded flex items-center col-span-2 -mb-3">
+
+                  <div class="flex-1 flex gap-4">
+                    <div class="bg-white h-8 w-12 flex items-center justify-center">
+                      <img src="@/assets/pics/fedex-express-6.svg" alt="" class="w-10">
+                    </div>
+                    <div class="flex flex-col my-auto">
+                      <span>fedex</span><span class="text-xs">4 - 6 business days
+                      </span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span>$ {{ numberFormat(resultShip.result.dhl + resultShip.insurance) }}</span>
+                    <div class="w-fit h-6 px-2 bg-white/40 rounded-full flex items-center justify-center">
+                      ship now
+                    </div>
                   </div>
                 </div>
                 <!--
@@ -879,6 +897,8 @@ import axios from 'axios';
 
 import shipIcon from '@/assets/icons/shipIcon.vue';
 import countries from '@/assets/countries.json'
+import Cookies from 'js-cookie';
+import { useRouter } from 'vue-router';
 
 const offset = ref(0);
 const speed = ref(1);
@@ -898,7 +918,7 @@ const shippement = reactive(
     weightUnit: 'kg',
     lengthUnit: 'cm',
     city: null,
-    from: '',
+    from: 'US',
     cityCode: null,
     insurance: 0,
     result: null,
@@ -927,6 +947,7 @@ const resultShip = reactive(
   }
 )
 
+const router = useRouter()
 
 const { t } = useI18n()
 
@@ -934,7 +955,7 @@ const env = import.meta.env.VITE_WORLDSHIP_API
 
 const loading = ref(true)
 
-const tab = ref('shipement')
+const tab = ref('costume')
 
 const logos = ref(
   [
@@ -1050,7 +1071,15 @@ const calculateCostume = async () => {
 
 const createCostume = async (shippement) => {
   try {
-    let response = await axios.get(`/Shipments/create_ship_API/${shippement.weight}/${shippement.l}/${shippement.w}/${shippement.h}/${shippement.weightUnit}/${shippement.lengthUnit}/${localStorage.getItem('ws-user-id')}/`)
+
+    if (Cookies.get('token')) {
+      router.push({ name: 'login' })
+    } else {
+      let response = await axios.get(`/Shipments/create_ship_API/${shippement.weight}/${shippement.l}/${shippement.w}/${shippement.h}/${shippement.weightUnit}/${shippement.lengthUnit}/${localStorage.getItem('ws-user-id')}/`)
+      router.push({ name: 'costume-shippements' })
+    }
+
+
   } catch (error) {
     console.error(error)
 

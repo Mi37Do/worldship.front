@@ -4,7 +4,8 @@ import { useWidgetStore } from './stores/widget';
 
 import { ref } from 'vue';
 import { useProfileStore } from './stores/profile';
-
+import commingSoonModal from './components/commun/commingSoonModal.vue';
+import confirmShippmentModal from './components/shippement/confirmShippmentModal.vue';
 
 
 
@@ -27,6 +28,8 @@ const openWhatsApp = () => {
   <div :dir="useWidget.userLanguage === 'en' ? 'ltr' : 'rtl'" class="w-full h-screen relative"
     :style="{ fontFamily: useWidget.userLanguage === 'en' ? 'inter' : 'cairo' }">
 
+    <comming-soon-modal />
+    <confirm-shippment-modal />
     <!--
     <div @click="openWhatsApp" class="w-14 h-14 fixed bottom-6 right-6 rounded-full z-50">
       <img src="@/assets/pics/WhatsApp.svg" alt="">

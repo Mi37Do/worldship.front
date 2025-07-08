@@ -218,8 +218,8 @@
                   <PlanIcon v-if="item.type_n === 's' || item.type_n === 'cs'" class="w-5 fill-primary" />
                   <box-icon v-if="item.type_n === 'in'" class="w-5 fill-primary" />
                   <bill-icon v-if="item.type_n === 'i'" class="w-5 fill-primary" />
-                  <ChartIcon v-if="item.type_n === 'b'" class="w-5 fill-primary" />
-                  <support-icon v-if="item.type_n === 's'" class="w-5 fill-primary" />
+                  <cart-icon v-if="item.type_n === 'b'" class="w-5 fill-primary" />
+                  <support-icon v-if="item.type_n === 't'" class="w-5 fill-primary" />
                 </div>
                 <div class="flex flex-1 gap-1 flex-col overflow-hidden">
                   <span class="truncate font-semibold">{{ item.name }}</span>
@@ -252,7 +252,7 @@ import { useI18n } from 'vue-i18n';
 import { useProfileStore } from '@/stores/profile';
 import PlanIcon from '@/assets/icons/planIcon.vue'
 import billIcon from '@/assets/icons/billIcon.vue'
-import ChartIcon from '@/assets/icons/chartIcon.vue'
+import cartIcon from '@/assets/icons/cartIcon.vue'
 import supportIcon from '@/assets/icons/supportIcon.vue'
 import { onMounted, ref } from 'vue';
 import { formatPhoneNumber } from '@/utils/phoneUtils';
